@@ -5,6 +5,7 @@
   "dependencies": {
     "@petejkim/react-scripts-ts-sass": "2.15.2",
     "autobind-decorator": "^2.1.0",
+    "dz-priority-queue": "^0.1.2",
     "normalize.css": "^8.0.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"

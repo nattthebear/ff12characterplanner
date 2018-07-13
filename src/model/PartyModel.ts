@@ -1,6 +1,7 @@
 import { Characters } from "../data/Characters";
 import { Board, Boards } from "../data/Boards";
 import { License, Quickenings, Espers } from "../data/Licenses";
+import { PriorityQueue } from "dz-priority-queue";
 
 export const enum Coloring {
 	/** character has the license learned */
@@ -74,8 +75,57 @@ export default class PartyModel {
 		}
 	}
 
-	public getJob(c: number, index: number): Board | undefined {
+	getJob(c: number, index: number): Board | undefined {
 		return this.jobs[c][index];
+	}
+
+	private findPath(c: number, to: License) {
+		// find shortest path to to
+		interface Path {
+			nodes: License[];
+			length: number;
+		}
+		function comparePaths(a: Path, b: Path) {
+			return a.length < b.length;
+		}
+		const queue = new PriorityQueue<Path>([], comparePaths);
+		const dests = new Map<License, Path>();
+		for (const l of this.selected[c]) {
+			for (const j of this.jobs[c]) {
+				if (j.lookup.has(l)) {
+					const path = {
+						nodes: [l],
+						length: 0
+					};
+					queue.push(path);
+					dests.set(l, path);
+					break;
+				}
+			}
+		}
+		while (queue.size()) {
+			if (dests.has(to)) {
+				return dests.get(to)!;
+			}
+			const p = queue.pop()!;
+			const l = p.nodes[p.nodes.length - 1];
+			for (const j of this.jobs[c]) {
+				const location = j.lookup.get(l);
+				if (location) {
+					for (const next of location.adjacent) {
+						if (!dests.has(next.value)) {
+							const nextPath = {
+								nodes: [...p.nodes, next.value],
+								length: p.length + next.value.cost
+							};
+							queue.push(nextPath);
+							dests.set(next.value, nextPath);
+						}
+					}
+				}
+			}
+		}
+		return undefined;
 	}
 
 	add(c: number, l: License) {
@@ -85,12 +135,15 @@ export default class PartyModel {
 		) {
 			return this;
 		}
-		const r = new PartyModel(this);
-		r.selected[c].add(l);
-		r.verify();
-		if (!r.selected[c].has(l)) {
+		const path = this.findPath(c, l);
+		if (!path) {
 			return this;
 		}
+		const r = new PartyModel(this);
+		for (const n of path.nodes) {
+			r.selected[c].add(n);
+		}
+		r.verify();
 		return r;
 	}
 
@@ -155,7 +208,7 @@ export default class PartyModel {
 		return ret;
 	}
 
-	public color(c: number) {
+	color(c: number) {
 		const obtained = this.selected[c];
 		const certain = this.colorHelper(c, l => !l.limited, obtained);
 		const possible = this.colorHelper(c, l => !this.blockedEspers.has(l) && (!Quickenings.includes(l) || this.quickeningCount[c] < 3), obtained, certain);
@@ -176,7 +229,7 @@ export default class PartyModel {
 		return ret;
 	}
 
-	public encode() {
+	encode() {
 		let s = "";
 		for (let c = 0; c < 6; c++) {
 			s += encodeCharacter(this.jobs[c], this.selected[c]);
@@ -187,7 +240,7 @@ export default class PartyModel {
 		return s;
 	}
 
-	public static decode(s: string) {
+	static decode(s: string) {
 		const ss = s.split(".");
 		if (ss.length !== 6) {
 			console.warn("Wrong number of segments");
@@ -317,3 +370,4 @@ function decodeCharacter(s: string) {
 		licenses: ret
 	};
 }
+
