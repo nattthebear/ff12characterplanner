@@ -93,8 +93,8 @@ const boards = {
 		["Gambit Slot 7", "Last Stand", "+30 HP", "Gambit Slot 1", "First Aid", "Accessories 3", "Accessories 4", null, null, null, "Swords 9", "Battle Lore 6", null, "Famfrit"],
 		["Gambit Slot 8", "+150 HP", null, null, null, "Accessories 5", "Accessories 6", "Quickening 1", null, null, "+310 HP", "Greatswords 3", "Heavy Armor 11", "Greatswords 4", "Heavy Armor 12"],
 		["Gambit Slot 9", "Infuse", null, null, null, "Accessories 7", "Accessories 8", null, null, "Zeromus", "Spellbound", "Battle Lore 7", "Shell Shield", "Battle Lore 10", "Excalibur", null, "Battle Lore 11"],
-		["Gambit Slot 10", "Focus", null, "Zalera", null, "Accessories 9", "Accessories 10", "Adrammelech", null, null, "Shield Block 3", "Sight Unseeing", "Battle Lore 8", "Battle Lore 12", "Genji Armor", "Ultima", "Telekinesis"],
-		["Blood Sword", "Accessories 21", "Accessories 19", "Accessories 17", "Accessories 13", "Accessories 11", "Accessories 12", null, null, null, "Karkata", "Ensanguined Shield", "Swiftness 1", "Zodiac Escutcheon", "Tournesol"],
+		["Gambit Slot 10", "Focus", null, "Zalera", null, "Accessories 9", "Accessories 10", null, null, null, "Shield Block 3", "Sight Unseeing", "Battle Lore 8", "Battle Lore 12", "Genji Armor", "Ultima", "Telekinesis"],
+		["Blood Sword", "Accessories 21", "Accessories 19", "Accessories 17", "Accessories 13", "Accessories 11", "Accessories 12", "Adrammelech", null, null, "Karkata", "Ensanguined Shield", "Swiftness 1", "Zodiac Escutcheon", "Tournesol"],
 		["Ribbon", "Accessories 22", "Accessories 20", "Accessories 18", "Accessories 16", "Accessories 14", "Accessories 15", null, null, null, null, "Chaos", "Quickening 4", "Zodiark"],
 		[null, "Hashmal", null, null, null, null, null, null, null, null, null, "+390 HP", "Revive", "Excalipur"],
 		[null, "White Magick 8", "White Magick 9"]
@@ -102,8 +102,8 @@ const boards = {
 	"Monk": [
 		[null, null, null, "Cúchulainn", null, null, null, null, "Belias", "Second Board"],
 		[null, null, "Brawler", "Battle Lore 1", null, "Inquisitor", "Martyr", null, "First Aid", "Libra"],
-		[null, null, "Battle Lore 5", "Light Armor 4", "Light Armor 3", "Light Armor 2", "Light Armor 1", "Gambit Slot 1", "Gambit Slot 2", "Gambit Slot 3"],
-		["Traveler", "Zalera", "Battle Lore 2", "Light Armor 5", "Battle Lore 3", "+30 HP", "Essentials", "Accessories 1", "Accessories 2", "Gambit Slot 4", "Quickening 1"],
+		[null, null, "Battle Lore 5", "Light Armor 4", "Light Armor 3", "Light Armor 2", "Light Armor 1", "Gambit Slot 1", "Gambit Slot 2", "Gambit Slot 3", "Quickening 1"],
+		["Traveler", "Zalera", "Battle Lore 2", "Light Armor 5", "Battle Lore 3", "+30 HP", "Essentials", "Accessories 1", "Accessories 2", "Gambit Slot 4"],
 		[null, null, "Battle Lore 4", "Light Armor 6", null, "+70 HP", "Poles 1", null, "Accessories 3", "Gambit Slot 5", null, "Adrammelech", null, null, "Phoenix Lore 2"],
 		["White Magick 9", "Quickening 2", "Numerology", "Light Armor 7", null, "+110 HP", "Poles 2", null, "Accessories 4", "Potion Lore 1", "Gambit Slot 6", "Focus", "Gambit Slot 7", "Gambit Slot 8", "Quickening 4"],
 		[null, null, "Battle Lore 6", "Light Armor 8", null, "+150 HP", "Poles 3", null, "Accessories 5", "Phoenix Lore 1", "Last Stand", "Spellbound", "+310 HP", "Gambit Slot 9", "Zeromus", "Sight Unseeing"],
@@ -157,9 +157,9 @@ const boards = {
 	"Archer": [
 		[null, null, null, null, null, null, "Quickening 4", null, null, "Hashmal"],
 		[null, null, null, null, null, null, "+230 HP", "Revive", "Gambit Slot 10", "Gambit Slot 9", "Gambit Slot 8"],
-		[null, null, null, "+390 HP", "Famfrit", "+310 HP", "+270 HP", "Focus", "Traveler", "+110 HP", "Gambit Slot 7", "Gambit Slot 6"],
+		[null, null, "+435 HP", "+390 HP", "Famfrit", "+310 HP", "+270 HP", "Focus", "Traveler", "+110 HP", "Gambit Slot 7", "Gambit Slot 6"],
 		[null, null, null, null, null, null, "Ribbon", "+190 HP", "+150 HP", "Charm", "+70 HP", "Gambit Slot 5", "Zalera"],
-		[null, null, "+435 HP", null, null, null, null, null, null, null, "+30 HP", "Gambit Slot 4"],
+		[null, null, null, null, null, null, null, null, null, null, "+30 HP", "Gambit Slot 4"],
 		[null, null, null, null, null, "Battle Lore 4", "Accessories 19", null, null, "Mateus", "Poach", "Gambit Slot 3", "Quickening 1", "White Magick 4"],
 		[null, null, null, null, null, "Accessories 21", "Accessories 13", "Zeromus", null, null, "Libra", "Gambit Slot 2"],
 		[null, null, "Quickening 3", null, null, "Accessories 16", "Accessories 9", null, null, null, "First Aid", "Gambit Slot 1", null, null, null, null, "Exodus"],

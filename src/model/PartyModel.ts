@@ -219,6 +219,10 @@ function createUrlLookup() {
 	const ret = Array<UrlLookup>();
 	for (const a of possibleJobs) {
 		for (const b of possibleJobs) {
+			if (a && a === b) {
+				continue;
+				// same job twice not valid unless it's undefined
+			}
 			const v = { job1: a, job2: b, licenses: Array<License>() };
 			if (a) {
 				for (const r of a.rows) {
@@ -313,13 +317,3 @@ function decodeCharacter(s: string) {
 		licenses: ret
 	};
 }
-
-/*
-function encodeURL(str){
-    return str.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '');
-}
-
-function decodeUrl(str){
-    str = (str + '===').slice(0, str.length + (str.length % 4));
-    return str.replace(/-/g, '+').replace(/_/g, '/');
-}*/
