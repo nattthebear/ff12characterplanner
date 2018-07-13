@@ -1,30 +1,29 @@
 import * as React from "react";
-import CharacterModel, { Coloring } from "../model/CharacterModel";
 import "./CharacterPanel.scss";
 import { LicenseGroups, LicenseGroup, License } from "../data/Licenses";
+import PartyModel, { Coloring } from "../model/PartyModel";
+import { Characters } from "../data/Characters";
 
 export interface Props {
-	characters: CharacterModel[];
+	party: PartyModel;
+	// changeParty(newParty: PartyModel): void;
 	characterIndex: number;
 	boardIndex: number;
 	changeIndices(characterIndex: number, boardIndex: number): void;
-	// changeCharacterIndex(newIndex: number): void;
-	// changeBoardIndex(newIndex: number): void;
 }
 
 export default class CharacterPanel extends React.PureComponent<Props> {
 	private renderClassInfo(characterIndex: number, index: number) {
-		const char = this.props.characters[characterIndex];
-		const b = char.getClass(index);
+		const j = this.props.party.getJob(characterIndex, index);
 		const selected = this.props.characterIndex === characterIndex && this.props.boardIndex === index;
-		if (!b) {
-			const disabled = index === 1 && !char.getClass(0);
+		if (!j) {
+			const disabled = index === 1 && !this.props.party.getJob(characterIndex, 0);
 			return <button disabled={disabled} className="job nojob" aria-pressed={selected} onClick={() => this.props.changeIndices(characterIndex, index)}>
 				<span className="name">No Job</span>
 			</button>;
 		} else {
 			return <button className="job" aria-pressed={selected} onClick={() => this.props.changeIndices(characterIndex, index)}>
-				<span className="name">{b.name}</span>
+				<span className="name">{j.name}</span>
 			</button>;
 		}
 	}
@@ -53,15 +52,15 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 	}
 
 	private renderStatInfo() {
-		const colors = this.props.characters[this.props.characterIndex].color();
+		const colors = this.props.party.color(this.props.characterIndex);
 		return LicenseGroups.map((g, i) => this.renderLicenseGroup(g, i, colors));
 	}
 
 	render() {
 		return <div className="character-panel">
 			<div className="character-select">
-				{this.props.characters.map((c, i) => <div className="character" key={i} aria-pressed={this.props.characterIndex === i}>
-					<span className="name">{c.getCharacter().name}</span>
+				{Characters.map((c, i) => <div className="character" key={i} aria-pressed={this.props.characterIndex === i}>
+					<span className="name">{c.name}</span>
 					<br />
 					{this.renderClassInfo(i, 0)}
 					<br />

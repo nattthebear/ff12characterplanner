@@ -1,13 +1,15 @@
 import * as React from "react";
-import CharacterModel, { Coloring } from "../model/CharacterModel";
 import { License } from "../data/Licenses";
 import { Position, Board, Boards } from "../data/Boards";
 import "./LicenseBoard.scss";
+import PartyModel, { Coloring } from "../model/PartyModel";
 
 export interface Props {
-	character: CharacterModel;
-	index: number;
-	changeCharacter(newCharacter: CharacterModel): void;
+	party: PartyModel;
+	changeParty(newParty: PartyModel): void;
+	characterIndex: number;
+	boardIndex: number;
+	changeIndices(characterIndex: number, boardIndex: number): void;
 }
 
 export default class LicenseBoard extends React.PureComponent<Props> {
@@ -27,9 +29,9 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 		}
 		const onClick = () => {
 			if (obtained) {
-				this.props.changeCharacter(this.props.character.delete(l));
+				this.props.changeParty(this.props.party.delete(this.props.characterIndex, l));
 			} else {
-				this.props.changeCharacter(this.props.character.add(l));
+				this.props.changeParty(this.props.party.add(this.props.characterIndex, l));
 			}
 		};
 		return <td key={key} className={className} onClick={onClick} aria-label={l.text}>
@@ -39,7 +41,7 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 	}
 
 	private renderBoard(b: Board) {
-		const colors = this.props.character.color();
+		const colors = this.props.party.color(this.props.characterIndex);
 		return <div className="license-board-holder">
 			<table className="license-board">
 				<tbody>
@@ -55,7 +57,7 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 		return <div className="select-job">
 			{Boards.map((b, i) => {
 				const disabled = b === other;
-				return <button onClick={() => this.props.changeCharacter(this.props.character.addClass(b))} className="job" disabled={disabled} key={i}>
+				return <button onClick={() => this.props.changeParty(this.props.party.addJob(this.props.characterIndex, b))} className="job" disabled={disabled} key={i}>
 					{b.name}
 				</button>;
 			})}
@@ -63,11 +65,11 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 	}
 
 	render() {
-		const b = this.props.character.getClass(this.props.index);
+		const b = this.props.party.getJob(this.props.characterIndex, this.props.boardIndex);
 		if (b) {
 			return this.renderBoard(b);
 		} else {
-			const otherBoard = this.props.character.getClass(this.props.index ^ 1);
+			const otherBoard = this.props.party.getJob(this.props.characterIndex, this.props.boardIndex ^ 1);
 			return this.renderSelectJob(otherBoard);
 		}
 	}

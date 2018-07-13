@@ -1,39 +1,26 @@
 import * as React from "react";
-import CharacterModel from "../model/CharacterModel";
-import { Characters } from "../data/Characters";
+import PartyModel from "../model/PartyModel";
 import CharacterPlanner from "./CharacterPlanner";
 import autobind from "../../node_modules/autobind-decorator";
 import "normalize.css/normalize.css";
 import "./App.scss";
-import { Espers } from "../data/Licenses";
 
 export interface State {
-	characters: CharacterModel[];
+	party: PartyModel;
 	characterIndex: number;
 	boardIndex: number;
 }
 
 export default class App extends React.PureComponent<{}, State> {
 	state: State = {
-		characters: Characters.map(c => new CharacterModel(c)),
+		party: new PartyModel(),
 		characterIndex: 0,
 		boardIndex: 0
 	};
 
 	@autobind
-	private changeCharacter(newCharacter: CharacterModel, index: number) {
-		const characters = this.state.characters.slice();
-		characters[index] = newCharacter;
-		// synchronize esper states
-		const toBlock = Espers.filter(e => newCharacter.has(e));
-		for (let i = 0; i < characters.length; i++) {
-			if (i !== index) {
-				for (const e of toBlock) {
-					characters[i] = characters[i].block(e);
-				}
-			}
-		}
-		this.setState({ characters });
+	private changeParty(newParty: PartyModel) {
+		this.setState({ party: newParty });
 	}
 
 	@autobind
@@ -42,6 +29,6 @@ export default class App extends React.PureComponent<{}, State> {
 	}
 
 	render() {
-		return <CharacterPlanner {...this.state} changeCharacter={this.changeCharacter} changeIndices={this.changeIndices} />;
+		return <CharacterPlanner {...this.state} changeParty={this.changeParty} changeIndices={this.changeIndices} />;
 	}
 }
