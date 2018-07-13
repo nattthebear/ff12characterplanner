@@ -1,10 +1,9 @@
 export interface License {
-	shortName?: string;
 	fullName: string;
 	cost: number;
 	text: string;
 	limited: boolean;
-	grants: {
+	grants?: {
 		group: string;
 		what: number | string[];
 	};
@@ -12,40 +11,27 @@ export interface License {
 
 const allLicenses = Array<License>();
 allLicenses.push({
-	shortName: "****",
 	fullName: "Essentials",
 	cost: 1,
 	text: "Attack\nItem",
-	limited: false,
-	grants: {
-		group: "battle",
-		what: ["Attack", "Item"]
-	}
+	limited: false
 });
 allLicenses.push({
-	shortName: "####",
 	fullName: "Second Board",
 	cost: 30,
-	text: "",
-	limited: false,
-	grants: {
-		group: "battle",
-		what: ["Second Job"]
-	}
+	text: "Second Board",
+	limited: false
 });
 
 {
-	let short = "";
 	let full = "";
 	let i = 1;
-	const r = (s: string, f: string) => {
-		short = s;
+	const r = (f: string) => {
 		full = f;
 		i = 1;
 	};
 	const am = (lp: number, ...spells: string[]) => {
 		allLicenses.push({
-			shortName: short + i.toString().padStart(2, "0"),
 			fullName: full + " " + i,
 			cost: lp,
 			text: spells.join("\n"),
@@ -57,7 +43,7 @@ allLicenses.push({
 		});
 		i++;
 	};
-	r("WM", "White Magick");
+	r("White Magick");
 	am(15, "Cure", "Blindna");
 	am(20, "Vox", "Poisona");
 	am(25, "Protect", "Shell");
@@ -71,7 +57,7 @@ allLicenses.push({
 	am(100, "Holy", "Esunaga");
 	am(110, "Protega", "Shellga");
 	am(155, "Renew");
-	r("BM", "Black Magick");
+	r("Black Magick");
 	am(15, "Fire", "Thunder");
 	am(20, "Blizzard", "Blind");
 	am(25, "Aqua", "Silence");
@@ -85,7 +71,7 @@ allLicenses.push({
 	am(100, "Shock", "Toxify");
 	am(120, "Scourge", "Flare");
 	am(165, "Scathe");
-	r("TM", "Time Magick");
+	r("Time Magick");
 	am(20, "Slow", "Immobilize");
 	am(30, "Reflect", "Disable");
 	am(40, "Vanish", "Balance");
@@ -96,22 +82,18 @@ allLicenses.push({
 	am(90, "Vanishga", "Warp");
 	am(100, "Reflega", "Slowga");
 	am(125, "Graviga", "Hastega");
-	r("GM", "Green Magick");
+	r("Green Magick");
 	am(40, "Decoy", "Oil");
 	am(50, "Drain", "Reverse");
 	am(90, "Bubble", "Syphon");
-	r("AM", "Arcane Magick");
+	r("Arcane Magick");
 	am(40, "Dark", "Darkra");
 	am(50, "Death", "Darkga");
 	am(110, "Ardor");
 }
 {
-	const t = (lp: number, name: string, desc: string, shortName?: string) => {
-		if (!shortName) {
-			shortName = "K" + name.slice(0, 3).toUpperCase();
-		}
+	const t = (lp: number, name: string, desc: string) => {
 		allLicenses.push({
-			shortName,
 			fullName: name,
 			cost: lp,
 			text: desc,
@@ -129,8 +111,8 @@ allLicenses.push({
 	t(50, "Expose", "");
 	t(50, "Shear", "");
 	t(50, "Addle", "");
-	t(30, "Charge", "", "KCHG");
-	t(30, "Charm", "", "KCHM");
+	t(30, "Charge", "");
+	t(30, "Charm", "");
 	t(35, "Souleater", "");
 	t(20, "First Aid", "");
 	t(30, "Gil Toss", "");
@@ -148,11 +130,10 @@ allLicenses.push({
 	t(80, "Telekinesis", "");
 }
 {
-	const s = (short: string, name: string, desc: string, ...lps: number[]) => {
+	const s = (name: string, desc: string, ...lps: number[]) => {
 		let i = 1;
 		for (const lp of lps) {
 			allLicenses.push({
-				shortName: short + i.toString().padStart(2, "0"),
 				fullName: name + " " + i,
 				cost: lp,
 				text: desc,
@@ -165,17 +146,16 @@ allLicenses.push({
 			i++;
 		}
 	};
-	s("BL", "Battle Lore", "Increase physical attack damage.",
+	s("Battle Lore", "Increase physical attack damage.",
 		30, 30, 30, 30, 50, 50, 50, 50, 70, 70, 70, 70, 100, 100, 100, 100);
-	s("ML", "Magick Lore", "Increase Magick potency.",
+	s("Magick Lore", "Increase Magick potency.",
 		30, 30, 30, 30, 50, 50, 50, 50, 70, 70, 70, 70, 100, 100, 100, 100);
-	s("GB", "Gambit Slot", "Adds an additional gambit slot",
+	s("Gambit Slot", "Adds an additional gambit slot",
 		15, 20, 25, 30, 35, 40, 45, 50, 70, 100);
 }
 {
 	const h = (hp: number, lp: number) => {
 		allLicenses.push({
-			shortName: "HP" + hp.toString().slice(0, 2),
 			fullName: `+${hp} HP`,
 			cost: lp,
 			text: `Increase max HP by ${hp}.`,
@@ -203,7 +183,6 @@ allLicenses.push({
 	let i = 1;
 	for (const lp of [50, 75, 100, 125]) {
 		allLicenses.push({
-			shortName: "Q" + lp.toString().padStart(3, "0"),
 			fullName: "Quickening " + i,
 			cost: lp,
 			text: "",
@@ -219,7 +198,6 @@ allLicenses.push({
 {
 	const e = (lp: number, fullName: string, title: string) => {
 		allLicenses.push({
-			shortName: fullName.slice(0, 4).toUpperCase(),
 			fullName,
 			cost: lp,
 			text: `Summon ${fullName} ${title}`,
@@ -245,16 +223,8 @@ allLicenses.push({
 	e(200, "Zodiark", "Keeper of Precepts");
 }
 {
-	const p = (lp: number, fullName: string, desc: string, shortName?: string) => {
-		if (!shortName) {
-			if (fullName.match(/\d$/)) {
-				shortName = "P" + fullName.slice(0, 2).toUpperCase() + fullName.slice(-1);
-			} else {
-				shortName = "P" + fullName.slice(0, 3).toUpperCase();
-			}
-		}
+	const p = (lp: number, fullName: string, desc: string) => {
 		allLicenses.push({
-			shortName,
 			fullName,
 			cost: lp,
 			text: desc,
@@ -268,7 +238,7 @@ allLicenses.push({
 	p(70, "Focus", "Increases strength when HP is full.");
 	p(70, "Serenity", "Increases magick when HP is full.");
 	p(65, "Adrenaline", "Increases strength when HP Critical.");
-	p(65, "Spellbreaker", "Increases magick power when HP Critical.", "PSBK");
+	p(65, "Spellbreaker", "Increases magick power when HP Critical.");
 	p(70, "Last Stand", "Increases defense when HP Critical.");
 	p(90, "Brawler", "Increases attack power when fighting empty-handed.");
 	p(25, "Shield Block 1", "Increases chance to block with a shield.");
@@ -284,7 +254,7 @@ allLicenses.push({
 	p(30, "Channeling 1", "Reduces MP cost of Spells");
 	p(50, "Channeling 2", "Reduces MP cost of Spells");
 	p(80, "Channeling 3", "Reduces MP cost of Spells");
-	p(30, "Spellbound", "Increases duration of status effects.", "PSBD");
+	p(30, "Spellbound", "Increases duration of status effects.");
 	p(20, "Potion Lore 1", "Potions restore more HP.");
 	p(35, "Potion Lore 2", "Potions restore more HP.");
 	p(70, "Potion Lore 3", "Potions restore more HP.");
@@ -499,7 +469,7 @@ const allLicensesByName = new Map<string, License>();
 	}
 }
 
-export const Licenses = allLicenses;
+export { allLicenses as Licenses };
 export function LicenseByName(name: string) {
 	const ret = allLicensesByName.get(name);
 	if (!ret) {
@@ -507,3 +477,27 @@ export function LicenseByName(name: string) {
 	}
 	return ret;
 }
+
+export interface LicenseGroup {
+	name: string;
+	contents: License[];
+}
+
+const byGroup = Array<LicenseGroup>();
+{
+	let curr: LicenseGroup | undefined;
+	for (const l of allLicenses) {
+		if (!l.grants) {
+			continue;
+		}
+		if (!curr || curr.name !== l.grants.group) {
+			curr = {
+				name: l.grants.group,
+				contents: []
+			};
+			byGroup.push(curr);
+		}
+		curr.contents.push(l);
+	}
+}
+export { byGroup as LicenseGroups };
