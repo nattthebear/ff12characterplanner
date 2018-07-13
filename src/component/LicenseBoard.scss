@@ -13,23 +13,20 @@
 			vertical-align: top;
 			&.l {
 				cursor: pointer;
+				box-shadow: inset 0 0 5px rgb(0, 0, 0);
 			}
 
 			&.obtained {
 				background-color: #fff;
-				box-shadow: inset 0 0 5px #555;
 			}
 			&.certain {
 				background-color: #ddd;
-				box-shadow: inset 0 0 5px #333;
 			}
 			&.possible {
 				background-color: #ffa;
-				box-shadow: inset 0 0 5px #660;
 			}
 			&.blocked {
 				background-color: #fbb;
-				box-shadow: inset 0 0 5px #700;
 			}
 			.name {
 				font-size: 10px;
@@ -42,6 +39,29 @@
 				bottom: 4px;
 				right: 4px;
 			}
+		}
+	}
+}
+
+.select-job {
+	display: grid;
+	justify-content: center;
+	align-content: center;
+
+	.job {
+		margin: 2px;
+		border: 2px solid black;
+		border-radius: 6px;
+		padding: 6px;
+		text-align: center;
+		background: transparent;
+		&:hover {
+			background-color: #efe;
+		}
+		&:disabled {
+			background-color: #ccc;
+			color: #999;
+			border-color: #999;
 		}
 	}
 }

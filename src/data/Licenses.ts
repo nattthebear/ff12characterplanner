@@ -185,7 +185,7 @@ allLicenses.push({
 		allLicenses.push({
 			fullName: "Quickening " + i,
 			cost: lp,
-			text: "",
+			text: "Unleash a devastating attack.",
 			limited: true,
 			grants: {
 				group: "Quickening",
