@@ -14,10 +14,12 @@ export interface Props {
 
 export default class CharacterPanel extends React.PureComponent<Props> {
 	private renderClassInfo(characterIndex: number, index: number) {
-		const b = this.props.characters[characterIndex].getClass(index);
+		const char = this.props.characters[characterIndex];
+		const b = char.getClass(index);
 		const selected = this.props.characterIndex === characterIndex && this.props.boardIndex === index;
 		if (!b) {
-			return <button className="job nojob" aria-pressed={selected} onClick={() => this.props.changeIndices(characterIndex, index)}>
+			const disabled = index === 1 && !char.getClass(0);
+			return <button disabled={disabled} className="job nojob" aria-pressed={selected} onClick={() => this.props.changeIndices(characterIndex, index)}>
 				<span className="name">No Job</span>
 			</button>;
 		} else {

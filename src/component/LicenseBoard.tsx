@@ -33,8 +33,8 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 			}
 		};
 		return <td key={key} className={className} onClick={onClick} aria-label={l.text}>
-			<span className="name">{l.fullName}</span>
-			<span className="cost">{l.cost}</span>
+			<div className="name">{l.fullName}</div>
+			<div className="cost">{l.cost}</div>
 		</td>;
 	}
 

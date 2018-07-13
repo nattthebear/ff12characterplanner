@@ -7,6 +7,13 @@ html {
 	box-sizing: inherit;
 }
 
+button {
+	cursor: pointer;
+	&:disabled {
+		cursor: not-allowed;
+	}
+}
+
 :root, body, #root {
 	width: 100%;
 	height: 100%;

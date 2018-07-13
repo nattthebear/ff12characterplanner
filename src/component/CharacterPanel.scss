@@ -18,18 +18,25 @@
 				border-color: #33f;
 				background-color: #eef;
 			}
+			
+			>.name {
+				font-weight: bold;
+			}
 
 			.job {
 				border: none;
 				background-color: transparent;
 				&:hover {
-					background-color: #dfd;
+					background-color: #afa;
 				}
 				&[aria-pressed=true] {
-					background-color: #ddf;
+					background-color: #aaf;
 				}
 				&.nojob {
 					font-style: italic;
+				}
+				&:disabled {
+					color: #aaa;
 				}
 			}
 		}
