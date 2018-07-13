@@ -1,9 +1,6 @@
 import { Character } from "../data/Characters";
 import { Board } from "../data/Boards";
-import { License, LicenseByName, Licenses } from "../data/Licenses";
-
-const quickenings = new Set([1, 2, 3, 4].map(s => LicenseByName("Quickening " + s)));
-const espers = new Set(Licenses.filter(l => l.limited && !quickenings.has(l)));
+import { License, Quickenings, Espers } from "../data/Licenses";
 
 export const enum Coloring {
 	/** character has the license learned */
@@ -43,14 +40,14 @@ export default class CharacterModel {
 	}
 
 	private computeQuickenings() {
-		if ([...quickenings].filter(q => this.selected.has(q)).length === 3) {
-			for (const q of quickenings) {
+		if (Quickenings.filter(q => this.selected.has(q)).length === 3) {
+			for (const q of Quickenings) {
 				if (!this.selected.has(q)) {
 					this.blocked.add(q);
 				}
 			}
 		} else {
-			for (const q of quickenings) {
+			for (const q of Quickenings) {
 				this.blocked.delete(q);
 			}			
 		}
@@ -105,11 +102,15 @@ export default class CharacterModel {
 		return r;
 	}
 
+	has(l: License) {
+		return this.selected.has(l);
+	}
+
 	block(l: License) {
-		if (!espers.has(l)) {
+		if (!Espers.includes(l)) {
 			throw new Error("Can only block espers");
 		}
-		if (!this.blocked.has(l)) {
+		if (this.blocked.has(l)) {
 			return this;
 		}
 		const r = this.clone();

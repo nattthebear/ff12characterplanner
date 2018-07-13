@@ -7,7 +7,7 @@ import "./CharacterPlanner.scss";
 
 export interface Props {
 	characters: CharacterModel[];
-	changeCharacters(newCharacters: CharacterModel[]): void;
+	changeCharacter(newCharacter: CharacterModel, index: number): void;
 	characterIndex: number;
 	boardIndex: number;
 	changeIndices(characterIndex: number, boardIndex: number): void;
@@ -16,9 +16,7 @@ export interface Props {
 export default class CharacterPlanner extends React.PureComponent<Props> {
 	@autobind
 	private changeCharacter(newCharacter: CharacterModel) {
-		const newCharacters = this.props.characters.slice();
-		newCharacters[this.props.characterIndex] = newCharacter;
-		this.props.changeCharacters(newCharacters);
+		this.props.changeCharacter(newCharacter, this.props.characterIndex);
 	}
 
 	render() {

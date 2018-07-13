@@ -5,6 +5,7 @@ import CharacterPlanner from "./CharacterPlanner";
 import autobind from "../../node_modules/autobind-decorator";
 import "normalize.css/normalize.css";
 import "./App.scss";
+import { Espers } from "../data/Licenses";
 
 export interface State {
 	characters: CharacterModel[];
@@ -20,8 +21,19 @@ export default class App extends React.PureComponent<{}, State> {
 	};
 
 	@autobind
-	private changeCharacters(newCharacters: CharacterModel[]) {
-		this.setState({ characters: newCharacters });
+	private changeCharacter(newCharacter: CharacterModel, index: number) {
+		const characters = this.state.characters.slice();
+		characters[index] = newCharacter;
+		// synchronize esper states
+		const toBlock = Espers.filter(e => newCharacter.has(e));
+		for (let i = 0; i < characters.length; i++) {
+			if (i !== index) {
+				for (const e of toBlock) {
+					characters[i] = characters[i].block(e);
+				}
+			}
+		}
+		this.setState({ characters });
 	}
 
 	@autobind
@@ -30,6 +42,6 @@ export default class App extends React.PureComponent<{}, State> {
 	}
 
 	render() {
-		return <CharacterPlanner {...this.state} changeCharacters={this.changeCharacters} changeIndices={this.changeIndices} />;
+		return <CharacterPlanner {...this.state} changeCharacter={this.changeCharacter} changeIndices={this.changeIndices} />;
 	}
 }
