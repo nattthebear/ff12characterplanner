@@ -13,14 +13,18 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "deploy": "rimraf ./docs && copyfiles -u 1 ./build/**/* ./docs"
   },
   "devDependencies": {
     "@types/jest": "^23.1.5",
     "@types/node": "^10.5.2",
     "@types/react": "^16.4.6",
     "@types/react-dom": "^16.0.6",
+    "copyfiles": "^2.0.0",
     "popper.js": "^1.14.3",
+    "rimraf": "^2.6.2",
     "typescript": "^2.9.2"
-  }
+  },
+  "homepage": "https://nattthebear.github.io/ff12characterplanner"
 }
