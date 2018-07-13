@@ -3,6 +3,8 @@ import CharacterModel from "../model/CharacterModel";
 import { Characters } from "../data/Characters";
 import CharacterPlanner from "./CharacterPlanner";
 import autobind from "../../node_modules/autobind-decorator";
+import "normalize.css/normalize.css";
+import "./App.scss";
 
 export interface State {
 	characters: CharacterModel[];

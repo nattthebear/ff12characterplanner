@@ -25,7 +25,7 @@ allLicenses.push({
 allLicenses.push({
 	shortName: "####",
 	fullName: "Second Board",
-	cost: 1,
+	cost: 30,
 	text: "",
 	limited: false,
 	grants: {

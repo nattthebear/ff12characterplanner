@@ -3,6 +3,7 @@ import CharacterModel from "../model/CharacterModel";
 import CharacterPanel from "./CharacterPanel";
 import LicenseBoard from "./LicenseBoard";
 import autobind from "autobind-decorator";
+import "./CharacterPlanner.scss";
 
 export interface Props {
 	characters: CharacterModel[];

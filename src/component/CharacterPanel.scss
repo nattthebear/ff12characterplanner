@@ -1,0 +1,30 @@
+.character-panel {
+	.character-select {
+		display: flex;
+		.character {
+			margin: 2px;
+			border: 2px solid black;
+			border-radius: 6px;
+			padding: 6px;
+			text-align: center;
+			&:hover {
+				background-color: #efe;
+			}
+			&[aria-pressed=true] {
+				border-color: #33f;
+				background-color: #eef;
+			}
+
+			.job {
+				border: none;
+				background-color: transparent;
+				&:hover {
+					background-color: #dfd;
+				}
+				&[aria-pressed=true] {
+					background-color: #ddf;
+				}
+			}
+		}
+	}
+}

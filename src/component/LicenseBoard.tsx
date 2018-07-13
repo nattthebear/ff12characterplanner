@@ -2,6 +2,7 @@ import * as React from "react";
 import CharacterModel, { Coloring } from "../model/CharacterModel";
 import { License } from "../data/Licenses";
 import { Position, Board, Boards } from "../data/Boards";
+import "./LicenseBoard.scss";
 
 export interface Props {
 	character: CharacterModel;
@@ -39,13 +40,15 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 
 	private renderBoard(b: Board) {
 		const colors = this.props.character.color();
-		return <table className="license-board">
-			<tbody>
-				{b.rows.map((row, j) => <tr key={j}>
-					{row.map((pos, i) => this.renderPosition(i, pos, colors))}
-				</tr>)}
-			</tbody>
-		</table>;
+		return <div className="license-board-holder">
+			<table className="license-board">
+				<tbody>
+					{b.rows.map((row, j) => <tr key={j}>
+						{row.map((pos, i) => this.renderPosition(i, pos, colors))}
+					</tr>)}
+				</tbody>
+			</table>
+		</div>;
 	}
 
 	private renderSelectJob(other: Board | undefined) {
@@ -58,7 +61,7 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 			})}
 		</div>;
 	}
-	
+
 	render() {
 		const b = this.props.character.getClass(this.props.index);
 		if (b) {
