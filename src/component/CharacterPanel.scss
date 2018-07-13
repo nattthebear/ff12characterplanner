@@ -28,6 +28,9 @@
 				&[aria-pressed=true] {
 					background-color: #ddf;
 				}
+				&.nojob {
+					font-style: italic;
+				}
 			}
 		}
 	}

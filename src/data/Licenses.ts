@@ -99,35 +99,35 @@ allLicenses.push({
 			text: desc,
 			limited: false,
 			grants: {
-				group: "Techniques",
+				group: "Technicks",
 				what: [name]
 			}
 		});
 	};
-	t(35, "1000 Needles", "");
-	t(40, "Achilles", "");
-	t(30, "Bonecrusher", "");
-	t(50, "Wither", "");
-	t(50, "Expose", "");
-	t(50, "Shear", "");
-	t(50, "Addle", "");
-	t(30, "Charge", "");
-	t(30, "Charm", "");
-	t(35, "Souleater", "");
-	t(20, "First Aid", "");
-	t(30, "Gil Toss", "");
-	t(50, "Horology", "");
-	t(25, "Libra", "");
-	t(30, "Infuse", "");
-	t(40, "Numerology", "");
-	t(30, "Poach", "");
-	t(70, "Shades of Black", "");
-	t(40, "Revive", "");
-	t(40, "Sight Unseeing", "");
-	t(40, "Stamp", "");
-	t(20, "Steal", "");
-	t(50, "Traveler", "");
-	t(80, "Telekinesis", "");
+	t(35, "1000 Needles", "Deal 1,000 damage to one foe.");
+	t(40, "Achilles", "Render one foe vulnerable to an additional element.");
+	t(30, "Bonecrusher", "Consume HP to reduce the HP of one foe to 0.");
+	t(50, "Wither", "Lower one foe's strength.");
+	t(50, "Expose", "Lower one foe's defense.");
+	t(50, "Shear", "Lower one foe's magick resist.");
+	t(50, "Addle", "Lower one foe's magick power.");
+	t(30, "Charge", "Restore user's MP. If the technick fails, MP is reduced to 0.");
+	t(30, "Charm", "Cause one foe to confuse friend with foe.");
+	t(35, "Souleater", "Consume HP to deal damage to one foe.");
+	t(20, "First Aid", "Restore HP to one HP Critical ally.");
+	t(30, "Gil Toss", "Throw gil, damaging all foes in range.");
+	t(50, "Horology", "Deal damage based on a factor of time to all foes in range.");
+	t(25, "Libra", "Reveal more detailed target information.");
+	t(30, "Infuse", "Fully consume user's MP, changing one ally's HP to 10 times that amount.");
+	t(40, "Numerology", "Deal damage that increases with successive hits.");
+	t(30, "Poach", "Capture HP Critical foes to obtain loot.");
+	t(70, "Shades of Black", "Cast a random black magick on one foe.");
+	t(40, "Revive", "Fully consume user's HP, reviving and fully restoring HP of one KO'd ally.");
+	t(40, "Sight Unseeing", "Unleash an attack only available when blind.");
+	t(40, "Stamp", "Inflict one foe with any status effects on the user.");
+	t(20, "Steal", "Steal from one foe.");
+	t(50, "Traveler", "Deal damage based on total steps taken to all foes in range.");
+	t(80, "Telekinesis", "Deal ranged damage with melee weapons.");
 }
 {
 	const s = (name: string, desc: string, ...lps: number[]) => {

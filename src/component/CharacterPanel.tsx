@@ -38,7 +38,7 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 				case Coloring.BLOCKED: className = "l blocked"; break;
 				default: continue; // don't render not-at-all available licenses
 			}
-			children.push(<p key={l.fullName} className={className}>{l.fullName}</p>);
+			children.push(<p key={l.fullName} className={className} aria-label={l.text}>{l.fullName}</p>);
 		}
 		if (children.length) {
 			return <div key={i} className="group">

@@ -32,7 +32,7 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 				this.props.changeCharacter(this.props.character.add(l));
 			}
 		};
-		return <td key={key} className={className} onClick={onClick}>
+		return <td key={key} className={className} onClick={onClick} aria-label={l.text}>
 			<span className="name">{l.fullName}</span>
 			<span className="cost">{l.cost}</span>
 		</td>;

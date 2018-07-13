@@ -25,6 +25,7 @@
 		"no-bitwise": false,
 		"semicolon": true,
 		"quotemark": [true, "double", "jsx-double", "avoid-escape"],
-		"jsx-no-lambda": false
+		"jsx-no-lambda": false,
+		"no-conditional-assignment": false
 	}
 }

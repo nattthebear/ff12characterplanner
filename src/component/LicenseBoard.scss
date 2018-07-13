@@ -11,6 +11,9 @@
 			padding: 4px;
 			position: relative;
 			vertical-align: top;
+			&.l {
+				cursor: pointer;
+			}
 
 			&.obtained {
 				background-color: #fff;
