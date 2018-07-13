@@ -12,11 +12,15 @@ export interface State {
 }
 
 export default class App extends React.PureComponent<{}, State> {
-	state: State = {
-		party: new PartyModel(),
-		characterIndex: 0,
-		boardIndex: 0
-	};
+	constructor(props: {}) {
+		super(props);
+		const party = location.search && PartyModel.decode(location.search.slice(1));
+		this.state = {
+			party: party || new PartyModel(),
+			characterIndex: 0,
+			boardIndex: 0
+		};
+	}
 
 	@autobind
 	private changeParty(newParty: PartyModel) {
@@ -26,6 +30,20 @@ export default class App extends React.PureComponent<{}, State> {
 	@autobind
 	private changeIndices(characterIndex: number, boardIndex: number) {
 		this.setState({ characterIndex, boardIndex });
+	}
+
+	private updateSearch() {
+		history.replaceState(null, undefined, location.href.split("?")[0] + "?" + this.state.party.encode());
+	}
+
+	componentDidMount() {
+		this.updateSearch();
+	}
+
+	componentDidUpdate(prevProps: {}, prevState: State) {
+		if (this.state.party !== prevState.party) {
+			this.updateSearch();
+		}
 	}
 
 	render() {

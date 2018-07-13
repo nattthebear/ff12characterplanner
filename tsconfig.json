@@ -25,6 +25,7 @@
 	"exclude": [
 		"node_modules",
 		"build",
+		"docs",
 		"scripts",
 		"acceptance-tests",
 		"webpack",
