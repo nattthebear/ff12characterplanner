@@ -142,7 +142,11 @@ export default class CharacterModel {
 
 	private colorHelper(criteria: (l: License) => boolean, ...from: Set<License>[]) {
 		const ret = new Set<License>();
-		const toCheck = from.flatMap(s => [...s]);
+		// const toCheck = from.flatMap(s => [...s]);
+		const toCheck = Array<License>();
+		for (const f of from) {
+			toCheck.push(...f);
+		}
 		while (toCheck.length) {
 			const l = toCheck.pop()!;
 			for (const b of this.classes) {

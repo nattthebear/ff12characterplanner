@@ -6,6 +6,7 @@ import { Position, Board, Boards } from "../data/Boards";
 export interface Props {
 	character: CharacterModel;
 	index: number;
+	changeCharacter(newCharacter: CharacterModel): void;
 }
 
 export default class LicenseBoard extends React.PureComponent<Props> {
@@ -15,14 +16,22 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 		}
 		const l = pos.value;
 		let className: string;
+		let obtained = false;
 		switch (colors.get(l)) {
-			case Coloring.OBTAINED: className = "l obtained"; break;
+			case Coloring.OBTAINED: className = "l obtained"; obtained = true; break;
 			case Coloring.CERTAIN: className = "l certain"; break;
 			case Coloring.POSSIBLE: className = "l possible"; break;
 			case Coloring.BLOCKED: className = "l blocked"; break;
 			default: className = "l unreachable"; break; // shouldn't happen on this page unless license board data is bad
 		}
-		return <td key={key} className={className}>
+		const onClick = () => {
+			if (obtained) {
+				this.props.changeCharacter(this.props.character.delete(l));
+			} else {
+				this.props.changeCharacter(this.props.character.add(l));
+			}
+		};
+		return <td key={key} className={className} onClick={onClick}>
 			<span className="name">{l.fullName}</span>
 			<span className="cost">{l.cost}</span>
 		</td>;
@@ -43,7 +52,7 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 		return <div className="select-job">
 			{Boards.map((b, i) => {
 				const disabled = b === other;
-				return <button className="job" disabled={disabled} key={i}>
+				return <button onClick={() => this.props.changeCharacter(this.props.character.addClass(b))} className="job" disabled={disabled} key={i}>
 					{b.name}
 				</button>;
 			})}

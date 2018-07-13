@@ -5,18 +5,21 @@ export interface Props {
 	characters: CharacterModel[];
 	characterIndex: number;
 	boardIndex: number;
+	changeIndices(characterIndex: number, boardIndex: number): void;
+	// changeCharacterIndex(newIndex: number): void;
+	// changeBoardIndex(newIndex: number): void;
 }
 
 export default class CharacterPanel extends React.PureComponent<Props> {
-	private renderClassInfo(index: number) {
-		const b = this.props.characters[this.props.characterIndex].getClass(index);
+	private renderClassInfo(characterIndex: number, index: number) {
+		const b = this.props.characters[characterIndex].getClass(index);
 		const selected = this.props.boardIndex === index;
 		if (!b) {
-			return <button className="job nojob" aria-pressed={selected}>
+			return <button className="job nojob" aria-pressed={selected} onClick={() => this.props.changeIndices(characterIndex, index)}>
 				<span className="name">No Job</span>
 			</button>;
 		} else {
-			return <button className="job" aria-pressed={selected}>
+			return <button className="job" aria-pressed={selected} onClick={() => this.props.changeIndices(characterIndex, index)}>
 				<span className="name">{b.name}</span>
 			</button>;
 		}
@@ -26,8 +29,8 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 		return <div className="character-panel">
 			{this.props.characters.map((c, i) => <div key={i} aria-pressed={this.props.characterIndex === i}>
 				<span className="name">{c.getCharacter().name}</span>
-				{this.renderClassInfo(0)}
-				{this.renderClassInfo(1)}
+				{this.renderClassInfo(i, 0)}
+				{this.renderClassInfo(i, 1)}
 			</div>)}
 		</div>;
 	}

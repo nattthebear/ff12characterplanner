@@ -24,6 +24,7 @@
 		"member-ordering": false,
 		"no-bitwise": false,
 		"semicolon": true,
-		"quotemark": [true, "double", "jsx-double", "avoid-escape"]
+		"quotemark": [true, "double", "jsx-double", "avoid-escape"],
+		"jsx-no-lambda": false
 	}
 }
