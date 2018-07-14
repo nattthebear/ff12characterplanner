@@ -8,6 +8,8 @@ import { Board } from "../data/Boards";
 export interface Props {
 	party: PartyModel;
 	changeParty(newParty: PartyModel): void;
+	changeIndices(characterIndex: number, boardIndex: number): void;
+	toggleQe(): void;
 }
 
 export interface State {
@@ -88,7 +90,7 @@ export default class QeBoard extends React.PureComponent<Props, State> {
 				break;
 			}
 			default:
-				return <div key={c} className="l unreachable">
+				return <div key={c} className="l unreachable" onClick={() => { this.props.changeIndices(c, 0); this.props.toggleQe(); }}>
 					Choose a job first.
 				</div>;
 		}
