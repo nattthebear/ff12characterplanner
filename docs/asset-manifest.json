@@ -1,6 +1,18 @@
 {
-  "main.css": "static/css/main.98467273.css",
-  "main.css.map": "static/css/main.98467273.css.map",
-  "main.js": "static/js/main.b10e568d.js",
-  "main.js.map": "static/js/main.b10e568d.js.map"
+  "main.css": "static/css/main.30a34020.css",
+  "main.css.map": "static/css/main.30a34020.css.map",
+  "main.js": "static/js/main.acaf95eb.js",
+  "main.js.map": "static/js/main.acaf95eb.js.map",
+  "static\\media\\Aquarius.svg": "static/media/Aquarius.08291a1c.svg",
+  "static\\media\\Aries.svg": "static/media/Aries.4378bbd9.svg",
+  "static\\media\\Cancer.svg": "static/media/Cancer.0a707a93.svg",
+  "static\\media\\Capricorn.svg": "static/media/Capricorn.2b0112cb.svg",
+  "static\\media\\Gemini.svg": "static/media/Gemini.8a7edacf.svg",
+  "static\\media\\Leo.svg": "static/media/Leo.0cb0ecbe.svg",
+  "static\\media\\Libra.svg": "static/media/Libra.dc38429d.svg",
+  "static\\media\\Pisces.svg": "static/media/Pisces.852a5982.svg",
+  "static\\media\\Sagittarius.svg": "static/media/Sagittarius.0d987217.svg",
+  "static\\media\\Scorpio.svg": "static/media/Scorpio.3d10e116.svg",
+  "static\\media\\Taurus.svg": "static/media/Taurus.66b60428.svg",
+  "static\\media\\Virgo.svg": "static/media/Virgo.031563fa.svg"
 }

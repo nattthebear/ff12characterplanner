@@ -1,4 +1,18 @@
 import { License, LicenseByName } from "./Licenses";
+import Aries from "../media/Aries.svg";
+import Taurus from "../media/Taurus.svg";
+import Gemini from "../media/Gemini.svg";
+import Cancer from "../media/Cancer.svg";
+import Leo from "../media/Leo.svg";
+import Virgo from "../media/Virgo.svg";
+import Libra from "../media/Libra.svg";
+import Scorpio from "../media/Scorpio.svg";
+import Sagittarius from "../media/Sagittarius.svg";
+import Capricorn from "../media/Capricorn.svg";
+import Aquarius from "../media/Aquarius.svg";
+import Pisces from "../media/Pisces.svg";
+
+const images = [Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius, Pisces];
 
 const boards = {
 	"White Mage": [
@@ -247,13 +261,15 @@ export interface Board {
 	name: string;
 	rows: (Position | undefined)[][];
 	lookup: Map<License, Position>;
+	image: string;
 }
 
-function connectBoard(name: string, board: (string | null)[][]) {
+function connectBoard(name: string, board: (string | null)[][], image: string) {
 	const ret: Board = {
 		name,
 		rows: board.map(row => row.map(v => v ? { value: LicenseByName(v), adjacent: [] } : undefined )),
-		lookup: new Map<License, Position>()
+		lookup: new Map<License, Position>(),
+		image
 	};
 	for (let y = 0; y < ret.rows.length; y++) {
 		const row = ret.rows[y];
@@ -272,4 +288,4 @@ function connectBoard(name: string, board: (string | null)[][]) {
 	return ret;
 }
 
-export const Boards = Object.entries(boards).map(a => connectBoard(a[0], a[1]));
+export const Boards = Object.entries(boards).map((a, i) => connectBoard(a[0], a[1], images[i]));

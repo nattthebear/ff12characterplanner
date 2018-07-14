@@ -62,7 +62,8 @@
 		border: 2px solid black;
 		border-radius: 6px;
 		padding: 6px;
-		text-align: center;
+		line-height: 32px;
+		text-align: left;
 		background-color: white;
 		&:hover {
 			background-color: #efe;
@@ -71,6 +72,12 @@
 			background-color: #ccc;
 			color: #999;
 			border-color: #999;
+		}
+
+		.zodiac {
+			height: 32px;
+			float: right;
+			margin-left: 20px;
 		}
 	}
 }

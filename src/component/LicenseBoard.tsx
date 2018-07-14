@@ -58,6 +58,7 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 			{Boards.map((b, i) => {
 				const disabled = b === other;
 				return <button onClick={() => this.props.changeParty(this.props.party.addJob(this.props.characterIndex, b))} className="job" disabled={disabled} key={i}>
+					<img className="zodiac" src={b.image} />
 					{b.name}
 				</button>;
 			})}
