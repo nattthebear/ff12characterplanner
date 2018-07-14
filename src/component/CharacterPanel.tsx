@@ -87,6 +87,8 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 					{this.renderClassInfo(i, 0)}
 					<br />
 					{this.renderClassInfo(i, 1)}
+					<br />
+					<span>{this.props.party.getLpCount(i)} LP</span>
 				</div>)}
 			</div>
 			<div className="stats">

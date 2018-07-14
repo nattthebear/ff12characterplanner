@@ -79,6 +79,16 @@ export default class PartyModel {
 		return this.jobs[c][index];
 	}
 
+	getLpCount(c: number) {
+		let lp = 0;
+		for (const l of this.selected[c]) {
+			if (!Characters[c].innateLicenses.includes(l)) {
+				lp += l.cost;
+			}
+		}
+		return lp;
+	}
+
 	private findPath(c: number, to: License) {
 		// find shortest path to to
 		interface Path {
