@@ -112,14 +112,14 @@ export default class PartyModel {
 			for (const j of this.jobs[c]) {
 				const location = j.lookup.get(l);
 				if (location) {
-					for (const next of location.adjacent) {
-						if (!dests.has(next.value)) {
+					for (const next of location.adjacent.map(loc => loc.value).filter(val => !this.isBlocked(c, val))) {
+						if (!dests.has(next)) {
 							const nextPath = {
-								nodes: [...p.nodes, next.value],
-								length: p.length + next.value.cost
+								nodes: [...p.nodes, next],
+								length: p.length + next.cost
 							};
 							queue.push(nextPath);
-							dests.set(next.value, nextPath);
+							dests.set(next, nextPath);
 						}
 					}
 				}
@@ -128,11 +128,12 @@ export default class PartyModel {
 		return undefined;
 	}
 
+	private isBlocked(c: number, l: License) {
+		return this.blockedEspers.has(l) || Quickenings.includes(l) && this.quickeningCount[c] === 3;
+	}
+
 	add(c: number, l: License) {
-		if (this.selected[c].has(l) ||
-			this.blockedEspers.has(l) ||
-			Quickenings.includes(l) && this.quickeningCount[c] === 3
-		) {
+		if (this.selected[c].has(l) || this.isBlocked(c, l)) {
 			return this;
 		}
 		const path = this.findPath(c, l);
