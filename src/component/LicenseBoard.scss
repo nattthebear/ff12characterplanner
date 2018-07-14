@@ -1,10 +1,11 @@
 @import "../Mixins.scss";
 
 .license-board-holder {
-	overflow: scroll;
+	overflow: auto;
+	background-color: #333;
+
 	.license-board {
 		border-spacing: 0;
-		background-color: #333;
 
 		td {
 			min-width: 80px;
