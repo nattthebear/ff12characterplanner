@@ -20,3 +20,34 @@
 		background-color: #eef;
 	}
 }
+
+@mixin hoverShadow($color) {
+	&:hover {
+		box-shadow: inset 0 0 8px $color;
+	}
+}
+@mixin licenseShared {
+	cursor: pointer;
+	box-shadow: inset 0 0 2px #000;
+	&.obtained {
+		background-color: #fff;
+		@include hoverShadow(#f00);
+	}
+	&.certain {
+		background-color: #ddd;
+		@include hoverShadow(#0a0);
+	}
+	&.possible {
+		background-color: #ffa;
+		@include hoverShadow(#0a0);
+	}
+	&.blocked {
+		background-color: #fbb;
+		@include hoverShadow(#f00);
+		cursor: not-allowed;
+	}
+	&.unreachable {
+		@include hoverShadow(#f00);
+		cursor: not-allowed;
+	}
+}

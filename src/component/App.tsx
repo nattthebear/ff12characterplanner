@@ -9,6 +9,7 @@ export interface State {
 	party: PartyModel;
 	characterIndex: number;
 	boardIndex: number;
+	qeActive: boolean;
 }
 
 export default class App extends React.PureComponent<{}, State> {
@@ -18,7 +19,8 @@ export default class App extends React.PureComponent<{}, State> {
 		this.state = {
 			party: party || new PartyModel(),
 			characterIndex: 0,
-			boardIndex: 0
+			boardIndex: 0,
+			qeActive: false
 		};
 	}
 
@@ -39,6 +41,11 @@ export default class App extends React.PureComponent<{}, State> {
 		this.setState({ characterIndex, boardIndex });
 	}
 
+	@autobind
+	private toggleQe() {
+		this.setState(s => ({ qeActive: !s.qeActive }));
+	}
+
 	private updateSearch() {
 		history.replaceState(null, undefined, location.href.split("?")[0] + "?" + this.state.party.encode());
 	}
@@ -54,6 +61,6 @@ export default class App extends React.PureComponent<{}, State> {
 	}
 
 	render() {
-		return <CharacterPlanner {...this.state} changeParty={this.changeParty} changeIndices={this.changeIndices} />;
+		return <CharacterPlanner {...this.state} changeParty={this.changeParty} changeIndices={this.changeIndices} toggleQe={this.toggleQe} />;
 	}
 }

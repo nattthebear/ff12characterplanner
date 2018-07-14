@@ -14,6 +14,19 @@ export const enum Coloring {
 	BLOCKED
 }
 
+export interface ColorEx {
+	/** every license discovered for this character by coloring */
+	map: Map<License, Coloring>;
+	/** every license OBTAINED in the map */
+	obtained: Set<License>;
+	/** every license CERTAIN in the map */
+	certain: Set<License>;
+	/** every license POSSIBLE in the map */
+	possible: Set<License>;
+	/** every license BLOCKED in the map */
+	blocked: Set<License>;
+}
+
 export default class PartyModel {
 	private jobs: Board[][];
 	private selected: Set<License>[];
@@ -235,7 +248,7 @@ export default class PartyModel {
 		return ret;
 	}
 
-	color(c: number) {
+	colorEx(c: number): ColorEx {
 		const obtained = this.selected[c];
 		const certain = this.colorHelper(c, l => !l.limited, obtained);
 		const possible = this.colorHelper(c, l => !this.blockedEspers.has(l) && (!Quickenings.includes(l) || this.quickeningCount[c] < 3), obtained, certain);
@@ -253,7 +266,17 @@ export default class PartyModel {
 		for (const l of blocked) {
 			ret.set(l, Coloring.BLOCKED);
 		}
-		return ret;
+		return {
+			map: ret,
+			obtained,
+			certain,
+			possible,
+			blocked
+		};
+	}
+
+	color(c: number) {
+		return this.colorEx(c).map;
 	}
 
 	encode() {

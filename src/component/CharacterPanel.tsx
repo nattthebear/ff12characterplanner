@@ -11,6 +11,8 @@ export interface Props {
 	characterIndex: number;
 	boardIndex: number;
 	changeIndices(characterIndex: number, boardIndex: number): void;
+	qeActive: boolean;
+	toggleQe(): void;
 }
 
 export default class CharacterPanel extends React.PureComponent<Props> {
@@ -139,13 +141,24 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 		</button>;		
 	}
 
-	render() {
+	private renderToggleQe() {
+		return <button
+			className="action"
+			aria-label="Manage Quickenings and Espers for all characters at once."
+			onClick={this.props.toggleQe}
+			aria-pressed={this.props.qeActive}
+		>
+			{this.props.qeActive ? "Hide Mist Planner" : "Show Mist Planner"}
+		</button>;
+	}
 
+	render() {
 		return <div className="character-panel">
 			<div className="actions">
 				{this.renderResetJob()}
 				{this.renderResetCharacter()}
 				{this.renderResetAll()}
+				{this.renderToggleQe()}
 			</div>
 			<div className="character-select">
 				{Characters.map((c, i) => <div className="character" key={i} aria-pressed={this.props.characterIndex === i}>
