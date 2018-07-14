@@ -35,20 +35,20 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 			let a = 0;
 			let b = 0;
 			let c = 0;
-			let d = 0;
+			// let d = 0;
 			for (const l of g.contents) {
 				switch (colors.get(l)) {
 					case Coloring.OBTAINED: a += l.grants!.what as number; break;
 					case Coloring.CERTAIN: b += l.grants!.what as number; break;
 					case Coloring.POSSIBLE: c += l.grants!.what as number; break;
-					case Coloring.BLOCKED: d += l.grants!.what as number; break;
+					// case Coloring.BLOCKED: d += l.grants!.what as number; break;
 					default: continue;					
 				}
 			}
 			if (a) { children.push(<p key={0} className="l obtained">+{a}</p>); }
 			if (b) { children.push(<p key={1} className="l certain">+{b}</p>); }
 			if (c) { children.push(<p key={2} className="l possible">+{c}</p>); }
-			if (d) { children.push(<p key={3} className="l blocked">+{d}</p>); }
+			// if (d) { children.push(<p key={3} className="l blocked">+{d}</p>); }
 		} else {
 			// display each license (could display each granted spell if desired?)
 			for (const l of g.contents) {
@@ -57,7 +57,7 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 					case Coloring.OBTAINED: className = "l obtained"; break;
 					case Coloring.CERTAIN: className = "l certain"; break;
 					case Coloring.POSSIBLE: className = "l possible"; break;
-					case Coloring.BLOCKED: className = "l blocked"; break;
+					// case Coloring.BLOCKED: className = "l blocked"; break;
 					default: continue; // don't render not-at-all available licenses
 				}
 				children.push(<p key={l.fullName} className={className} aria-label={l.text}>{l.fullName}</p>);
@@ -69,7 +69,7 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 				{children}
 			</div>;
 		} else {
-			return <div key={i} />;
+			return null;
 		}
 	}
 
