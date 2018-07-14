@@ -3,6 +3,7 @@ import { License } from "../data/Licenses";
 import { Position, Board, Boards } from "../data/Boards";
 import "./LicenseBoard.scss";
 import PartyModel, { Coloring } from "../model/PartyModel";
+import GithubCorner from "./GithubCorner";
 
 export interface Props {
 	party: PartyModel;
@@ -65,6 +66,7 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 				<img className="zodiac" src={b.image} />
 				{b.name}
 			</button>)}
+			<GithubCorner />
 		</div>;
 	}
 
