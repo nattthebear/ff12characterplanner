@@ -71,7 +71,7 @@ export default class PartyModel {
 					}
 				}
 			}
-			this.selected[c] = reachable;	
+			this.selected[c] = reachable;
 		}
 	}
 
@@ -89,8 +89,8 @@ export default class PartyModel {
 		return lp;
 	}
 
+	/** Find the shortest path to a license */
 	private findPath(c: number, to: License) {
-		// find shortest path to to
 		interface Path {
 			nodes: License[];
 			length: number;
@@ -122,15 +122,13 @@ export default class PartyModel {
 			for (const j of this.jobs[c]) {
 				const location = j.lookup.get(l);
 				if (location) {
-					for (const next of location.adjacent.map(loc => loc.value).filter(val => !this.isBlocked(c, val))) {
-						if (!dests.has(next)) {
-							const nextPath = {
-								nodes: [...p.nodes, next],
-								length: p.length + next.cost
-							};
-							queue.push(nextPath);
-							dests.set(next, nextPath);
-						}
+					for (const next of location.adjacent.map(loc => loc.value).filter(val => val === to || !val.limited && !dests.has(val))) {
+						const nextPath = {
+							nodes: [...p.nodes, next],
+							length: p.length + next.cost
+						};
+						queue.push(nextPath);
+						dests.set(next, nextPath);
 					}
 				}
 			}
