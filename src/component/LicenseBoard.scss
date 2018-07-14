@@ -1,3 +1,5 @@
+@import "./Mixins.scss";
+
 .license-board-holder {
 	overflow: scroll;
 	.license-board {
@@ -58,21 +60,9 @@
 	background-color: #aaa;
 
 	.job {
-		margin: 2px;
-		border: 2px solid black;
-		border-radius: 6px;
-		padding: 6px;
+		@include buttonStyle;
 		line-height: 32px;
 		text-align: left;
-		background-color: white;
-		&:hover {
-			background-color: #efe;
-		}
-		&:disabled {
-			background-color: #ccc;
-			color: #999;
-			border-color: #999;
-		}
 
 		.zodiac {
 			height: 32px;

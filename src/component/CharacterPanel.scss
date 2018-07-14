@@ -1,3 +1,5 @@
+@import "./Mixins.scss";
+
 .character-panel {
 	display: flex;
 	flex-direction: column;
@@ -6,19 +8,9 @@
 		flex: 0 0 auto;
 		display: flex;
 		.character {
-			margin: 2px;
-			border: 2px solid black;
-			border-radius: 6px;
-			padding: 6px;
+			@include buttonStyle;
 			text-align: center;
-			&:hover {
-				background-color: #efe;
-			}
-			&[aria-pressed=true] {
-				border-color: #33f;
-				background-color: #eef;
-			}
-			
+
 			>.name {
 				font-weight: bold;
 			}

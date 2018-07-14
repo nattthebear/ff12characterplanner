@@ -1,0 +1,22 @@
+@mixin buttonStyle {
+	margin: 2px;
+	border: 2px solid #000;
+	border-radius: 6px;
+	padding: 6px;
+	background-color: #fff;
+	&:hover {
+		background-color: #efe;
+	}
+	&:disabled {
+		background-color: #ccc;
+		color: #999;
+		border-color: #999;
+		img {
+			opacity: 0.3;
+		}
+	}
+	&[aria-pressed=true] {
+		border-color: #33f;
+		background-color: #eef;
+	}
+}

@@ -12,10 +12,11 @@ import Capricorn from "../media/Capricorn.svg";
 import Aquarius from "../media/Aquarius.svg";
 import Pisces from "../media/Pisces.svg";
 
-const images = [Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius, Pisces];
-
-const boards = {
-	"White Mage": [
+const rawJobs = [{
+	"name": "White Mage",
+	"image": Aries,
+	"text": "Mages who wield healing and support magicks.",
+	"rawBoardData": [
 		[null, null, null, null, null, "Libra", null, null, null, null, null, "+230 HP"],
 		[null, null, null, null, null, "Cúchulainn", null, null, null, null, null, "Shemhazai", null, "Quickening 4"],
 		[null, null, "Accessories 22", "Accessories 20", "Accessories 18", "Accessories 16", "Accessories 14", null, "+190 HP", null, "Accessories 13", "Accessories 15", "Accessories 17", "Battle Lore 1", "Ribbon"],
@@ -35,8 +36,12 @@ const boards = {
 		[null, null, null, null, null, "White Magick 12", "White Magick 10", "White Magick 8", "White Magick 6", "White Magick 7", "White Magick 9", "White Magick 11"],
 		[null, null, null, null, null, null, null, "Hashmal", null, null, "Quickening 3"],
 		[null, null, null, null, null, null, null, null, null, null, "Battle Lore 5"]
-	],
-	"Uhlan": [
+	]
+}, {
+	"name": "Uhlan",
+	"image": Taurus,
+	"text": "Warriors who wield spears to pierce enemy armor.",
+	"rawBoardData": [
 		[null, null, "Zeromus", null, null, null, null, null, null, "Quickening 4"],
 		[null, null, "Heavy Armor 12", "Poach", "Phoenix Lore 2", null, "Black Magick 6", null, "Adrenaline", "Accessories 21", "Ribbon"],
 		[null, null, "Heavy Armor 11", "Heavy Armor 10", "Swiftness 1", null, "Black Magick 5", "Quickening 3", "Swiftness 2", "Accessories 19", "Accessories 22", "Zodiark"],
@@ -55,8 +60,12 @@ const boards = {
 		[null, null, "Dragon Whisker", "Vrsabha", "Zodiac Spear", "Revive", "Zalera", "Potion Lore 2", "Battle Lore 5", "Spellbound", "Souleater"],
 		[null, "Magick Lore 7", "Mateus", null, null, null, null, null, null, null, "Cúchulainn", "Wither"],
 		[null, null, "Magick Lore 8"]
-	],
-	"Machinist": [
+	]
+}, {
+	"name": "Machinist",
+	"image": Gemini,
+	"text": "Warriors who snipe their foes with deadly precision.",
+	"rawBoardData": [
 		[null, "Green Magick 1", null, "Quickening 2", null, null, null, null, null, null, null, null, null, "+350 HP", "Chaos"],
 		[null, "Exodus", "Gambit Slot 10", "Gambit Slot 7", null, "Belias", "Second Board", null, null, null, null, null, null, null, "Battle Lore 4", "Mithuna"],
 		[null, null, "Gambit Slot 9", "Gambit Slot 5", "Gambit Slot 4", "Gambit Slot 3", "Gambit Slot 2", null, null, "Adrammelech", null, "Poach", "Magick Lore 1", "Magick Lore 2", "Battle Lore 3", "Battle Lore 2"],
@@ -73,8 +82,12 @@ const boards = {
 		[null, "+270 HP", "+230 HP", "+110 HP", "+70 HP", "Spellbound", "Measures 4", null, null, "Cúchulainn", null, "Accessories 18", "Accessories 19", "Accessories 20", "Accessories 21", "Accessories 22", "Ribbon"],
 		[null, null, null, null, null, "Shemhazai", null, null, null, "Magick Lore 3", null, null, null, "Ultima", null, "Quickening 4"],
 		[null, null, null, null, null, "Hand-bombs 3", null, null, null, null, null, null, null, "Magick Lore 8", "Magick Lore 7", "Magick Lore 6"]
-	],
-	"Red Battlemage": [
+	]
+}, {
+	"name": "Red Battlemage",
+	"image": Cancer,
+	"text": "Battlemages equally skilled with maces and magicks.",
+	"rawBoardData": [
 		[null, null, null, "Steal", null, "White Magick 2"],
 		[null, null, null, "Hashmal", null, "Quickening 1", null, "Mateus", null, null, "White Magick 7", null, "+230 HP", null, "Heavy Armor 9", "Heavy Armor 10"],
 		[null, null, "Accessories 16", "Accessories 11", "Gambit Slot 6", "Gambit Slot 4", "Gambit Slot 3", "Time Magick 2", null, null, "Shemhazai", null, "Quickening 2", null, "Heavy Armor 8"],
@@ -93,8 +106,12 @@ const boards = {
 		[null, null, null, null, null, null, null, null, "Quickening 3", null, "Magick Lore 4", "Maces 5", "Channeling 2", "Headsman", "+270 HP", "Spellbound"],
 		[null, null, null, null, null, null, null, null, null, null, null, null, null, "Chaos"],
 		[null, null, null, null, null, null, null, null, null, null, null, null, null, "Greatswords 3"]
-	],
-	"Knight": [
+	]
+}, {
+	"name": "Knight",
+	"image": Leo,
+	"text": "Stalwart warriors who wield swords and shield.",
+	"rawBoardData": [
 		[null, null, null, null, null, null, null, null, null, null, "Potion Lore 2"],
 		[null, null, "Souleater", "Adrenaline", "Headsman", null, "Quickening 2", null, null, null, "Shemhazai"],
 		[null, null, "+270 HP", "Heavy Armor 4", "Shield Block 1", "Heavy Armor 5", "Battle Lore 3", "Heavy Armor 6", "Battle Lore 4", "Heavy Armor 7", "Battle Lore 2", "Heavy Armor 8"],
@@ -112,8 +129,12 @@ const boards = {
 		["Ribbon", "Accessories 22", "Accessories 20", "Accessories 18", "Accessories 16", "Accessories 14", "Accessories 15", null, null, null, null, "Chaos", "Quickening 4", "Zodiark"],
 		[null, "Hashmal", null, null, null, null, null, null, null, null, null, "+390 HP", "Revive", "Excalipur"],
 		[null, "White Magick 8", "White Magick 9"]
-	],
-	"Monk": [
+	]
+}, {
+	"name": "Monk",
+	"image": Virgo,
+	"text": "Warriors who temper their bodies into deadly weapons.",
+	"rawBoardData": [
 		[null, null, null, "Cúchulainn", null, null, null, null, "Belias", "Second Board"],
 		[null, null, "Brawler", "Battle Lore 1", null, "Inquisitor", "Martyr", null, "First Aid", "Libra"],
 		[null, null, "Battle Lore 5", "Light Armor 4", "Light Armor 3", "Light Armor 2", "Light Armor 1", "Gambit Slot 1", "Gambit Slot 2", "Gambit Slot 3", "Quickening 1"],
@@ -129,8 +150,12 @@ const boards = {
 		[null, null, "Wither", "+435 HP", null, "Expose", "Kanya", null, "Adrenaline", "Shades of Black", "Accessories 16", "Accessories 18", "Accessories 20", "Accessories 21", "Battle Lore 14", null, "Swiftness 3"],
 		[null, null, null, null, null, "Exodus", null, null, null, "Famfrit", null, null, "Battle Lore 15", "Battle Lore 16"],
 		[null, null, null, null, null, "Souleater", null, null, null, "White Magick 10", null, "White Magick 13", "Zodiark"]
-	],
-	"Time Battlemage": [
+	]
+}, {
+	"name": "Time Battlemage",
+	"image": Libra,
+	"text": "Battlemages who wield crossbows and bend time to their will.",
+	"rawBoardData": [
 		[null, null, null, null, null, "Channeling 3", null, "+150 HP", null, "White Magick 4"],
 		[null, null, null, null, null, "Adrammelech", null, "Quickening 2", null, "Hashmal"],
 		[null, null, null, "Gambit Slot 8", "Channeling 1", "Magick Lore 7", "Warmage", "Magick Lore 8", "Charge", "Magick Lore 3", "Magick Lore 4", "Poach", "Spellbreaker"],
@@ -148,8 +173,12 @@ const boards = {
 		[null, "Ribbon", "Battle Lore 10", "Battle Lore 8", "Green Magick 3", null, "Ultima", null, null, "Cúchulainn", null, "Green Magick 2", "Crossbows 3", "Green Magick 1", "Numerology", "Shemhazai"],
 		[null, null, "Zodiark", null, "Quickening 4", null, "Swords 7"],
 		[null, null, "Swords 9", null, null, null, "Swords 8"]
-	],
-	"Foebreaker": [
+	]
+}, {
+	"name": "Foebreaker",
+	"image": Scorpio,
+	"text": "Warriors who use mighty weapons to tear their foes asunder.",
+	"rawBoardData": [
 		[null, null, null, "Shades of Black", null, "Swiftness 2"],
 		[null, null, null, "Cúchulainn", null, "Hashmal", "Quickening 2", null, null, "Quickening 1"],
 		[null, null, "Shell Shield", "Last Stand", null, "Shear", "Martyr", null, "Gambit Slot 3", "Gambit Slot 4"],
@@ -167,8 +196,12 @@ const boards = {
 		[null, null, "Ribbon", "Zodiac Escutcheon", null, "Hand-bombs 4", "Hand-bombs 3", null, "+190 HP", "Battle Lore 5", "+230 HP", "Battle Lore 6", "+270 HP", "Battle Lore 7", "Battle Lore 8", "Chaos"],
 		[null, null, null, "Quickening 4", null, null, "Adrammelech", null, null, "Zalera", null, null, null, null, "Famfrit"],
 		[null, null, null, "Battle Lore 15", null, null, "Battle Lore 11", null, null, "Traveler", null, null, null, null, "Magick Lore 8"]
-	],
-	"Archer": [
+	]
+}, {
+	"name": "Archer",
+	"image": Sagittarius,
+	"text": "Warriors who rain death on their foes from afar.",
+	"rawBoardData": [
 		[null, null, null, null, null, null, "Quickening 4", null, null, "Hashmal"],
 		[null, null, null, null, null, null, "+230 HP", "Revive", "Gambit Slot 10", "Gambit Slot 9", "Gambit Slot 8"],
 		[null, null, "+435 HP", "+390 HP", "Famfrit", "+310 HP", "+270 HP", "Focus", "Traveler", "+110 HP", "Gambit Slot 7", "Gambit Slot 6"],
@@ -188,8 +221,12 @@ const boards = {
 		[null, null, null, null, null, "Light Armor 13", "Dhanusha", "Sagittarius", "Phoenix Lore 2", "Bows 6", "Swiftness 2"],
 		[null, null, null, null, null, null, null, null, "Shemhazai"],
 		[null, null, null, null, null, null, "Heavy Armor 12", "Heavy Armor 11", "Heavy Armor 10"]
-	],
-	"Black Mage": [
+	]
+}, {
+	"name": "Black Mage",
+	"image": Capricorn,
+	"text": "Mages who channel elemental forces into deadly magicks.",
+	"rawBoardData": [
 		[null, null, null, null, null, null, null, null, "+70 HP"],
 		[null, null, null, null, "Zodiark", null, "Hand-bombs 3", null, "Quickening 1"],
 		[null, null, null, "Mystic Armor 13", "Mystic Armor 12", null, "Mateus", "Magick Lore 4", "Gambit Slot 5", "Adrammelech", "Hand-bombs 2"],
@@ -209,8 +246,12 @@ const boards = {
 		[null, null, null, null, "+230 HP", "+190 HP", null, null, "Heavy Armor 9", null, "Spellbound", "Accessories 14", "Swiftness 1", "Accessories 18", "Swiftness 2", "Accessories 22"],
 		[null, null, null, null, "+310 HP", null, null, null, null, null, "Quickening 2", null, "Cúchulainn", null, "Exodus"],
 		[null, null, null, null, null, null, null, null, null, null, null, null, null, null, "Heavy Armor 8"]
-	],
-	"Bushi": [
+	]
+}, {
+	"name": "Bushi",
+	"image": Aquarius,
+	"text": "Swordmasters who devote themselves body and soul to their lords.",
+	"rawBoardData": [
 		[null, null, null, null, null, null, null, null, null, null, "Karkata", null, "Masamune", "Kumbha"],
 		[null, null, null, null, null, null, null, null, "Souleater", null, "Blood Sword", "Zalera", "Magick Lore 7", "Serenity", null, "Battle Lore 7"],
 		[null, null, null, null, null, null, null, null, "Adrammelech", null, null, null, "Magick Lore 8", "Katana 5", "Quickening 3", "+390 HP"],
@@ -230,8 +271,12 @@ const boards = {
 		[null, null, null, null, null, null, "Battle Lore 5", "Battle Lore 1", "Chaos", "Brawler"],
 		[null, null, null, "Heavy Armor 10", "Heavy Armor 9", "Zodiark", "Swiftness 3", "Battle Lore 6"],
 		[null, null, null, "Heavy Armor 11"]
-	],
-	"Shikari": [
+	]
+}, {
+	"name": "Shikari",
+	"image": Pisces,
+	"text": "Warriors who fight nimbly across hill and dale.",
+	"rawBoardData": [
 		[null, null, null, "Shades of Black", null, null, null, null, null, null, null, null, null, "Phoenix Lore 1", "Phoenix Lore 2"],
 		[null, null, null, "Adrammelech", null, null, null, null, null, null, null, null, null, "Ultima"],
 		[null, null, "Gambit Slot 10", "Gambit Slot 8", "Remedy Lore 2", "Gambit Slot 7", null, null, null, null, null, "Light Armor 10", "Daggers 6", "Light Armor 12", "Shikari Nagasa & Mina", "Chaos"],
@@ -250,7 +295,7 @@ const boards = {
 		[null, null, null, "Shemhazai", null, null, null, null, null, null, null, null, null, "Quickening 4"],
 		[null, null, "Guns 6", "Guns 5", null, null, null, null, null, null, null, null, null, "Yagyu Darkblade & Mesa"]
 	]
-};
+}];
 
 export interface Position {
 	value: License;
@@ -259,17 +304,19 @@ export interface Position {
 
 export interface Board {
 	name: string;
+	text: string;
+	image: string;
 	rows: (Position | undefined)[][];
 	lookup: Map<License, Position>;
-	image: string;
 }
 
-function connectBoard(name: string, board: (string | null)[][], image: string) {
+function createBoard(raw: typeof rawJobs[0]): Board {
 	const ret: Board = {
-		name,
-		rows: board.map(row => row.map(v => v ? { value: LicenseByName(v), adjacent: [] } : undefined )),
-		lookup: new Map<License, Position>(),
-		image
+		name: raw.name,
+		text: raw.text,
+		image: raw.image,
+		rows: raw.rawBoardData.map(row => row.map(v => v ? { value: LicenseByName(v), adjacent: [] } : undefined)),
+		lookup: new Map<License, Position>()
 	};
 	for (let y = 0; y < ret.rows.length; y++) {
 		const row = ret.rows[y];
@@ -288,4 +335,4 @@ function connectBoard(name: string, board: (string | null)[][], image: string) {
 	return ret;
 }
 
-export const Boards = Object.entries(boards).map((a, i) => connectBoard(a[0], a[1], images[i]));
+export const Boards = rawJobs.map(createBoard);
