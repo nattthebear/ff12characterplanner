@@ -79,6 +79,14 @@ export default class PartyModel {
 		return this.jobs[c][index];
 	}
 
+	unemployed(c: number) {
+		return this.jobs[c].length === 0;
+	}
+
+	allUnemployed() {
+		return !this.jobs.find(a => a.length > 0);
+	}
+
 	getLpCount(c: number) {
 		let lp = 0;
 		for (const l of this.selected[c]) {
@@ -188,6 +196,16 @@ export default class PartyModel {
 		}
 		const r = new PartyModel(this);
 		r.jobs[c].splice(r.jobs[c].indexOf(j), 1);
+		r.verify();
+		return r;
+	}
+
+	removeAllJobs(c: number) {
+		if (!this.jobs[c].length) {
+			return this;
+		}
+		const r = new PartyModel(this);
+		r.jobs[c].length = 0;
 		r.verify();
 		return r;
 	}

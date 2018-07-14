@@ -24,7 +24,14 @@ export default class App extends React.PureComponent<{}, State> {
 
 	@autobind
 	private changeParty(newParty: PartyModel) {
-		this.setState({ party: newParty });
+		this.setState(s => {
+			if (s.boardIndex && !newParty.getJob(s.characterIndex, s.boardIndex)) {
+				// don't allow selecting second job when first one is not learned
+				return { party: newParty, boardIndex: 0 };
+			} else {
+				return { party: newParty, boardIndex: s.boardIndex };
+			}
+		});
 	}
 
 	@autobind

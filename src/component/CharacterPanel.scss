@@ -4,6 +4,15 @@
 	display: flex;
 	flex-direction: column;
 
+	.actions {
+		flex: 0 0 auto;
+		display: flex;
+		.action {
+			@include buttonStyle;
+			flex: 1 0 0;
+		}
+	}
+
 	.character-select {
 		flex: 0 0 auto;
 		display: flex;

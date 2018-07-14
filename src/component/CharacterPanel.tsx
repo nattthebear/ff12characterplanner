@@ -6,10 +6,14 @@ import { Characters } from "../data/Characters";
 
 export interface Props {
 	party: PartyModel;
-	// changeParty(newParty: PartyModel): void;
+	changeParty(newParty: PartyModel): void;
 	characterIndex: number;
 	boardIndex: number;
 	changeIndices(characterIndex: number, boardIndex: number): void;
+}
+
+async function confirm(message: string) {
+	return true;
 }
 
 export default class CharacterPanel extends React.PureComponent<Props> {
@@ -42,7 +46,7 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 					case Coloring.CERTAIN: b += l.grants!.what as number; break;
 					case Coloring.POSSIBLE: c += l.grants!.what as number; break;
 					// case Coloring.BLOCKED: d += l.grants!.what as number; break;
-					default: continue;					
+					default: continue;
 				}
 			}
 			if (a) { children.push(<p key={0} className="l obtained">+{a}</p>); }
@@ -78,8 +82,74 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 		return LicenseGroups.map((g, i) => this.renderLicenseGroup(g, i, colors));
 	}
 
+	private renderResetJob() {
+		const c = this.props.characterIndex;
+		const job = this.props.party.getJob(c, this.props.boardIndex);
+		let label: string;
+		let disabled: boolean;
+		if (job) {
+			label = `Unlearn ${job.name} from ${Characters[c].name}`;
+			disabled = false;
+		} else {
+			label = `Unlearn current job from ${Characters[c].name}`;
+			disabled = true;
+		}
+		return <button
+			className="action"
+			aria-label={label}
+			disabled={disabled}
+			onClick={async () => {
+				if (await confirm(label + "?")) {
+					this.props.changeParty(this.props.party.removeJob(c, job!));
+				}
+			}}
+		>
+			Reset Job
+		</button>;
+	}
+
+	private renderResetCharacter() {
+		const c = this.props.characterIndex;
+		const disabled = this.props.party.unemployed(c);
+		const label = `Unlearn all jobs from ${Characters[c].name}`;
+		return <button
+			className="action"
+			aria-label={label}
+			disabled={disabled}
+			onClick={async () => {
+				if (await confirm(label + "?")) {
+					this.props.changeParty(this.props.party.removeAllJobs(c));
+				}
+			}}
+		>
+			Reset Character
+		</button>;
+	}
+
+	private renderResetAll() {
+		const disabled = this.props.party.allUnemployed();
+		return <button
+			className="action"
+			aria-label="Unlearn all jobs from all characters"
+			disabled={disabled}
+			onClick={async () => {
+				if (await confirm("Unlearn all jobs from all characters?")) {
+					this.props.changeParty(new PartyModel());
+				}
+			}}
+		>
+			Reset All
+		</button>;		
+	}
+
 	render() {
+
 		return <div className="character-panel">
+			<div className="actions">
+				{this.renderResetJob()}
+				{this.renderResetCharacter()}
+				{this.renderResetAll()}
+			</div>
 			<div className="character-select">
 				{Characters.map((c, i) => <div className="character" key={i} aria-pressed={this.props.characterIndex === i}>
 					<span className="name">{c.name}</span>
