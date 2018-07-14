@@ -1,7 +1,7 @@
 import * as React from "react";
 import PartyModel from "../model/PartyModel";
 import CharacterPlanner from "./CharacterPlanner";
-import autobind from "../../node_modules/autobind-decorator";
+import autobind from "autobind-decorator";
 import "normalize.css/normalize.css";
 import "./App.scss";
 

@@ -3,6 +3,7 @@ import "./CharacterPanel.scss";
 import { LicenseGroups, LicenseGroup, License } from "../data/Licenses";
 import PartyModel, { Coloring } from "../model/PartyModel";
 import { Characters } from "../data/Characters";
+import { confirm } from "../Dialog";
 
 export interface Props {
 	party: PartyModel;
@@ -10,10 +11,6 @@ export interface Props {
 	characterIndex: number;
 	boardIndex: number;
 	changeIndices(characterIndex: number, boardIndex: number): void;
-}
-
-async function confirm(message: string) {
-	return true;
 }
 
 export default class CharacterPanel extends React.PureComponent<Props> {

@@ -8,7 +8,9 @@
     "dz-priority-queue": "^0.1.2",
     "normalize.css": "^8.0.0",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "vex-dialog": "^1.1.0",
+    "vex-js": "^4.1.0"
   },
   "scripts": {
     "start": "react-scripts-ts start",
