@@ -152,6 +152,14 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 		</button>;
 	}
 
+	private selectCharacter(index: number) {
+		if (this.props.characterIndex === index) {
+			this.props.changeIndices(index, this.props.boardIndex ^ 1);
+		} else {
+			this.props.changeIndices(index, 0);
+		}
+	}
+
 	render() {
 		return <div className="character-panel">
 			<div className="actions">
@@ -161,7 +169,7 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 				{this.renderToggleQe()}
 			</div>
 			<div className="character-select">
-				{Characters.map((c, i) => <div className="character" key={i} aria-pressed={this.props.characterIndex === i}>
+				{Characters.map((c, i) => <div className="character" key={i} aria-pressed={this.props.characterIndex === i} onClick={() => this.selectCharacter(i)}>
 					<span className="name">{c.name}</span>
 					<br />
 					{this.renderClassInfo(i, 0)}

@@ -19,6 +19,7 @@
 		.character {
 			@include buttonStyle;
 			text-align: center;
+			cursor: pointer;
 
 			>.name {
 				font-weight: bold;
