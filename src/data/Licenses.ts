@@ -1,7 +1,10 @@
 export interface License {
 	fullName: string;
+	/** cost in LP */
 	cost: number;
+	/** description of license (sometimes just a list of spells) */
 	text: string;
+	/** true if license is a mist license and might not be available depending on other choices */
 	limited: boolean;
 	grants?: {
 		group: string;
