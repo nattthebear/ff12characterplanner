@@ -40,7 +40,7 @@ export default class QeBoard extends React.PureComponent<Props, State> {
 				// cell is white => anything white or grey now but yellow after removing that license (except for the license itself)
 				const next = this.props.party.delete(c, l).colorEx(c);
 				for (const ll of next.possible) {
-					if (ll !== l && !l.limited) { // see comment below; since `next` isn't doing `toAdd`, just filter mist licenses at this step
+					if (ll !== l && !ll.limited) { // see comment below; since `next` isn't doing `toAdd`, just filter mist licenses at this step
 						const v = initial.map.get(ll);
 						if (v === Coloring.OBTAINED || v === Coloring.CERTAIN) {
 							content.push(ll);
