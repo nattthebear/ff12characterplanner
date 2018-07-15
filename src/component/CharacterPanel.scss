@@ -75,8 +75,8 @@
 				&.possible {
 					background-color: #ffa;
 				}
-				&.blocked {
-					display: none;
+				&.planned {
+					background-color: #afa;
 				}
 			}
 		}

@@ -39,7 +39,7 @@ export default class App extends React.PureComponent<{}, State> {
 	@autobind
 	private changeIndices(characterIndex: number, boardIndex: number) {
 		this.setState(s => {
-			if (boardIndex && !s.party.getJob(characterIndex, boardIndex)) {
+			if (boardIndex && !s.party.getJob(characterIndex, 0)) {
 				// don't allow selecting second job when first one is not learned
 				boardIndex = 0;
 			}

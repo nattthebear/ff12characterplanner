@@ -11,6 +11,7 @@ export interface Props {
 	characterIndex: number;
 	boardIndex: number;
 	changeIndices(characterIndex: number, boardIndex: number): void;
+	changePlannedParty(plannedParty: PartyModel | undefined): void;
 }
 
 export default class LicenseBoard extends React.PureComponent<Props> {
@@ -62,6 +63,8 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 				className="job"
 				disabled={b === other}
 				aria-label={b.text}
+				onMouseOver={() => this.props.changePlannedParty(this.props.party.addJob(this.props.characterIndex, b))}
+				onMouseOut={() => this.props.changePlannedParty(undefined)}
 			>
 				<img className="zodiac" src={b.image} />
 				{b.name}
