@@ -22,11 +22,11 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 		const selected = this.props.characterIndex === characterIndex && this.props.boardIndex === index;
 		if (!j) {
 			const disabled = index === 1 && !this.props.party.getJob(characterIndex, 0);
-			return <button disabled={disabled} className="job nojob" aria-pressed={selected} onClick={() => this.props.changeIndices(characterIndex, index)}>
+			return <button disabled={disabled} className="job nojob" aria-pressed={selected} onClick={ev => { ev.stopPropagation(); this.props.changeIndices(characterIndex, index); }}>
 				<span className="name">No Job</span>
 			</button>;
 		} else {
-			return <button className="job" aria-pressed={selected} onClick={() => this.props.changeIndices(characterIndex, index)}>
+			return <button className="job" aria-pressed={selected} onClick={ev => { ev.stopPropagation(); this.props.changeIndices(characterIndex, index); }}>
 				<span className="name">{j.name}</span>
 			</button>;
 		}
