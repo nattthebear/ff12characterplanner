@@ -18,6 +18,10 @@ export interface State {
 
 const allLimitedLicenses = [...Espers, ...Quickenings];
 
+function compareLicenses(a: License, b: License) {
+	return a.sortOrder - b.sortOrder;
+}
+
 export default class QeBoard extends React.PureComponent<Props, State> {
 	state: State = { colorings: [] };
 
@@ -111,6 +115,7 @@ export default class QeBoard extends React.PureComponent<Props, State> {
 					Choose a job first.
 				</div>;
 		}
+		content.sort(compareLicenses);
 		return <div key={c} className={className} onClick={clickHandler}>
 			{content.map((v, i) => <div key={i} aria-label={v.text}>{v.fullName}</div>)}
 		</div>;

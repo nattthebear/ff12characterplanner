@@ -10,20 +10,25 @@ export interface License {
 		group: string;
 		what: number | string[];
 	};
+	sortOrder: number;
 }
+
+let sortOrder = 0;
 
 const allLicenses = Array<License>();
 allLicenses.push({
 	fullName: "Essentials",
 	cost: 1,
 	text: "Attack\nItem",
-	limited: false
+	limited: false,
+	sortOrder: sortOrder++
 });
 allLicenses.push({
 	fullName: "Second Board",
 	cost: 30,
 	text: "Second Board",
-	limited: false
+	limited: false,
+	sortOrder: sortOrder++
 });
 
 {
@@ -42,7 +47,8 @@ allLicenses.push({
 			grants: {
 				group: full,
 				what: spells
-			}
+			},
+			sortOrder: sortOrder++
 		});
 		i++;
 	};
@@ -104,7 +110,8 @@ allLicenses.push({
 			grants: {
 				group: "Technicks",
 				what: [name]
-			}
+			},
+			sortOrder: sortOrder++
 		});
 	};
 	t(35, "1000 Needles", "Deal 1,000 damage to one foe.");
@@ -144,7 +151,8 @@ allLicenses.push({
 				grants: {
 					group: name,
 					what: 1
-				}
+				},
+				sortOrder: sortOrder++
 			});
 			i++;
 		}
@@ -166,7 +174,8 @@ allLicenses.push({
 			grants: {
 				group: "HP",
 				what: hp
-			}
+			},
+			sortOrder: sortOrder++
 		});
 	};
 	h(30, 20);
@@ -193,7 +202,8 @@ allLicenses.push({
 			grants: {
 				group: "Quickening",
 				what: 1
-			}
+			},
+			sortOrder: sortOrder++
 		});
 		i++;
 	}
@@ -208,7 +218,8 @@ allLicenses.push({
 			grants: {
 				group: "Esper",
 				what: [fullName]
-			}
+			},
+			sortOrder: sortOrder++
 		});
 	};
 	e(20, "Belias", "the Gigas");
@@ -235,7 +246,8 @@ allLicenses.push({
 			grants: {
 				group: "Passive",
 				what: [fullName]
-			}
+			},
+			sortOrder: sortOrder++
 		});
 	};
 	p(70, "Focus", "Increases strength when HP is full.");
@@ -281,7 +293,8 @@ allLicenses.push({
 			grants: {
 				group: category,
 				what: grants
-			}
+			},
+			sortOrder: sortOrder++
 		});
 	};
 	eq(5, "Accessories", "Accessories 1", "Orrachea Armlet");
