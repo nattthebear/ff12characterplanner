@@ -36,33 +36,45 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 		const children = Array<React.ReactNode>();
 		if (typeof g.contents[0].grants!.what === "number") {
 			// display a numeric total
-			let a = 0;
-			let b = 0;
-			let c = 0;
-			let d = 0;
+			const a = Array<License>();
+			const b = Array<License>();
+			const c = Array<License>();
+			const d = Array<License>();
 			for (const l of g.contents) {
 				switch (colors.get(l)) {
-					case Coloring.OBTAINED: a += l.grants!.what as number; break;
-					case Coloring.CERTAIN: b += l.grants!.what as number; break;
-					case Coloring.POSSIBLE: c += l.grants!.what as number; break;
+					case Coloring.OBTAINED: a.push(l); break;
+					case Coloring.CERTAIN: b.push(l); break;
+					case Coloring.POSSIBLE: c.push(l); break;
 					case Coloring.BLOCKED:
 					default:
 						if (plannedColors && plannedColors.has(l) && plannedColors.get(l) !== Coloring.BLOCKED) {
-							d += l.grants!.what as number;
+							d.push(l);
 						}
 						break;
 				}
 			}
-			if (a) { children.push(<p key={0} className="l obtained">+{a}</p>); }
-			if (b) { children.push(<p key={1} className="l certain">+{b}</p>); }
-			if (c) { children.push(<p key={2} className="l possible">+{c}</p>); }
-			if (d) { children.push(<p key={3} className="l planned">+{d}</p>); }
+			const onClick = (licenses: License[], add: boolean) => {
+				let party = this.props.party;
+				for (const l of licenses) {
+					if (add) {
+						party = party.add(this.props.characterIndex, l);
+					} else {
+						party = party.delete(this.props.characterIndex, l);
+					}
+					this.props.changeParty(party);
+				}
+			};
+			if (a.length) { children.push(<p key={0} className="l obtained" onClick={() => onClick(a, false)}>+{a.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
+			if (b.length) { children.push(<p key={1} className="l certain" onClick={() => onClick(b, true)}>+{b.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
+			if (c.length) { children.push(<p key={2} className="l possible" onClick={() => onClick(c, true)}>+{c.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
+			if (d.length) { children.push(<p key={3} className="l planned">+{d.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
 		} else {
 			// display each license (could display each granted spell if desired?)
 			for (const l of g.contents) {
 				let className: string;
+				let obtained = false;
 				switch (colors.get(l)) {
-					case Coloring.OBTAINED: className = "l obtained"; break;
+					case Coloring.OBTAINED: className = "l obtained"; obtained = true; break;
 					case Coloring.CERTAIN: className = "l certain"; break;
 					case Coloring.POSSIBLE: className = "l possible"; break;
 					case Coloring.BLOCKED:
@@ -73,7 +85,21 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 							continue; // don't render not at all available licenses
 						}
 				}
-				children.push(<p key={l.fullName} className={className} aria-label={l.text}>{l.fullName}</p>);
+				const onClick = () => {
+					if (obtained) {
+						this.props.changeParty(this.props.party.delete(this.props.characterIndex, l));
+					} else {
+						this.props.changeParty(this.props.party.add(this.props.characterIndex, l));
+					}
+				};
+				children.push(<p
+					key={l.fullName}
+					className={className}
+					aria-label={l.text}
+					onClick={onClick}
+				>
+					{l.fullName}
+				</p>);
 			}
 		}
 		if (children.length) {

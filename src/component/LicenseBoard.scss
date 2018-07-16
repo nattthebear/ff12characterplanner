@@ -16,6 +16,7 @@
 			vertical-align: top;
 			&.l {
 				@include licenseShared;
+				@include licenseBorderShared;
 
 				.name {
 					font-size: 10px;

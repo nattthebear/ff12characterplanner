@@ -26,9 +26,13 @@
 		box-shadow: inset 0 0 8px $color;
 	}
 }
+
+@mixin licenseBorderShared {
+	box-shadow: inset 0 0 2px #000;
+}
+
 @mixin licenseShared {
 	cursor: pointer;
-	box-shadow: inset 0 0 2px #000;
 	&.obtained {
 		background-color: #fff;
 		@include hoverShadow(#f00);
@@ -49,5 +53,8 @@
 	&.unreachable {
 		@include hoverShadow(#f00);
 		cursor: not-allowed;
+	}
+	&.planned {
+		background-color: #afa;
 	}
 }

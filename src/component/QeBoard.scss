@@ -26,6 +26,7 @@
 
 	.l {
 		@include licenseShared;
+		@include licenseBorderShared;
 		font-size: 12px;
 
 		&.unreachable {
