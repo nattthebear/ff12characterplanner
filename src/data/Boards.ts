@@ -157,7 +157,7 @@ const rawJobs = [{
 	"text": "Battlemages who wield crossbows and bend time to their will.",
 	"rawBoardData": [
 		[null, null, null, null, null, "Channeling 3", null, "+150 HP", null, "White Magick 4"],
-		[null, null, null, null, null, "Adrammelech", null, "Quickening 2", null, "Hashmal"],
+		[null, null, null, null, null, "Hashmal", null, "Quickening 2", null, "Adrammelech"],
 		[null, null, null, "Gambit Slot 8", "Channeling 1", "Magick Lore 7", "Warmage", "Magick Lore 8", "Charge", "Magick Lore 3", "Magick Lore 4", "Poach", "Spellbreaker"],
 		[null, "Battle Lore 12", "Exodus", "Gambit Slot 9", "Headsman", "Heavy Armor 6", "Time Magick 6", "Swiftness 1", "Heavy Armor 5", "Time Magick 5", "Heavy Armor 4", "Ether Lore 2", "Gambit Slot 7"],
 		[null, null, null, "Gambit Slot 10", "Magick Lore 6", "Time Magick 7", null, "Zalera", null, null, "Magick Lore 2", "Time Magick 4", "Gambit Slot 6", "Mateus", "+230 HP"],
