@@ -241,7 +241,7 @@ const rawJobs = [{
 		[null, null, null, "Black Magick 10", "Black Magick 9", "Black Magick 8", "Black Magick 7", "Black Magick 6", "Black Magick 5", null, "Accessories 8", "Inquisitor", "Magick Lore 8", "Green Magick 1", "Channeling 2", "+270 HP"],
 		[null, null, null, null, null, null, null, null, null, null, "Charge", "Accessories 9", "Ether Lore 2", "Spellbreaker", "Magick Lore 7", "Magick Lore 6"],
 		["Telekinesis", "Ultima", "Magick Lore 14", "Magick Lore 15", "Ribbon", "Channeling 3", "Accessories 19", "Gambit Slot 9", "Accessories 15", "Remedy Lore 1", "Accessories 10", "+150 HP", null, null, "Remedy Lore 2", "Headsman", "Shemhazai", "Heavy Armor 7"],
-		[null, "Magick Lore 16", "Magick Lore 13", "Magick Lore 12", null, "Accessories 21", "Green Magick 2", "Accessories 17", "Charm", "Accessories 12", "Serenity", "Accessories 11", null, null, "Ether Lore 3", "Green Magick 3"],
+		[null, null, "Magick Lore 16", "Magick Lore 13", "Magick Lore 12", "Accessories 21", "Green Magick 2", "Accessories 17", "Charm", "Accessories 12", "Serenity", "Accessories 11", null, null, "Ether Lore 3", "Green Magick 3"],
 		[null, null, null, "Chaos", null, "Famfrit", null, null, "Zeromus", null, "Accessories 13", "Gambit Slot 8", "Accessories 16", "Gambit Slot 10", "Accessories 20", "Staff of the Magi"],
 		[null, null, null, null, "+230 HP", "+190 HP", null, null, "Heavy Armor 9", null, "Spellbound", "Accessories 14", "Swiftness 1", "Accessories 18", "Swiftness 2", "Accessories 22"],
 		[null, null, null, null, "+310 HP", null, null, null, null, null, "Quickening 2", null, "Cúchulainn", null, "Exodus"],
