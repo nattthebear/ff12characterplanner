@@ -52,24 +52,27 @@ export default class PartyModel {
 		this.blockedEspers.clear();
 		for (let c = 0; c < 6; c++) {
 			const sel = this.selected[c];
+
+			// prune any espers assigned twice
 			for (const e of Espers) {
 				if (sel.has(e)) {
-					this.blockedEspers.add(e);
 					for (let i = c + 1; i < 6; i++) {
 						this.selected[i].delete(e);
 					}
 				}
 			}
-			let qc = Quickenings.filter(q => sel.has(q)).length;
-			if (qc === 4) {
-				qc--;
+
+			// prune extra quickenings
+			if (Quickenings.filter(q => sel.has(q)).length === 4) {
 				sel.delete(Quickenings[3]);
 			}
-			this.quickeningCount[c] = qc;
+
+			// force any innate license to be taken
 			for (const l of Characters[c].innateLicenses) {
 				sel.add(l);
 			}
 
+			// prune any license that's not reachable from starting (innate) licenses
 			const reachable = new Set<License>();
 			const toCheck = [...Characters[c].innateLicenses];
 			while (toCheck.length) {
@@ -84,6 +87,15 @@ export default class PartyModel {
 					}
 				}
 			}
+
+			// compute esper and quickening counts at the end, in case the prune operation removed additional ones
+			for (const e of Espers) {
+				if (reachable.has(e)) {
+					this.blockedEspers.add(e);
+				}
+			}
+			this.quickeningCount[c] = Quickenings.filter(q => reachable.has(q)).length;
+
 			this.selected[c] = reachable;
 		}
 	}
