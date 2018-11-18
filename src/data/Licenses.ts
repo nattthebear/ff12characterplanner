@@ -64,7 +64,7 @@ allLicenses.push({
 	am(80, "Bravery", "Curaja");
 	am(90, "Dispelga", "Arise");
 	am(100, "Holy", "Esunaga");
-	am(110, "Protega", "Shellga");
+	am(110, "Protectga", "Shellga");
 	am(155, "Renew");
 	r("Black Magick");
 	am(15, "Fire", "Thunder");
@@ -89,7 +89,7 @@ allLicenses.push({
 	am(70, "Break", "Doom");
 	am(80, "Float", "Berserk");
 	am(90, "Vanishga", "Warp");
-	am(100, "Reflega", "Slowga");
+	am(100, "Reflectga", "Slowga");
 	am(125, "Graviga", "Hastega");
 	r("Green Magick");
 	am(40, "Decoy", "Oil");
