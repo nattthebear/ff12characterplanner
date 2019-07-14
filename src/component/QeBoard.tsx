@@ -41,25 +41,35 @@ export default class QeBoard extends React.PureComponent<Props, State> {
 		switch (initial.map.get(l)) {
 			case Coloring.OBTAINED: {
 				className = "l obtained";
-				// cell is white => anything white or grey now but yellow after removing that license (except for the license itself)
-				const next = this.props.party.delete(c, l).colorEx(c);
-				for (const ll of next.possible) {
-					if (ll !== l && !ll.limited) { // see comment below; since `next` isn't doing `toAdd`, just filter mist licenses at this step
-						const v = initial.map.get(ll);
-						if (v === Coloring.OBTAINED || v === Coloring.CERTAIN) {
-							content.push(ll);
+				// cell is white => show anything white or grey now but yellow after removing that license (except for the license itself)
+
+				// in certain cases, the unusual topology of double boards can cause the pathfinder to select a path to
+				// a mist license B that goes through another already obtained mist license A, as this is the shortest way
+				// if A is then removed, B is automatically lost.
+
+				// on the normal boards, this isn't a problem because you get to see what's going on and obtain the licenses
+				// in another way if you want, but it's not obvious what's happening on the mist planner
+
+				// So, remember all obtained mist licenses before deleting and then re-add them.
+				{
+					const toAdd = allLimitedLicenses.filter(ll => ll !== l && this.props.party.has(c, ll));
+					let newParty = this.props.party.delete(c, l);
+					for (const ll of toAdd) {
+						newParty = newParty.add(c, ll);
+					}
+					const next = newParty.colorEx(c);
+					for (const ll of next.possible) {
+						if (ll !== l) {
+							const v = initial.map.get(ll);
+							if (v === Coloring.OBTAINED || v === Coloring.CERTAIN) {
+								content.push(ll);
+							}
 						}
 					}
 				}
+
 				clickHandler = () => {
-					// in certain cases, the unusual topology of double boards can cause the pathfinder to select a path to
-					// a mist license B that goes through another already obtained mist license A, as this is the shortest way
-					// if A is then removed, B is automatically lost.
-
-					// on the normal boards, this isn't a problem because you get to see what's going on and obtain the licenses
-					// in another way if you want, but it's not obvious what's happening on the mist planner
-
-					// So, remember all obtained mist licenses before deleting and then re-add them.
+					// (see comment above)
 					const toAdd = allLimitedLicenses.filter(ll => ll !== l && this.props.party.has(c, ll));
 					let newParty = this.props.party.delete(c, l);
 					for (const ll of toAdd) {
@@ -71,7 +81,7 @@ export default class QeBoard extends React.PureComponent<Props, State> {
 			}
 			case Coloring.POSSIBLE: {
 				className = "l possible";
-				// cell is yellow => anything yellow now but grey after adding that license
+				// cell is yellow => show anything yellow now but grey after adding that license
 				const next = this.props.party.add(c, l).colorEx(c);
 				for (const ll of initial.possible) {
 					if (next.certain.has(ll)) {
@@ -84,8 +94,8 @@ export default class QeBoard extends React.PureComponent<Props, State> {
 			case Coloring.BLOCKED: {
 				className = "l blocked";
 				// cell is red
-				// && esper => anything yellow or red now but grey after removing esper from owner and adding it here
-				// && quickening => anything yellow or red now but grey after removing all quickenings from char and adding that one
+				// && esper => show anything yellow or red now but grey after removing esper from owner and adding it here
+				// && quickening => show anything yellow or red now but grey after removing all quickenings from char and adding that one
 				let nextParty = this.props.party;
 				if (esper) {
 					for (let i = 0; i < 6; i++) {

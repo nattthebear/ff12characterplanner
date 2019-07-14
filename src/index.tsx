@@ -7,16 +7,3 @@ ReactDOM.render(
 	<App />,
 	document.getElementById("root")!
 );
-// registerServiceWorker();
-
-/*for (const b of Boards.values()) {
-	for (const col of b) {
-		for (const cell of col) {
-			if (cell != null) {
-				if (!LicensesByName.has(cell)) {
-					console.log("Missing license", cell);
-				}
-			}
-		}
-	}
-}*/
