@@ -66,7 +66,7 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 				onMouseOver={() => this.props.changePlannedParty(this.props.party.addJob(this.props.characterIndex, b))}
 				onMouseOut={() => this.props.changePlannedParty(undefined)}
 			>
-				<img className="zodiac" src={b.image} />
+				<img className="zodiac" src={b.image} alt={b.imageAlt} />
 				{b.name}
 			</button>)}
 			<GithubCorner />

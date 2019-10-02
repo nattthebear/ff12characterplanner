@@ -15,7 +15,7 @@ export interface State {
 export default class App extends React.PureComponent<{}, State> {
 	constructor(props: {}) {
 		super(props);
-		const party = location.search && PartyModel.decode(location.search.slice(1));
+		const party = window.location.search && PartyModel.decode(window.location.search.slice(1));
 		this.state = {
 			party: party || new PartyModel(),
 			characterIndex: 0,
@@ -53,7 +53,7 @@ export default class App extends React.PureComponent<{}, State> {
 	}
 
 	private updateSearch() {
-		history.replaceState(null, undefined, location.href.split("?")[0] + "?" + this.state.party.encode());
+		window.history.replaceState(null, "", window.location.href.split("?")[0] + "?" + this.state.party.encode());
 	}
 
 	componentDidMount() {
