@@ -1,3 +1,5 @@
+import { License } from "../data/Licenses";
+
 export type DamageFormula =
 	"unarmed" | "sword" | "pole" | "mace" | "katana"
 	| "hammer" | "dagger" | "gun";
@@ -10,10 +12,20 @@ export type AnimationClass = "unarmed"
 export type Element = "fire" | "ice" | "lightning" | "water"
 	| "wind" | "earth" | "dark" | "holy";
 
-
-export interface Profile {
+export interface Environment {
 	/** character index, 0-5 */
 	character: number;
+	/** Target physical defense */
+	def: number;
+	/** Target magical defense */
+	mdef: number;
+	/** character hp percentage, from 1 to 100 */
+	percentHp: number;
+	/** How much damage does the target take from the element? */
+	elementReaction: { [K in Element]: 0 | 0.5 | 1 | 2 };
+}
+
+export interface Profile {
 	damageType: DamageFormula;
 	animationType: AnimationClass;
 	/** Weapon attack value */
@@ -30,12 +42,6 @@ export interface Profile {
 	vit: number;
 	/** character stat, max 99 */
 	spd: number;
-	/** Target physical defense */
-	def: number;
-	/** Target magical defense */
-	mdef: number;
-	/** character hp percentage, from 1 to 100 */
-	percentHp: number;
 	/** The 1st swiftness license */
 	swiftness1: boolean;
 	/** The 2nd swiftness license */
@@ -52,14 +58,15 @@ export interface Profile {
 	/** Is the adrenaline license available? */
 	adrenaline: boolean;
 	genjiGloves: boolean;
-	elements: {
-		[K in Element]: {
-			/** True if the weapon does damage with this element */
-			damage: boolean;
-			/** Is the 1.5x modfifier available? */
-			bonus: boolean;
-			/** How much damage does the target take from the element? */
-			react: 0 | 0.5 | 1 | 2;
-		};
-	}
+	/** True if the weapon does damage with this element */
+	elementDamgage: { [K in Element]: boolean };
+	/** Is the 1.5x modfifier available? */
+	elementBonus: { [K in Element]: boolean };
+}
+
+type DeepPartial<T> = { [K in keyof T]?: DeepPartial<T[K]> };
+
+export interface Equipment extends DeepPartial<Profile> {
+	name: string;
+	l?: License;
 }
