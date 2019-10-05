@@ -19,7 +19,7 @@ const Ammo: Ammo[] = [
 		name: "Fiery Arrows",
 		type: "bow",
 		attack: 1,
-		elementDamgage: { fire: true }
+		fireDamage: true
 	},
 	{
 		name: "Bamboo Arrows",
@@ -30,7 +30,7 @@ const Ammo: Ammo[] = [
 		name: "Lightning Arrows",
 		type: "bow",
 		attack: 2,
-		elementDamgage: { lightning: true }
+		lightningDamage: true
 	},
 	{
 		name: "Assassin's Arrows",
@@ -41,13 +41,13 @@ const Ammo: Ammo[] = [
 		name: "Icecloud Arrows",
 		type: "bow",
 		attack: 4,
-		elementDamgage: { ice: true }
+		iceDamage: true
 	},
 	{
 		name: "Artemis Arrows",
 		type: "bow",
 		attack: 5,
-		elementDamgage: { earth: true }
+		earthDamage: true
 	},
 	{
 		name: "Onion Bolts",
@@ -103,31 +103,31 @@ const Ammo: Ammo[] = [
 		name: "Aqua Shot",
 		type: "gun",
 		attack: 3,
-		elementDamgage: { water: true }
+		waterDamage: true
 	},
 	{
 		name: "Wyrmfire Shot",
 		type: "gun",
 		attack: 3,
-		elementDamgage: { fire: true }
+		fireDamage: true
 	},
 	{
 		name: "Mud Shot",
 		type: "gun",
 		attack: 2,
-		elementDamgage: { earth: true }
+		earthDamage: true
 	},
 	{
 		name: "Windslicer Shot",
 		type: "gun",
 		attack: 4,
-		elementDamgage: { wind: true }
+		windDamage: true
 	},
 	{
 		name: "Dark Shot",
 		type: "gun",
 		attack: 4,
-		elementDamgage: { dark: true }
+		darkDamage: true
 	},
 	{
 		name: "Stone Shot",
@@ -168,7 +168,7 @@ const Ammo: Ammo[] = [
 		name: "Water Bombs",
 		type: "handbomb",
 		attack: 5,
-		elementDamgage: { water: true }
+		waterDamage: true
 	},
 	{
 		name: "Castellanos",

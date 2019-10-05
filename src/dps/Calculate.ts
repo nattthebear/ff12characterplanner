@@ -50,13 +50,13 @@ function chargeTime(p: Profile, e: Environment) {
 	}
 	const ran = 0.25;
 	let lmod = 1;
-	if (p.swiftness1) {
+	if (e.swiftness1) {
 		lmod -= 0.12;
 	}
-	if (p.swiftness2) {
+	if (e.swiftness2) {
 		lmod -= 0.12;
 	}
-	if (p.swiftness3) {
+	if (e.swiftness3) {
 		lmod -= 0.12;
 	}
 	const bmod = 1 / (0.8 + e.battleSpeed / 5);
@@ -147,11 +147,11 @@ export function calculate(p: Profile, e: Environment) {
 
 	// damage modifiers
 	for (const element of AllElements) {
-		if (p.elementDamgage[element]) {
-			if (p.elementBonus[element]) {
+		if ((p as any)[element + "Damage"]) {
+			if ((p as any)[element + "Bonus"]) {
 				base *= 1.5;
 			}
-			base *= e.elementReaction[element];
+			base *= (e as any)[element + "Reaction"];
 		}
 	}
 	if (p.berserk) {

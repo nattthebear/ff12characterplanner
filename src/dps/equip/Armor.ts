@@ -123,8 +123,8 @@ export const Helm: Equipment[] = [
 	{ name: "Jade Gown", l: l("Mystic Armor 8"), mag: 8, },
 	{ name: "Gaia Gear", l: l("Mystic Armor 8"), mag: 8, },
 	{ name: "Cleric's Robes", l: l("Mystic Armor 9"), mag: 9, },
-	{ name: "White Robes", l: l("Mystic Armor 11"), mag: 10, spd: 4, elementBonus: { holy: true }, },
-	{ name: "Black Robes", l: l("Mystic Armor 10"), mag: 12, elementBonus: { dark: true }, },
+	{ name: "White Robes", l: l("Mystic Armor 11"), mag: 10, spd: 4, holyBonus: true, },
+	{ name: "Black Robes", l: l("Mystic Armor 10"), mag: 12, darkBonus: true, },
 	{ name: "Glimmering Robes", l: l("Mystic Armor 12"), mag: 12, vit: 10, },
 	{ name: "Lordly Robes", l: l("Mystic Armor 13"), str: 5, mag: 15, },
 ];

@@ -1,4 +1,5 @@
 import { License } from "../data/Licenses";
+import { Ammo } from "./equip/Ammo";
 
 export type DamageFormula =
 	"unarmed" | "sword" | "pole" | "mace" | "katana"
@@ -9,10 +10,7 @@ export type AnimationClass = "unarmed"
 	| "bigsword" | "hammer" | "pole" | "spear" | "mace"
 	| "bow" | "gun" | "xbow" | "measure" | "rod" | "staff" | "handbomb";
 
-export type Element = "fire" | "ice" | "lightning" | "water"
-	| "wind" | "earth" | "dark" | "holy";
-
-export const AllElements: Element[] = ["fire", "ice", "lightning", "water", "wind", "earth", "dark", "holy"];
+export const AllElements = ["fire", "ice", "lightning", "water", "wind", "earth", "dark", "holy"] as const;
 
 export interface Environment {
 	/** character index, 0-5 */
@@ -24,13 +22,33 @@ export interface Environment {
 	/** character hp percentage, from 1 to 100 */
 	percentHp: number;
 	/** How much damage does the target take from the element? */
-	elementReaction: { [K in Element]: 0 | 0.5 | 1 | 2 };
+	fireReaction: 0 | 0.5 | 1 | 2;
+	/** How much damage does the target take from the element? */
+	iceReaction: 0 | 0.5 | 1 | 2;
+	/** How much damage does the target take from the element? */
+	lightningReaction: 0 | 0.5 | 1 | 2;
+	/** How much damage does the target take from the element? */
+	waterReaction: 0 | 0.5 | 1 | 2;
+	/** How much damage does the target take from the element? */
+	windReaction: 0 | 0.5 | 1 | 2;
+	/** How much damage does the target take from the element? */
+	earthReaction: 0 | 0.5 | 1 | 2;
+	/** How much damage does the target take from the element? */
+	darkReaction: 0 | 0.5 | 1 | 2;
+	/** How much damage does the target take from the element? */
+	holyReaction: 0 | 0.5 | 1 | 2;
 	/** character level, 1-99 */
 	level: number;
 	/** True if target resists guns and measures */
 	resistGun: boolean;
 	/** slowest(1) to fastest(6) */
 	battleSpeed: 1 | 2 | 3 | 4 | 5 | 6;
+	/** The 1st swiftness license */
+	swiftness1: boolean;
+	/** The 2nd swiftness license */
+	swiftness2: boolean;
+	/** The 3rd swiftness license */
+	swiftness3: boolean;
 }
 
 export interface Profile {
@@ -50,12 +68,6 @@ export interface Profile {
 	vit: number;
 	/** character stat, max 99 */
 	spd: number;
-	/** The 1st swiftness license */
-	swiftness1: boolean;
-	/** The 2nd swiftness license */
-	swiftness2: boolean;
-	/** The 3rd swiftness license */
-	swiftness3: boolean;
 	/** Is the brawler license available? */
 	brawler: boolean;
 	berserk: boolean;
@@ -66,15 +78,128 @@ export interface Profile {
 	/** Is the adrenaline license available? */
 	adrenaline: boolean;
 	genjiGloves: boolean;
+
 	/** True if the weapon does damage with this element */
-	elementDamgage: { [K in Element]: boolean };
+	fireDamage: boolean;
+	/** True if the weapon does damage with this element */
+	iceDamage: boolean;
+	/** True if the weapon does damage with this element */
+	lightningDamage: boolean;
+	/** True if the weapon does damage with this element */
+	waterDamage: boolean;
+	/** True if the weapon does damage with this element */
+	windDamage: boolean;
+	/** True if the weapon does damage with this element */
+	earthDamage: boolean;
+	/** True if the weapon does damage with this element */
+	darkDamage: boolean;
+	/** True if the weapon does damage with this element */
+	holyDamage: boolean;
+
 	/** Is the 1.5x modfifier available? */
-	elementBonus: { [K in Element]: boolean };
+	fireBonus: boolean;
+	/** Is the 1.5x modfifier available? */
+	iceBonus: boolean;
+	/** Is the 1.5x modfifier available? */
+	lightningBonus: boolean;
+	/** Is the 1.5x modfifier available? */
+	waterBonus: boolean;
+	/** Is the 1.5x modfifier available? */
+	windBonus: boolean;
+	/** Is the 1.5x modfifier available? */
+	earthBonus: boolean;
+	/** Is the 1.5x modfifier available? */
+	darkBonus: boolean;
+	/** Is the 1.5x modfifier available? */
+	holyBonus: boolean;
 }
 
-type DeepPartial<T> = { [K in keyof T]?: DeepPartial<T[K]> };
-
-export interface Equipment extends DeepPartial<Profile> {
+export interface Equipment extends Partial<Profile> {
 	name: string;
 	l?: License;
+}
+
+export interface PaperDoll {
+	weapon: Equipment;
+	ammo?: Ammo;
+	helm?: Equipment;
+	armor?: Equipment;
+	accessory?: Equipment;
+}
+
+function mergeImpl(p: Profile, next: Partial<Profile>): Profile {
+	const ret = { ...p };
+	for (const k in next) {
+		const v = (next as any)[k];
+		if (typeof v === "boolean" && v) {
+			(ret as any)[k] = v;
+		} else if (typeof v === "number") {
+			(ret as any)[k] += v;
+		} else {
+			throw new Error(`Unexpected type on Profile[${k}]: ${typeof v}`);
+		}
+	}
+	return ret;
+}
+function mergeEq(p: Profile, nextEq: Equipment) {
+	const { name, l, ...next } = nextEq;
+	return mergeImpl(p, next);
+}
+function mergeAmmo(p: Profile, nextAmmo: Ammo) {
+	const { name, l, type, ...next } = nextAmmo;
+	return mergeImpl(p, next);	
+}
+
+const EmptyProfile: Profile = {
+	damageType: "unarmed",
+	animationType: "unarmed",
+	attack: 0,
+	combo: 0,
+	chargeTime: 0,
+	str: 0,
+	mag: 0,
+	vit: 0,
+	spd: 0,
+	brawler: false,
+	berserk: false,
+	haste: false,
+	bravery: false,
+	focus: false,
+	adrenaline: false,
+	genjiGloves: false,
+
+	fireDamage: false,
+	iceDamage: false,
+	lightningDamage: false,
+	waterDamage: false,
+	windDamage: false,
+	earthDamage: false,
+	darkDamage: false,
+	holyDamage: false,
+
+	fireBonus: false,
+	iceBonus: false,
+	lightningBonus: false,
+	waterBonus: false,
+	windBonus: false,
+	earthBonus: false,
+	darkBonus: false,
+	holyBonus: false,
+};
+
+export function createProfile(doll: PaperDoll) {
+	let ret = mergeEq(EmptyProfile, doll.weapon);
+	if (doll.ammo) {
+		ret = mergeAmmo(ret, doll.ammo);
+	}
+	if (doll.helm) {
+		ret = mergeEq(ret, doll.helm);
+	}
+	if (doll.armor) {
+		ret = mergeEq(ret, doll.armor);
+	}
+	if (doll.accessory) {
+		ret = mergeEq(ret, doll.accessory);
+	}
+	return ret;
 }

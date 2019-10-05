@@ -27,19 +27,19 @@ function chooseAmmoName(p: Profile, e: Environment) {
 
 	switch (p.animationType) {
 		case "bow":
-			if (e.elementReaction.earth === 2) {
+			if (e.earthReaction === 2) {
 				return "Artemis Arrows";
-			} else if (e.elementReaction.ice === 2) {
+			} else if (e.iceReaction === 2) {
 				return "Icecloud Arrows";
-			} else if (e.elementReaction.lightning === 2) {
+			} else if (e.lightningReaction === 2) {
 				return "Lightning Arrows";
-			} else if (e.elementReaction.fire === 2) {
+			} else if (e.fireReaction === 2) {
 				return "Fiery Arrows";
-			} else if (e.elementReaction.fire === 1 && p.elementBonus.fire) {
+			} else if (e.fireReaction === 1 && p.fireBonus) {
 				"Fiery Arrows";
-			} else if (e.elementReaction.earth === 1) {
+			} else if (e.earthReaction === 1) {
 				return "Artemis Arrows";
-			} else if (e.elementReaction.ice === 1) {
+			} else if (e.iceReaction === 1) {
 				return "Icecloud Arrows";
 			} else {
 				return "Assassin's Arrows";
@@ -47,27 +47,27 @@ function chooseAmmoName(p: Profile, e: Environment) {
 		case "xbow":
 			return "Grand Bolts";
 		case "gun":
-			if (e.elementReaction.dark === 2) {
+			if (e.darkReaction === 2) {
 				// prioritize dark shot for potential 3x overall from black robes
 				return "Dark Shot";
-			} else if (e.elementReaction.wind === 2) {
+			} else if (e.windReaction === 2) {
 				return "Windslicer Shot";
-			} else if (e.elementReaction.water === 2) {
+			} else if (e.waterReaction === 2) {
 				return "Aqua Shot";
-			} else if (e.elementReaction.fire === 2) {
+			} else if (e.fireReaction === 2) {
 				return "Wyrmfire Shot";
-			} else if (e.elementReaction.earth === 2) {
+			} else if (e.earthReaction === 2) {
 				return "Mud Shot";
-			} else if (e.elementReaction.dark === 1) {
+			} else if (e.darkReaction === 1) {
 				// prioritize dark shot for potential 1.5 from black robes
 				return "Dark Shot";
-			} else if (e.elementReaction.wind === 1) {
+			} else if (e.windReaction === 1) {
 				return "Windslicer Shot";
 			} else {
 				return "Stone Shot";
 			}
 		case "handbomb":
-			if (e.elementReaction.water === 2 || e.elementReaction.water === 1 && p.elementBonus.water) {
+			if (e.waterReaction === 2 || e.waterReaction === 1 && p.waterBonus) {
 				return "Water Bombs";
 			} else {
 				return "Castellanos";
