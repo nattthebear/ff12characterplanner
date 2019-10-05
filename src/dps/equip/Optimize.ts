@@ -1,4 +1,4 @@
-import { Profile, Environment, PaperDoll, Equipment, createProfile } from "../Profile";
+import { Profile, Environment, PaperDoll, Equipment, createProfile, EquipmentPool } from "../Profile";
 import { chooseAmmo } from "../ChooseAmmo";
 import { calculate } from "../Calculate";
 
@@ -62,13 +62,6 @@ function filterEquippable(eq: Equipment, keys: (keyof Profile)[]) {
 export interface OptimizerResult {
 	doll: PaperDoll;
 	dps: number;
-}
-
-/** The items available to a particular character to equip */
-export interface EquipmentPool {
-	armors: Equipment[];
-	helms: Equipment[];
-	accessories: Equipment[];
 }
 
 /** Given a weapon and environment, choose the maximum dps possible */

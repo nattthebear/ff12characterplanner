@@ -203,3 +203,10 @@ export function createProfile(doll: PaperDoll) {
 	}
 	return ret;
 }
+
+/** The items available to a particular character to equip */
+export interface EquipmentPool {
+	armors: Equipment[];
+	helms: Equipment[];
+	accessories: Equipment[];
+}
