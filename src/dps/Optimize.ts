@@ -1,6 +1,6 @@
-import { Profile, Environment, PaperDoll, Equipment, createProfile, EquipmentPool } from "../Profile";
-import { chooseAmmo } from "../ChooseAmmo";
-import { calculate } from "../Calculate";
+import { Profile, Environment, PaperDoll, Equipment, createProfile, EquipmentPool } from "./Profile";
+import { chooseAmmo } from "./ChooseAmmo";
+import { calculate } from "./Calculate";
 
 /** Given a profile where the weapon has already been chosen, and an environment, determine what stats could be beneficial */
 function getOptimizerKeys(p: Profile, e: Environment) {
@@ -65,9 +65,9 @@ export interface OptimizerResult {
 }
 
 /** Given a weapon and environment, choose the maximum dps possible */
-export function optimize(weapon: Equipment, e: Environment, pool: EquipmentPool): OptimizerResult {
+export function optimize(startingProfile: Profile, e: Environment, weapon: Equipment, pool: EquipmentPool): OptimizerResult {
 	const initialDoll: PaperDoll = { weapon }
-	const initialProfile = createProfile(initialDoll);
+	const initialProfile = createProfile(startingProfile, initialDoll);
 	const possibleKeys = getOptimizerKeys(initialProfile, e);
 
 	const ammo = chooseAmmo(initialProfile, e);
@@ -99,7 +99,7 @@ export function optimize(weapon: Equipment, e: Environment, pool: EquipmentPool)
 					helm,
 					accessory
 				};
-				const p = createProfile(doll);
+				const p = createProfile(startingProfile, doll);
 				const dps = calculate(p, e);
 				if (dps > topDps) {
 					topDps = dps;

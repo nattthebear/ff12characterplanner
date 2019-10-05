@@ -1,5 +1,6 @@
 import { License } from "../data/Licenses";
 import { Ammo } from "./equip/Ammo";
+import PartyModel from "../model/PartyModel";
 
 export type DamageFormula =
 	"unarmed" | "sword" | "pole" | "mace" | "katana"
@@ -150,45 +151,8 @@ function mergeAmmo(p: Profile, nextAmmo: Ammo) {
 	return mergeImpl(p, next);	
 }
 
-const EmptyProfile: Profile = {
-	damageType: "unarmed",
-	animationType: "unarmed",
-	attack: 0,
-	combo: 0,
-	chargeTime: 0,
-	str: 0,
-	mag: 0,
-	vit: 0,
-	spd: 0,
-	brawler: false,
-	berserk: false,
-	haste: false,
-	bravery: false,
-	focus: false,
-	adrenaline: false,
-	genjiGloves: false,
-
-	fireDamage: false,
-	iceDamage: false,
-	lightningDamage: false,
-	waterDamage: false,
-	windDamage: false,
-	earthDamage: false,
-	darkDamage: false,
-	holyDamage: false,
-
-	fireBonus: false,
-	iceBonus: false,
-	lightningBonus: false,
-	waterBonus: false,
-	windBonus: false,
-	earthBonus: false,
-	darkBonus: false,
-	holyBonus: false,
-};
-
-export function createProfile(doll: PaperDoll) {
-	let ret = mergeEq(EmptyProfile, doll.weapon);
+export function createProfile(startingProfile: Profile, doll: PaperDoll) {
+	let ret = mergeEq(startingProfile, doll.weapon);
 	if (doll.ammo) {
 		ret = mergeAmmo(ret, doll.ammo);
 	}
