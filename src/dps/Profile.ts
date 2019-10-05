@@ -12,6 +12,8 @@ export type AnimationClass = "unarmed"
 export type Element = "fire" | "ice" | "lightning" | "water"
 	| "wind" | "earth" | "dark" | "holy";
 
+export const AllElements: Element[] = ["fire", "ice", "lightning", "water", "wind", "earth", "dark", "holy"];
+
 export interface Environment {
 	/** character index, 0-5 */
 	character: number;
@@ -23,6 +25,12 @@ export interface Environment {
 	percentHp: number;
 	/** How much damage does the target take from the element? */
 	elementReaction: { [K in Element]: 0 | 0.5 | 1 | 2 };
+	/** character level, 1-99 */
+	level: number;
+	/** True if target resists guns and measures */
+	resistGun: boolean;
+	/** slowest(1) to fastest(6) */
+	battleSpeed: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
 export interface Profile {
