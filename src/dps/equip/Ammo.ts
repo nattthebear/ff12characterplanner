@@ -167,10 +167,11 @@ const Ammo: Ammo[] = [
 	{
 		name: "Water Bombs",
 		type: "handbomb",
-		attack: 5
+		attack: 5,
+		elementDamgage: { water: true }
 	},
 	{
-		name: " Castellanos",
+		name: "Castellanos",
 		type: "handbomb",
 		attack: 6
 	},
