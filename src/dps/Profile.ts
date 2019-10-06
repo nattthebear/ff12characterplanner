@@ -148,6 +148,18 @@ function mergeImpl(p: Profile, next: Partial<Profile>): Profile {
 			throw new Error(`Unexpected type on Profile[${k}]: ${typeof v}`);
 		}
 	}
+	if (ret.str > 99) {
+		ret.str = 99;
+	}
+	if (ret.mag > 99) {
+		ret.mag = 99;
+	}
+	if (ret.vit > 99) {
+		ret.vit = 99;
+	}
+	if (ret.spd > 99) {
+		ret.spd = 99;
+	}
 	return ret;
 }
 function mergeEq(p: Profile, nextEq: Equipment) {

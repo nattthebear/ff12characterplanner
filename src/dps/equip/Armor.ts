@@ -3,7 +3,7 @@ import { LicenseByName } from "../../data/Licenses";
 
 const l = LicenseByName;
 
-export const BodyArmor: Equipment[] = [
+export const Helm: Equipment[] = [
 	{ name: "Leather Cap", l: l("Light Armor 1"), },
 	{ name: "Headgear", l: l("Light Armor 2"), },
 	{ name: "Headguard", l: l("Light Armor 2"), },
@@ -66,7 +66,7 @@ export const BodyArmor: Equipment[] = [
 	{ name: "Circlet", l: l("Mystic Armor 13"), str: 2, mag: 10, },
 ];
 
-export const Helm: Equipment[] = [
+export const BodyArmor: Equipment[] = [
 	{ name: "Leather Clothing", l: l("Light Armor 1"), },
 	{ name: "Chromed Leathers", l: l("Light Armor 2"), },
 	{ name: "Leather Breastplate", l: l("Light Armor 2"), },
