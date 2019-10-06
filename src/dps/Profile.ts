@@ -50,6 +50,12 @@ export interface Environment {
 	swiftness2: boolean;
 	/** The 3rd swiftness license */
 	swiftness3: boolean;
+	/** true if the buff can be provided from external sources, and an accessory is not needed to provide it */
+	berserk: boolean;
+	/** true if the buff can be provided from external sources, and an accessory is not needed to provide it */
+	haste: boolean;
+	/** true if the buff can be provided from external sources, and an accessory is not needed to provide it */
+	bravery: boolean;
 }
 
 export interface Profile {
