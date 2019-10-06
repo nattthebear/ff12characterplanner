@@ -3,9 +3,12 @@ import PartyModel from "../model/PartyModel";
 import Weapon from "./equip/Weapon";
 import { BodyArmor, Helm } from "./equip/Armor";
 import Accessory from "./equip/Accessory";
-import { License, LicenseByName } from "../data/Licenses";
+import { License, LicenseByName, LicenseGroups } from "../data/Licenses";
 import { optimize } from "./Optimize";
 import { BaseCharacterStats } from "./BaseCharacterStats";
+
+const battleLores = LicenseGroups.find(g => g.name === "Battle Lore")!.contents;
+const magickLores = LicenseGroups.find(g => g.name === "Magick Lore")!.contents;
 
 export function optimizeForCharacter(e: Environment, party: PartyModel) {
 	const licenseMap = party.colorEx(e.character);
@@ -65,6 +68,8 @@ export function optimizeForCharacter(e: Environment, party: PartyModel) {
 		darkBonus: false,
 		holyBonus: false,
 	};
+	startingProfile.str += battleLores.filter(filterL).length;
+	startingProfile.mag += magickLores.filter(filterL).length;
 
 	const results = weapons
 		.map(w => optimize(startingProfile, e, w, pool))
