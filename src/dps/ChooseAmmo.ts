@@ -36,7 +36,7 @@ function chooseAmmoName(p: Profile, e: Environment) {
 			} else if (e.fireReaction === 2) {
 				return "Fiery Arrows";
 			} else if (e.fireReaction === 1 && p.fireBonus) {
-				"Fiery Arrows";
+				return "Fiery Arrows";
 			} else if (e.earthReaction === 1) {
 				return "Artemis Arrows";
 			} else if (e.iceReaction === 1) {

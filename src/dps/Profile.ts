@@ -1,6 +1,5 @@
 import { License } from "../data/Licenses";
 import { Ammo } from "./equip/Ammo";
-import PartyModel from "../model/PartyModel";
 
 export type DamageFormula =
 	"unarmed" | "sword" | "pole" | "mace" | "katana"
@@ -44,12 +43,6 @@ export interface Environment {
 	resistGun: boolean;
 	/** slowest(1) to fastest(6) */
 	battleSpeed: 1 | 2 | 3 | 4 | 5 | 6;
-	/** The 1st swiftness license */
-	swiftness1: boolean;
-	/** The 2nd swiftness license */
-	swiftness2: boolean;
-	/** The 3rd swiftness license */
-	swiftness3: boolean;
 	/** true if the buff can be provided from external sources, and an accessory is not needed to provide it */
 	berserk: boolean;
 	/** true if the buff can be provided from external sources, and an accessory is not needed to provide it */
@@ -86,6 +79,13 @@ export interface Profile {
 	adrenaline: boolean;
 	genjiGloves: boolean;
 
+	/** The 1st swiftness license */
+	swiftness1: boolean;
+	/** The 2nd swiftness license */
+	swiftness2: boolean;
+	/** The 3rd swiftness license */
+	swiftness3: boolean;
+	
 	/** True if the weapon does damage with this element */
 	fireDamage: boolean;
 	/** True if the weapon does damage with this element */
@@ -142,6 +142,8 @@ function mergeImpl(p: Profile, next: Partial<Profile>): Profile {
 			(ret as any)[k] = v;
 		} else if (typeof v === "number") {
 			(ret as any)[k] += v;
+		} else if (typeof v === "string") {
+			(ret as any)[k] = v;
 		} else {
 			throw new Error(`Unexpected type on Profile[${k}]: ${typeof v}`);
 		}

@@ -43,6 +43,10 @@ export function optimizeForCharacter(e: Environment, party: PartyModel) {
 		adrenaline: filterLName("Adrenaline"),
 		genjiGloves: false,
 
+		swiftness1: filterLName("Swiftness 1"),
+		swiftness2: filterLName("Swiftness 2"),
+		swiftness3: filterLName("Swiftness 3"),
+		
 		fireDamage: false,
 		iceDamage: false,
 		lightningDamage: false,

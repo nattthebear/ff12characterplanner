@@ -14,6 +14,8 @@ export interface Props {
 	qeActive: boolean;
 	toggleQe(): void;
 	plannedParty?: PartyModel;
+	dpsActive: boolean;
+	toggleDps(): void;
 }
 
 export default class CharacterPanel extends React.PureComponent<Props> {
@@ -189,6 +191,17 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 		</button>;
 	}
 
+	private renderToggleDps() {
+		return <button
+			className="action"
+			aria-label="Simulate character damage output"
+			onClick={this.props.toggleDps}
+			aria-pressed={this.props.dpsActive}
+		>
+			{this.props.dpsActive ? "Hide DPS Simulator" : "Show DPS Simulator"}
+		</button>;		
+	}
+
 	private selectCharacter(index: number) {
 		if (this.props.characterIndex === index) {
 			this.props.changeIndices(index, this.props.boardIndex ^ 1);
@@ -204,6 +217,7 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 				{this.renderResetCharacter()}
 				{this.renderResetAll()}
 				{this.renderToggleQe()}
+				{this.renderToggleDps()}
 			</div>
 			<div className="character-select">
 				{Characters.map((c, i) => <div className="character" key={i} aria-pressed={this.props.characterIndex === i} onClick={() => this.selectCharacter(i)}>

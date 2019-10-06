@@ -38,7 +38,7 @@ const Accessory: Equipment[] = [
 	{ name: "Power Armlet", l: l("Accessories 18"), str: 3, },
 	{ name: "Germinas Boots", l: l("Accessories 22"), vit: 20, spd: 50, },
 	{ name: "Quasimodo Boots", l: l("Accessories 21"), },
-	{ name: "Ribbon", l: l("ribbon"), },
+	{ name: "Ribbon", l: l("Ribbon"), },
 	{ name: "Steel Poleyns", l: l("Accessories 12"), },
 	{ name: "Diamond Armlet", l: l("Accessories 3"), },
 	{ name: "Thief's Cuffs", l: l("Accessories 8"), spd: 1, },

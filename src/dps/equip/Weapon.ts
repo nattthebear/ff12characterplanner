@@ -201,7 +201,7 @@ const Weapon: Equipment[] = [
 	{ name: "Tumulus", l: l("Hand-bombs 2"), damageType: "hammer", animationType: "handbomb", attack: 76, chargeTime: 33, },
 	{ name: "Caldera", l: l("Hand-bombs 3"), damageType: "hammer", animationType: "handbomb", attack: 83, chargeTime: 33, },
 	{ name: "Volcano", l: l("Hand-bombs 3"), damageType: "hammer", animationType: "handbomb", attack: 90, chargeTime: 33, },
-	{ name: "Makara", l: l("Makara"), damageType: "hammer", animationType: "handbomb", attack: 96, chargeTime: 33, },
+	{ name: "Makara", l: l("Hand-bombs 4"), damageType: "hammer", animationType: "handbomb", attack: 96, chargeTime: 33, },
 ];
 
 export default Weapon;

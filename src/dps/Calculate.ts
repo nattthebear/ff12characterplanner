@@ -48,15 +48,20 @@ function chargeTime(p: Profile, e: Environment) {
 	} else {
 		csmod = 3.75;
 	}
+	// TODO: This matches the behavior of the spreadsheet.  It uses the game mechanics faq and then assumes its "CT x CS-MOD"
+	// values were done for CT = 35 and no other modifiers.  All of the csmod calculations are probably off by some.
+	csmod /= 35;
+
+
 	const ran = 0.25;
 	let lmod = 1;
-	if (e.swiftness1) {
+	if (p.swiftness1) {
 		lmod -= 0.12;
 	}
-	if (e.swiftness2) {
+	if (p.swiftness2) {
 		lmod -= 0.12;
 	}
-	if (e.swiftness3) {
+	if (p.swiftness3) {
 		lmod -= 0.12;
 	}
 	const bmod = 1 / (0.8 + e.battleSpeed / 5);
@@ -72,43 +77,40 @@ function chargeTime(p: Profile, e: Environment) {
 
 /** Calculates the final average DPS value for this situation */
 export function calculate(p: Profile, e: Environment) {
-	let base: number;
+	let baseDmg: number;
 	switch (p.damageType) {
 		case "unarmed": {
 			const att = p.brawler ? (p.str + e.level) / 2 : 11;
-			base = admg(att, 1, 1.125, e.def) * p.str * (e.level + p.str) / 256;
+			baseDmg = admg(att, 1, 1.125, e.def) * p.str * (e.level + p.str) / 256;
 			break;
 		}
 		case "sword": {
-			base = admg(p.attack, 1, 1.125, e.def) * (1 + p.str * (e.level + p.str) / 256);
+			baseDmg = admg(p.attack, 1, 1.125, e.def) * (1 + p.str * (e.level + p.str) / 256);
 			break;
 		}
 		case "pole": {
-			base = admg(p.attack, 1, 1.125, e.mdef) * (1 + p.str * (e.level + p.str) / 256);
+			baseDmg = admg(p.attack, 1, 1.125, e.mdef) * (1 + p.str * (e.level + p.str) / 256);
 			break;
 		}
 		case "mace": {
-			base = admg(p.attack, 1, 1.125, e.def) * (1 + p.mag * (e.level + p.mag) / 256);
+			baseDmg = admg(p.attack, 1, 1.125, e.def) * (1 + p.mag * (e.level + p.mag) / 256);
 			break;
 		}
 		case "katana": {
-			base = admg(p.attack, 1, 1.125, e.def) * (1 + p.str * (e.level + p.mag) / 256);
+			baseDmg = admg(p.attack, 1, 1.125, e.def) * (1 + p.str * (e.level + p.mag) / 256);
 			break;
 		}
 		case "hammer": {
-			base = admg(p.attack, 0, 1.111, e.def) * (1 + p.str * (e.level + p.str) / 128);
+			baseDmg = admg(p.attack, 0, 1.111, e.def) * (1 + p.str * (e.level + p.str) / 128);
 			break;
 		}
 		case "dagger": {
-			base = admg(p.attack, 1, 1.125, e.def) * (1 + p.str * (e.level + p.spd) / 218);
+			baseDmg = admg(p.attack, 1, 1.125, e.def) * (1 + p.str * (e.level + p.spd) / 218);
 			break;
 		}
 		case "gun": {
 			const v = p.attack * 1.0625;
-			base = v * v;
-			if (e.resistGun) {
-				base /= 8;
-			}
+			baseDmg = v * v;
 			break;
 		}
 		default: {
@@ -116,21 +118,26 @@ export function calculate(p: Profile, e: Environment) {
 		}
 	}
 
-	const [initialSwingTime, ...comboTimes] = AttackFrames[p.animationType][e.character];
-	let animationTime = initialSwingTime;
+	let dmg = baseDmg;
+	if (p.damageType === "gun" && e.resistGun) {
+		dmg /= 8;
+	}
+
+	const [initialSwingFrames, ...comboFrames] = AttackFrames[p.animationType][e.character];
+	let animationTime = initialSwingFrames / 30;
 
 	// compute criticals and combos
 	if (p.combo > 0) {
 		/** Adjusted crit/combo rate */
-		const cr = p.combo * (p.genjiGloves ? 0.7 : 1.8);
+		const cr = p.combo * (p.genjiGloves ? 1.8 : 0.7) / 100;
 
-		if (comboTimes.length === 0 || p.damageType === "gun") {
+		if (comboFrames.length === 0 || p.damageType === "gun") {
 			// critical
-			base *= 1 + cr;
+			dmg *= 1 + cr;
 		} else {
 			// combo
 			let extraHits: number;
-			const extraHitTime = comboTimes.reduce((acc, val) => acc + val, 0) / comboTimes.length;
+			const extraHitTime = comboFrames.reduce((acc, val) => acc + val, 0) / comboFrames.length / 30;
 			if (e.percentHp > 25) {
 				extraHits = 1.873;
 			} else if (e.percentHp > 12) {
@@ -140,8 +147,8 @@ export function calculate(p: Profile, e: Environment) {
 			} else {
 				extraHits = 8.028;
 			}
-			animationTime += extraHits * extraHitTime;
-			base = base * (1 + extraHits);
+			animationTime += extraHits * extraHitTime * cr;
+			dmg *= (1 + extraHits * cr);
 		}
 	}
 
@@ -149,24 +156,24 @@ export function calculate(p: Profile, e: Environment) {
 	for (const element of AllElements) {
 		if ((p as any)[element + "Damage"]) {
 			if ((p as any)[element + "Bonus"]) {
-				base *= 1.5;
+				dmg *= 1.5;
 			}
-			base *= (e as any)[element + "Reaction"];
+			dmg *= (e as any)[element + "Reaction"];
 		}
 	}
 	if (p.berserk) {
-		base *= 1.5;
+		dmg *= 1.5;
 	}
 	if (p.bravery) {
-		base *= 1.3;
+		dmg *= 1.3;
 	}
 	if (p.focus && e.percentHp === 100) {
-		base *= 1.5;
+		dmg *= 1.5;
 	}
 	if (p.adrenaline && e.percentHp < 20) {
-		base *= 2;
+		dmg *= 2;
 	}
 
 	const totalTime = chargeTime(p, e) + animationTime;
-	return base / totalTime; // DPS
+	return dmg / totalTime; // DPS
 }

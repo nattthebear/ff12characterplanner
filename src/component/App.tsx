@@ -10,6 +10,7 @@ export interface State {
 	characterIndex: number;
 	boardIndex: number;
 	qeActive: boolean;
+	dpsActive: boolean;
 }
 
 export default class App extends React.PureComponent<{}, State> {
@@ -20,7 +21,8 @@ export default class App extends React.PureComponent<{}, State> {
 			party: party || new PartyModel(),
 			characterIndex: 0,
 			boardIndex: 0,
-			qeActive: false
+			qeActive: false,
+			dpsActive: false
 		};
 	}
 
@@ -49,7 +51,40 @@ export default class App extends React.PureComponent<{}, State> {
 
 	@autobind
 	private toggleQe() {
-		this.setState(s => ({ qeActive: !s.qeActive }));
+		this.setState(s => {
+			if (s.qeActive) {
+				return {
+					qeActive: false
+				} as {
+					qeActive: boolean,
+					dpsActive: boolean
+				};
+			} else {
+				return {
+					qeActive: true,
+					dpsActive: false
+				};
+			}
+		});
+	}
+
+	@autobind
+	private toggleDps() {
+		this.setState(s => {
+			if (s.dpsActive) {
+				return {
+					dpsActive: false
+				} as {
+					dpsActive: boolean,
+					qeActive: boolean
+				};
+			} else {
+				return {
+					dpsActive: true,
+					qeActive: false
+				};
+			}
+		});
 	}
 
 	private updateSearch() {
@@ -67,6 +102,12 @@ export default class App extends React.PureComponent<{}, State> {
 	}
 
 	render() {
-		return <CharacterPlanner {...this.state} changeParty={this.changeParty} changeIndices={this.changeIndices} toggleQe={this.toggleQe} />;
+		return <CharacterPlanner
+			{...this.state}
+			changeParty={this.changeParty}
+			changeIndices={this.changeIndices}
+			toggleQe={this.toggleQe}
+			toggleDps={this.toggleDps}
+		/>;
 	}
 }

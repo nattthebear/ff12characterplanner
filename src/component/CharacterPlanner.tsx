@@ -5,6 +5,7 @@ import "./CharacterPlanner.scss";
 import PartyModel from "../model/PartyModel";
 import QeBoard from "./QeBoard";
 import autobind from "autobind-decorator";
+import Dps from "./Dps";
 
 export interface Props {
 	party: PartyModel;
@@ -14,6 +15,8 @@ export interface Props {
 	changeIndices(characterIndex: number, boardIndex: number): void;
 	qeActive: boolean;
 	toggleQe(): void;
+	dpsActive: boolean;
+	toggleDps(): void;
 }
 
 export interface State {
@@ -32,7 +35,7 @@ export default class CharacterPlanner extends React.PureComponent<Props, State> 
 		const plannedParty = this.props.party.getJob(this.props.characterIndex, this.props.boardIndex) ? undefined : this.state.plannedParty;
 		return <div className="character-planner">
 			<CharacterPanel {...this.props} plannedParty={plannedParty} />
-			{this.props.qeActive ? <QeBoard {...this.props} /> : <LicenseBoard {...this.props} changePlannedParty={this.changePlannedParty} />}
+			{this.props.qeActive ? <QeBoard {...this.props} /> : this.props.dpsActive ? <Dps party={this.props.party} /> : <LicenseBoard {...this.props} changePlannedParty={this.changePlannedParty} />}
 		</div>;
 	}
 }
