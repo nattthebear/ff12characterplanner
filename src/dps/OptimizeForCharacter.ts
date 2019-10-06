@@ -5,46 +5,7 @@ import { BodyArmor, Helm } from "./equip/Armor";
 import Accessory from "./equip/Accessory";
 import { License, LicenseByName } from "../data/Licenses";
 import { optimize } from "./Optimize";
-
-function buildEmptyProfile(characterIndex: number, party: PartyModel): Profile {
-	// TODO: str/mag/vit/spd
-	return  {
-		damageType: "unarmed",
-		animationType: "unarmed",
-		attack: 0,
-		combo: 0,
-		chargeTime: 0,
-		str: 0,
-		mag: 0,
-		vit: 0,
-		spd: 0,
-		brawler: false,
-		berserk: false,
-		haste: false,
-		bravery: false,
-		focus: false,
-		adrenaline: false,
-		genjiGloves: false,
-
-		fireDamage: false,
-		iceDamage: false,
-		lightningDamage: false,
-		waterDamage: false,
-		windDamage: false,
-		earthDamage: false,
-		darkDamage: false,
-		holyDamage: false,
-
-		fireBonus: false,
-		iceBonus: false,
-		lightningBonus: false,
-		waterBonus: false,
-		windBonus: false,
-		earthBonus: false,
-		darkBonus: false,
-		holyBonus: false,
-	};
-}
+import { BaseCharacterStats } from "./BaseCharacterStats";
 
 export function optimizeForCharacter(e: Environment, party: PartyModel) {
 	const licenseMap = party.colorEx(e.character);
@@ -73,10 +34,7 @@ export function optimizeForCharacter(e: Environment, party: PartyModel) {
 		attack: 0,
 		combo: 0,
 		chargeTime: 0,
-		str: 0,
-		mag: 0,
-		vit: 0,
-		spd: 0,
+		...BaseCharacterStats(e.character, e.level),
 		brawler: filterLName("Brawler"),
 		berserk: false,
 		haste: false,
