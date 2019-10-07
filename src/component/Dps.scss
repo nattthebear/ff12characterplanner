@@ -1,6 +1,22 @@
 .dps-optimizer {
+	display: flex;
+	flex-direction: column;
+
+	.controls {
+		flex: 0 0 auto;
+
+		.control {
+			display: inline-block;
+			padding: 2px;
+
+			label {
+				padding-right: 2px;
+			}
+		}
+	}
 
 	.results {
+		overflow: auto;
 		font-size: 12px;
 
 		th {

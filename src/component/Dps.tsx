@@ -33,7 +33,7 @@ function getId() {
 
 function NumberInput(props: NumberProps) {
 	const id = getId();
-	return <div aria-label={props.tooltip}>
+	return <div aria-label={props.tooltip} className="control">
 		<label htmlFor={id}>{props.label}</label>
 		<input
 			id={id}
@@ -48,7 +48,7 @@ function NumberInput(props: NumberProps) {
 
 function BoolInput(props: InputProps<boolean>) {
 	const id = getId();
-	return <div aria-label={props.tooltip}>
+	return <div aria-label={props.tooltip} className="control">
 		<label htmlFor={id}>{props.label}</label>
 		<input
 			id={id}
@@ -105,7 +105,7 @@ export default class Dps extends React.PureComponent<Props, State> {
 			});
 		return <div className="dps-optimizer">
 			<div className="controls">
-			<NumberInput
+				<NumberInput
 					min={0}
 					max={250}
 					label="Def"
@@ -164,11 +164,13 @@ export default class Dps extends React.PureComponent<Props, State> {
 					changeValue={v => this.changeEnv("bravery", v)}
 				/>
 			</div>
-			<table className="results">
-				<tbody>
-					{components}
-				</tbody>
-			</table>	
+			<div className="results">
+				<table>
+					<tbody>
+						{components}
+					</tbody>
+				</table>	
+			</div>
 		</div>;
 	}
 }
