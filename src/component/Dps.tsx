@@ -4,7 +4,7 @@ import { optimizeForCharacter } from "../dps/OptimizeForCharacter";
 import { OptimizerResult } from "../dps/Optimize";
 import { Characters } from "../data/Characters";
 import "./Dps.scss";
-import { Environment } from "../dps/Profile";
+import { Environment, Equipment, Profile, AllElements } from "../dps/Profile";
 
 export interface Props {
 	party: PartyModel;
@@ -57,6 +57,63 @@ function BoolInput(props: InputProps<boolean>) {
 			onChange={() => props.changeValue(!props.value)}
 		/>
 	</div>;
+}
+
+function tooltipFor(e: Equipment) {
+	const ret = Array<string>();
+	if (e.animationType) {
+		ret.push({
+			unarmed: "Unarmed",
+			dagger: "Dagger",
+			ninja: "Ninja Sword",
+			katana: "Katana",
+			sword: "Sword",
+			bigsword: "Greatsword",
+			hammer: "Hammer/Axe",
+			pole: "Pole",
+			spear: "Spear",
+			mace: "Mace",
+			bow: "Bow",
+			gun: "Gun",
+			xbow: "Crossbow",
+			measure: "Measure",
+			rod: "Rod",
+			staff: "Staff",
+			handbomb: "Handbomb"
+		}[e.animationType]);
+	}
+	if (e.damageType === "gun" && e.animationType !== "gun") {
+		ret.push("Pierce");
+	}
+	function f(k: keyof Profile, s: string) {
+		const v = e[k];
+		if (typeof v === "number" && v > 0) {
+			ret.push(`${v} ${s}`);
+		} else if (v === true) {
+			ret.push(s);
+		}
+	}
+	f("attack", "Att");
+	f("chargeTime", "CT");
+	f("combo", "Cb");
+	f("str", "Str");
+	f("mag", "Mag");
+	f("vit", "Vit");
+	f("spd", "Spd");
+	f("brawler", "Brawler");
+	f("berserk", "Berserk");
+	f("haste", "Haste");
+	f("bravery", "Bravery");
+	f("focus", "Focus");
+	f("adrenaline", "Adrenaline");
+	f("genjiGloves", "Combo+");
+	for (const elt of AllElements) {
+		f(elt + "Damage" as any, elt[0].toUpperCase() + elt.slice(1) + " Damage");
+	}
+	for (const elt of AllElements) {
+		f(elt + "Bonus" as any, elt[0].toUpperCase() + elt.slice(1) + " Bonus");
+	}
+	return ret.join(",");
 }
 
 export default class Dps extends React.PureComponent<Props, State> {
@@ -175,6 +232,15 @@ export default class Dps extends React.PureComponent<Props, State> {
 	}
 }
 
+function EqCell(props: { value?: Equipment }) {
+	const { value } = props;
+	return <td
+		aria-label={value && tooltipFor(value)}
+	>
+		{value && value.name}
+	</td>;
+}
+
 function SingleCharacterDps(props: { name: string, results: OptimizerResult[] }) {
 	return <>
 		<tr>
@@ -189,13 +255,13 @@ function SingleCharacterDps(props: { name: string, results: OptimizerResult[] })
 			<th>Accessory</th>
 		</tr>
 
-		{props.results.map((r, i) => <tr key={i}>
+		{props.results.map((r, i) => <tr key={i} className="data-row">
 			<td className="r">{Math.round(r.dps)}</td>
-			<td>{r.doll.weapon.name}</td>
-			<td>{r.doll.ammo && r.doll.ammo.name}</td>
-			<td>{r.doll.helm && r.doll.helm.name}</td>
-			<td>{r.doll.armor && r.doll.armor.name}</td>
-			<td>{r.doll.accessory && r.doll.accessory.name}</td>
+			<EqCell value={r.doll.weapon} />
+			<EqCell value={r.doll.ammo} />
+			<EqCell value={r.doll.helm} />
+			<EqCell value={r.doll.armor} />
+			<EqCell value={r.doll.accessory} />
 		</tr>)}
 	</>;
 }
