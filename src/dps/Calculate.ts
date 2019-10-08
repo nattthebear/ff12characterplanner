@@ -129,7 +129,7 @@ export function calculate(p: Profile, e: Environment) {
 	// compute criticals and combos
 	if (p.combo > 0) {
 		/** Adjusted crit/combo rate */
-		const cr = p.combo * (p.genjiGloves ? 1.8 : 0.7) / 100;
+		const cr = Math.min(1, p.combo * (p.genjiGloves ? 1.8 : 0.7) / 100);
 
 		if (comboFrames.length === 0 || p.damageType === "gun") {
 			// critical
