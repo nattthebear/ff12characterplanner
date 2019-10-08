@@ -9,13 +9,13 @@
 			display: inline-block;
 			padding: 2px;
 
-			label {
-				padding-right: 4px;
-			}
-
 			input[type=number] {
 				width: 4em;
 				text-align: right;
+				margin-left: 4px;
+			}
+			input[type=checkbox] {
+				margin-right: 4px;
 			}
 		}
 	}

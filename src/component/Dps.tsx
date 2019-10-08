@@ -50,13 +50,13 @@ function NumberInput(props: NumberProps) {
 function BoolInput(props: InputProps<boolean>) {
 	const id = getId();
 	return <div aria-label={props.tooltip} className="control">
-		<label htmlFor={id}>{props.label}</label>
 		<input
 			id={id}
 			type="checkbox"
 			checked={props.value}
 			onChange={() => props.changeValue(!props.value)}
 		/>
+		<label htmlFor={id}>{props.label}</label>
 	</div>;
 }
 
