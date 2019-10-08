@@ -22,7 +22,7 @@ function admg(att: number, lowMul: number, highMul: number, def: number) {
 	}
 }
 
-function chargeTime(p: Profile, e: Environment) {
+function calcChargeTime(p: Profile, e: Environment) {
 	const ct = p.chargeTime;
 	let csmod: number;
 	if (p.spd <= 23) {
@@ -75,8 +75,23 @@ function chargeTime(p: Profile, e: Environment) {
 	return (ct * csmod + ran) * lmod * bmod * stmod;
 }
 
+export interface CalculateResult {
+	/** The final overall dps */
+	dps: number;
+	/** Damage done by the weapon */
+	baseDmg: number;
+	/** Damage including multipliers like bravery, berserk, etc */
+	modifiedDamage: number;
+	/** Damage done per action including the possibility of crits or combos */
+	comboDamage: number;
+	/** Charge time per action */
+	chargeTime: number;
+	/** Animation time per action including the possibility of combos */
+	animationTime: number;
+}
+
 /** Calculates the final average DPS value for this situation */
-export function calculate(p: Profile, e: Environment) {
+export function calculate(p: Profile, e: Environment): CalculateResult {
 	let baseDmg: number;
 	switch (p.damageType) {
 		case "unarmed": {
@@ -118,22 +133,47 @@ export function calculate(p: Profile, e: Environment) {
 		}
 	}
 
-	let dmg = baseDmg;
+	// damage modifiers
+	let modifiedDamage = baseDmg;
+
 	if (p.damageType === "gun" && e.resistGun) {
-		dmg /= 8;
+		modifiedDamage /= 8;
 	}
+
+	for (const element of AllElements) {
+		if ((p as any)[element + "Damage"]) {
+			if ((p as any)[element + "Bonus"]) {
+				modifiedDamage *= 1.5;
+			}
+			modifiedDamage *= (e as any)[element + "Reaction"];
+		}
+	}
+	if (p.berserk) {
+		modifiedDamage *= 1.5;
+	}
+	if (p.bravery) {
+		modifiedDamage *= 1.3;
+	}
+	if (p.focus && e.percentHp === 100) {
+		modifiedDamage *= 1.5;
+	}
+	if (p.adrenaline && e.percentHp < 20) {
+		modifiedDamage *= 2;
+	}
+
+	// compute criticals and combos
+	let comboDamage = modifiedDamage;
 
 	const [initialSwingFrames, ...comboFrames] = AttackFrames[p.animationType][e.character];
 	let animationTime = initialSwingFrames / 30;
 
-	// compute criticals and combos
 	if (p.combo > 0) {
 		/** Adjusted crit/combo rate */
 		const cr = Math.min(1, p.combo * (p.genjiGloves ? 1.8 : 0.7) / 100);
 
 		if (comboFrames.length === 0 || p.damageType === "gun") {
 			// critical
-			dmg *= 1 + cr;
+			comboDamage *= 1 + cr;
 		} else {
 			// combo
 			let extraHits: number;
@@ -148,32 +188,19 @@ export function calculate(p: Profile, e: Environment) {
 				extraHits = 8.028;
 			}
 			animationTime += extraHits * extraHitTime * cr;
-			dmg *= (1 + extraHits * cr);
+			comboDamage *= (1 + extraHits * cr);
 		}
 	}
 
-	// damage modifiers
-	for (const element of AllElements) {
-		if ((p as any)[element + "Damage"]) {
-			if ((p as any)[element + "Bonus"]) {
-				dmg *= 1.5;
-			}
-			dmg *= (e as any)[element + "Reaction"];
-		}
-	}
-	if (p.berserk) {
-		dmg *= 1.5;
-	}
-	if (p.bravery) {
-		dmg *= 1.3;
-	}
-	if (p.focus && e.percentHp === 100) {
-		dmg *= 1.5;
-	}
-	if (p.adrenaline && e.percentHp < 20) {
-		dmg *= 2;
-	}
-
-	const totalTime = chargeTime(p, e) + animationTime;
-	return dmg / totalTime; // DPS
+	const chargeTime = calcChargeTime(p, e)
+	const totalTime = chargeTime + animationTime;
+	const dps = comboDamage / totalTime;
+	return {
+		dps,
+		baseDmg,
+		modifiedDamage,
+		comboDamage,
+		chargeTime,
+		animationTime
+	};
 }

@@ -73,7 +73,7 @@ export function optimizeForCharacter(e: Environment, party: PartyModel) {
 
 	const results = weapons
 		.map(w => optimize(startingProfile, e, w, pool))
-		.sort((a, b) => b.dps - a.dps);
+		.sort((a, b) => b.dps.dps - a.dps.dps);
 	
 	return results;
 }

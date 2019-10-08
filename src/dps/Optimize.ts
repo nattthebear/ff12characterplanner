@@ -1,6 +1,6 @@
 import { Profile, Environment, PaperDoll, Equipment, createProfile, EquipmentPool } from "./Profile";
 import { chooseAmmo } from "./ChooseAmmo";
-import { calculate } from "./Calculate";
+import { calculate, CalculateResult } from "./Calculate";
 
 /** Given a profile where the weapon has already been chosen, and an environment, determine what stats could be beneficial */
 function getOptimizerKeys(p: Profile, e: Environment) {
@@ -61,7 +61,7 @@ function filterEquippable(eq: Equipment, keys: (keyof Profile)[]) {
 
 export interface OptimizerResult {
 	doll: PaperDoll;
-	dps: number;
+	dps: CalculateResult;
 }
 
 /** Given a weapon and environment, choose the maximum dps possible */
@@ -86,7 +86,7 @@ export function optimize(startingProfile: Profile, e: Environment, weapon: Equip
 		accessories.push(undefined);
 	}
 
-	let topDps = 0;
+	let topDps: CalculateResult | undefined;
 	let topDoll = initialDoll;
 	{
 		let armor: Equipment | undefined = undefined;
@@ -105,7 +105,7 @@ export function optimize(startingProfile: Profile, e: Environment, weapon: Equip
 				};
 				const p = createProfile(startingProfile, doll);
 				const dps = calculate(p, e);
-				if (dps > topDps) {
+				if (!topDps || dps.dps > topDps.dps) {
 					// console.log(`${armor && armor.name} => ${nextArmor && nextArmor.name}`);
 					armor = nextArmor;
 					topDps = dps;
@@ -123,7 +123,7 @@ export function optimize(startingProfile: Profile, e: Environment, weapon: Equip
 				};
 				const p = createProfile(startingProfile, doll);
 				const dps = calculate(p, e);
-				if (dps > topDps) {
+				if (!topDps || dps.dps > topDps.dps) {
 					// console.log(`${helm && helm.name} => ${nextHelm && nextHelm.name}`);
 					helm = nextHelm;
 					topDps = dps;
@@ -141,7 +141,7 @@ export function optimize(startingProfile: Profile, e: Environment, weapon: Equip
 				};
 				const p = createProfile(startingProfile, doll);
 				const dps = calculate(p, e);
-				if (dps > topDps) {
+				if (!topDps || dps.dps > topDps.dps) {
 					// console.log(`${accessory && accessory.name} => ${nextAccessory && nextAccessory.name}`);
 					accessory = nextAccessory;
 					topDps = dps;
@@ -169,6 +169,6 @@ export function optimize(startingProfile: Profile, e: Environment, weapon: Equip
 	}
 	return {
 		doll: topDoll,
-		dps: topDps
+		dps: topDps!
 	};
 }

@@ -5,6 +5,7 @@ import { OptimizerResult } from "../dps/Optimize";
 import { Characters } from "../data/Characters";
 import "./Dps.scss";
 import { Environment, Equipment, Profile, AllElements } from "../dps/Profile";
+import { CalculateResult } from "../dps/Calculate";
 
 export interface Props {
 	party: PartyModel;
@@ -241,6 +242,16 @@ function EqCell(props: { value?: Equipment }) {
 	</td>;
 }
 
+function DpsCell(props: { value: CalculateResult }) {
+	const { value } = props;
+	return <td
+		className="r"
+		aria-label={`Base Damage: ${Math.round(value.baseDmg)}\nModified Damage: ${Math.round(value.modifiedDamage)}\nComboed Damage: ${Math.round(value.comboDamage)}\nCharge Time: ${value.chargeTime.toFixed(2)}s\nAnimation Time: ${value.animationTime.toFixed(2)}s`}
+	>
+		{Math.round(value.dps)}
+	</td>;
+}
+
 function SingleCharacterDps(props: { name: string, results: OptimizerResult[] }) {
 	return <>
 		<tr>
@@ -256,7 +267,7 @@ function SingleCharacterDps(props: { name: string, results: OptimizerResult[] })
 		</tr>
 
 		{props.results.map((r, i) => <tr key={i} className="data-row">
-			<td className="r">{Math.round(r.dps)}</td>
+			<DpsCell value={r.dps} />
 			<EqCell value={r.doll.weapon} />
 			<EqCell value={r.doll.ammo} />
 			<EqCell value={r.doll.helm} />
