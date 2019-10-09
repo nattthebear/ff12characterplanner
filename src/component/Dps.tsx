@@ -155,12 +155,6 @@ export default class Dps extends React.PureComponent<Props, State> {
 	}
 
 	render() {
-		const components = Array.from({ length: 6 })
-			.map((_, idx) => {
-				const env = { ...this.state.env, character: idx };
-				const results = optimizeForCharacter(env, this.props.party);
-				return <SingleCharacterDps key={idx} name={Characters[idx].name} results={results} />;
-			});
 		return <div className="dps-optimizer">
 			<div className="controls">
 				<NumberInput
@@ -222,13 +216,7 @@ export default class Dps extends React.PureComponent<Props, State> {
 					changeValue={v => this.changeEnv("bravery", v)}
 				/>
 			</div>
-			<div className="results">
-				<table>
-					<tbody>
-						{components}
-					</tbody>
-				</table>	
-			</div>
+			<PartyDps party={this.props.party} env={this.state.env} />
 		</div>;
 	}
 }
@@ -250,6 +238,70 @@ function DpsCell(props: { value: CalculateResult }) {
 	>
 		{Math.round(value.dps)}
 	</td>;
+}
+
+interface PartyDpsProps {
+	party: PartyModel;
+	env: Environment;
+}
+
+interface PartyDpsState {
+	results: OptimizerResult[][] | undefined;
+	for: PartyDpsProps | undefined;
+}
+
+class PartyDps extends React.PureComponent<PartyDpsProps, PartyDpsState> {
+	constructor(props: PartyDpsProps) {
+		super(props);
+		this.state = {
+			results: undefined,
+			for: undefined
+		};
+	}
+
+	private async checkForCalculate() {
+		const results: OptimizerResult[][] = [[], [], [], [], [], []];
+		const { party, env } = this.props;
+
+		for (let i = 0; i < 6; i++) {
+			const dest = results[i];
+			const characterEnv = { ...env, character: i };
+			for await (const r of optimizeForCharacter(characterEnv, party)) {
+				if (party !== this.props.party || env !== this.props.env) {
+					// stop processing now if this data is already old
+					return;
+				}
+				dest.push(r);
+			}
+			dest.sort((a, b) => b.dps.dps - a.dps.dps);
+		}
+
+		this.setState({
+			results,
+			for: {
+				party,
+				env
+			}
+		});
+	}
+
+	render() {
+		const same = this.state.for && this.state.for.env === this.props.env && this.state.for.party === this.props.party;
+		if (!same) {
+			this.checkForCalculate();
+		}
+		const components = this.state.results
+			? this.state.results.map((result, idx) => <SingleCharacterDps key={idx} name={Characters[idx].name} results={result} />)
+			: <tr><td>Working...</td></tr>;
+
+		return <div className={same ? "results" : "results busy"}>
+			<table>
+				<tbody>
+					{components}
+				</tbody>
+			</table>	
+		</div>;
+	}
 }
 
 function SingleCharacterDps(props: { name: string, results: OptimizerResult[] }) {

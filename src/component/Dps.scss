@@ -24,6 +24,10 @@
 		overflow: auto;
 		font-size: 12px;
 
+		&.busy {
+			color: #aaa;
+		}
+
 		tr.data-row {
 			&:hover {
 				background-color: #efe;

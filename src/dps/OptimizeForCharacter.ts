@@ -10,7 +10,11 @@ import { BaseCharacterStats } from "./BaseCharacterStats";
 const battleLores = LicenseGroups.find(g => g.name === "Battle Lore")!.contents;
 const magickLores = LicenseGroups.find(g => g.name === "Magick Lore")!.contents;
 
-export function optimizeForCharacter(e: Environment, party: PartyModel) {
+function turn(): Promise<void> {
+	return new Promise(r => window.setTimeout(r, 0));
+}
+
+export async function* optimizeForCharacter(e: Environment, party: PartyModel) {
 	const licenseMap = party.colorEx(e.character);
 
 	function filterLName(name: string) {
@@ -71,9 +75,14 @@ export function optimizeForCharacter(e: Environment, party: PartyModel) {
 	startingProfile.str += battleLores.filter(filterL).length;
 	startingProfile.mag += magickLores.filter(filterL).length;
 
-	const results = weapons
-		.map(w => optimize(startingProfile, e, w, pool))
-		.sort((a, b) => b.dps.dps - a.dps.dps);
-	
-	return results;
+	let p = performance.now();
+
+	for (const w of weapons) {
+		yield optimize(startingProfile, e, w, pool);
+		// halt processing every 100ms to aid responsiveness
+		if (performance.now() - p > 100) {
+			await turn();
+			p = performance.now();
+		}
+	}
 }
