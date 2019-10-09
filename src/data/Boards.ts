@@ -15,6 +15,7 @@ import Pisces from "../media/Pisces.svg";
 const rawJobs = [{
 	"name": "White Mage",
 	"image": Aries,
+	"imageAlt": "Aries",
 	"text": "Mages who wield healing and support magicks.",
 	"rawBoardData": [
 		[null, null, null, null, null, "Libra", null, null, null, null, null, "+230 HP"],
@@ -40,6 +41,7 @@ const rawJobs = [{
 }, {
 	"name": "Uhlan",
 	"image": Taurus,
+	"imageAlt": "Taurus",
 	"text": "Warriors who wield spears to pierce enemy armor.",
 	"rawBoardData": [
 		[null, null, "Zeromus", null, null, null, null, null, null, "Quickening 4"],
@@ -64,6 +66,7 @@ const rawJobs = [{
 }, {
 	"name": "Machinist",
 	"image": Gemini,
+	"imageAlt": "Gemini",
 	"text": "Warriors who snipe their foes with deadly precision.",
 	"rawBoardData": [
 		[null, "Green Magick 1", null, "Quickening 2", null, null, null, null, null, null, null, null, null, "+350 HP", "Chaos"],
@@ -86,6 +89,7 @@ const rawJobs = [{
 }, {
 	"name": "Red Battlemage",
 	"image": Cancer,
+	"imageAlt": "Cancer",
 	"text": "Battlemages equally skilled with maces and magicks.",
 	"rawBoardData": [
 		[null, null, null, "Steal", null, "White Magick 2"],
@@ -110,6 +114,7 @@ const rawJobs = [{
 }, {
 	"name": "Knight",
 	"image": Leo,
+	"imageAlt": "Leo",
 	"text": "Stalwart warriors who wield swords and shield.",
 	"rawBoardData": [
 		[null, null, null, null, null, null, null, null, null, null, "Potion Lore 2"],
@@ -133,6 +138,7 @@ const rawJobs = [{
 }, {
 	"name": "Monk",
 	"image": Virgo,
+	"imageAlt": "Virgo",
 	"text": "Warriors who temper their bodies into deadly weapons.",
 	"rawBoardData": [
 		[null, null, null, "Cúchulainn", null, null, null, null, "Belias", "Second Board"],
@@ -154,6 +160,7 @@ const rawJobs = [{
 }, {
 	"name": "Time Battlemage",
 	"image": Libra,
+	"imageAlt": "Libra",
 	"text": "Battlemages who wield crossbows and bend time to their will.",
 	"rawBoardData": [
 		[null, null, null, null, null, "Channeling 3", null, "+150 HP", null, "White Magick 4"],
@@ -177,6 +184,7 @@ const rawJobs = [{
 }, {
 	"name": "Foebreaker",
 	"image": Scorpio,
+	"imageAlt": "Scorpio",
 	"text": "Warriors who use mighty weapons to tear their foes asunder.",
 	"rawBoardData": [
 		[null, null, null, "Shades of Black", null, "Swiftness 2"],
@@ -200,6 +208,7 @@ const rawJobs = [{
 }, {
 	"name": "Archer",
 	"image": Sagittarius,
+	"imageAlt": "Sagittarius",
 	"text": "Warriors who rain death on their foes from afar.",
 	"rawBoardData": [
 		[null, null, null, null, null, null, "Quickening 4", null, null, "Hashmal"],
@@ -225,6 +234,7 @@ const rawJobs = [{
 }, {
 	"name": "Black Mage",
 	"image": Capricorn,
+	"imageAlt": "Capricorn",
 	"text": "Mages who channel elemental forces into deadly magicks.",
 	"rawBoardData": [
 		[null, null, null, null, null, null, null, null, "+70 HP"],
@@ -250,6 +260,7 @@ const rawJobs = [{
 }, {
 	"name": "Bushi",
 	"image": Aquarius,
+	"imageAlt": "Aquarius",
 	"text": "Swordmasters who devote themselves body and soul to their lords.",
 	"rawBoardData": [
 		[null, null, null, null, null, null, null, null, null, null, "Karkata", null, "Masamune", "Kumbha"],
@@ -275,6 +286,7 @@ const rawJobs = [{
 }, {
 	"name": "Shikari",
 	"image": Pisces,
+	"imageAlt": "Pisces",
 	"text": "Warriors who fight nimbly across hill and dale.",
 	"rawBoardData": [
 		[null, null, null, "Shades of Black", null, null, null, null, null, null, null, null, null, "Phoenix Lore 1", "Phoenix Lore 2"],
@@ -306,6 +318,7 @@ export interface Board {
 	name: string;
 	text: string;
 	image: string;
+	imageAlt: string;
 	rows: (Position | undefined)[][];
 	lookup: Map<License, Position>;
 }
@@ -315,6 +328,7 @@ function createBoard(raw: typeof rawJobs[0]): Board {
 		name: raw.name,
 		text: raw.text,
 		image: raw.image,
+		imageAlt: raw.imageAlt,
 		rows: raw.rawBoardData.map(row => row.map(v => v ? { value: LicenseByName(v), adjacent: [] } : undefined)),
 		lookup: new Map<License, Position>()
 	};

@@ -476,13 +476,11 @@ allLicenses.push({
 }
 
 const allLicensesByName = new Map<string, License>();
-{
-	for (const l of allLicenses) {
-		if (allLicensesByName.has(l.fullName)) {
-			throw new Error("Duplicate license name " + l.fullName);
-		}
-		allLicensesByName.set(l.fullName, l);
+for (const l of allLicenses) {
+	if (allLicensesByName.has(l.fullName)) {
+		throw new Error("Duplicate license name " + l.fullName);
 	}
+	allLicensesByName.set(l.fullName, l);
 }
 
 export { allLicenses as Licenses };

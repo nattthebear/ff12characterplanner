@@ -3,7 +3,7 @@ import { Board, Boards } from "../data/Boards";
 import { License, Quickenings, Espers } from "../data/Licenses";
 import { PriorityQueue } from "dz-priority-queue";
 
-export const enum Coloring {
+export enum Coloring {
 	/** character has the license learned */
 	OBTAINED,
 	/** can be reached from obtained licenses without going through any not yet decided espers or quickenings */

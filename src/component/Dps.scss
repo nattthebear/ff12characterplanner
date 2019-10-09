@@ -1,0 +1,48 @@
+.dps-optimizer {
+	display: flex;
+	flex-direction: column;
+
+	.controls {
+		flex: 0 0 auto;
+
+		.control {
+			display: inline-block;
+			padding: 2px;
+
+			input[type=number] {
+				width: 4em;
+				text-align: right;
+				margin-left: 4px;
+			}
+			input[type=checkbox] {
+				margin-right: 4px;
+			}
+
+			select {
+				margin-left: 4px;
+			}
+		}
+	}
+
+	.results {
+		overflow: auto;
+		font-size: 12px;
+
+		&.busy {
+			color: #aaa;
+		}
+
+		tr.data-row {
+			&:hover {
+				background-color: #efe;
+			}
+		}
+
+		th {
+			text-align: left
+		}
+		.r {
+			text-align: right;
+		}	
+	}
+}
