@@ -60,6 +60,19 @@ function BoolInput(props: InputProps<boolean>) {
 	</div>;
 }
 
+function ElementInput(props: InputProps<0 | 0.5 | 1 | 2>) {
+	const id = getId();
+	return <div aria-label={props.tooltip} className="control">
+		<label htmlFor={id}>{props.label}</label>
+		<select value={props.value} id={id} onChange={ev => props.changeValue(Number(ev.currentTarget.value) as 0 | 0.5 | 1 | 2)}>
+			<option value="0">Immune</option>
+			<option value="0.5">Strong</option>
+			<option value="1">Normal</option>
+			<option value="2">Weak</option>
+		</select>
+	</div>;
+}
+
 function tooltipFor(e: Equipment) {
 	const ret = Array<string>();
 	if (e.animationType) {
@@ -181,7 +194,6 @@ export default class Dps extends React.PureComponent<Props, State> {
 					value={this.state.env.percentHp}
 					changeValue={v => this.changeEnv("percentHp", v)}
 				/>
-				{/* elemental reactions... (8 dropdowns) */}
 				<NumberInput
 					min={1}
 					max={99}
@@ -190,6 +202,7 @@ export default class Dps extends React.PureComponent<Props, State> {
 					value={this.state.env.level}
 					changeValue={v => this.changeEnv("level", v)}
 				/>
+				<br />
 				<BoolInput
 					label="Resist G&M"
 					tooltip="Does the target resist guns and measures?"
@@ -215,6 +228,14 @@ export default class Dps extends React.PureComponent<Props, State> {
 					value={this.state.env.bravery}
 					changeValue={v => this.changeEnv("bravery", v)}
 				/>
+				<br />
+				{AllElements.map(s => <ElementInput
+					key={s}
+					label={s[0].toUpperCase() + s.slice(1)}
+					tooltip={`How much ${s} damage does the target take?`}
+					value={(this.state.env as any)[s + "Reaction"]}
+					changeValue={v => this.changeEnv(s + "Reaction" as any, v)}
+				/>)}
 			</div>
 			<PartyDps party={this.props.party} env={this.state.env} />
 		</div>;
