@@ -79,8 +79,8 @@ export async function* optimizeForCharacter(e: Environment, party: PartyModel) {
 
 	for (const w of weapons) {
 		yield optimize(startingProfile, e, w, pool);
-		// halt processing every 100ms to aid responsiveness
-		if (performance.now() - p > 100) {
+		// halt processing every 50ms to aid responsiveness
+		if (performance.now() - p > 50) {
 			await turn();
 			p = performance.now();
 		}
