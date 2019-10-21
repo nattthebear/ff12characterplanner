@@ -9,10 +9,8 @@ import { CalculateResult } from "../dps/Calculate";
 
 export interface Props {
 	party: PartyModel;
-}
-
-interface State {
 	env: Environment;
+	changeEnv<K extends keyof Environment>(key: K, value: Environment[K]): void;
 }
 
 interface InputProps<T> {
@@ -130,41 +128,9 @@ function tooltipFor(e: Equipment) {
 	return ret.join(",");
 }
 
-export default class Dps extends React.PureComponent<Props, State> {
+export default class Dps extends React.PureComponent<Props> {
 	constructor(props: Props) {
 		super(props);
-
-		this.state = {
-			env: {
-				character: -1,
-				def: 30,
-				mdef: 30,
-				percentHp: 1,
-				fireReaction: 1,
-				iceReaction: 1,
-				lightningReaction: 1,
-				waterReaction: 1,
-				windReaction: 1,
-				earthReaction: 1,
-				darkReaction: 1,
-				holyReaction: 1,
-				level: 70,
-				resistGun: false,
-				battleSpeed: 6,
-				berserk: true,
-				haste: true,
-				bravery: true	
-			}
-		};
-	}
-
-	private changeEnv<K extends keyof Environment>(key: K, value: Environment[K]) {
-		this.setState(s => ({
-			env: {
-				...s.env,
-				[key]: value
-			}
-		}));
 	}
 
 	render() {
@@ -175,69 +141,69 @@ export default class Dps extends React.PureComponent<Props, State> {
 					max={250}
 					label="Def"
 					tooltip="Target's physical defense"
-					value={this.state.env.def}
-					changeValue={v => this.changeEnv("def", v)}
+					value={this.props.env.def}
+					changeValue={v => this.props.changeEnv("def", v)}
 				/>
 				<NumberInput
 					min={0}
 					max={250}
 					label="MDef"
 					tooltip="Target's magical defense"
-					value={this.state.env.mdef}
-					changeValue={v => this.changeEnv("mdef", v)}
+					value={this.props.env.mdef}
+					changeValue={v => this.props.changeEnv("mdef", v)}
 				/>
 				<NumberInput
 					min={1}
 					max={100}
 					label="HP%"
 					tooltip="Character's HP percentage"
-					value={this.state.env.percentHp}
-					changeValue={v => this.changeEnv("percentHp", v)}
+					value={this.props.env.percentHp}
+					changeValue={v => this.props.changeEnv("percentHp", v)}
 				/>
 				<NumberInput
 					min={1}
 					max={99}
 					label="Lvl"
 					tooltip="Character's level"
-					value={this.state.env.level}
-					changeValue={v => this.changeEnv("level", v)}
+					value={this.props.env.level}
+					changeValue={v => this.props.changeEnv("level", v)}
 				/>
 				<br />
 				<BoolInput
 					label="Resist G&M"
 					tooltip="Does the target resist guns and measures?"
-					value={this.state.env.resistGun}
-					changeValue={v => this.changeEnv("resistGun", v)}
+					value={this.props.env.resistGun}
+					changeValue={v => this.props.changeEnv("resistGun", v)}
 				/>
 				{/* battle speed... (dropdown?) */}
 				<BoolInput
 					label="Berserk"
 					tooltip="Is the berserk buff available?"
-					value={this.state.env.berserk}
-					changeValue={v => this.changeEnv("berserk", v)}
+					value={this.props.env.berserk}
+					changeValue={v => this.props.changeEnv("berserk", v)}
 				/>
 				<BoolInput
 					label="Haste"
 					tooltip="Is the haste buff available?"
-					value={this.state.env.haste}
-					changeValue={v => this.changeEnv("haste", v)}
+					value={this.props.env.haste}
+					changeValue={v => this.props.changeEnv("haste", v)}
 				/>
 				<BoolInput
 					label="Bravery"
 					tooltip="Is the bravery buff available?"
-					value={this.state.env.bravery}
-					changeValue={v => this.changeEnv("bravery", v)}
+					value={this.props.env.bravery}
+					changeValue={v => this.props.changeEnv("bravery", v)}
 				/>
 				<br />
 				{AllElements.map(s => <ElementInput
 					key={s}
 					label={s[0].toUpperCase() + s.slice(1)}
 					tooltip={`How much ${s} damage does the target take?`}
-					value={(this.state.env as any)[s + "Reaction"]}
-					changeValue={v => this.changeEnv(s + "Reaction" as any, v)}
+					value={(this.props.env as any)[s + "Reaction"]}
+					changeValue={v => this.props.changeEnv(s + "Reaction" as any, v)}
 				/>)}
 			</div>
-			<PartyDps party={this.props.party} env={this.state.env} />
+			<PartyDps party={this.props.party} env={this.props.env} />
 		</div>;
 	}
 }
