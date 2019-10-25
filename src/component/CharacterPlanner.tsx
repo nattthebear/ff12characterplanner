@@ -6,7 +6,7 @@ import PartyModel from "../model/PartyModel";
 import QeBoard from "./QeBoard";
 import autobind from "autobind-decorator";
 import Dps from "./Dps";
-import { Environment } from "../dps/Profile";
+import { Environment, defaultEnvironment } from "../dps/Profile";
 
 export interface Props {
 	party: PartyModel;
@@ -30,26 +30,7 @@ export interface State {
 export default class CharacterPlanner extends React.PureComponent<Props, State> {
 	state: State = {
 		plannedParty: undefined,
-		env: {
-			character: -1,
-			def: 30,
-			mdef: 30,
-			percentHp: 1,
-			fireReaction: 1,
-			iceReaction: 1,
-			lightningReaction: 1,
-			waterReaction: 1,
-			windReaction: 1,
-			earthReaction: 1,
-			darkReaction: 1,
-			holyReaction: 1,
-			level: 70,
-			resistGun: false,
-			battleSpeed: 6,
-			berserk: true,
-			haste: true,
-			bravery: true	
-		}
+		env: defaultEnvironment
 	};
 	@autobind
 	private changePlannedParty(plannedParty: PartyModel | undefined) {

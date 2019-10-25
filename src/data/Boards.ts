@@ -323,7 +323,7 @@ export interface Board {
 	lookup: Map<License, Position>;
 }
 
-function createBoard(raw: typeof rawJobs[0]): Board {
+function createBoard(raw: typeof rawJobs[number]): Board {
 	const ret: Board = {
 		name: raw.name,
 		text: raw.text,

@@ -51,6 +51,27 @@ export interface Environment {
 	bravery: boolean;
 }
 
+export const defaultEnvironment: Environment = {
+	character: -1,
+	def: 30,
+	mdef: 30,
+	percentHp: 1,
+	fireReaction: 1,
+	iceReaction: 1,
+	lightningReaction: 1,
+	waterReaction: 1,
+	windReaction: 1,
+	earthReaction: 1,
+	darkReaction: 1,
+	holyReaction: 1,
+	level: 70,
+	resistGun: false,
+	battleSpeed: 6,
+	berserk: true,
+	haste: true,
+	bravery: true	
+};
+
 export interface Profile {
 	damageType: DamageFormula;
 	animationType: AnimationClass;
