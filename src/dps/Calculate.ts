@@ -22,36 +22,21 @@ function admg(att: number, lowMul: number, highMul: number, def: number) {
 	}
 }
 
+function computeCsmod(spd: number) {
+	// My only source of data is a second hand description of a small poorly labeled graph in Ultimania
+	// It provided some approximate values for "CT x CSMOD", with the assumption that CT = 35
+	// I ran those through a regression and got this.
+	// The formula doesn't look entirely unmotivated, but it's kind of a shot in the dark
+
+	const a = 1.022342422396204;
+	const b = 5.268190606448866;
+	const csmod = 1 / (spd * a + b) + 0.1;
+	return csmod;
+}
+
 function calcChargeTime(p: Profile, e: Environment) {
 	const ct = p.chargeTime;
-	let csmod: number;
-	if (p.spd <= 23) {
-		csmod = 4.75;
-	} else if (p.spd <= 25) {
-		csmod = 4.65;
-	} else if (p.spd <= 28) {
-		csmod = 4.55;
-	} else if (p.spd <= 31) {
-		csmod = 4.45;
-	} else if (p.spd <= 35) {
-		csmod = 4.35;
-	} else if (p.spd <= 40) {
-		csmod = 4.25;
-	} else if (p.spd <= 46) {
-		csmod = 4.15;
-	} else if (p.spd <= 56) {
-		csmod = 4.05;
-	} else if (p.spd <= 72) {
-		csmod = 3.95;
-	} else if (p.spd <= 93) {
-		csmod = 3.85;
-	} else {
-		csmod = 3.75;
-	}
-	// TODO: This matches the behavior of the spreadsheet.  It uses the game mechanics faq and then assumes its "CT x CS-MOD"
-	// values were done for CT = 35 and no other modifiers.  All of the csmod calculations are probably off by some.
-	csmod /= 35;
-
+	const csmod = computeCsmod(p.spd);
 
 	const ran = 0.25;
 	let lmod = 1;
