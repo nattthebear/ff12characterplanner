@@ -34,19 +34,18 @@
 @mixin licenseShared {
 	cursor: pointer;
 	&.obtained {
-		background-color: #fff;
+		background-color: rgb(247, 201, 115);
 		@include hoverShadow(#f00);
 	}
 	&.certain {
-		background-color: #ddd;
+		background-color: rgb(248, 219, 165);
 		@include hoverShadow(#0a0);
 	}
 	&.possible {
-		background-color: #ffa;
+		background-color: rgb(194, 139, 77);
 		@include hoverShadow(#0a0);
 	}
 	&.blocked {
-		background-color: #fbb;
 		@include hoverShadow(#f00);
 		cursor: not-allowed;
 	}
@@ -55,6 +54,6 @@
 		cursor: not-allowed;
 	}
 	&.planned {
-		background-color: #afa;
+		background-color: rgb(201, 224, 68);
 	}
 }

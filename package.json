@@ -7,8 +7,8 @@
     "dz-priority-queue": "^0.1.2",
     "normalize.css": "^8.0.0",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-scripts": "3.1.2",
+    "react-dom": "^16.13.1",
+    "react-scripts": "^3.4.1",
     "vex-dialog": "^1.1.0",
     "vex-js": "^4.1.0"
   },
@@ -25,19 +25,19 @@
     "@types/react": "^16.4.6",
     "@types/react-dom": "^16.0.6",
     "copyfiles": "^2.0.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.14.0",
     "popper.js": "^1.14.3",
     "rimraf": "^2.6.2",
     "typescript": "^3.6.3"
   },
-  "homepage": "https://nattthebear.github.io/ff12characterplanner",
+  "homepage": "http://trigork.github.io/web_projects/ff12characterplanner",
   "browserslist": {
     "production": [
-		"last 3 chrome version",
-		"last 2 firefox version",
-		"last 1 safari version",
-		"firefox esr"
-	  ],
+      "last 3 chrome version",
+      "last 2 firefox version",
+      "last 1 safari version",
+      "firefox esr"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
