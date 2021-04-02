@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@popperjs/core": "^2.9.2",
     "autobind-decorator": "^2.1.0",
     "dz-priority-queue": "^0.1.2",
     "normalize.css": "^8.0.0",
@@ -26,7 +27,6 @@
     "@types/react": "^16.4.6",
     "@types/react-dom": "^16.0.6",
     "copyfiles": "^2.0.0",
-    "popper.js": "^1.14.3",
     "rimraf": "^2.6.2",
     "sass": "^1.32.8",
     "source-map-explorer": "^2.5.2",

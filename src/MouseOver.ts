@@ -1,7 +1,7 @@
-import Popper from "popper.js";
+import { createPopper, Instance } from '@popperjs/core';
 import "./MouseOver.scss";
 
-let popper: Popper | undefined;
+let popper: Instance | undefined;
 
 document.addEventListener("mouseover", event => {
 	let target = event.target as Element | null;
@@ -11,6 +11,7 @@ document.addEventListener("mouseover", event => {
 	}
 	if (popper) {
 		popper.destroy();
+		popper.state.elements.popper.remove();
 		popper = undefined;
 	}
 	if (label) {
@@ -18,6 +19,6 @@ document.addEventListener("mouseover", event => {
 		holder.className = "tooltip";
 		holder.textContent = label;
 		document.body.appendChild(holder);
-		popper = new Popper(target!, holder, { removeOnDestroy: true });
+		popper = createPopper(target!, holder);
 	}
 });
