@@ -377,7 +377,7 @@ function createUrlLookup() {
 const { urlLookup, urlReverseLookup } = createUrlLookup();
 
 function toBase64Url(s: string) {
-	return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/\=+$/, "");
+	return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 function fromBase64Url(s: string) {
 	return atob(s.replace(/-/g, "+").replace(/_/g, "/"));

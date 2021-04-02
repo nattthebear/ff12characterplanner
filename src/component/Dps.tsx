@@ -129,10 +129,6 @@ function tooltipFor(e: Equipment) {
 }
 
 export default class Dps extends React.PureComponent<Props> {
-	constructor(props: Props) {
-		super(props);
-	}
-
 	render() {
 		return <div className="dps-optimizer">
 			<div className="controls">
