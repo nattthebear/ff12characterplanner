@@ -4,7 +4,6 @@ import LicenseBoard from "./LicenseBoard";
 import "./CharacterPlanner.scss";
 import PartyModel from "../model/PartyModel";
 import QeBoard from "./QeBoard";
-import autobind from "autobind-decorator";
 import Dps from "./Dps";
 import { Environment, defaultEnvironment } from "../dps/Profile";
 
@@ -32,13 +31,11 @@ export default class CharacterPlanner extends React.PureComponent<Props, State> 
 		plannedParty: undefined,
 		env: defaultEnvironment
 	};
-	@autobind
-	private changePlannedParty(plannedParty: PartyModel | undefined) {
+	private changePlannedParty = (plannedParty: PartyModel | undefined) => {
 		this.setState({ plannedParty });
 	}
 
-	@autobind
-	private changeEnv<K extends keyof Environment>(key: K, value: Environment[K]) {
+	private changeEnv = <K extends keyof Environment>(key: K, value: Environment[K]) => {
 		this.setState(s => ({
 			env: {
 				...s.env,

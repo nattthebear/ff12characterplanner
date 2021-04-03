@@ -33,11 +33,7 @@
     "node_modules",
     "build",
     "docs",
-    "scripts",
-    "acceptance-tests",
-    "webpack",
     "jest",
-    "src/setupTests.ts"
   ],
   "include": [
     "src"

@@ -1,16 +1,16 @@
 import { License, LicenseByName } from "./Licenses";
-import Aries from "../media/Aries.svg";
-import Taurus from "../media/Taurus.svg";
-import Gemini from "../media/Gemini.svg";
-import Cancer from "../media/Cancer.svg";
-import Leo from "../media/Leo.svg";
-import Virgo from "../media/Virgo.svg";
-import Libra from "../media/Libra.svg";
-import Scorpio from "../media/Scorpio.svg";
-import Sagittarius from "../media/Sagittarius.svg";
-import Capricorn from "../media/Capricorn.svg";
-import Aquarius from "../media/Aquarius.svg";
-import Pisces from "../media/Pisces.svg";
+import Aries from "url:../media/Aries.svg";
+import Taurus from "url:../media/Taurus.svg";
+import Gemini from "url:../media/Gemini.svg";
+import Cancer from "url:../media/Cancer.svg";
+import Leo from "url:../media/Leo.svg";
+import Virgo from "url:../media/Virgo.svg";
+import Libra from "url:../media/Libra.svg";
+import Scorpio from "url:../media/Scorpio.svg";
+import Sagittarius from "url:../media/Sagittarius.svg";
+import Capricorn from "url:../media/Capricorn.svg";
+import Aquarius from "url:../media/Aquarius.svg";
+import Pisces from "url:../media/Pisces.svg";
 
 const rawJobs = [{
 	"name": "White Mage",
