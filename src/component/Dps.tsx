@@ -120,10 +120,10 @@ function tooltipFor(e: Equipment) {
 	f("adrenaline", "Adrenaline");
 	f("genjiGloves", "Combo+");
 	for (const elt of AllElements) {
-		f(elt + "Damage" as any, elt[0].toUpperCase() + elt.slice(1) + " Damage");
+		f(`${elt}Damage` as const, elt[0].toUpperCase() + elt.slice(1) + " Damage");
 	}
 	for (const elt of AllElements) {
-		f(elt + "Bonus" as any, elt[0].toUpperCase() + elt.slice(1) + " Bonus");
+		f(`${elt}Bonus` as const, elt[0].toUpperCase() + elt.slice(1) + " Bonus");
 	}
 	return ret.join(",");
 }
@@ -195,8 +195,8 @@ export default class Dps extends React.PureComponent<Props> {
 					key={s}
 					label={s[0].toUpperCase() + s.slice(1)}
 					tooltip={`How much ${s} damage does the target take?`}
-					value={(this.props.env as any)[s + "Reaction"]}
-					changeValue={v => this.props.changeEnv(s + "Reaction" as any, v)}
+					value={this.props.env[`${s}Reaction` as const]}
+					changeValue={v => this.props.changeEnv(`${s}Reaction` as const, v)}
 				/>)}
 			</div>
 			<PartyDps party={this.props.party} env={this.props.env} />

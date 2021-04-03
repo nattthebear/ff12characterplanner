@@ -126,11 +126,11 @@ export function calculate(p: Profile, e: Environment): CalculateResult {
 	}
 
 	for (const element of AllElements) {
-		if ((p as any)[element + "Damage"]) {
-			if ((p as any)[element + "Bonus"]) {
+		if (p[`${element}Damage` as const]) {
+			if (p[`${element}Bonus` as const]) {
 				modifiedDamage *= 1.5;
 			}
-			modifiedDamage *= (e as any)[element + "Reaction"];
+			modifiedDamage *= e[`${element}Reaction` as const];
 		}
 	}
 	if (p.berserk) {
