@@ -66,7 +66,7 @@ export interface OptimizerResult {
 
 /** Given a weapon and environment, choose the maximum dps possible */
 export function optimize(startingProfile: Profile, e: Environment, weapon: Equipment, pool: EquipmentPool): OptimizerResult {
-	const initialDoll: PaperDoll = { weapon }
+	const initialDoll: PaperDoll = { weapon };
 	const initialProfile = createProfile(startingProfile, initialDoll);
 	const possibleKeys = getOptimizerKeys(initialProfile, e);
 

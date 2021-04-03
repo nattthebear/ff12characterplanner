@@ -1,9 +1,9 @@
-import { Equipment }  from "../Profile";
+import { buildEquipments }  from "../Profile";
 import { LicenseByName } from "../../data/Licenses";
 
 const l = LicenseByName;
 
-const Accessory: Equipment[] = [
+const Accessory = buildEquipments([
 	{ name: "Bangle", l: l("Accessories 2"), },
 	{ name: "Berserker Bracers", l: l("Accessories 13"), berserk: true, },
 	{ name: "Ruby Ring", l: l("Accessories 15"), },
@@ -52,40 +52,6 @@ const Accessory: Equipment[] = [
 	{ name: "Manufacted Nethicite", },
 	{ name: "Goddess's Magicite", },
 	{ name: "Dawn Shard", },
-];
+]);
 
 export default Accessory;
-
-/*
-(() => {
-
-var elts = [...$$$body.querySelectorAll("tr")]; // tbody
-var s = "";
-for (var i = 1; i < elts.length; i+= 3) {
-	let ths = [...elts[i].querySelectorAll("th")];
-	let tds = [...elts[i].querySelectorAll("td")];
-	const name = ths[0].querySelector(".attach").textContent;
-	const ll = tds[tds.length - 1].querySelector("a");
-	const license = ll && ll.textContent;
-	let ss = `\t{ name: "${name}", `;
-	if (ll) {
-		ss += `l: l("${license}"), `;
-	}
-	function dod(index, type) {
-		const value = Number(tds[index].textContent);
-		if (!Number.isNaN(value)) {
-			ss += `${type}: ${value}, `;
-		}
-	}
-	dod(4, "str");
-	dod(5, "mag");
-	dod(6, "vit");
-	dod(7, "spd");
-
-	s += ss;
-	s += "},\r\n";
-}
-copy(s);
-
-})();
-*/

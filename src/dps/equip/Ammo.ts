@@ -1,10 +1,6 @@
-import { Equipment, AnimationClass }  from "../Profile";
+import { Ammo, buildEquipments }  from "../Profile";
 
-export interface Ammo extends Equipment {
-	type: AnimationClass;
-}
-
-const Ammo: Ammo[] = [
+const Ammos = buildEquipments<Ammo>([
 	{
 		name: "Onion Arrows",
 		type: "bow",
@@ -175,6 +171,6 @@ const Ammo: Ammo[] = [
 		type: "handbomb",
 		attack: 6
 	},
-];
+]);
 
-export default Ammo;
+export default Ammos;

@@ -1,9 +1,9 @@
-import { Equipment }  from "../Profile";
+import { buildEquipments }  from "../Profile";
 import { LicenseByName } from "../../data/Licenses";
 
 const l = LicenseByName;
 
-export const Helm: Equipment[] = [
+export const Helm = buildEquipments([
 	{ name: "Leather Cap", l: l("Light Armor 1"), },
 	{ name: "Headgear", l: l("Light Armor 2"), },
 	{ name: "Headguard", l: l("Light Armor 2"), },
@@ -64,9 +64,9 @@ export const Helm: Equipment[] = [
 	{ name: "White Mask", l: l("Mystic Armor 11"), mag: 8, },
 	{ name: "Golden Skullcap", l: l("Mystic Armor 12"), mag: 10, spd: 3, },
 	{ name: "Circlet", l: l("Mystic Armor 13"), str: 2, mag: 10, },
-];
+]);
 
-export const BodyArmor: Equipment[] = [
+export const BodyArmor = buildEquipments([
 	{ name: "Leather Clothing", l: l("Light Armor 1"), },
 	{ name: "Chromed Leathers", l: l("Light Armor 2"), },
 	{ name: "Leather Breastplate", l: l("Light Armor 2"), },
@@ -127,48 +127,4 @@ export const BodyArmor: Equipment[] = [
 	{ name: "Black Robes", l: l("Mystic Armor 10"), mag: 12, darkBonus: true, },
 	{ name: "Glimmering Robes", l: l("Mystic Armor 12"), mag: 12, vit: 10, },
 	{ name: "Lordly Robes", l: l("Mystic Armor 13"), str: 5, mag: 15, },
-];
-
-/*
-(() => {
-	const elts = [...document.querySelectorAll("tbody")];
-
-	let helms = "";
-	let bodys = "";
-
-	function procList(index, thunk, strStart) {
-		const rows = [...elts[index].querySelectorAll("tr")];
-		for (let i = 1; i < rows.length;) {
-			const cells = [...rows[i].children];
-			let name = cells[0].querySelector(".attach").textContent;
-			let lic = cells[cells.length - 1].textContent.trim();
-			let ss = `\t{ name: "${name}", `;
-			ss += `l: l("${lic}"), `;
-			function dod(index, type) {
-				const value = Number(cells[index].textContent);
-				if (!Number.isNaN(value)) {
-					ss += `${type}: ${value}, `;
-				}
-			}
-			dod(strStart + 0, "str");
-			dod(strStart + 1, "mag");
-			dod(strStart + 2, "vit");
-			dod(strStart + 3, "spd");
-			ss += "},\r\n";
-			thunk(ss);
-
-			i += Number(cells[0].getAttribute("rowspan"));
-		}
-	}
-
-	procList(1, z => helms += z, 4);
-	procList(2, z => bodys += z, 5);
-	procList(3, z => helms += z, 5);
-	procList(4, z => bodys += z, 5);
-	procList(5, z => helms += z, 5);
-	procList(6, z => bodys += z, 5);
-
-	copy(helms + "\r\n\r\n" + bodys);
-
-})();
-*/
+]);

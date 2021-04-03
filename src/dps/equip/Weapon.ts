@@ -1,9 +1,9 @@
-import { Equipment }  from "../Profile";
+import { buildEquipments }  from "../Profile";
 import { LicenseByName } from "../../data/Licenses";
 
 const l = LicenseByName;
 
-const Weapon: Equipment[] = [
+const Weapon = buildEquipments([
 	{ name: "Unarmed", damageType: "unarmed", animationType: "unarmed", attack: 12, chargeTime: 26, combo: 5, },
 
 	{ name: "Mythril Sword", damageType: "sword", animationType: "sword", attack: 14, chargeTime: 30, combo: 5, },
@@ -202,72 +202,6 @@ const Weapon: Equipment[] = [
 	{ name: "Caldera", l: l("Hand-bombs 3"), damageType: "hammer", animationType: "handbomb", attack: 83, chargeTime: 33, },
 	{ name: "Volcano", l: l("Hand-bombs 3"), damageType: "hammer", animationType: "handbomb", attack: 90, chargeTime: 33, },
 	{ name: "Makara", l: l("Hand-bombs 4"), damageType: "hammer", animationType: "handbomb", attack: 96, chargeTime: 33, },
-];
+]);
 
 export default Weapon;
-/*
-(() => {
-	const elts = [...document.querySelectorAll("tbody")];
-	let s = "";
-	d(0, "unarmed", "unarmed");
-	d(1, "sword", "sword");
-	d(2, "dagger", "dagger");
-	d(3, "hammer", "hammer");
-	d(4, "hammer", "hammer");
-	d(5, "mace", "mace");
-	d(6, "gun", "measure");
-	d(7, "sword", "bigsword");
-	d(8, "katana", "katana");
-	d(9, "dagger", "ninja");
-	d(10, "sword", "spear");
-	d(11, "pole", "pole");
-	d(12, "sword", "rod");
-	d(13, "sword", "staff");
-	d(14, "dagger", "bow");
-	d(15, "sword", "xbow");
-	d(16, "gun", "gun");
-	d(17, "hammer", "handbomb");
-
-	
-	function d(index, dmg, anim) {
-		const tbody = elts[index];
-		const rows = [...tbody.querySelectorAll("tr")];
-		const headers = [...rows[0].children].map(c => c.textContent.trim());
-
-		const ati = headers.indexOf("Atk");
-		const cti = headers.indexOf("CT");
-		let cbi = headers.indexOf("Cmb.");
-		if (cbi < 0) {
-			cbi = headers.indexOf("Crt.");
-		}
-		const mag = headers.indexOf("Mgk Pwr");
-		for (let i = 1; i < rows.length;) {
-			const cells = [...rows[i].children];
-
-			let name = cells[0].querySelector("a").textContent;
-			let licelt = cells[cells.length - 1].querySelector("a");
-
-			let ss = `\t{ name: "${name}", `;
-			if (licelt) {
-				ss += `l: l("${licelt.textContent}"), `;
-			}
-			ss += `damageType: "${dmg}", `;
-			ss += `animationType: "${anim}", `;
-			ss += `attack: ${cells[ati].textContent.trim()}, `;
-			ss += `chargeTime: ${cells[cti].textContent.trim()}, `;
-			if (cbi >= 0) {
-				ss += `combo: ${cells[cbi].textContent.trim().split("%")[0]}, `;
-			}
-			if (mag >= 0) {
-				ss += `mag: ${cells[mag].textContent.trim()}, `;
-			}
-			ss += "},\r\n";
-			s += ss;
-			i += Number(cells[0].getAttribute("rowspan"));
-		}
-		s += "\r\n";
-	}
-
-	copy(s);
-})();
-*/

@@ -1,5 +1,4 @@
 import { License } from "../data/Licenses";
-import { Ammo } from "./equip/Ammo";
 
 export type DamageFormula =
 	"unarmed" | "sword" | "pole" | "mace" | "katana"
@@ -145,6 +144,11 @@ export interface Profile {
 export interface Equipment extends Partial<Profile> {
 	name: string;
 	l?: License;
+	mutateProfile(p: Profile): void;
+}
+
+export interface Ammo extends Equipment {
+	type: AnimationClass;
 }
 
 export interface PaperDoll {
@@ -155,20 +159,40 @@ export interface PaperDoll {
 	accessory?: Equipment;
 }
 
-function mergeImpl(p: Profile, next: Partial<Profile>): Profile {
-	const ret = { ...p };
-	for (const k in next) {
-		const v = (next as any)[k];
+export function buildEquipments<T extends Equipment>(eqs: Omit<T, "mutateProfile">[]): T[] {
+	for (const e of eqs) {
+		buildMutator(e as T);
+	}
+	return eqs as T[];
+}
+
+function buildMutator(e: Equipment) {
+	let s = "";
+	for (const k in e) {
+		if (k === "name" || k === "l" || k === "type") {
+			continue;
+		}
+		const v = (e as any)[k];
 		if (typeof v === "boolean" && v) {
-			(ret as any)[k] = v;
+			s += `ret.${k} = true;\n`;
 		} else if (typeof v === "number") {
-			(ret as any)[k] += v;
+			s += `ret.${k} += ${v};\n`;
 		} else if (typeof v === "string") {
-			(ret as any)[k] = v;
+			s += `ret.${k} = ${JSON.stringify(v)};\n`;
 		} else {
 			throw new Error(`Unexpected type on Profile[${k}]: ${typeof v}`);
 		}
 	}
+	e.mutateProfile = Function("ret", s) as any;
+}
+
+export function createProfile(startingProfile: Profile, doll: PaperDoll) {
+	const ret = { ...startingProfile };
+	doll.weapon.mutateProfile(ret);
+	doll.ammo?.mutateProfile(ret);
+	doll.helm?.mutateProfile(ret);
+	doll.armor?.mutateProfile(ret);
+	doll.accessory?.mutateProfile(ret);
 	if (ret.str > 99) {
 		ret.str = 99;
 	}
@@ -180,31 +204,6 @@ function mergeImpl(p: Profile, next: Partial<Profile>): Profile {
 	}
 	if (ret.spd > 99) {
 		ret.spd = 99;
-	}
-	return ret;
-}
-function mergeEq(p: Profile, nextEq: Equipment) {
-	const { name, l, ...next } = nextEq;
-	return mergeImpl(p, next);
-}
-function mergeAmmo(p: Profile, nextAmmo: Ammo) {
-	const { name, l, type, ...next } = nextAmmo;
-	return mergeImpl(p, next);	
-}
-
-export function createProfile(startingProfile: Profile, doll: PaperDoll) {
-	let ret = mergeEq(startingProfile, doll.weapon);
-	if (doll.ammo) {
-		ret = mergeAmmo(ret, doll.ammo);
-	}
-	if (doll.helm) {
-		ret = mergeEq(ret, doll.helm);
-	}
-	if (doll.armor) {
-		ret = mergeEq(ret, doll.armor);
-	}
-	if (doll.accessory) {
-		ret = mergeEq(ret, doll.accessory);
 	}
 	return ret;
 }

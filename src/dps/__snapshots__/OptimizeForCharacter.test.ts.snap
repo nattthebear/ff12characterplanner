@@ -2,7 +2,7 @@
 
 exports[`OptimizeForCharacter basic test 1`] = `
 Object {
-  "elapsed": 135.03969999999993,
+  "elapsed": 70.03930000000003,
   "results": Array [
     Object {
       "accessory": "Genji Gloves",
@@ -730,7 +730,7 @@ Object {
 
 exports[`OptimizeForCharacter basic test 2`] = `
 Object {
-  "elapsed": 92.89999999999998,
+  "elapsed": 39.460199999999986,
   "results": Array [
     Object {
       "accessory": "Genji Gloves",
@@ -1353,7 +1353,7 @@ Object {
 
 exports[`OptimizeForCharacter basic test 3`] = `
 Object {
-  "elapsed": 57.65549999999996,
+  "elapsed": 43.578500000000076,
   "results": Array [
     Object {
       "accessory": "Genji Gloves",
@@ -1916,7 +1916,7 @@ Object {
 
 exports[`OptimizeForCharacter basic test 4`] = `
 Object {
-  "elapsed": 37.95959999999991,
+  "elapsed": 18.265800000000013,
   "results": Array [
     Object {
       "accessory": "Germinas Boots",
@@ -2494,7 +2494,7 @@ Object {
 
 exports[`OptimizeForCharacter basic test 5`] = `
 Object {
-  "elapsed": 69.92430000000013,
+  "elapsed": 23.02729999999997,
   "results": Array [
     Object {
       "accessory": "Genji Gloves",
