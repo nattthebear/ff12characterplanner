@@ -79,13 +79,11 @@ async function doTest({ character, job, job2, licenses, env }: TestParameters) {
 
 async function timeTest(pp: TestParameters) {
 	const start = performance.now();
-	for (let i = 0; i < 35; i++) {
+	for (let i = 0; i < 350; i++) {
 		await doTest(pp);
 	}
-	return performance.now();
+	return performance.now() - start;
 }
-
-
 
 describe("OptimizeForCharacter", () => {
 	it("basic test", async () => {
@@ -148,6 +146,31 @@ describe("OptimizeForCharacter", () => {
 				def: 10,
 			}
 		})).toMatchSnapshot();
+	});
+
+	it("elemental tests", async () => {
+		const envs: Partial<Environment>[] = [
+			{ fireReaction: 2 },
+			{ fireReaction: 0.5 },
+			{ iceReaction: 2 },
+			{ iceReaction: 0 },
+			{ windReaction: 2 },
+			{ lightningReaction: 2 },
+			{ earthReaction: 2 },
+			{ waterReaction: 2 },
+			{ waterReaction: 0 },
+			{ waterReaction: 0.5 },
+			{ darkReaction: 0.5 },
+			{ darkReaction: 0 },
+		];
+		for (const env of envs) {
+			expect(await doTest({ character: Character.Balthier, job: Job.Archer, job2: Job.Machinist, env })).toMatchSnapshot();
+		}
+	});
+
+	it("a tricky elemental test", async () => {
+		// For the Aevis Killer, Earth Arrows are the best here, but the old optimizer doesn't see that.
+		expect(await doTest({ character: Character.Penelo, job: Job.Archer, env: { def: 32, earthReaction: 0.5 } })).toMatchSnapshot();
 	});
 
 	it("Perf tests", async () => {
