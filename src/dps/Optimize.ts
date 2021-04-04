@@ -1,5 +1,4 @@
 import { Profile, Environment, PaperDoll, Equipment, createProfile, EquipmentPool } from "./Profile";
-import { chooseAmmo } from "./ChooseAmmo";
 import { calculate, CalculateResult } from "./Calculate";
 import { filterEquippables, getOptimizerKeys } from "./OptimizerPrep";
 import Ammos from "./equip/Ammo";
@@ -11,7 +10,15 @@ export interface OptimizerResult {
 
 /** Given a weapon and environment, choose the maximum dps possible */
 export function optimize(startingProfile: Profile, e: Environment, weapon: Equipment, pool: EquipmentPool): OptimizerResult {
-	const possibleKeys = getOptimizerKeys(createProfile(startingProfile, { weapon }), e);
+	const doll: PaperDoll = {
+		weapon,
+		ammo: undefined,
+		armor: undefined,
+		helm: undefined,
+		accessory: undefined,
+	};
+
+	const possibleKeys = getOptimizerKeys(createProfile(startingProfile, doll), e);
 
 	// limit only to items that could potentially help the character
 	const ammos = filterEquippables(Ammos.filter(a => a.type === weapon.animationType), possibleKeys);
@@ -23,21 +30,18 @@ export function optimize(startingProfile: Profile, e: Environment, weapon: Equip
 	let topDoll: PaperDoll | undefined;
 
 	for (const ammo of ammos) {
+		doll.ammo = ammo;
 		for (const armor of armors) {
+			doll.armor = armor;
 			for (const helm of helms) {
+				doll.helm = helm;
 				for (const accessory of accessories) {
-					const doll: PaperDoll = {
-						weapon,
-						ammo,
-						armor,
-						helm,
-						accessory
-					};
+					doll.accessory = accessory;
 					const p = createProfile(startingProfile, doll);
 					const dps = calculate(p, e);
 					if (!topDps || dps.dps > topDps.dps) {
 						topDps = dps;
-						topDoll = doll;
+						topDoll = { ...doll };
 					}
 				}
 			}

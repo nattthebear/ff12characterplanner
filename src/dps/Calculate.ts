@@ -1,5 +1,5 @@
+import { AnimationTimings } from "./AnimationTiming";
 import { Profile, Environment, AllElements } from "./Profile";
-import { AttackFrames } from "./AttackFrames";
 
 /** model attack damage against armor */
 function admg(att: number, lowMul: number, highMul: number, def: number) {
@@ -149,20 +149,21 @@ export function calculate(p: Profile, e: Environment): CalculateResult {
 	// compute criticals and combos
 	let comboDamage = modifiedDamage;
 
-	const [initialSwingFrames, ...comboFrames] = AttackFrames[p.animationType][e.character];
-	let animationTime = initialSwingFrames / 30;
+	const timings = AnimationTimings[p.animationType][e.character];
+	let animationTime = timings.initialSwing;
 
 	if (p.combo > 0) {
 		/** Adjusted crit/combo rate */
 		const cr = Math.min(1, p.combo * (p.genjiGloves ? 1.8 : 0.7) / 100);
 
-		if (comboFrames.length === 0 || p.damageType === "gun") {
+		if (timings.comboSwing === 0 || p.damageType === "gun") {
 			// critical
+			// (damageType check is for fake Excalibur, etc.)
 			comboDamage *= 1 + cr;
 		} else {
 			// combo
 			let extraHits: number;
-			const extraHitTime = comboFrames.reduce((acc, val) => acc + val, 0) / comboFrames.length / 30;
+			const extraHitTime = timings.comboSwing;
 			if (e.percentHp > 25) {
 				extraHits = 1.873;
 			} else if (e.percentHp > 12) {

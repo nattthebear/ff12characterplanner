@@ -2,7 +2,7 @@
 import { AnimationClass } from "./Profile";
 
 /** base speed, followed by combo variants, for each character */
-export const AttackFrames: {
+const AttackFrames: {
 	[K in AnimationClass]: number[][];
 } = {
 	//   Vaan          Balthier      Fran          Basch         Ashe          Penelope
@@ -41,3 +41,28 @@ export const AttackFrames: {
 	staff: // ??
 		[[36, 18], [36, 18], [36, 18], [36, 18], [36, 18], [36, 18]],
 };
+
+export interface AnimationTiming {
+	/** How long it takes to complete a single cycle of this weapon, in seconds. */
+	initialSwing: number;
+	/** How long it takes on average to add a single combo swing after an initial swing, in sections. */
+	comboSwing: number;
+}
+
+function computeTiming(frames: number[]): AnimationTiming {
+	const [initial, ...rest] = frames;
+	return {
+		initialSwing: initial / 30,
+		comboSwing: rest.length ? rest.reduce((acc, val) => acc + val) / rest.length / 30 : 0,
+	};
+}
+
+function mapValues<K extends string, V, O>(object: Record<K, V>, project: (v: V) => O): Record<K, O> {
+	const ret: any = {};
+	for (const k in object) {
+		ret[k] = project(object[k]);
+	}
+	return ret;
+}
+
+export const AnimationTimings = mapValues(AttackFrames, arr => arr.map(computeTiming));
