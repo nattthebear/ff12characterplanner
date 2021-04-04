@@ -5,43 +5,50 @@ import { calculate, CalculateResult } from "./Calculate";
 /** Given a profile where the weapon has already been chosen, and an environment, determine what stats could be beneficial */
 function getOptimizerKeys(p: Profile, e: Environment) {
 	// can leave out any key that's only found on weapons, or is not relevant to this weapon
-	const ret: (keyof Profile)[] = [
+	const ret = new Set<keyof Profile>([
 		"attack",
 		"spd", // always needed for csmod
-	];
+	]);
 
 	if (p.holyDamage) {
-		ret.push("holyBonus");
+		ret.add("holyBonus");
 	}
 	if (p.darkDamage) {
-		ret.push("darkBonus");
+		ret.add("darkBonus");
+	}
+
+	ret.add("focus");
+	ret.add("adrenaline");
+	if (p.combo > 0) {
+		ret.add("genjiGloves");
 	}
 
 	// if we already have these licenses, then the accessories with them won't be relevant
-	for (const k of ["berserk", "haste", "bravery", "focus", "adrenaline", "genjiGloves"] as const) {
-		if (!p[k]) {
-			ret.push(k);
+	for (const k of ["berserk", "haste", "bravery"] as const) {
+		if (!e[k]) {
+			ret.add(k);
 		}
 	}
 
 	switch (p.damageType) {
 		case "unarmed":
-			ret.push("str");
+			ret.add("str");
 			if (!p.brawler) {
-				ret.push("brawler");
+				ret.add("brawler");
 			}
 			break;
 		case "sword":
 		case "pole":
 		case "hammer":
 		case "dagger":
-			ret.push("str");
+			ret.add("str");
 			break;
 		case "mace":
-			ret.push("mag");
+			ret.add("mag");
 			break;
 		case "katana":
-			ret.push("str", "mag");
+			ret.add("str");
+			ret.add("mag");
 			break;
 		default:
 			break;
@@ -50,9 +57,9 @@ function getOptimizerKeys(p: Profile, e: Environment) {
 	return ret;
 }
 
-function filterEquippable(eq: Equipment, keys: (keyof Profile)[]) {
+function filterEquippable(eq: Equipment, keys: Set<keyof Profile>) {
 	for (const k in eq) {
-		if (keys.includes(k as keyof Profile)) {
+		if (keys.has(k as keyof Profile)) {
 			return true;
 		}
 	}
