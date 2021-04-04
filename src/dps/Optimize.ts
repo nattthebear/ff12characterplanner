@@ -39,9 +39,12 @@ function getOptimizerKeys(p: Profile, e: Environment) {
 			break;
 		case "sword":
 		case "pole":
-		case "hammer":
 		case "dagger":
 			ret.add("str");
+			break;
+		case "hammer":
+			ret.add("str");
+			ret.add("vit");
 			break;
 		case "mace":
 			ret.add("mag");

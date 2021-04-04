@@ -125,7 +125,30 @@ describe("OptimizeForCharacter", () => {
 			job: Job.Machinist,
 			job2: Job.RedBattlemage,
 		})).toMatchSnapshot();		
-	})
+	});
+
+	it("vit optimization", async () => {
+		expect(await doTest({
+			character: Character.Ashe,
+			job: Job.Foebreaker,
+			job2: Job.BlackMage,
+			licenses: ["Adrammelech", "Quickening 4"],
+			env: {
+				level: 99,
+				def: 10,
+			}
+		})).toMatchSnapshot();
+		expect(await doTest({
+			character: Character.Ashe,
+			job: Job.BlackMage,
+			job2: Job.Monk,
+			licenses: ["Adrammelech", "Quickening 4"],
+			env: {
+				level: 99,
+				def: 10,
+			}
+		})).toMatchSnapshot();
+	});
 
 	it("Perf tests", async () => {
 		const t1 = await timeTest({ character: Character.Basch, job: Job.Knight, job2: Job.Foebreaker });
