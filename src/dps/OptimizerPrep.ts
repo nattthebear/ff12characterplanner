@@ -6,17 +6,26 @@ export function getOptimizerKeys(p: Profile, e: Environment) {
 	const ret = new Set<keyof Profile>([
 		"attack",
 		"spd", // always needed for csmod
+
+		// Depending on what other things are potentially available and the environment, some elemental
+		// possibilities can be eliminated sometimes.  Let's not worry about that right now?
+		"fireDamage",
+		"iceDamage",
+		"lightningDamage",
+		"waterDamage",
+		"windDamage",
+		"earthDamage",
+		"darkDamage",
+		"holyDamage",
+
+		// Only bonuses found off of weapons
+		"holyBonus",
+		"darkBonus",
+
+		"focus",
+		"adrenaline",
 	]);
 
-	if (p.holyDamage) {
-		ret.add("holyBonus");
-	}
-	if (p.darkDamage) {
-		ret.add("darkBonus");
-	}
-
-	ret.add("focus");
-	ret.add("adrenaline");
 	if (p.combo > 0) {
 		ret.add("genjiGloves");
 	}
@@ -71,8 +80,8 @@ const hazardKeys = new Set<keyof Profile>([
 	"holyDamage", // Can't actually be found on non-weapons, but less confusing to leave it here
 ]);
 
-/** Given a set of potential optimizerKeys, eliminate equipment that has no keys or is always worse than other equipment. */
-export function filterEquippables(eqs: Equipment[], keys: Set<keyof Profile>) {
+/** Given a set of potential optimizerKeys, eliminate equipment that has no relevantkeys or is always worse than other equipment. */
+export function filterEquippables<T extends Equipment>(eqs: T[], keys: Set<keyof Profile>) {
 	// Eliminate any item that has no possible value, and then any item that is pareto infero to another.
 
 	const ret: Equipment[] = [];
@@ -83,24 +92,18 @@ export function filterEquippables(eqs: Equipment[], keys: Set<keyof Profile>) {
 	for (const eq of eqs) {
 		for (const k in eq) {
 			if (keys.has(k as keyof Profile)) {
+				// Will have some effect.  Add to either haz or ret.
 				for (const k2 in eq) {
 					if (hazardKeys.has(k2 as keyof Profile)) {
 						haz.push(eq);
 						continue next_eq;
 					}
 				}
+				ret.push(eq);
+				continue next_eq;
 			}
 		}
 	}
-
-	const ret = eqs.filter(eq => {
-		for (const k in eq) {
-			if (keys.has(k as keyof Profile)) {
-				return true;
-			}
-		}
-		return false;
-	});
 
 	for (let i = 0; i < ret.length; i++) {
 		inner_eq:
@@ -130,7 +133,8 @@ export function filterEquippables(eqs: Equipment[], keys: Set<keyof Profile>) {
 			break;
 		}
 	}
-	const realRet = ret as (Equipment | undefined)[];
+	ret.push(...haz);
+	const realRet = ret as (T | undefined)[];
 	if (!realRet.length) {
 		realRet.push(undefined);
 	}
