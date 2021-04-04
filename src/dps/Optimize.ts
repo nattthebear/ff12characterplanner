@@ -57,13 +57,53 @@ function getOptimizerKeys(p: Profile, e: Environment) {
 	return ret;
 }
 
-function filterEquippable(eq: Equipment, keys: Set<keyof Profile>) {
-	for (const k in eq) {
-		if (keys.has(k as keyof Profile)) {
-			return true;
+function filterEquippables(eqs: Equipment[], keys: Set<keyof Profile>) {
+	// Eliminate any item that has no possible value, and then any item that is pareto infero to another.
+
+	// Every attribute possible here has a boolean or number value and a nonnegative return.
+	// In the future (improved ammo selection, weather effects), this might not be true.
+
+	const ret = eqs.filter(eq => {
+		for (const k in eq) {
+			if (keys.has(k as keyof Profile)) {
+				return true;
+			}
+		}
+		return false;
+	});
+
+	for (let i = 0; i < ret.length; i++) {
+		next_eq:
+		for (let j = 0; j < ret.length; j++) {
+			if (i === j) {
+				continue;
+			}
+			const x = ret[i];
+			const y = ret[j];
+
+			for (const k in x) {
+				if (!keys.has(k as keyof Profile)) {
+					continue;
+				}
+				if (!(k in y)) {
+					continue next_eq;
+				}
+				const vx = +(x as any)[k];
+				const vy = +(y as any)[k];
+				if (vx > vy) {
+					continue next_eq;
+				}
+			}
+			// x is pareto inferior to y
+			ret.splice(i--, 1);
+			break;
 		}
 	}
-	return false;
+	const realRet = ret as (Equipment | undefined)[];
+	if (!realRet.length) {
+		realRet.push(undefined);
+	}
+	return realRet;
 }
 
 export interface OptimizerResult {
@@ -77,15 +117,15 @@ export function optimize(startingProfile: Profile, e: Environment, weapon: Equip
 	const possibleKeys = getOptimizerKeys(createProfile(startingProfile, { weapon, ammo }), e);
 
 	// limit only to items that could potentially help the character
-	const armors: (Equipment | undefined)[] = pool.armors.filter(eq => filterEquippable(eq, possibleKeys));
+	const armors: (Equipment | undefined)[] = filterEquippables(pool.armors, possibleKeys);
 	if (!armors.length) {
 		armors.push(undefined);
 	}
-	const helms: (Equipment | undefined)[] = pool.helms.filter(eq => filterEquippable(eq, possibleKeys));
+	const helms: (Equipment | undefined)[] = filterEquippables(pool.helms, possibleKeys);
 	if (!helms.length) {
 		helms.push(undefined);
 	}
-	const accessories: (Equipment | undefined)[] = pool.accessories.filter(eq => filterEquippable(eq, possibleKeys));
+	const accessories: (Equipment | undefined)[] = filterEquippables(pool.accessories, possibleKeys);
 	if (!accessories.length) {
 		accessories.push(undefined);
 	}
