@@ -201,6 +201,11 @@ describe("OptimizeForCharacter", () => {
 		})).toMatchSnapshot();
 	});
 
+	it("wyrmhero bravery", async () => {
+		expect(await doTest({ character: Character.Fran, job: Job.Monk, env: { bravery: false } })).toMatchSnapshot();
+		expect(await doTest({ character: Character.Fran, job: Job.WhiteMage, env: { bravery: false } })).toMatchSnapshot();
+	});
+
 	it("Perf tests", async () => {
 		const t1 = await timeTest({ character: Character.Basch, job: Job.Knight, job2: Job.Foebreaker });
 		const t2 = await timeTest({ character: Character.Basch, job: Job.Bushi, job2: Job.WhiteMage });
