@@ -173,6 +173,34 @@ describe("OptimizeForCharacter", () => {
 		expect(await doTest({ character: Character.Penelo, job: Job.Archer, env: { def: 32, earthReaction: 0.5 } })).toMatchSnapshot();
 	});
 
+	it("weather", async () => {
+		expect(await doTest({ character: Character.Ashe, job: Job.Machinist, job2: Job.BlackMage, env: { weather: "windy" } })).toMatchSnapshot();
+		expect(await doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Foebreaker,
+			env: {
+				weather: "windy",
+				def: 20,
+				level: 70,
+				iceReaction: 0, lightningReaction: 0, waterReaction: 0, windReaction: 0, earthReaction: 0, holyReaction: 0, darkReaction: 0,
+			}
+		})).toMatchSnapshot();
+		expect(await doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Foebreaker,
+			env: {
+				weather: "rainy",
+				def: 20,
+				level: 90,
+				iceReaction: 0, lightningReaction: 0, waterReaction: 0, windReaction: 0, earthReaction: 0, holyReaction: 0, darkReaction: 0,
+			}
+		})).toMatchSnapshot();
+		expect(await doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Bushi,
+			env: {
+				weather: "rainy",
+				def: 20,
+				level: 90,
+				iceReaction: 0, lightningReaction: 0, waterReaction: 0, windReaction: 0, earthReaction: 0, holyReaction: 0, darkReaction: 0,
+			}
+		})).toMatchSnapshot();
+	});
+
 	it("Perf tests", async () => {
 		const t1 = await timeTest({ character: Character.Basch, job: Job.Knight, job2: Job.Foebreaker });
 		const t2 = await timeTest({ character: Character.Basch, job: Job.Bushi, job2: Job.WhiteMage });

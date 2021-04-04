@@ -87,6 +87,7 @@ const hazardKeys = new Set<keyof Profile>([
 	"earthDamage",
 	"darkDamage",
 	"holyDamage", // Can't actually be found on non-weapons, but less confusing to leave it here
+	"agateRing",
 ]);
 
 /** Given a set of potential optimizerKeys, eliminate equipment that has no relevantkeys or is always worse than other equipment. */
