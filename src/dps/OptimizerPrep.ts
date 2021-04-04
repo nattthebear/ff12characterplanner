@@ -29,6 +29,15 @@ export function getOptimizerKeys(p: Profile, e: Environment) {
 	if (p.combo > 0) {
 		ret.add("genjiGloves");
 	}
+	if (e.parry 
+		|| e.block > 0
+		|| (e.weather === "windy" || e.weather === "windy and rainy") && (p.animationType === "bow" || p.animationType === "xbow")
+	) {
+		ret.add("cameoBelt");
+	}
+	if (e.weather !== "other" || e.terrain !== "other") {
+		ret.add("agateRing");
+	}
 
 	// if we already have these licenses, then the accessories with them won't be relevant
 	for (const k of ["berserk", "haste", "bravery"] as const) {

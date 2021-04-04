@@ -65,8 +65,10 @@ export interface CalculateResult {
 	dps: number;
 	/** Damage done by the weapon */
 	baseDmg: number;
-	/** Damage including multipliers like bravery, berserk, etc */
+	/** Damage including multipliers like bravery, berserk, weather, etc. */
 	modifiedDamage: number;
+	/** Damage after misses are factored out */
+	nonAvoidedDamage: number;
 	/** Damage done per action including the possibility of crits or combos */
 	comboDamage: number;
 	/** Charge time per action */
@@ -133,6 +135,45 @@ export function calculate(p: Profile, e: Environment): CalculateResult {
 			modifiedDamage *= e[`${element}Reaction` as const];
 		}
 	}
+	if (e.oil && p.fireDamage) {
+		modifiedDamage *= 3;
+	}
+	if (!p.agateRing) {
+		if (e.terrain === "sand") {
+			if (p.earthDamage) {
+				modifiedDamage *= 1.2;
+			}
+		} else if (e.terrain === "water") {
+			if (p.lightningDamage || p.waterDamage) {
+				modifiedDamage *= 1.2;
+			} else if (p.earthDamage) {
+				modifiedDamage *= 0.5;
+			}
+		} else if (e.terrain === "snow") {
+			if (p.iceDamage) {
+				modifiedDamage *= 1.2;
+			}
+		}
+		if (e.weather === "windy" || e.weather === "windy and rainy") {
+			if (p.fireDamage || p.windDamage) {
+				modifiedDamage *= 1.2;
+			} else if (p.waterDamage) {
+				modifiedDamage *= 0.5; // "Heavy Rain" is half water damage, heh?
+			}
+		}
+		if (e.weather === "rainy" || e.weather === "windy and rainy") {
+			if (p.lightningDamage) {
+				modifiedDamage *= 1.2;
+			} else if (p.fireDamage) {
+				modifiedDamage *= 0.5;
+			}		
+		}
+		if (e.weather === "foggy") {
+			if (p.waterDamage) {
+				modifiedDamage *= 1.2;
+			}
+		}
+	}
 	if (p.berserk) {
 		modifiedDamage *= 1.5;
 	}
@@ -146,8 +187,26 @@ export function calculate(p: Profile, e: Environment): CalculateResult {
 		modifiedDamage *= 2;
 	}
 
+	// avoidance
+	let nonAvoidedDamage = modifiedDamage;
+	if (p.damageType !== "gun" && !p.cameoBelt) {
+		if (e.block) {
+			nonAvoidedDamage *= (100 - e.block) / 100;
+		}
+		if (e.parry) {
+			nonAvoidedDamage *= 0.75;
+		}
+		if (e.weather === "windy" || e.weather === "windy and rainy") {
+			if (p.animationType === "bow") {
+				nonAvoidedDamage *= 0.8;
+			} else if (p.animationType === "xbow") {
+				nonAvoidedDamage *= 0.5;
+			}
+		}
+	}
+
 	// compute criticals and combos
-	let comboDamage = modifiedDamage;
+	let comboDamage = nonAvoidedDamage;
 
 	const timings = AnimationTimings[p.animationType][e.character];
 	let animationTime = timings.initialSwing;
@@ -185,6 +244,7 @@ export function calculate(p: Profile, e: Environment): CalculateResult {
 		dps,
 		baseDmg,
 		modifiedDamage,
+		nonAvoidedDamage,
 		comboDamage,
 		chargeTime,
 		animationTime

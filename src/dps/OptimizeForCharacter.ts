@@ -46,6 +46,8 @@ export async function* optimizeForCharacter(e: Environment, party: PartyModel) {
 		focus: filterLName("Focus"),
 		adrenaline: filterLName("Adrenaline"),
 		genjiGloves: false,
+		cameoBelt: false,
+		agateRing: false,
 
 		swiftness1: filterLName("Swiftness 1"),
 		swiftness2: filterLName("Swiftness 2"),

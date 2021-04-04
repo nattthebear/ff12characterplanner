@@ -11,6 +11,10 @@ export type AnimationClass = "unarmed"
 
 export const AllElements = ["fire", "ice", "lightning", "water", "wind", "earth", "dark", "holy"] as const;
 
+export type ElementalReaction = 0 | 0.5 | 1 | 2;
+export type Terrain = "other" | "sand" | "water" | "snow";
+export type Weather = "other" | "windy" | "rainy" | "foggy" | "windy and rainy";
+
 export interface Environment {
 	/** character index, 0-5 */
 	character: number;
@@ -21,21 +25,21 @@ export interface Environment {
 	/** character hp percentage, from 1 to 100 */
 	percentHp: number;
 	/** How much damage does the target take from the element? */
-	fireReaction: 0 | 0.5 | 1 | 2;
+	fireReaction: ElementalReaction;
 	/** How much damage does the target take from the element? */
-	iceReaction: 0 | 0.5 | 1 | 2;
+	iceReaction: ElementalReaction;
 	/** How much damage does the target take from the element? */
-	lightningReaction: 0 | 0.5 | 1 | 2;
+	lightningReaction: ElementalReaction;
 	/** How much damage does the target take from the element? */
-	waterReaction: 0 | 0.5 | 1 | 2;
+	waterReaction: ElementalReaction;
 	/** How much damage does the target take from the element? */
-	windReaction: 0 | 0.5 | 1 | 2;
+	windReaction: ElementalReaction;
 	/** How much damage does the target take from the element? */
-	earthReaction: 0 | 0.5 | 1 | 2;
+	earthReaction: ElementalReaction;
 	/** How much damage does the target take from the element? */
-	darkReaction: 0 | 0.5 | 1 | 2;
+	darkReaction: ElementalReaction;
 	/** How much damage does the target take from the element? */
-	holyReaction: 0 | 0.5 | 1 | 2;
+	holyReaction: ElementalReaction;
 	/** character level, 1-99 */
 	level: number;
 	/** True if target resists guns and measures */
@@ -48,6 +52,16 @@ export interface Environment {
 	haste: boolean;
 	/** true if the buff can be provided from external sources, and an accessory is not needed to provide it */
 	bravery: boolean;
+	/** True if the target can parry attacks.  If so, it's always 25% (30% when player is defending). */
+	parry: boolean;
+	/** Target's block chance.  Varies from 0% (the most common) to a max (?) of 40% (Flowering Cactoid). */
+	block: number;
+	/** What terrain are we fighting on? */
+	terrain: Terrain;
+	/** What is the weather? */
+	weather: Weather;
+	/** True if the target can be and is oiled. */
+	oil: boolean;
 }
 
 export const defaultEnvironment: Environment = {
@@ -68,7 +82,12 @@ export const defaultEnvironment: Environment = {
 	battleSpeed: 6,
 	berserk: true,
 	haste: true,
-	bravery: true	
+	bravery: true,
+	parry: false,
+	block: 0,
+	terrain: "other",
+	weather: "other",
+	oil: false,
 };
 
 export interface Profile {
@@ -97,7 +116,10 @@ export interface Profile {
 	focus: boolean;
 	/** Is the adrenaline license available? */
 	adrenaline: boolean;
+
 	genjiGloves: boolean;
+	cameoBelt: boolean;
+	agateRing: boolean;
 
 	/** The 1st swiftness license */
 	swiftness1: boolean;

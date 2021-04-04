@@ -4,7 +4,7 @@ import { optimizeForCharacter } from "../dps/OptimizeForCharacter";
 import { OptimizerResult } from "../dps/Optimize";
 import { Characters } from "../data/Characters";
 import "./Dps.scss";
-import { Environment, Equipment, Profile, AllElements } from "../dps/Profile";
+import { Environment, Equipment, Profile, AllElements, Weather, Terrain } from "../dps/Profile";
 import { CalculateResult } from "../dps/Calculate";
 
 export interface Props {
@@ -70,6 +70,31 @@ function ElementInput(props: InputProps<0 | 0.5 | 1 | 2>) {
 		</select>
 	</div>;
 }
+function WeatherInput(props: InputProps<Weather>) {
+	const id = getId();
+	return <div aria-label={props.tooltip} className="control">
+		<label htmlFor={id}>{props.label}</label>
+		<select value={props.value} id={id} onChange={ev => props.changeValue(ev.currentTarget.value as Weather)}>
+			<option value="other">None</option>
+			<option value="windy">Wind</option>
+			<option value="rainy">Rain</option>
+			<option value="foggy">Fog</option>
+			<option value="windy and rainy">Downpour</option>
+		</select>
+	</div>;
+}
+function TerrainInput(props: InputProps<Terrain>) {
+	const id = getId();
+	return <div aria-label={props.tooltip} className="control">
+		<label htmlFor={id}>{props.label}</label>
+		<select value={props.value} id={id} onChange={ev => props.changeValue(ev.currentTarget.value as Terrain)}>
+			<option value="other">None</option>
+			<option value="sand">Sand</option>
+			<option value="water">Water</option>
+			<option value="snow">Snow</option>
+		</select>
+	</div>;
+}
 
 function tooltipFor(e: Equipment) {
 	const ret = Array<string>();
@@ -119,6 +144,8 @@ function tooltipFor(e: Equipment) {
 	f("focus", "Focus");
 	f("adrenaline", "Adrenaline");
 	f("genjiGloves", "Combo+");
+	f("cameoBelt", "Ignore Evasion");
+	f("agateRing", "Ignore Weather");
 	for (const elt of AllElements) {
 		f(`${elt}Damage` as const, elt[0].toUpperCase() + elt.slice(1) + " Damage");
 	}
@@ -164,6 +191,26 @@ export default class Dps extends React.PureComponent<Props> {
 					value={this.props.env.level}
 					changeValue={v => this.props.changeEnv("level", v)}
 				/>
+				<NumberInput
+					min={0}
+					max={40}
+					label="Block"
+					tooltip="Target's block (EVA)"
+					value={this.props.env.block}
+					changeValue={v => this.props.changeEnv("block", v)}
+				/>
+				<WeatherInput
+					label="Weather"
+					tooltip="What is the current weather?"
+					value={this.props.env.weather}
+					changeValue={v => this.props.changeEnv("weather", v)}
+				/>
+				<TerrainInput
+					label="Terrain"
+					tooltip="What is the current terrain?"
+					value={this.props.env.terrain}
+					changeValue={v => this.props.changeEnv("terrain", v)}
+				/>
 				<br />
 				<BoolInput
 					label="Resist G&M"
@@ -190,6 +237,18 @@ export default class Dps extends React.PureComponent<Props> {
 					value={this.props.env.bravery}
 					changeValue={v => this.props.changeEnv("bravery", v)}
 				/>
+				<BoolInput
+					label="Oil"
+					tooltip="Is the target oiled?"
+					value={this.props.env.oil}
+					changeValue={v => this.props.changeEnv("oil", v)}
+				/>
+				<BoolInput
+					label="Parry"
+					tooltip="Can the target parry attacks?"
+					value={this.props.env.parry}
+					changeValue={v => this.props.changeEnv("parry", v)}
+				/>
 				<br />
 				{AllElements.map(s => <ElementInput
 					key={s}
@@ -215,9 +274,15 @@ function EqCell(props: { value?: Equipment }) {
 
 function DpsCell(props: { value: CalculateResult }) {
 	const { value } = props;
+	const label = `Base Damage: ${Math.round(value.baseDmg)}
+Modified Damage: ${Math.round(value.modifiedDamage)}
+Not Avoided Damage:  ${Math.round(value.nonAvoidedDamage)}
+Comboed Damage: ${Math.round(value.comboDamage)}
+Charge Time: ${value.chargeTime.toFixed(2)}s
+Animation Time: ${value.animationTime.toFixed(2)}s`;
 	return <td
 		className="r"
-		aria-label={`Base Damage: ${Math.round(value.baseDmg)}\nModified Damage: ${Math.round(value.modifiedDamage)}\nComboed Damage: ${Math.round(value.comboDamage)}\nCharge Time: ${value.chargeTime.toFixed(2)}s\nAnimation Time: ${value.animationTime.toFixed(2)}s`}
+		aria-label={label}
 	>
 		{Math.round(value.dps)}
 	</td>;
