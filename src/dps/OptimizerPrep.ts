@@ -92,7 +92,7 @@ const hazardKeys = new Set<keyof Profile>([
 
 /** Given a set of potential optimizerKeys, eliminate equipment that has no relevantkeys or is always worse than other equipment. */
 export function filterEquippables<T extends Equipment>(eqs: T[], keys: Set<keyof Profile>) {
-	// Eliminate any item that has no possible value, and then any item that is pareto infero to another.
+	// Eliminate any item that has no possible value, and then any item that is pareto inferor to another.
 
 	const ret: Equipment[] = [];
 	/** hazardKeys make an item uncomparable */
