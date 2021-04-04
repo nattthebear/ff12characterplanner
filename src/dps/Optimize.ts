@@ -1,113 +1,7 @@
 import { Profile, Environment, PaperDoll, Equipment, createProfile, EquipmentPool } from "./Profile";
 import { chooseAmmo } from "./ChooseAmmo";
 import { calculate, CalculateResult } from "./Calculate";
-
-/** Given a profile where the weapon has already been chosen, and an environment, determine what stats could be beneficial */
-function getOptimizerKeys(p: Profile, e: Environment) {
-	// can leave out any key that's only found on weapons, or is not relevant to this weapon
-	const ret = new Set<keyof Profile>([
-		"attack",
-		"spd", // always needed for csmod
-	]);
-
-	if (p.holyDamage) {
-		ret.add("holyBonus");
-	}
-	if (p.darkDamage) {
-		ret.add("darkBonus");
-	}
-
-	ret.add("focus");
-	ret.add("adrenaline");
-	if (p.combo > 0) {
-		ret.add("genjiGloves");
-	}
-
-	// if we already have these licenses, then the accessories with them won't be relevant
-	for (const k of ["berserk", "haste", "bravery"] as const) {
-		if (!e[k]) {
-			ret.add(k);
-		}
-	}
-
-	switch (p.damageType) {
-		case "unarmed":
-			ret.add("str");
-			if (!p.brawler) {
-				ret.add("brawler");
-			}
-			break;
-		case "sword":
-		case "pole":
-		case "dagger":
-			ret.add("str");
-			break;
-		case "hammer":
-			ret.add("str");
-			ret.add("vit");
-			break;
-		case "mace":
-			ret.add("mag");
-			break;
-		case "katana":
-			ret.add("str");
-			ret.add("mag");
-			break;
-		default:
-			break;
-	}
-
-	return ret;
-}
-
-function filterEquippables(eqs: Equipment[], keys: Set<keyof Profile>) {
-	// Eliminate any item that has no possible value, and then any item that is pareto infero to another.
-
-	// Every attribute possible here has a boolean or number value and a nonnegative return.
-	// In the future (improved ammo selection, weather effects), this might not be true.
-
-	const ret = eqs.filter(eq => {
-		for (const k in eq) {
-			if (keys.has(k as keyof Profile)) {
-				return true;
-			}
-		}
-		return false;
-	});
-
-	for (let i = 0; i < ret.length; i++) {
-		next_eq:
-		for (let j = 0; j < ret.length; j++) {
-			if (i === j) {
-				continue;
-			}
-			const x = ret[i];
-			const y = ret[j];
-
-			for (const k in x) {
-				if (!keys.has(k as keyof Profile)) {
-					continue;
-				}
-				if (!(k in y)) {
-					continue next_eq;
-				}
-				const vx = +(x as any)[k];
-				const vy = +(y as any)[k];
-				if (vx > vy) {
-					continue next_eq;
-				}
-			}
-			// x is pareto inferior to y
-			ret.splice(i--, 1);
-			break;
-		}
-	}
-	const realRet = ret as (Equipment | undefined)[];
-	if (!realRet.length) {
-		realRet.push(undefined);
-	}
-	return realRet;
-}
+import { filterEquippables, getOptimizerKeys } from "./OptimizerPrep";
 
 export interface OptimizerResult {
 	doll: PaperDoll;
@@ -120,18 +14,9 @@ export function optimize(startingProfile: Profile, e: Environment, weapon: Equip
 	const possibleKeys = getOptimizerKeys(createProfile(startingProfile, { weapon, ammo }), e);
 
 	// limit only to items that could potentially help the character
-	const armors: (Equipment | undefined)[] = filterEquippables(pool.armors, possibleKeys);
-	if (!armors.length) {
-		armors.push(undefined);
-	}
-	const helms: (Equipment | undefined)[] = filterEquippables(pool.helms, possibleKeys);
-	if (!helms.length) {
-		helms.push(undefined);
-	}
-	const accessories: (Equipment | undefined)[] = filterEquippables(pool.accessories, possibleKeys);
-	if (!accessories.length) {
-		accessories.push(undefined);
-	}
+	const armors = filterEquippables(pool.armors, possibleKeys);
+	const helms = filterEquippables(pool.helms, possibleKeys);
+	const accessories = filterEquippables(pool.accessories, possibleKeys);
 
 	let topDps: CalculateResult | undefined;
 	let topDoll: PaperDoll | undefined;
