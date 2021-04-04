@@ -66,11 +66,8 @@ export interface OptimizerResult {
 
 /** Given a weapon and environment, choose the maximum dps possible */
 export function optimize(startingProfile: Profile, e: Environment, weapon: Equipment, pool: EquipmentPool): OptimizerResult {
-	const initialDoll: PaperDoll = { weapon };
-	const initialProfile = createProfile(startingProfile, initialDoll);
-	const possibleKeys = getOptimizerKeys(initialProfile, e);
-
-	const ammo = chooseAmmo(initialProfile, e);
+	const ammo = chooseAmmo(createProfile(startingProfile, { weapon }), e);
+	const possibleKeys = getOptimizerKeys(createProfile(startingProfile, { weapon, ammo }), e);
 
 	// limit only to items that could potentially help the character
 	const armors: (Equipment | undefined)[] = pool.armors.filter(eq => filterEquippable(eq, possibleKeys));
@@ -87,7 +84,7 @@ export function optimize(startingProfile: Profile, e: Environment, weapon: Equip
 	}
 
 	let topDps: CalculateResult | undefined;
-	let topDoll = initialDoll;
+	let topDoll: PaperDoll | undefined;
 	{
 		let armor: Equipment | undefined = undefined;
 		let helm: Equipment | undefined = undefined;
@@ -168,7 +165,7 @@ export function optimize(startingProfile: Profile, e: Environment, weapon: Equip
 		}
 	}
 	return {
-		doll: topDoll,
+		doll: topDoll!,
 		dps: topDps!
 	};
 }

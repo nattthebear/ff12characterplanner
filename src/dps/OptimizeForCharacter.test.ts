@@ -119,6 +119,14 @@ describe("OptimizeForCharacter", () => {
 		})).toMatchSnapshot();
 	});
 
+	it("machinist + dark robes", async () => {
+		expect(await doTest({
+			character: Character.Penelo,
+			job: Job.Machinist,
+			job2: Job.RedBattlemage,
+		})).toMatchSnapshot();		
+	})
+
 	it("Perf tests", async () => {
 		const t1 = await timeTest({ character: Character.Basch, job: Job.Knight, job2: Job.Foebreaker });
 		const t2 = await timeTest({ character: Character.Basch, job: Job.Bushi, job2: Job.WhiteMage });
