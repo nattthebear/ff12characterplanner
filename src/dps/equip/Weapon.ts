@@ -83,7 +83,7 @@ const Weapon = buildEquipments([
 	{ name: "Ragnarok", l: l("Greatswords 4"), damageType: "sword", animationType: "bigsword", attack: 117, chargeTime: 35, combo: 8, },
 	{ name: "Excalibur", l: l("Excalibur"), damageType: "sword", animationType: "bigsword", attack: 127, chargeTime: 35, combo: 8, holyDamage: true, },
 	{ name: "Tournesol", l: l("Tournesol"), damageType: "sword", animationType: "bigsword", attack: 138, chargeTime: 35, combo: 10, },
-	{ name: "Wyrmhero Blade", damageType: "sword", animationType: "bigsword", attack: 131, chargeTime: 99, combo: 80, holyDamage: true, },
+	{ name: "Wyrmhero Blade", damageType: "sword", animationType: "bigsword", attack: 131, chargeTime: 99, combo: 80, holyDamage: true, bravery: true, },
 	{ name: "Excalipur", l: l("Excalipur"), damageType: "gun", animationType: "bigsword", attack: 1, chargeTime: 20, combo: 20, },
 	{ name: "Treaty-Blade", damageType: "sword", animationType: "bigsword", attack: 67, chargeTime: 30, combo: 25, },
 	{ name: "Sword of Kings", damageType: "sword", animationType: "bigsword", attack: 53, chargeTime: 30, combo: 20, },

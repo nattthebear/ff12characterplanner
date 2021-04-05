@@ -79,13 +79,11 @@ async function doTest({ character, job, job2, licenses, env }: TestParameters) {
 
 async function timeTest(pp: TestParameters) {
 	const start = performance.now();
-	for (let i = 0; i < 35; i++) {
+	for (let i = 0; i < 350; i++) {
 		await doTest(pp);
 	}
-	return performance.now();
+	return performance.now() - start;
 }
-
-
 
 describe("OptimizeForCharacter", () => {
 	it("basic test", async () => {
@@ -125,7 +123,88 @@ describe("OptimizeForCharacter", () => {
 			job: Job.Machinist,
 			job2: Job.RedBattlemage,
 		})).toMatchSnapshot();		
-	})
+	});
+
+	it("vit optimization", async () => {
+		expect(await doTest({
+			character: Character.Ashe,
+			job: Job.Foebreaker,
+			job2: Job.BlackMage,
+			licenses: ["Adrammelech", "Quickening 4"],
+			env: {
+				level: 99,
+				def: 10,
+			}
+		})).toMatchSnapshot();
+		expect(await doTest({
+			character: Character.Ashe,
+			job: Job.BlackMage,
+			job2: Job.Monk,
+			licenses: ["Adrammelech", "Quickening 4"],
+			env: {
+				level: 99,
+				def: 10,
+			}
+		})).toMatchSnapshot();
+	});
+
+	it("elemental tests", async () => {
+		const envs: Partial<Environment>[] = [
+			{ fireReaction: 2 },
+			{ fireReaction: 0.5 },
+			{ iceReaction: 2 },
+			{ iceReaction: 0 },
+			{ windReaction: 2 },
+			{ lightningReaction: 2 },
+			{ earthReaction: 2 },
+			{ waterReaction: 2 },
+			{ waterReaction: 0 },
+			{ waterReaction: 0.5 },
+			{ darkReaction: 0.5 },
+			{ darkReaction: 0 },
+		];
+		for (const env of envs) {
+			expect(await doTest({ character: Character.Balthier, job: Job.Archer, job2: Job.Machinist, env })).toMatchSnapshot();
+		}
+	});
+
+	it("a tricky elemental test", async () => {
+		// For the Aevis Killer, Earth Arrows are the best here, but the old optimizer doesn't see that.
+		expect(await doTest({ character: Character.Penelo, job: Job.Archer, env: { def: 32, earthReaction: 0.5 } })).toMatchSnapshot();
+	});
+
+	it("weather", async () => {
+		expect(await doTest({ character: Character.Ashe, job: Job.Machinist, job2: Job.BlackMage, env: { weather: "windy" } })).toMatchSnapshot();
+		expect(await doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Foebreaker,
+			env: {
+				weather: "windy",
+				def: 20,
+				level: 70,
+				iceReaction: 0, lightningReaction: 0, waterReaction: 0, windReaction: 0, earthReaction: 0, holyReaction: 0, darkReaction: 0,
+			}
+		})).toMatchSnapshot();
+		expect(await doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Foebreaker,
+			env: {
+				weather: "rainy",
+				def: 20,
+				level: 90,
+				iceReaction: 0, lightningReaction: 0, waterReaction: 0, windReaction: 0, earthReaction: 0, holyReaction: 0, darkReaction: 0,
+			}
+		})).toMatchSnapshot();
+		expect(await doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Bushi,
+			env: {
+				weather: "rainy",
+				def: 20,
+				level: 90,
+				iceReaction: 0, lightningReaction: 0, waterReaction: 0, windReaction: 0, earthReaction: 0, holyReaction: 0, darkReaction: 0,
+			}
+		})).toMatchSnapshot();
+	});
+
+	it("wyrmhero bravery", async () => {
+		expect(await doTest({ character: Character.Fran, job: Job.Monk, env: { bravery: false } })).toMatchSnapshot();
+		expect(await doTest({ character: Character.Fran, job: Job.WhiteMage, env: { bravery: false } })).toMatchSnapshot();
+	});
 
 	it("Perf tests", async () => {
 		const t1 = await timeTest({ character: Character.Basch, job: Job.Knight, job2: Job.Foebreaker });
