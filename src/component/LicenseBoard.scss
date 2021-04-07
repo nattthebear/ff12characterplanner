@@ -3,6 +3,7 @@
 .license-board-holder {
 	overflow: auto;
 	background-color: #333;
+	min-width: 240px;
 
 	.license-board {
 		border-spacing: 0;
@@ -40,6 +41,7 @@
 	align-content: center;
 	background-color: #aaa;
 	position: relative;
+	min-width: 240px;
 
 	.job {
 		@include buttonStyle;
