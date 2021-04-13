@@ -4,17 +4,9 @@ import PartyModel, { Coloring, ColorEx } from "../model/PartyModel";
 import { Characters } from "../data/Characters";
 import { License, Espers, Quickenings } from "../data/Licenses";
 import { Board } from "../data/Boards";
-
-export interface Props {
-	party: PartyModel;
-	changeParty(newParty: PartyModel): void;
-	changeIndices(characterIndex: number, boardIndex: number): void;
-	toggleQe(): void;
-}
-
-export interface State {
-	colorings: ColorEx[];
-}
+import { dispatch, useSelector } from "../store/Store";
+import { useMemo } from "react";
+import { changeIndices, changeParty, toggleQe } from "../store/State";
 
 const allLimitedLicenses = [...Espers, ...Quickenings];
 
@@ -22,19 +14,19 @@ function compareLicenses(a: License, b: License) {
 	return a.sortOrder - b.sortOrder;
 }
 
-export default class QeBoard extends React.PureComponent<Props, State> {
-	state: State = { colorings: [] };
+export default function QeBoard() {
+	const props = useSelector(s => s);
 
-	static getDerivedStateFromProps(props: Props): State {
+	const colorings = useMemo(() => {
 		const colorings = Array<ColorEx>();
 		for (let c = 0; c < 6; c++) {
 			colorings.push(props.party.colorEx(c));
 		}
-		return { colorings };
-	}
+		return colorings;	
+	}, [props.party]);
 
-	private renderCell(l: License, c: number, esper: boolean) {
-		const initial = this.state.colorings[c];
+	function renderCell(l: License, c: number, esper: boolean) {
+		const initial = colorings[c];
 		let className;
 		const content = Array<License>();
 		let clickHandler: (() => void) | undefined;
@@ -52,8 +44,8 @@ export default class QeBoard extends React.PureComponent<Props, State> {
 
 				// So, remember all obtained mist licenses before deleting and then re-add them.
 				{
-					const toAdd = allLimitedLicenses.filter(ll => ll !== l && this.props.party.has(c, ll));
-					let newParty = this.props.party.delete(c, l);
+					const toAdd = allLimitedLicenses.filter(ll => ll !== l && props.party.has(c, ll));
+					let newParty = props.party.delete(c, l);
 					for (const ll of toAdd) {
 						newParty = newParty.add(c, ll);
 					}
@@ -70,25 +62,25 @@ export default class QeBoard extends React.PureComponent<Props, State> {
 
 				clickHandler = () => {
 					// (see comment above)
-					const toAdd = allLimitedLicenses.filter(ll => ll !== l && this.props.party.has(c, ll));
-					let newParty = this.props.party.delete(c, l);
+					const toAdd = allLimitedLicenses.filter(ll => ll !== l && props.party.has(c, ll));
+					let newParty = props.party.delete(c, l);
 					for (const ll of toAdd) {
 						newParty = newParty.add(c, ll);
 					}
-					this.props.changeParty(newParty);
+					dispatch(changeParty(newParty));
 				};
 				break;
 			}
 			case Coloring.POSSIBLE: {
 				className = "l possible";
 				// cell is yellow => show anything yellow now but grey after adding that license
-				const next = this.props.party.add(c, l).colorEx(c);
+				const next = props.party.add(c, l).colorEx(c);
 				for (const ll of initial.possible) {
 					if (next.certain.has(ll)) {
 						content.push(ll);
 					}
 				}
-				clickHandler = () => this.props.changeParty(this.props.party.add(c, l));
+				clickHandler = () => dispatch(changeParty(props.party.add(c, l)));
 				break;
 			}
 			case Coloring.BLOCKED: {
@@ -96,7 +88,7 @@ export default class QeBoard extends React.PureComponent<Props, State> {
 				// cell is red
 				// && esper => show anything yellow or red now but grey after removing esper from owner and adding it here
 				// && quickening => show anything yellow or red now but grey after removing all quickenings from char and adding that one
-				let nextParty = this.props.party;
+				let nextParty = props.party;
 				if (esper) {
 					for (let i = 0; i < 6; i++) {
 						nextParty = nextParty.delete(i, l);
@@ -121,7 +113,7 @@ export default class QeBoard extends React.PureComponent<Props, State> {
 				break;
 			}
 			default:
-				return <div key={c} className="l unreachable" onClick={() => { this.props.changeIndices(c, 0); this.props.toggleQe(); }}>
+				return <div key={c} className="l unreachable" onClick={() => { dispatch(changeIndices(c, 0)); dispatch(toggleQe()); }}>
 					Choose a job first.
 				</div>;
 		}
@@ -130,16 +122,16 @@ export default class QeBoard extends React.PureComponent<Props, State> {
 			{content.map((v, i) => <div key={i} aria-label={v.text}>{v.fullName}</div>)}
 		</div>;
 	}
-	private renderRow(l: License, esper: boolean) {
+	function renderRow(l: License, esper: boolean) {
 		return <React.Fragment key={l.fullName}>
 			<div>
 				<div className="license-name" aria-label={l.text}>{l.fullName}</div>
 			</div>
-			{Characters.map((c, i) => this.renderCell(l, i, esper))}
+			{Characters.map((c, i) => renderCell(l, i, esper))}
 		</React.Fragment>;
 	}
 	
-	private renderJob(j: Board | undefined) {
+	function renderJob(j: Board | undefined) {
 		if (!j) {
 			return <div className="job nojob">No Job</div>;
 		} else {
@@ -147,16 +139,14 @@ export default class QeBoard extends React.PureComponent<Props, State> {
 		}
 	}
 
-	render() {
-		return <div className="qe-board">
-			<div>{/* help goes here? */}</div>
-			{Characters.map((c, i) => <div key={i}>
-				<div className="character-name">{c.name}</div>
-				{this.renderJob(this.props.party.getJob(i, 0))}
-				{this.renderJob(this.props.party.getJob(i, 1))}
-			</div>)}
-			{Espers.map(e => this.renderRow(e, true))}
-			{Quickenings.map(q => this.renderRow(q, false))}
-		</div>;
-	}
+	return <div className="qe-board">
+		<div>{/* help goes here? */}</div>
+		{Characters.map((c, i) => <div key={i}>
+			<div className="character-name">{c.name}</div>
+			{renderJob(props.party.getJob(i, 0))}
+			{renderJob(props.party.getJob(i, 1))}
+		</div>)}
+		{Espers.map(e => renderRow(e, true))}
+		{Quickenings.map(q => renderRow(q, false))}
+	</div>;
 }

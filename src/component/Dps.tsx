@@ -4,13 +4,12 @@ import { optimizeForCharacter } from "../dps/OptimizeForCharacter";
 import { OptimizerResult } from "../dps/Optimize";
 import { Characters } from "../data/Characters";
 import "./Dps.scss";
-import { Environment, Equipment, Profile, AllElements, Weather, Terrain } from "../dps/Profile";
+import { Environment, Equipment, Profile, AllElements, Weather, Terrain, defaultEnvironment } from "../dps/Profile";
 import { CalculateResult } from "../dps/Calculate";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface Props {
 	party: PartyModel;
-	env: Environment;
-	changeEnv<K extends keyof Environment>(key: K, value: Environment[K]): void;
 }
 
 interface InputProps<T> {
@@ -155,112 +154,115 @@ function tooltipFor(e: Equipment) {
 	return ret.join(",");
 }
 
-export default class Dps extends React.PureComponent<Props> {
-	render() {
-		return <div className="dps-optimizer">
-			<div className="controls">
-				<NumberInput
-					min={0}
-					max={250}
-					label="Def"
-					tooltip="Target's physical defense"
-					value={this.props.env.def}
-					changeValue={v => this.props.changeEnv("def", v)}
-				/>
-				<NumberInput
-					min={0}
-					max={250}
-					label="MDef"
-					tooltip="Target's magical defense"
-					value={this.props.env.mdef}
-					changeValue={v => this.props.changeEnv("mdef", v)}
-				/>
-				<NumberInput
-					min={1}
-					max={100}
-					label="HP%"
-					tooltip="Character's HP percentage"
-					value={this.props.env.percentHp}
-					changeValue={v => this.props.changeEnv("percentHp", v)}
-				/>
-				<NumberInput
-					min={1}
-					max={99}
-					label="Lvl"
-					tooltip="Character's level"
-					value={this.props.env.level}
-					changeValue={v => this.props.changeEnv("level", v)}
-				/>
-				<NumberInput
-					min={0}
-					max={40}
-					label="Block"
-					tooltip="Target's block (EVA)"
-					value={this.props.env.block}
-					changeValue={v => this.props.changeEnv("block", v)}
-				/>
-				<WeatherInput
-					label="Weather"
-					tooltip="What is the current weather?"
-					value={this.props.env.weather}
-					changeValue={v => this.props.changeEnv("weather", v)}
-				/>
-				<TerrainInput
-					label="Terrain"
-					tooltip="What is the current terrain?"
-					value={this.props.env.terrain}
-					changeValue={v => this.props.changeEnv("terrain", v)}
-				/>
-				<br />
-				<BoolInput
-					label="Resist G&M"
-					tooltip="Does the target resist guns and measures?"
-					value={this.props.env.resistGun}
-					changeValue={v => this.props.changeEnv("resistGun", v)}
-				/>
-				{/* battle speed... (dropdown?) */}
-				<BoolInput
-					label="Berserk"
-					tooltip="Is the berserk buff available?"
-					value={this.props.env.berserk}
-					changeValue={v => this.props.changeEnv("berserk", v)}
-				/>
-				<BoolInput
-					label="Haste"
-					tooltip="Is the haste buff available?"
-					value={this.props.env.haste}
-					changeValue={v => this.props.changeEnv("haste", v)}
-				/>
-				<BoolInput
-					label="Bravery"
-					tooltip="Is the bravery buff available?"
-					value={this.props.env.bravery}
-					changeValue={v => this.props.changeEnv("bravery", v)}
-				/>
-				<BoolInput
-					label="Oil"
-					tooltip="Is the target oiled?"
-					value={this.props.env.oil}
-					changeValue={v => this.props.changeEnv("oil", v)}
-				/>
-				<BoolInput
-					label="Parry"
-					tooltip="Can the target parry attacks?"
-					value={this.props.env.parry}
-					changeValue={v => this.props.changeEnv("parry", v)}
-				/>
-				<br />
-				{AllElements.map(s => <ElementInput
-					key={s}
-					label={s[0].toUpperCase() + s.slice(1)}
-					tooltip={`How much ${s} damage does the target take?`}
-					value={this.props.env[`${s}Reaction` as const]}
-					changeValue={v => this.props.changeEnv(`${s}Reaction` as const, v)}
-				/>)}
-			</div>
-			<PartyDps party={this.props.party} env={this.props.env} />
-		</div>;
-	}
+export default function Dps(props: Props) {
+	const [env, setEnv] = useState(defaultEnvironment);
+	const changeEnv = useCallback(<K extends keyof Environment>(key: K, value: Environment[K]) => {
+		setEnv(e => ({ ...e, [key]: value }));
+	}, []);
+
+	return <div className="dps-optimizer">
+		<div className="controls">
+			<NumberInput
+				min={0}
+				max={250}
+				label="Def"
+				tooltip="Target's physical defense"
+				value={env.def}
+				changeValue={v => changeEnv("def", v)}
+			/>
+			<NumberInput
+				min={0}
+				max={250}
+				label="MDef"
+				tooltip="Target's magical defense"
+				value={env.mdef}
+				changeValue={v => changeEnv("mdef", v)}
+			/>
+			<NumberInput
+				min={1}
+				max={100}
+				label="HP%"
+				tooltip="Character's HP percentage"
+				value={env.percentHp}
+				changeValue={v => changeEnv("percentHp", v)}
+			/>
+			<NumberInput
+				min={1}
+				max={99}
+				label="Lvl"
+				tooltip="Character's level"
+				value={env.level}
+				changeValue={v => changeEnv("level", v)}
+			/>
+			<NumberInput
+				min={0}
+				max={40}
+				label="Block"
+				tooltip="Target's block (EVA)"
+				value={env.block}
+				changeValue={v => changeEnv("block", v)}
+			/>
+			<WeatherInput
+				label="Weather"
+				tooltip="What is the current weather?"
+				value={env.weather}
+				changeValue={v => changeEnv("weather", v)}
+			/>
+			<TerrainInput
+				label="Terrain"
+				tooltip="What is the current terrain?"
+				value={env.terrain}
+				changeValue={v => changeEnv("terrain", v)}
+			/>
+			<br />
+			<BoolInput
+				label="Resist G&M"
+				tooltip="Does the target resist guns and measures?"
+				value={env.resistGun}
+				changeValue={v => changeEnv("resistGun", v)}
+			/>
+			{/* battle speed... (dropdown?) */}
+			<BoolInput
+				label="Berserk"
+				tooltip="Is the berserk buff available?"
+				value={env.berserk}
+				changeValue={v => changeEnv("berserk", v)}
+			/>
+			<BoolInput
+				label="Haste"
+				tooltip="Is the haste buff available?"
+				value={env.haste}
+				changeValue={v => changeEnv("haste", v)}
+			/>
+			<BoolInput
+				label="Bravery"
+				tooltip="Is the bravery buff available?"
+				value={env.bravery}
+				changeValue={v => changeEnv("bravery", v)}
+			/>
+			<BoolInput
+				label="Oil"
+				tooltip="Is the target oiled?"
+				value={env.oil}
+				changeValue={v => changeEnv("oil", v)}
+			/>
+			<BoolInput
+				label="Parry"
+				tooltip="Can the target parry attacks?"
+				value={env.parry}
+				changeValue={v => changeEnv("parry", v)}
+			/>
+			<br />
+			{AllElements.map(s => <ElementInput
+				key={s}
+				label={s[0].toUpperCase() + s.slice(1)}
+				tooltip={`How much ${s} damage does the target take?`}
+				value={env[`${s}Reaction` as const]}
+				changeValue={v => changeEnv(`${s}Reaction` as const, v)}
+			/>)}
+		</div>
+		<PartyDps party={props.party} env={env} />
+	</div>;
 }
 
 function EqCell(props: { value?: Equipment }) {
@@ -298,24 +300,20 @@ interface PartyDpsState {
 	for: PartyDpsProps | undefined;
 }
 
-class PartyDps extends React.PureComponent<PartyDpsProps, PartyDpsState> {
-	constructor(props: PartyDpsProps) {
-		super(props);
-		this.state = {
-			results: undefined,
-			for: undefined
-		};
-	}
+function PartyDps(props: PartyDpsProps) {
+	const [state, setState] = useState<PartyDpsState>({ results: undefined, for: undefined });
+	const propsRef = useRef(props);
+	useEffect(() => { propsRef.current = props; }, [props]);
 
-	private async checkForCalculate() {
+	async function checkForCalculate() {
 		const results: OptimizerResult[][] = [[], [], [], [], [], []];
-		const { party, env } = this.props;
+		const { party, env } = props;
 
 		for (let i = 0; i < 6; i++) {
 			const dest = results[i];
 			const characterEnv = { ...env, character: i };
 			for await (const r of optimizeForCharacter(characterEnv, party)) {
-				if (party !== this.props.party || env !== this.props.env) {
+				if (party !== propsRef.current.party || env !== propsRef.current.env) {
 					// stop processing now if this data is already old
 					return;
 				}
@@ -324,7 +322,7 @@ class PartyDps extends React.PureComponent<PartyDpsProps, PartyDpsState> {
 			dest.sort((a, b) => b.dps.dps - a.dps.dps);
 		}
 
-		this.setState({
+		setState({
 			results,
 			for: {
 				party,
@@ -333,23 +331,24 @@ class PartyDps extends React.PureComponent<PartyDpsProps, PartyDpsState> {
 		});
 	}
 
-	render() {
-		const same = this.state.for && this.state.for.env === this.props.env && this.state.for.party === this.props.party;
+	const same = state.for && state.for.env === props.env && state.for.party === props.party;
+	useEffect(() => {
 		if (!same) {
-			this.checkForCalculate();
+			checkForCalculate();
 		}
-		const components = this.state.results
-			? this.state.results.map((result, idx) => <SingleCharacterDps key={idx} name={Characters[idx].name} results={result} />)
-			: <tr><td>Working...</td></tr>;
+	});
 
-		return <div className={same ? "results" : "results busy"}>
-			<table>
-				<tbody>
-					{components}
-				</tbody>
-			</table>	
-		</div>;
-	}
+	const components = state.results
+		? state.results.map((result, idx) => <SingleCharacterDps key={idx} name={Characters[idx].name} results={result} />)
+		: <tr><td>Working...</td></tr>;
+
+	return <div className={same ? "results" : "results busy"}>
+		<table>
+			<tbody>
+				{components}
+			</tbody>
+		</table>	
+	</div>;
 }
 
 function SingleCharacterDps(props: { name: string, results: OptimizerResult[] }) {

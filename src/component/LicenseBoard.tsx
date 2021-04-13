@@ -2,20 +2,15 @@ import * as React from "react";
 import { License } from "../data/Licenses";
 import { Position, Board, Boards } from "../data/Boards";
 import "./LicenseBoard.scss";
-import PartyModel, { Coloring } from "../model/PartyModel";
+import { Coloring } from "../model/PartyModel";
 import GithubCorner from "./GithubCorner";
+import { dispatch, useSelector } from "../store/Store";
+import { changeParty, changePlannedParty } from "../store/State";
 
-export interface Props {
-	party: PartyModel;
-	changeParty(newParty: PartyModel): void;
-	characterIndex: number;
-	boardIndex: number;
-	changeIndices(characterIndex: number, boardIndex: number): void;
-	changePlannedParty(plannedParty: PartyModel | undefined): void;
-}
+export default function LicenseBoard() {
+	const props = useSelector(s => s);
 
-export default class LicenseBoard extends React.PureComponent<Props> {
-	private renderPosition(key: number, pos: Position | undefined, colors: Map<License, Coloring>) {
+	function renderPosition(key: number, pos: Position | undefined, colors: Map<License, Coloring>) {
 		if (!pos) {
 			return <td key={key} className="empty" />;
 		}
@@ -31,9 +26,9 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 		}
 		const onClick = () => {
 			if (obtained) {
-				this.props.changeParty(this.props.party.delete(this.props.characterIndex, l));
+				dispatch(changeParty(props.party.delete(props.characterIndex, l)));
 			} else {
-				this.props.changeParty(this.props.party.add(this.props.characterIndex, l));
+				dispatch(changeParty(props.party.add(props.characterIndex, l)));
 			}
 		};
 		return <td key={key} className={className} onClick={onClick} aria-label={l.text}>
@@ -42,29 +37,29 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 		</td>;
 	}
 
-	private renderBoard(b: Board) {
-		const colors = this.props.party.color(this.props.characterIndex);
+	function renderBoard(b: Board) {
+		const colors = props.party.color(props.characterIndex);
 		return <div className="license-board-holder">
 			<table className="license-board">
 				<tbody>
 					{b.rows.map((row, j) => <tr key={j}>
-						{row.map((pos, i) => this.renderPosition(i, pos, colors))}
+						{row.map((pos, i) => renderPosition(i, pos, colors))}
 					</tr>)}
 				</tbody>
 			</table>
 		</div>;
 	}
 
-	private renderSelectJob(other: Board | undefined) {
+	function renderSelectJob(other: Board | undefined) {
 		return <div className="select-job">
 			{Boards.map((b, i) => <button
 				key={i}
-				onClick={() => this.props.changeParty(this.props.party.addJob(this.props.characterIndex, b))}
+				onClick={() => dispatch(changeParty(props.party.addJob(props.characterIndex, b)))}
 				className="job"
 				disabled={b === other}
 				aria-label={b.text}
-				onMouseOver={() => this.props.changePlannedParty(this.props.party.addJob(this.props.characterIndex, b))}
-				onMouseOut={() => this.props.changePlannedParty(undefined)}
+				onMouseOver={() => dispatch(changePlannedParty(props.party.addJob(props.characterIndex, b)))}
+				onMouseOut={() => dispatch(changePlannedParty(undefined))}
 			>
 				<img className="zodiac" src={b.image} alt={b.imageAlt} />
 				{b.name}
@@ -73,13 +68,11 @@ export default class LicenseBoard extends React.PureComponent<Props> {
 		</div>;
 	}
 
-	render() {
-		const b = this.props.party.getJob(this.props.characterIndex, this.props.boardIndex);
-		if (b) {
-			return this.renderBoard(b);
-		} else {
-			const otherBoard = this.props.party.getJob(this.props.characterIndex, this.props.boardIndex ^ 1);
-			return this.renderSelectJob(otherBoard);
-		}
+	const b = props.party.getJob(props.characterIndex, props.boardIndex);
+	if (b) {
+		return renderBoard(b);
+	} else {
+		const otherBoard = props.party.getJob(props.characterIndex, props.boardIndex ^ 1);
+		return renderSelectJob(otherBoard);
 	}
 }
