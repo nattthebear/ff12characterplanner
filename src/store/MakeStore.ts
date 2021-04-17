@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { unstable_batchedUpdates } from "react-dom";
 
 export function makeStore<S>(initialValue: S) {
@@ -6,15 +6,10 @@ export function makeStore<S>(initialValue: S) {
 	const subs = new Set<() => void>();
 
 	return {
-		useSelector<T>(project: (s: S) => T) {
-			const value = project(state);
+		useStore() {
 			const updateSignal = useState(false)[1];
-			const prev = useRef(value);
 			const sub = useCallback(() => {
-				const newValue = project(state);
-				if (newValue !== prev.current) {
-					updateSignal(b => !b);
-				}
+				updateSignal(b => !b);
 			}, []);
 
 			useEffect(() => {
@@ -23,11 +18,10 @@ export function makeStore<S>(initialValue: S) {
 					subs.delete(sub);
 				};
 			}, []);
-			return value;
+			return state;
 		},
 		dispatch(action: (s: S) => S) {
-			const newState = action(state);
-			state = newState;
+			state = action(state);
 			unstable_batchedUpdates(() => {
 				for (const sub of subs) {
 					sub();

@@ -4,11 +4,11 @@ import { LicenseGroups, LicenseGroup, License } from "../data/Licenses";
 import PartyModel, { Coloring } from "../model/PartyModel";
 import { Characters } from "../data/Characters";
 import { confirm } from "../Dialog";
-import { dispatch, useSelector } from "../store/Store";
+import { dispatch, useStore } from "../store/Store";
 import { changeIndices, changeParty, toggleDps, toggleQe } from "../store/State";
 
 export default function CharacterPanel() {
-	const props = useSelector(s => s);
+	const props = useStore();
 
 	function renderClassInfo(characterIndex: number, index: number) {
 		const j = props.party.getJob(characterIndex, index);

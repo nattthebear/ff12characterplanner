@@ -6,7 +6,8 @@ import { Characters } from "../data/Characters";
 import "./Dps.scss";
 import { Environment, Equipment, Profile, AllElements, Weather, Terrain, defaultEnvironment } from "../dps/Profile";
 import { CalculateResult } from "../dps/Calculate";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
+import { makeStore } from "../store/MakeStore";
 
 export interface Props {
 	party: PartyModel;
@@ -154,11 +155,12 @@ function tooltipFor(e: Equipment) {
 	return ret.join(",");
 }
 
+const { useStore, dispatch } = makeStore(defaultEnvironment);
+const changeEnv = <K extends keyof Environment>(key: K, value: Environment[K]) =>
+	dispatch(e => ({ ...e, [key]: value }));
+
 export default function Dps(props: Props) {
-	const [env, setEnv] = useState(defaultEnvironment);
-	const changeEnv = useCallback(<K extends keyof Environment>(key: K, value: Environment[K]) => {
-		setEnv(e => ({ ...e, [key]: value }));
-	}, []);
+	const env = useStore();
 
 	return <div className="dps-optimizer">
 		<div className="controls">
@@ -303,7 +305,7 @@ interface PartyDpsState {
 function PartyDps(props: PartyDpsProps) {
 	const [state, setState] = useState<PartyDpsState>({ results: undefined, for: undefined });
 	const propsRef = useRef(props);
-	useEffect(() => { propsRef.current = props; }, [props]);
+	useLayoutEffect(() => { propsRef.current = props; }, [props]);
 
 	async function checkForCalculate() {
 		const results: OptimizerResult[][] = [[], [], [], [], [], []];
@@ -332,7 +334,7 @@ function PartyDps(props: PartyDpsProps) {
 	}
 
 	const same = state.for && state.for.env === props.env && state.for.party === props.party;
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (!same) {
 			checkForCalculate();
 		}

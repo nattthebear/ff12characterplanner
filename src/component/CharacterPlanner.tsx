@@ -4,11 +4,11 @@ import LicenseBoard from "./LicenseBoard";
 import "./CharacterPlanner.scss";
 import QeBoard from "./QeBoard";
 import Dps from "./Dps";
-import { useSelector } from "../store/Store";
+import { useStore } from "../store/Store";
 
 
 export default function CharacterPlanner() {
-	const props = useSelector(s => s);
+	const props = useStore();
 
 	return <div className="character-planner">
 		<CharacterPanel />

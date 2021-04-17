@@ -4,11 +4,11 @@ import { Position, Board, Boards } from "../data/Boards";
 import "./LicenseBoard.scss";
 import { Coloring } from "../model/PartyModel";
 import GithubCorner from "./GithubCorner";
-import { dispatch, useSelector } from "../store/Store";
+import { dispatch, useStore } from "../store/Store";
 import { changeParty, changePlannedParty } from "../store/State";
 
 export default function LicenseBoard() {
-	const props = useSelector(s => s);
+	const props = useStore();
 
 	function renderPosition(key: number, pos: Position | undefined, colors: Map<License, Coloring>) {
 		if (!pos) {

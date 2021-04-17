@@ -4,7 +4,7 @@ import PartyModel, { Coloring, ColorEx } from "../model/PartyModel";
 import { Characters } from "../data/Characters";
 import { License, Espers, Quickenings } from "../data/Licenses";
 import { Board } from "../data/Boards";
-import { dispatch, useSelector } from "../store/Store";
+import { dispatch, useStore } from "../store/Store";
 import { useMemo } from "react";
 import { changeIndices, changeParty, toggleQe } from "../store/State";
 
@@ -15,7 +15,7 @@ function compareLicenses(a: License, b: License) {
 }
 
 export default function QeBoard() {
-	const props = useSelector(s => s);
+	const props = useStore();
 
 	const colorings = useMemo(() => {
 		const colorings = Array<ColorEx>();
