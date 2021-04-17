@@ -38,7 +38,7 @@ export default function LicenseBoard() {
 	}
 
 	function renderBoard(b: Board) {
-		const colors = props.party.color(props.characterIndex);
+		const colors = props.party.colorFoo(props.characterIndex);
 		return <div className="license-board-holder">
 			<table className="license-board">
 				<tbody>

@@ -106,8 +106,8 @@ export default function CharacterPanel() {
 	}
 
 	function renderStatInfo() {
-		const colors = props.party.color(props.characterIndex);
-		const plannedColors = props.plannedParty && props.plannedParty.color(props.characterIndex);
+		const colors = props.party.colorFoo(props.characterIndex);
+		const plannedColors = props.plannedParty && props.plannedParty.colorFoo(props.characterIndex);
 		return LicenseGroups.map((g, i) => renderLicenseGroup(g, i, colors, plannedColors));
 	}
 

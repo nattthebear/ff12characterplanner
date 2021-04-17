@@ -1,6 +1,6 @@
 import * as React from "react";
 import "./QeBoard.scss";
-import PartyModel, { Coloring, ColorEx } from "../model/PartyModel";
+import PartyModel, { Coloring } from "../model/PartyModel";
 import { Characters } from "../data/Characters";
 import { License, Espers, Quickenings } from "../data/Licenses";
 import { Board } from "../data/Boards";
@@ -14,25 +14,17 @@ function compareLicenses(a: License, b: License) {
 	return a.sortOrder - b.sortOrder;
 }
 
-const characterIndicies = [0, 1, 2, 3, 4, 5];
-
 export default function QeBoard() {
 	const props = useStore();
 
-	const colorings = useMemo(() => {
-		const colorings = Array<ColorEx>();
-		for (let c = 0; c < 6; c++) {
-			colorings.push(props.party.colorEx(c));
-		}
-		return colorings;	
-	}, [props.party]);
+	const colorings = useMemo(() => Characters.map((_, c) => props.party.colorFoo(c)), [props.party]);
 
 	function renderCell(l: License, c: number, esper: boolean) {
 		const initial = colorings[c];
 		let className;
 		const content = Array<License>();
 		let clickHandler: (() => void) | undefined;
-		switch (initial.map.get(l)) {
+		switch (initial.get(l)) {
 			case Coloring.OBTAINED: {
 				className = "l obtained";
 				// cell is white => show anything white or grey now but yellow after removing that license (except for the license itself)
@@ -47,10 +39,10 @@ export default function QeBoard() {
 				// So, remember all obtained mist licenses before deleting and then re-add them.
 				const toAdd = allLimitedLicenses.filter(ll => ll !== l && props.party.has(c, ll));
 				const newParty = props.party.deleteAndAdd([{ c, l }], toAdd.map(l => ({ c, l })));
-				const next = newParty.colorEx(c);
-				for (const ll of next.possible) {
-					if (ll !== l) {
-						const v = initial.map.get(ll);
+				const next = newParty.colorFoo(c);
+				for (const [ll, color] of next) {
+					if (color === Coloring.POSSIBLE && ll !== l) {
+						const v = initial.get(ll);
 						if (v === Coloring.OBTAINED || v === Coloring.CERTAIN) {
 							content.push(ll);
 						}
@@ -64,9 +56,9 @@ export default function QeBoard() {
 				className = "l possible";
 				// cell is yellow => show anything yellow now but grey after adding that license
 				const newParty = props.party.add(c, l);
-				const next = newParty.colorEx(c);
-				for (const ll of initial.possible) {
-					if (next.certain.has(ll)) {
+				const next = newParty.colorFoo(c);
+				for (const [ll, color] of initial) {
+					if (color == Coloring.POSSIBLE && next.get(ll) === Coloring.CERTAIN) {
 						content.push(ll);
 					}
 				}
@@ -80,18 +72,13 @@ export default function QeBoard() {
 				// && quickening => show anything yellow or red now but grey after removing all quickenings from char and adding that one
 				const nextParty = props.party.deleteAndAdd(
 					esper
-						? characterIndicies.map(c => ({ c, l }))
+						? Characters.map((_, c) => ({ c, l }))
 						: Quickenings.map(l => ({ c, l })),
 					[{ c, l }]
 				);
-				const next = nextParty.colorEx(c);
-				for (const ll of initial.possible) {
-					if (next.certain.has(ll)) {
-						content.push(ll);
-					}
-				}
-				for (const ll of initial.blocked) {
-					if (next.certain.has(ll)) {
+				const next = nextParty.colorFoo(c);
+				for (const [ll, color] of initial) {
+					if ((color === Coloring.POSSIBLE || color == Coloring.BLOCKED) && next.get(ll) === Coloring.CERTAIN) {
 						content.push(ll);
 					}
 				}
@@ -113,7 +100,7 @@ export default function QeBoard() {
 			<div>
 				<div className="license-name" aria-label={l.text}>{l.fullName}</div>
 			</div>
-			{Characters.map((c, i) => renderCell(l, i, esper))}
+			{Characters.map((_, c) => renderCell(l, c, esper))}
 		</React.Fragment>;
 	}
 	
@@ -127,10 +114,10 @@ export default function QeBoard() {
 
 	return <div className="qe-board">
 		<div>{/* help goes here? */}</div>
-		{Characters.map((c, i) => <div key={i}>
-			<div className="character-name">{c.name}</div>
-			{renderJob(props.party.getJob(i, 0))}
-			{renderJob(props.party.getJob(i, 1))}
+		{Characters.map((character, c) => <div key={c}>
+			<div className="character-name">{character.name}</div>
+			{renderJob(props.party.getJob(c, 0))}
+			{renderJob(props.party.getJob(c, 1))}
 		</div>)}
 		{Espers.map(e => renderRow(e, true))}
 		{Quickenings.map(q => renderRow(q, false))}
