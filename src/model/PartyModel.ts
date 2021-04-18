@@ -189,6 +189,7 @@ export default class PartyModel {
 		for (const { c, l } of toDelete) {
 			r.selected[c].delete(l);
 		}
+		r.verify();
 		for (const { c, l } of toAdd) {
 			const path = r.findPath(c, l);
 			if (path) {
