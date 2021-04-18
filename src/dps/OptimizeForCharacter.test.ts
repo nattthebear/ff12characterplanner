@@ -49,7 +49,7 @@ interface TestParameters {
 	env?: Partial<Environment>,
 }
 
-async function doTest({ character, job, job2, licenses, env }: TestParameters) {
+function doTest({ character, job, job2, licenses, env }: TestParameters) {
 	const e: Environment = {
 		...defaultEnvironment,
 		character: character,
@@ -69,7 +69,7 @@ async function doTest({ character, job, job2, licenses, env }: TestParameters) {
 		party = party.add(character, LicenseByName(s));
 	}
 	let results: OptimizerResult[] = [];
-	for await (const result of optimizeForCharacter(e, party)) {
+	for (const result of optimizeForCharacter(e, party)) {
 		results.push(result);
 	}
 	return results.filter(r => r.dps.dps > 0)
@@ -77,37 +77,37 @@ async function doTest({ character, job, job2, licenses, env }: TestParameters) {
 		.map(resultToSnapshottable);
 }
 
-async function timeTest(pp: TestParameters) {
+function timeTest(pp: TestParameters) {
 	const start = performance.now();
 	for (let i = 0; i < 350; i++) {
-		await doTest(pp);
+		doTest(pp);
 	}
 	return performance.now() - start;
 }
 
 describe("OptimizeForCharacter", () => {
-	it("basic test", async () => {
-		expect(await doTest({
+	it("basic test", () => {
+		expect(doTest({
 			character: Character.Vaan, job: Job.Knight, job2: Job.Bushi,
 		})).toMatchSnapshot();
-		expect(await doTest({
+		expect(doTest({
 			character: Character.Basch, job: Job.Foebreaker, job2: Job.Bushi,
 		})).toMatchSnapshot();
-		expect(await doTest({
+		expect(doTest({
 			character: Character.Balthier, job: Job.Shikari, job2: Job.Bushi,
 			licenses: ["Quickening 2", "Quickening 3", "Quickening 4", "Zodiark"]
 		})).toMatchSnapshot();
-		expect(await doTest({
+		expect(doTest({
 			character: Character.Vaan, job: Job.Monk, job2: Job.Archer,
 			licenses: ["Shemhazai"]
 		})).toMatchSnapshot();
-		expect(await doTest({
+		expect(doTest({
 			character: Character.Fran, job: Job.Monk, job2: Job.Foebreaker,
 		})).toMatchSnapshot();
 	});
 
-	it("something brawler", async () => {
-		expect(await doTest({
+	it("something brawler", () => {
+		expect(doTest({
 			character: Character.Penelo,
 			job: Job.Knight,
 			env: {
@@ -117,16 +117,16 @@ describe("OptimizeForCharacter", () => {
 		})).toMatchSnapshot();
 	});
 
-	it("machinist + dark robes", async () => {
-		expect(await doTest({
+	it("machinist + dark robes", () => {
+		expect(doTest({
 			character: Character.Penelo,
 			job: Job.Machinist,
 			job2: Job.RedBattlemage,
 		})).toMatchSnapshot();		
 	});
 
-	it("vit optimization", async () => {
-		expect(await doTest({
+	it("vit optimization", () => {
+		expect(doTest({
 			character: Character.Ashe,
 			job: Job.Foebreaker,
 			job2: Job.BlackMage,
@@ -136,7 +136,7 @@ describe("OptimizeForCharacter", () => {
 				def: 10,
 			}
 		})).toMatchSnapshot();
-		expect(await doTest({
+		expect(doTest({
 			character: Character.Ashe,
 			job: Job.BlackMage,
 			job2: Job.Monk,
@@ -148,7 +148,7 @@ describe("OptimizeForCharacter", () => {
 		})).toMatchSnapshot();
 	});
 
-	it("elemental tests", async () => {
+	it("elemental tests", () => {
 		const envs: Partial<Environment>[] = [
 			{ fireReaction: 2 },
 			{ fireReaction: 0.5 },
@@ -164,18 +164,18 @@ describe("OptimizeForCharacter", () => {
 			{ darkReaction: 0 },
 		];
 		for (const env of envs) {
-			expect(await doTest({ character: Character.Balthier, job: Job.Archer, job2: Job.Machinist, env })).toMatchSnapshot();
+			expect(doTest({ character: Character.Balthier, job: Job.Archer, job2: Job.Machinist, env })).toMatchSnapshot();
 		}
 	});
 
-	it("a tricky elemental test", async () => {
+	it("a tricky elemental test", () => {
 		// For the Aevis Killer, Earth Arrows are the best here, but the old optimizer doesn't see that.
-		expect(await doTest({ character: Character.Penelo, job: Job.Archer, env: { def: 32, earthReaction: 0.5 } })).toMatchSnapshot();
+		expect(doTest({ character: Character.Penelo, job: Job.Archer, env: { def: 32, earthReaction: 0.5 } })).toMatchSnapshot();
 	});
 
-	it("weather", async () => {
-		expect(await doTest({ character: Character.Ashe, job: Job.Machinist, job2: Job.BlackMage, env: { weather: "windy" } })).toMatchSnapshot();
-		expect(await doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Foebreaker,
+	it("weather", () => {
+		expect(doTest({ character: Character.Ashe, job: Job.Machinist, job2: Job.BlackMage, env: { weather: "windy" } })).toMatchSnapshot();
+		expect(doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Foebreaker,
 			env: {
 				weather: "windy",
 				def: 20,
@@ -183,7 +183,7 @@ describe("OptimizeForCharacter", () => {
 				iceReaction: 0, lightningReaction: 0, waterReaction: 0, windReaction: 0, earthReaction: 0, holyReaction: 0, darkReaction: 0,
 			}
 		})).toMatchSnapshot();
-		expect(await doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Foebreaker,
+		expect(doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Foebreaker,
 			env: {
 				weather: "rainy",
 				def: 20,
@@ -191,7 +191,7 @@ describe("OptimizeForCharacter", () => {
 				iceReaction: 0, lightningReaction: 0, waterReaction: 0, windReaction: 0, earthReaction: 0, holyReaction: 0, darkReaction: 0,
 			}
 		})).toMatchSnapshot();
-		expect(await doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Bushi,
+		expect(doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Bushi,
 			env: {
 				weather: "rainy",
 				def: 20,
@@ -201,14 +201,14 @@ describe("OptimizeForCharacter", () => {
 		})).toMatchSnapshot();
 	});
 
-	it("wyrmhero bravery", async () => {
-		expect(await doTest({ character: Character.Fran, job: Job.Monk, env: { bravery: false } })).toMatchSnapshot();
-		expect(await doTest({ character: Character.Fran, job: Job.WhiteMage, env: { bravery: false } })).toMatchSnapshot();
+	it("wyrmhero bravery", () => {
+		expect(doTest({ character: Character.Fran, job: Job.Monk, env: { bravery: false } })).toMatchSnapshot();
+		expect(doTest({ character: Character.Fran, job: Job.WhiteMage, env: { bravery: false } })).toMatchSnapshot();
 	});
 
-	it("Perf tests", async () => {
-		const t1 = await timeTest({ character: Character.Basch, job: Job.Knight, job2: Job.Foebreaker });
-		const t2 = await timeTest({ character: Character.Basch, job: Job.Bushi, job2: Job.WhiteMage });
+	it("Perf tests", () => {
+		const t1 = timeTest({ character: Character.Basch, job: Job.Knight, job2: Job.Foebreaker });
+		const t2 = timeTest({ character: Character.Basch, job: Job.Bushi, job2: Job.WhiteMage });
 		expect ([t1, t2]).toMatchSnapshot();
 	});
 });

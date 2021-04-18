@@ -311,13 +311,20 @@ function PartyDps(props: PartyDpsProps) {
 		const results: OptimizerResult[][] = [[], [], [], [], [], []];
 		const { party, env } = props;
 
+		let time = performance.now();
+
 		for (let i = 0; i < 6; i++) {
 			const dest = results[i];
 			const characterEnv = { ...env, character: i };
-			for await (const r of optimizeForCharacter(characterEnv, party)) {
-				if (party !== propsRef.current.party || env !== propsRef.current.env) {
-					// stop processing now if this data is already old
-					return;
+			for (const r of optimizeForCharacter(characterEnv, party)) {
+				if (performance.now() - time > 120) {
+					// Interrupt processing to aid responsiveness
+					await new Promise(r => setTimeout(r, 0));
+					time = performance.now();
+					if (party !== propsRef.current.party || env !== propsRef.current.env) {
+						// stop processing now if this data is already old
+						return;
+					}
 				}
 				dest.push(r);
 			}
