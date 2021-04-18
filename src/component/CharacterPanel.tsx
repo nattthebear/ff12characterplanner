@@ -28,12 +28,14 @@ export default function CharacterPanel() {
 	function renderLicenseGroup(g: LicenseGroup, i: number, colors: Map<License, Coloring>, plannedColors?: Map<License, Coloring>) {
 		const children = Array<React.ReactNode>();
 		if (typeof g.contents[0].grants!.what === "number") {
+			type NumericGrant = License & { grants: { what: number } };
 			// display a numeric total
-			const a = Array<License>();
-			const b = Array<License>();
-			const c = Array<License>();
-			const d = Array<License>();
-			for (const l of g.contents) {
+			const a = Array<NumericGrant>();
+			const b = Array<NumericGrant>();
+			const c = Array<NumericGrant>();
+			const d = Array<NumericGrant>();
+			for (const _l of g.contents) {
+				const l = _l as NumericGrant;
 				switch (colors.get(l)) {
 					case Coloring.OBTAINED: a.push(l); break;
 					case Coloring.CERTAIN: b.push(l); break;
@@ -56,10 +58,10 @@ export default function CharacterPanel() {
 					dispatch(changeParty(party));
 				}
 			};
-			if (a.length) { children.push(<p key={0} className="l obtained" onClick={() => onClick(a, false)}>+{a.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
-			if (b.length) { children.push(<p key={1} className="l certain" onClick={() => onClick(b, true)}>+{b.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
-			if (c.length) { children.push(<p key={2} className="l possible" onClick={() => onClick(c, true)}>+{c.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
-			if (d.length) { children.push(<p key={3} className="l planned">+{d.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
+			if (a.length) { children.push(<p key={0} className="l obtained" onClick={() => onClick(a, false)}>+{a.reduce((acc, val) => acc + val.grants.what, 0)}</p>); }
+			if (b.length) { children.push(<p key={1} className="l certain" onClick={() => onClick(b, true)}>+{b.reduce((acc, val) => acc + val.grants.what, 0)}</p>); }
+			if (c.length) { children.push(<p key={2} className="l possible" onClick={() => onClick(c, true)}>+{c.reduce((acc, val) => acc + val.grants.what, 0)}</p>); }
+			if (d.length) { children.push(<p key={3} className="l planned">+{d.reduce((acc, val) => acc + val.grants.what, 0)}</p>); }
 		} else {
 			// display each license (could display each granted spell if desired?)
 			for (const l of g.contents) {
