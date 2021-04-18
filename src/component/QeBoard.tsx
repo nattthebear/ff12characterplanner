@@ -17,7 +17,7 @@ function compareLicenses(a: License, b: License) {
 export default function QeBoard() {
 	const props = useStore();
 
-	const colorings = useMemo(() => Characters.map((_, c) => props.party.colorFoo(c)), [props.party]);
+	const colorings = useMemo(() => Characters.map((_, c) => props.party.color(c)), [props.party]);
 
 	function renderCell(l: License, c: number, esper: boolean) {
 		if (props.party.unemployed(c)) {
@@ -45,7 +45,7 @@ export default function QeBoard() {
 				// So, remember all obtained mist licenses before deleting and then re-add them.
 				const toAdd = allLimitedLicenses.filter(ll => ll !== l && props.party.has(c, ll));
 				const newParty = props.party.deleteAndAdd([{ c, l }], toAdd.map(l => ({ c, l })));
-				const next = newParty.colorFoo(c);
+				const next = newParty.color(c);
 				for (const [ll, color] of next) {
 					if (color === Coloring.POSSIBLE && ll !== l) {
 						const v = initial.get(ll);
@@ -62,7 +62,7 @@ export default function QeBoard() {
 				className = "l possible";
 				// cell is yellow => show anything yellow now but grey after adding that license
 				const newParty = props.party.add(c, l);
-				const next = newParty.colorFoo(c);
+				const next = newParty.color(c);
 				for (const [ll, color] of initial) {
 					if (color == Coloring.POSSIBLE && next.get(ll) === Coloring.CERTAIN) {
 						content.push(ll);
@@ -82,7 +82,7 @@ export default function QeBoard() {
 						: Quickenings.map(l => ({ c, l })),
 					[{ c, l }]
 				);
-				const next = nextParty.colorFoo(c);
+				const next = nextParty.color(c);
 				for (const [ll, color] of next) {
 					if (color === Coloring.CERTAIN) {
 						const currentColor = initial.get(ll);

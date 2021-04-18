@@ -11,7 +11,7 @@ const battleLores = LicenseGroups.find(g => g.name === "Battle Lore")!.contents;
 const magickLores = LicenseGroups.find(g => g.name === "Magick Lore")!.contents;
 
 export function* optimizeForCharacter(e: Environment, party: PartyModel) {
-	const licenseMap = party.colorFoo(e.character);
+	const licenseMap = party.color(e.character);
 
 	function filterLName(name: string) {
 		return filterL(LicenseByName(name));

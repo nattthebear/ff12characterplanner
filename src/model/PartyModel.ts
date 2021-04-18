@@ -237,13 +237,13 @@ export default class PartyModel {
 		return r;
 	}
 
-	colorFoo(c: number) {
+	color(c: number) {
 		const ret = new Map<License, Coloring>();
 		for (const l of this.selected[c]) {
 			ret.set(l, Coloring.OBTAINED);
 		}
 
-		const fooHelper = (criteria: (l: License) => boolean, color: Coloring) => {
+		const colorHelper = (criteria: (l: License) => boolean, color: Coloring) => {
 			for (const l of ret.keys()) {
 				for (const j of this.jobs[c]) {
 					const cell = j.lookup.get(l);
@@ -258,8 +258,8 @@ export default class PartyModel {
 				}
 			}
 		}
-		fooHelper(l => !l.limited, Coloring.CERTAIN);
-		fooHelper(l => !this.blockedEspers.has(l) && (!Quickenings.includes(l) || this.quickeningCount[c] < 3), Coloring.POSSIBLE);
+		colorHelper(l => !l.limited, Coloring.CERTAIN);
+		colorHelper(l => !this.blockedEspers.has(l) && (!Quickenings.includes(l) || this.quickeningCount[c] < 3), Coloring.POSSIBLE);
 
 		return ret;
 	}
