@@ -6,12 +6,11 @@ import Accessory from "./equip/Accessory";
 import { License, LicenseByName, LicenseGroups } from "../data/Licenses";
 import { optimize } from "./Optimize";
 import { BaseCharacterStats } from "./BaseCharacterStats";
-import { markTime, shouldTurn, turn } from "./PerfUtils";
 
 const battleLores = LicenseGroups.find(g => g.name === "Battle Lore")!.contents;
 const magickLores = LicenseGroups.find(g => g.name === "Magick Lore")!.contents;
 
-export async function* optimizeForCharacter(e: Environment, party: PartyModel) {
+export function* optimizeForCharacter(e: Environment, party: PartyModel) {
 	const licenseMap = party.color(e.character);
 
 	function filterLName(name: string) {
@@ -75,14 +74,7 @@ export async function* optimizeForCharacter(e: Environment, party: PartyModel) {
 	startingProfile.str += battleLores.filter(filterL).length;
 	startingProfile.mag += magickLores.filter(filterL).length;
 
-	let p = markTime();
-
 	for (const w of weapons) {
 		yield optimize(startingProfile, e, w, pool);
-		// halt processing every 50ms to aid responsiveness
-		if (shouldTurn(p)) {
-			await turn();
-			p = markTime();
-		}
 	}
 }
