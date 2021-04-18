@@ -10,8 +10,6 @@ export enum Coloring {
 	CERTAIN,
 	/** can be reached from obtained and certain licenses, but requires going through a not yet decided esper or quickening */
 	POSSIBLE,
-	/** on the board, but not reachable without going through a blocked esper or quickening */
-	BLOCKED
 }
 
 export default class PartyModel {
@@ -262,9 +260,6 @@ export default class PartyModel {
 		}
 		fooHelper(l => !l.limited, Coloring.CERTAIN);
 		fooHelper(l => !this.blockedEspers.has(l) && (!Quickenings.includes(l) || this.quickeningCount[c] < 3), Coloring.POSSIBLE);
-		// TODO: We could leave out this pass and simply have uncolored === blocked.  The only time they're different is when a board
-		// literally has isolated spots on it that can never be reached, which never happens with correct data.
-		fooHelper(l => true, Coloring.BLOCKED);		
 
 		return ret;
 	}

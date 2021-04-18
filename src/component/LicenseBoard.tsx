@@ -21,8 +21,7 @@ export default function LicenseBoard() {
 			case Coloring.OBTAINED: className = "l obtained"; obtained = true; break;
 			case Coloring.CERTAIN: className = "l certain"; break;
 			case Coloring.POSSIBLE: className = "l possible"; break;
-			case Coloring.BLOCKED: className = "l blocked"; break;
-			default: className = "l unreachable"; break; // shouldn't happen on this page unless license board data is bad
+			default: className = "l blocked"; break;
 		}
 		const onClick = () => {
 			if (obtained) {

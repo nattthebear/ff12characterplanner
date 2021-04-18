@@ -38,9 +38,8 @@ export default function CharacterPanel() {
 					case Coloring.OBTAINED: a.push(l); break;
 					case Coloring.CERTAIN: b.push(l); break;
 					case Coloring.POSSIBLE: c.push(l); break;
-					case Coloring.BLOCKED:
 					default:
-						if (plannedColors && plannedColors.has(l) && plannedColors.get(l) !== Coloring.BLOCKED) {
+						if (plannedColors && plannedColors.has(l)) {
 							d.push(l);
 						}
 						break;
@@ -70,9 +69,8 @@ export default function CharacterPanel() {
 					case Coloring.OBTAINED: className = "l obtained"; obtained = true; break;
 					case Coloring.CERTAIN: className = "l certain"; break;
 					case Coloring.POSSIBLE: className = "l possible"; break;
-					case Coloring.BLOCKED:
 					default:
-						if (plannedColors && plannedColors.has(l) && plannedColors.get(l) !== Coloring.BLOCKED) {
+						if (plannedColors && plannedColors.has(l)) {
 							className = "l planned"; break;
 						} else {
 							continue; // don't render not at all available licenses

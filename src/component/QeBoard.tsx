@@ -20,6 +20,12 @@ export default function QeBoard() {
 	const colorings = useMemo(() => Characters.map((_, c) => props.party.colorFoo(c)), [props.party]);
 
 	function renderCell(l: License, c: number, esper: boolean) {
+		if (props.party.unemployed(c)) {
+			return <div key={c} className="l unreachable" onClick={() => { dispatch(changeIndices(c, 0)); dispatch(toggleQe()); }}>
+				Choose a job first.
+			</div>;
+		}
+
 		const initial = colorings[c];
 		let className;
 		const content = Array<License>();
@@ -65,7 +71,7 @@ export default function QeBoard() {
 				clickHandler = () => dispatch(changeParty(newParty));
 				break;
 			}
-			case Coloring.BLOCKED: {
+			default: {
 				className = "l blocked";
 				// cell is red
 				// && esper => show anything yellow or red now but grey after removing esper from owner and adding it here
@@ -77,17 +83,15 @@ export default function QeBoard() {
 					[{ c, l }]
 				);
 				const next = nextParty.colorFoo(c);
-				for (const [ll, color] of initial) {
-					if ((color === Coloring.POSSIBLE || color == Coloring.BLOCKED) && next.get(ll) === Coloring.CERTAIN) {
-						content.push(ll);
+				for (const [ll, color] of next) {
+					if (color === Coloring.CERTAIN) {
+						const currentColor = initial.get(ll);
+						if (currentColor == null || currentColor === Coloring.POSSIBLE) {
+							content.push(ll);
+						}
 					}
 				}
 				break;
-			}
-			default: {
-				return <div key={c} className="l unreachable" onClick={() => { dispatch(changeIndices(c, 0)); dispatch(toggleQe()); }}>
-					Choose a job first.
-				</div>;
 			}
 		}
 		content.sort(compareLicenses);
