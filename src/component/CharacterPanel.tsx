@@ -4,37 +4,28 @@ import { LicenseGroups, LicenseGroup, License } from "../data/Licenses";
 import PartyModel, { Coloring } from "../model/PartyModel";
 import { Characters } from "../data/Characters";
 import { confirm } from "../Dialog";
+import { dispatch, useStore } from "../store/Store";
+import { changeIndices, changeParty, toggleDps, toggleQe } from "../store/State";
 
-export interface Props {
-	party: PartyModel;
-	changeParty(newParty: PartyModel): void;
-	characterIndex: number;
-	boardIndex: number;
-	changeIndices(characterIndex: number, boardIndex: number): void;
-	qeActive: boolean;
-	toggleQe(): void;
-	plannedParty?: PartyModel;
-	dpsActive: boolean;
-	toggleDps(): void;
-}
+export default function CharacterPanel() {
+	const props = useStore();
 
-export default class CharacterPanel extends React.PureComponent<Props> {
-	private renderClassInfo(characterIndex: number, index: number) {
-		const j = this.props.party.getJob(characterIndex, index);
-		const selected = this.props.characterIndex === characterIndex && this.props.boardIndex === index;
+	function renderClassInfo(characterIndex: number, index: number) {
+		const j = props.party.getJob(characterIndex, index);
+		const selected = props.characterIndex === characterIndex && props.boardIndex === index;
 		if (!j) {
-			const disabled = index === 1 && !this.props.party.getJob(characterIndex, 0);
-			return <button disabled={disabled} className="job nojob" aria-pressed={selected} onClick={ev => { ev.stopPropagation(); this.props.changeIndices(characterIndex, index); }}>
+			const disabled = index === 1 && !props.party.getJob(characterIndex, 0);
+			return <button disabled={disabled} className="job nojob" aria-pressed={selected} onClick={ev => { ev.stopPropagation(); dispatch(changeIndices(characterIndex, index)); }}>
 				<span className="name">No Job</span>
 			</button>;
 		} else {
-			return <button className="job" aria-pressed={selected} onClick={ev => { ev.stopPropagation(); this.props.changeIndices(characterIndex, index); }}>
+			return <button className="job" aria-pressed={selected} onClick={ev => { ev.stopPropagation(); dispatch(changeIndices(characterIndex, index)); }}>
 				<span className="name">{j.name}</span>
 			</button>;
 		}
 	}
 
-	private renderLicenseGroup(g: LicenseGroup, i: number, colors: Map<License, Coloring>, plannedColors?: Map<License, Coloring>) {
+	function renderLicenseGroup(g: LicenseGroup, i: number, colors: Map<License, Coloring>, plannedColors?: Map<License, Coloring>) {
 		const children = Array<React.ReactNode>();
 		if (typeof g.contents[0].grants!.what === "number") {
 			// display a numeric total
@@ -56,14 +47,14 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 				}
 			}
 			const onClick = (licenses: License[], add: boolean) => {
-				let party = this.props.party;
+				let party = props.party;
 				for (const l of licenses) {
 					if (add) {
-						party = party.add(this.props.characterIndex, l);
+						party = party.add(props.characterIndex, l);
 					} else {
-						party = party.delete(this.props.characterIndex, l);
+						party = party.delete(props.characterIndex, l);
 					}
-					this.props.changeParty(party);
+					dispatch(changeParty(party));
 				}
 			};
 			if (a.length) { children.push(<p key={0} className="l obtained" onClick={() => onClick(a, false)}>+{a.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
@@ -89,9 +80,9 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 				}
 				const onClick = () => {
 					if (obtained) {
-						this.props.changeParty(this.props.party.delete(this.props.characterIndex, l));
+						dispatch(changeParty(props.party.delete(props.characterIndex, l)));
 					} else {
-						this.props.changeParty(this.props.party.add(this.props.characterIndex, l));
+						dispatch(changeParty(props.party.add(props.characterIndex, l)));
 					}
 				};
 				children.push(<p
@@ -114,15 +105,15 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 		}
 	}
 
-	private renderStatInfo() {
-		const colors = this.props.party.color(this.props.characterIndex);
-		const plannedColors = this.props.plannedParty && this.props.plannedParty.color(this.props.characterIndex);
-		return LicenseGroups.map((g, i) => this.renderLicenseGroup(g, i, colors, plannedColors));
+	function renderStatInfo() {
+		const colors = props.party.color(props.characterIndex);
+		const plannedColors = props.plannedParty && props.plannedParty.color(props.characterIndex);
+		return LicenseGroups.map((g, i) => renderLicenseGroup(g, i, colors, plannedColors));
 	}
 
-	private renderResetJob() {
-		const c = this.props.characterIndex;
-		const job = this.props.party.getJob(c, this.props.boardIndex);
+	function renderResetJob() {
+		const c = props.characterIndex;
+		const job = props.party.getJob(c, props.boardIndex);
 		let label: string;
 		let disabled: boolean;
 		if (job) {
@@ -138,7 +129,7 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 			disabled={disabled}
 			onClick={async () => {
 				if (await confirm(label + "?")) {
-					this.props.changeParty(this.props.party.removeJob(c, job!));
+					dispatch(changeParty(props.party.removeJob(c, job!)));
 				}
 			}}
 		>
@@ -146,9 +137,9 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 		</button>;
 	}
 
-	private renderResetCharacter() {
-		const c = this.props.characterIndex;
-		const disabled = this.props.party.unemployed(c);
+	function renderResetCharacter() {
+		const c = props.characterIndex;
+		const disabled = props.party.unemployed(c);
 		const label = `Unlearn all jobs from ${Characters[c].name}`;
 		return <button
 			className="action"
@@ -156,7 +147,7 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 			disabled={disabled}
 			onClick={async () => {
 				if (await confirm(label + "?")) {
-					this.props.changeParty(this.props.party.removeAllJobs(c));
+					dispatch(changeParty(props.party.removeAllJobs(c)));
 				}
 			}}
 		>
@@ -164,15 +155,15 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 		</button>;
 	}
 
-	private renderResetAll() {
-		const disabled = this.props.party.allUnemployed();
+	function renderResetAll() {
+		const disabled = props.party.allUnemployed();
 		return <button
 			className="action"
 			aria-label="Unlearn all jobs from all characters"
 			disabled={disabled}
 			onClick={async () => {
 				if (await confirm("Unlearn all jobs from all characters?")) {
-					this.props.changeParty(new PartyModel());
+					dispatch(changeParty(new PartyModel()));
 				}
 			}}
 		>
@@ -180,59 +171,57 @@ export default class CharacterPanel extends React.PureComponent<Props> {
 		</button>;
 	}
 
-	private renderToggleQe() {
+	function renderToggleQe() {
 		return <button
 			className="action"
 			aria-label="Manage Quickenings and Espers for all characters at once."
-			onClick={this.props.toggleQe}
-			aria-pressed={this.props.qeActive}
+			onClick={() => dispatch(toggleQe())}
+			aria-pressed={props.qeActive}
 		>
-			{this.props.qeActive ? "Hide Mist Planner" : "Show Mist Planner"}
+			{props.qeActive ? "Hide Mist Planner" : "Show Mist Planner"}
 		</button>;
 	}
 
-	private renderToggleDps() {
+	function renderToggleDps() {
 		return <button
 			className="action"
 			aria-label="Simulate character damage output"
-			onClick={this.props.toggleDps}
-			aria-pressed={this.props.dpsActive}
+			onClick={() => dispatch(toggleDps())}
+			aria-pressed={props.dpsActive}
 		>
-			{this.props.dpsActive ? "Hide DPS Simulator" : "Show DPS Simulator"}
+			{props.dpsActive ? "Hide DPS Simulator" : "Show DPS Simulator"}
 		</button>;		
 	}
 
-	private selectCharacter(index: number) {
-		if (this.props.characterIndex === index) {
-			this.props.changeIndices(index, this.props.boardIndex ^ 1);
+	function selectCharacter(index: number) {
+		if (props.characterIndex === index) {
+			dispatch(changeIndices(index, props.boardIndex ^ 1));
 		} else {
-			this.props.changeIndices(index, 0);
+			dispatch(changeIndices(index, 0));
 		}
 	}
 
-	render() {
-		return <div className="character-panel">
-			<div className="actions">
-				{this.renderResetJob()}
-				{this.renderResetCharacter()}
-				{this.renderResetAll()}
-				{this.renderToggleQe()}
-				{this.renderToggleDps()}
-			</div>
-			<div className="character-select">
-				{Characters.map((c, i) => <div className="character" key={i} aria-pressed={this.props.characterIndex === i} onClick={() => this.selectCharacter(i)}>
-					<span className="name">{c.name}</span>
-					<br />
-					{this.renderClassInfo(i, 0)}
-					<br />
-					{this.renderClassInfo(i, 1)}
-					<br />
-					<span>{this.props.party.getLpCount(i)} LP</span>
-				</div>)}
-			</div>
-			<div className="stats">
-				{this.renderStatInfo()}
-			</div>
-		</div>;
-	}
+	return <div className="character-panel">
+		<div className="actions">
+			{renderResetJob()}
+			{renderResetCharacter()}
+			{renderResetAll()}
+			{renderToggleQe()}
+			{renderToggleDps()}
+		</div>
+		<div className="character-select">
+			{Characters.map((c, i) => <div className="character" key={i} aria-pressed={props.characterIndex === i} onClick={() => selectCharacter(i)}>
+				<span className="name">{c.name}</span>
+				<br />
+				{renderClassInfo(i, 0)}
+				<br />
+				{renderClassInfo(i, 1)}
+				<br />
+				<span>{props.party.getLpCount(i)} LP</span>
+			</div>)}
+		</div>
+		<div className="stats">
+			{renderStatInfo()}
+		</div>
+	</div>;
 }
