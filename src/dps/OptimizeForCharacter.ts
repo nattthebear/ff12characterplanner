@@ -1,5 +1,5 @@
 import { Environment, Equipment, EquipmentPool, Profile } from "./Profile";
-import PartyModel from "../model/PartyModel";
+import PartyModel, { Coloring } from "../model/PartyModel";
 import Weapon from "./equip/Weapon";
 import { BodyArmor, Helm } from "./equip/Armor";
 import Accessory from "./equip/Accessory";
@@ -12,13 +12,14 @@ const battleLores = LicenseGroups.find(g => g.name === "Battle Lore")!.contents;
 const magickLores = LicenseGroups.find(g => g.name === "Magick Lore")!.contents;
 
 export async function* optimizeForCharacter(e: Environment, party: PartyModel) {
-	const licenseMap = party.colorEx(e.character);
+	const licenseMap = party.color(e.character);
 
 	function filterLName(name: string) {
 		return filterL(LicenseByName(name));
 	}
 	function filterL(l: License) {
-		return licenseMap.obtained.has(l) || licenseMap.certain.has(l);
+		const v = licenseMap.get(l);
+		return v === Coloring.OBTAINED || v === Coloring.CERTAIN;
 	}
 	function filterEq(item: Equipment) {
 		return !item.l || filterL(item.l);

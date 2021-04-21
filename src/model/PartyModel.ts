@@ -10,21 +10,6 @@ export enum Coloring {
 	CERTAIN,
 	/** can be reached from obtained and certain licenses, but requires going through a not yet decided esper or quickening */
 	POSSIBLE,
-	/** on the board, but not reachable without going through a blocked esper or quickening */
-	BLOCKED
-}
-
-export interface ColorEx {
-	/** every license discovered for this character by coloring */
-	map: Map<License, Coloring>;
-	/** every license OBTAINED in the map */
-	obtained: Set<License>;
-	/** every license CERTAIN in the map */
-	certain: Set<License>;
-	/** every license POSSIBLE in the map */
-	possible: Set<License>;
-	/** every license BLOCKED in the map */
-	blocked: Set<License>;
 }
 
 export default class PartyModel {
@@ -253,60 +238,31 @@ export default class PartyModel {
 		return r;
 	}
 
-	private colorHelper(c: number, criteria: (l: License) => boolean, ...from: Set<License>[]) {
-		const ret = new Set<License>();
-		// const toCheck = from.flatMap(s => [...s]);
-		const toCheck = Array<License>();
-		for (const f of from) {
-			toCheck.push(...f);
+	color(c: number) {
+		const ret = new Map<License, Coloring>();
+		for (const l of this.selected[c]) {
+			ret.set(l, Coloring.OBTAINED);
 		}
-		while (toCheck.length) {
-			const l = toCheck.pop()!;
-			for (const j of this.jobs[c]) {
-				const cell = j.lookup.get(l);
-				if (cell) {
-					for (const p of cell.adjacent) {
-						const { value } = p;
-						if (from.every(f => !f.has(value)) && !ret.has(value) && criteria(value)) {
-							ret.add(value);
-							toCheck.push(value);
+
+		const colorHelper = (criteria: (l: License) => boolean, color: Coloring) => {
+			for (const l of ret.keys()) {
+				for (const j of this.jobs[c]) {
+					const cell = j.lookup.get(l);
+					if (!cell) {
+						continue;
+					}
+					for (const { value } of cell.adjacent) {
+						if (!ret.has(value) && criteria(value)) {
+							ret.set(value, color);
 						}
 					}
 				}
 			}
 		}
+		colorHelper(l => !l.limited, Coloring.CERTAIN);
+		colorHelper(l => !this.blockedEspers.has(l) && (!Quickenings.includes(l) || this.quickeningCount[c] < 3), Coloring.POSSIBLE);
+
 		return ret;
-	}
-
-	colorEx(c: number): ColorEx {
-		const obtained = this.selected[c];
-		const certain = this.colorHelper(c, l => !l.limited, obtained);
-		const possible = this.colorHelper(c, l => !this.blockedEspers.has(l) && (!Quickenings.includes(l) || this.quickeningCount[c] < 3), obtained, certain);
-		const blocked = this.colorHelper(c, l => true, obtained, certain, possible);
-		const ret = new Map<License, Coloring>();
-		for (const l of obtained) {
-			ret.set(l, Coloring.OBTAINED);
-		}
-		for (const l of certain) {
-			ret.set(l, Coloring.CERTAIN);
-		}
-		for (const l of possible) {
-			ret.set(l, Coloring.POSSIBLE);
-		}
-		for (const l of blocked) {
-			ret.set(l, Coloring.BLOCKED);
-		}
-		return {
-			map: ret,
-			obtained,
-			certain,
-			possible,
-			blocked
-		};
-	}
-
-	color(c: number) {
-		return this.colorEx(c).map;
 	}
 
 	encode() {
