@@ -14,6 +14,8 @@ function compareLicenses(a: License, b: License) {
 	return a.sortOrder - b.sortOrder;
 }
 
+const characterIndicies = [0, 1, 2, 3, 4, 5];
+
 export default function QeBoard() {
 	const props = useStore();
 
@@ -43,44 +45,32 @@ export default function QeBoard() {
 				// in another way if you want, but it's not obvious what's happening on the mist planner
 
 				// So, remember all obtained mist licenses before deleting and then re-add them.
-				{
-					const toAdd = allLimitedLicenses.filter(ll => ll !== l && props.party.has(c, ll));
-					let newParty = props.party.delete(c, l);
-					for (const ll of toAdd) {
-						newParty = newParty.add(c, ll);
-					}
-					const next = newParty.colorEx(c);
-					for (const ll of next.possible) {
-						if (ll !== l) {
-							const v = initial.map.get(ll);
-							if (v === Coloring.OBTAINED || v === Coloring.CERTAIN) {
-								content.push(ll);
-							}
+				const toAdd = allLimitedLicenses.filter(ll => ll !== l && props.party.has(c, ll));
+				const newParty = props.party.deleteAndAdd([{ c, l }], toAdd.map(l => ({ c, l })));
+				const next = newParty.colorEx(c);
+				for (const ll of next.possible) {
+					if (ll !== l) {
+						const v = initial.map.get(ll);
+						if (v === Coloring.OBTAINED || v === Coloring.CERTAIN) {
+							content.push(ll);
 						}
 					}
 				}
 
-				clickHandler = () => {
-					// (see comment above)
-					const toAdd = allLimitedLicenses.filter(ll => ll !== l && props.party.has(c, ll));
-					let newParty = props.party.delete(c, l);
-					for (const ll of toAdd) {
-						newParty = newParty.add(c, ll);
-					}
-					dispatch(changeParty(newParty));
-				};
+				clickHandler = () => dispatch(changeParty(newParty));
 				break;
 			}
 			case Coloring.POSSIBLE: {
 				className = "l possible";
 				// cell is yellow => show anything yellow now but grey after adding that license
-				const next = props.party.add(c, l).colorEx(c);
+				const newParty = props.party.add(c, l);
+				const next = newParty.colorEx(c);
 				for (const ll of initial.possible) {
 					if (next.certain.has(ll)) {
 						content.push(ll);
 					}
 				}
-				clickHandler = () => dispatch(changeParty(props.party.add(c, l)));
+				clickHandler = () => dispatch(changeParty(newParty));
 				break;
 			}
 			case Coloring.BLOCKED: {
@@ -88,17 +78,12 @@ export default function QeBoard() {
 				// cell is red
 				// && esper => show anything yellow or red now but grey after removing esper from owner and adding it here
 				// && quickening => show anything yellow or red now but grey after removing all quickenings from char and adding that one
-				let nextParty = props.party;
-				if (esper) {
-					for (let i = 0; i < 6; i++) {
-						nextParty = nextParty.delete(i, l);
-					}
-				} else {
-					for (const q of Quickenings) {
-						nextParty = nextParty.delete(c, q);
-					}
-				}
-				nextParty = nextParty.add(c, l);
+				const nextParty = props.party.deleteAndAdd(
+					esper
+						? characterIndicies.map(c => ({ c, l }))
+						: Quickenings.map(l => ({ c, l })),
+					[{ c, l }]
+				);
 				const next = nextParty.colorEx(c);
 				for (const ll of initial.possible) {
 					if (next.certain.has(ll)) {
@@ -112,10 +97,11 @@ export default function QeBoard() {
 				}
 				break;
 			}
-			default:
+			default: {
 				return <div key={c} className="l unreachable" onClick={() => { dispatch(changeIndices(c, 0)); dispatch(toggleQe()); }}>
 					Choose a job first.
 				</div>;
+			}
 		}
 		content.sort(compareLicenses);
 		return <div key={c} className={className} onClick={clickHandler}>

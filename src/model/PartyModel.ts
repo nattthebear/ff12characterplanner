@@ -199,6 +199,24 @@ export default class PartyModel {
 		return r;
 	}
 
+	deleteAndAdd(toDelete: { c: number, l: License}[], toAdd: { c: number, l: License }[]) {
+		const r = new PartyModel(this);
+		for (const { c, l } of toDelete) {
+			r.selected[c].delete(l);
+		}
+		r.verify();
+		for (const { c, l } of toAdd) {
+			const path = r.findPath(c, l);
+			if (path) {
+				for (const n of path.nodes) {
+					r.selected[c].add(n);
+				}
+			}
+		}
+		r.verify();
+		return r;
+	}
+
 	has(c: number, l: License) {
 		return this.selected[c].has(l);
 	}
