@@ -377,12 +377,15 @@ function encodeCharacter(boards: Board[], licenses: Set<License>) {
 	if (b !== 1) {
 		n.push(acc);
 	}
+	while (n[n.length - 1] === 0) {
+		n.pop();
+	}
 	return toBase64Url(String.fromCharCode(...n));
 }
 
 function decodeCharacter(s: string) {
 	s = fromBase64Url(s);
-	const idx = s.charCodeAt(0);
+	const idx = s.charCodeAt(0) | 0;
 	const mapping = urlLookup[idx];
 	if (!mapping) {
 		console.warn("Invalid tag id");
