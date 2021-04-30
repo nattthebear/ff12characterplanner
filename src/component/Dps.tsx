@@ -141,8 +141,11 @@ function tooltipFor(e: Equipment) {
 	f("berserk", "Berserk");
 	f("haste", "Haste");
 	f("bravery", "Bravery");
+	f("faith", "Faith");
 	f("focus", "Focus");
 	f("adrenaline", "Adrenaline");
+	f("serenity", "Serenity");
+	f("spellbreaker", "Spellbreaker");
 	f("genjiGloves", "Combo+");
 	f("cameoBelt", "Ignore Evasion");
 	f("agateRing", "Ignore Weather");
@@ -179,6 +182,14 @@ export default function Dps(props: Props) {
 				tooltip="Target's magical defense"
 				value={env.mdef}
 				changeValue={v => changeEnv("mdef", v)}
+			/>
+			<NumberInput
+				min={1}
+				max={10}
+				label="Aoe"
+				tooltip="Number of targets"
+				value={env.targetCount}
+				changeValue={v => changeEnv("targetCount", v)}
 			/>
 			<NumberInput
 				min={1}
@@ -243,6 +254,12 @@ export default function Dps(props: Props) {
 				changeValue={v => changeEnv("bravery", v)}
 			/>
 			<BoolInput
+				label="Faith"
+				tooltip="Is the faith buff available?"
+				value={env.faith}
+				changeValue={v => changeEnv("faith", v)}
+			/>
+			<BoolInput
 				label="Oil"
 				tooltip="Is the target oiled?"
 				value={env.oil}
@@ -253,6 +270,12 @@ export default function Dps(props: Props) {
 				tooltip="Can the target parry attacks?"
 				value={env.parry}
 				changeValue={v => changeEnv("parry", v)}
+			/>
+			<BoolInput
+				label="Undead"
+				tooltip="Is the target undead?"
+				value={env.undead}
+				changeValue={v => changeEnv("undead", v)}
 			/>
 			<br />
 			{AllElements.map(s => <ElementInput

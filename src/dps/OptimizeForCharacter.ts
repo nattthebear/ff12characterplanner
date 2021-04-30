@@ -31,7 +31,6 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel) {
 		accessories: Accessory.filter(filterEq)
 	};
 
-	// TODO: str/mag/vit/spd
 	const startingProfile: Profile = {
 		damageType: "unarmed",
 		animationType: "unarmed",
@@ -43,8 +42,11 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel) {
 		berserk: e.berserk,
 		haste: e.haste,
 		bravery: e.bravery,
+		faith: e.faith,
 		focus: filterLName("Focus"),
 		adrenaline: filterLName("Adrenaline"),
+		serenity: filterLName("Serenity"),
+		spellbreaker: filterLName("Spellbreaker"),
 		genjiGloves: false,
 		cameoBelt: false,
 		agateRing: false,

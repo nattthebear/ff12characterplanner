@@ -22,6 +22,8 @@ export interface Environment {
 	def: number;
 	/** Target magical defense */
 	mdef: number;
+	/** Number of foes */
+	targetCount: number;
 	/** character hp percentage, from 1 to 100 */
 	percentHp: number;
 	/** How much damage does the target take from the element? */
@@ -52,6 +54,8 @@ export interface Environment {
 	haste: boolean;
 	/** true if the buff can be provided from external sources, and an accessory is not needed to provide it */
 	bravery: boolean;
+	/** true if the buff can be provided from external sources, and an accessory is not needed to provide it */
+	faith: boolean;
 	/** True if the target can parry attacks.  If so, it's always 25% (30% when player is defending). */
 	parry: boolean;
 	/** Target's block chance.  Varies from 0% (the most common) to a max (?) of 40% (Flowering Cactoid). */
@@ -62,12 +66,15 @@ export interface Environment {
 	weather: Weather;
 	/** True if the target can be and is oiled. */
 	oil: boolean;
+	/** True if the target eats brains. */
+	undead: boolean;
 }
 
 export const defaultEnvironment: Environment = {
 	character: -1,
 	def: 30,
 	mdef: 30,
+	targetCount: 1,
 	percentHp: 1,
 	fireReaction: 1,
 	iceReaction: 1,
@@ -83,11 +90,13 @@ export const defaultEnvironment: Environment = {
 	berserk: true,
 	haste: true,
 	bravery: true,
+	faith: true,
 	parry: false,
 	block: 0,
 	terrain: "other",
 	weather: "other",
 	oil: false,
+	undead: false,
 };
 
 export interface Profile {
@@ -112,10 +121,13 @@ export interface Profile {
 	berserk: boolean;
 	haste: boolean;
 	bravery: boolean;
+	faith: boolean;
 	/** Is the focus license available? */
 	focus: boolean;
 	/** Is the adrenaline license available? */
 	adrenaline: boolean;
+	serenity: boolean;
+	spellbreaker: boolean;
 
 	genjiGloves: boolean;
 	cameoBelt: boolean;

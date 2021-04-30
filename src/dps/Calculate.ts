@@ -1,5 +1,8 @@
+import { Magick } from "./ability/Magick";
 import { AnimationTimings } from "./AnimationTiming";
 import { Profile, Environment, AllElements } from "./Profile";
+
+export type Command = "attack" | Magick;
 
 /** model attack damage against armor */
 function admg(att: number, lowMul: number, highMul: number, def: number) {
@@ -34,8 +37,8 @@ function computeCsmod(spd: number) {
 	return csmod;
 }
 
-function calcChargeTime(p: Profile, e: Environment) {
-	const ct = p.chargeTime;
+function calcChargeTime(ct: number | undefined, p: Profile, e: Environment) {
+	ct ??= p.chargeTime;
 	const csmod = computeCsmod(p.spd);
 
 	const ran = 0.25;
@@ -77,8 +80,116 @@ export interface CalculateResult {
 	animationTime: number;
 }
 
+function modifyElementalDamage(modifiedDamage: number, m: Magick | undefined, p: Profile, e: Environment) {
+	const z = m ?? p;
+
+	for (const element of AllElements) {
+		if (z[`${element}Damage` as const]) {
+			if (p[`${element}Bonus` as const]) {
+				modifiedDamage *= 1.5;
+			}
+			modifiedDamage *= e[`${element}Reaction` as const];
+		}
+	}
+	if (e.oil && z.fireDamage) {
+		modifiedDamage *= 3;
+	}
+	if (!p.agateRing) {
+		if (e.terrain === "sand") {
+			if (z.earthDamage) {
+				modifiedDamage *= 1.2;
+			}
+		} else if (e.terrain === "water") {
+			if (z.lightningDamage || z.waterDamage) {
+				modifiedDamage *= 1.2;
+			} else if (z.earthDamage) {
+				modifiedDamage *= 0.5;
+			}
+		} else if (e.terrain === "snow") {
+			if (z.iceDamage) {
+				modifiedDamage *= 1.2;
+			}
+		}
+		if (e.weather === "windy" || e.weather === "windy and rainy") {
+			if (z.fireDamage || z.windDamage) {
+				modifiedDamage *= 1.2;
+			} else if (z.waterDamage) {
+				modifiedDamage *= 0.5; // "Heavy Rain" is half water damage, heh?
+			}
+		}
+		if (e.weather === "rainy" || e.weather === "windy and rainy") {
+			if (z.lightningDamage) {
+				modifiedDamage *= 1.2;
+			} else if (z.fireDamage) {
+				modifiedDamage *= 0.5;
+			}		
+		}
+		if (e.weather === "foggy") {
+			if (z.waterDamage) {
+				modifiedDamage *= 1.2;
+			}
+		}
+	}
+	return modifiedDamage;
+}
+
+function calculateMagic(m: Magick, p: Profile, e: Environment): CalculateResult {
+	const baseDmg = admg(m.att, 1, 1.125, m.special === "heal" ? 0 : e.mdef) * (2 + p.mag * (e.level + p.mag) / 256);
+
+	let modifiedDamage = baseDmg;
+	modifiedDamage = modifyElementalDamage(modifiedDamage, m, p, e);
+	if (e.undead && m.special === "drain" || !e.undead && m.special === "heal") {
+		modifiedDamage = 0;
+	}
+	if (p.faith) {
+		// TODO: Validate
+		modifiedDamage *= m.special === "heal" ? 1.5 : 1.3;
+	}
+	if (p.serenity && e.percentHp === 100) {
+		// TODO: Validate
+		modifiedDamage *= 1.5;
+	}
+	if (p.spellbreaker && e.percentHp < 20) {
+		// TODO: Validate
+		modifiedDamage *= m.special === "heal" ? 1.5 : 2;
+	}
+
+	// TODO: Hit rate on Drain?
+	const nonAvoidedDamage = modifiedDamage;	
+
+	let comboDamage = nonAvoidedDamage;
+	let animationTime = m.at / 30;
+	if (m.aoe) {
+		const extraHitTime = m.aoe / 30;
+		const extraHits = e.targetCount - 1;
+		animationTime += extraHits * extraHitTime;
+		comboDamage *= e.targetCount;
+	}
+
+	const chargeTime = calcChargeTime(m.ct, p, e)
+	const totalTime = chargeTime + animationTime;
+	const dps = comboDamage / totalTime;
+	return {
+		dps,
+		baseDmg,
+		modifiedDamage,
+		nonAvoidedDamage,
+		comboDamage,
+		chargeTime,
+		animationTime
+	};
+}
+
 /** Calculates the final average DPS value for this situation */
-export function calculate(p: Profile, e: Environment): CalculateResult {
+export function calculate(command: Command, p: Profile, e: Environment): CalculateResult {
+	if (command === "attack") {
+		return calculateAttack(p, e);
+	} else {
+		return calculateMagic(command, p, e);
+	}
+}
+
+function calculateAttack(p: Profile, e: Environment): CalculateResult {
 	let baseDmg: number;
 	switch (p.damageType) {
 		case "unarmed": {
@@ -126,54 +237,9 @@ export function calculate(p: Profile, e: Environment): CalculateResult {
 	if (p.damageType === "gun" && e.resistGun) {
 		modifiedDamage /= 8;
 	}
+	
+	modifiedDamage = modifyElementalDamage(modifiedDamage, undefined, p, e);
 
-	for (const element of AllElements) {
-		if (p[`${element}Damage` as const]) {
-			if (p[`${element}Bonus` as const]) {
-				modifiedDamage *= 1.5;
-			}
-			modifiedDamage *= e[`${element}Reaction` as const];
-		}
-	}
-	if (e.oil && p.fireDamage) {
-		modifiedDamage *= 3;
-	}
-	if (!p.agateRing) {
-		if (e.terrain === "sand") {
-			if (p.earthDamage) {
-				modifiedDamage *= 1.2;
-			}
-		} else if (e.terrain === "water") {
-			if (p.lightningDamage || p.waterDamage) {
-				modifiedDamage *= 1.2;
-			} else if (p.earthDamage) {
-				modifiedDamage *= 0.5;
-			}
-		} else if (e.terrain === "snow") {
-			if (p.iceDamage) {
-				modifiedDamage *= 1.2;
-			}
-		}
-		if (e.weather === "windy" || e.weather === "windy and rainy") {
-			if (p.fireDamage || p.windDamage) {
-				modifiedDamage *= 1.2;
-			} else if (p.waterDamage) {
-				modifiedDamage *= 0.5; // "Heavy Rain" is half water damage, heh?
-			}
-		}
-		if (e.weather === "rainy" || e.weather === "windy and rainy") {
-			if (p.lightningDamage) {
-				modifiedDamage *= 1.2;
-			} else if (p.fireDamage) {
-				modifiedDamage *= 0.5;
-			}		
-		}
-		if (e.weather === "foggy") {
-			if (p.waterDamage) {
-				modifiedDamage *= 1.2;
-			}
-		}
-	}
 	if (p.berserk) {
 		modifiedDamage *= 1.5;
 	}
@@ -237,7 +303,7 @@ export function calculate(p: Profile, e: Environment): CalculateResult {
 		}
 	}
 
-	const chargeTime = calcChargeTime(p, e)
+	const chargeTime = calcChargeTime(undefined, p, e)
 	const totalTime = chargeTime + animationTime;
 	const dps = comboDamage / totalTime;
 	return {
