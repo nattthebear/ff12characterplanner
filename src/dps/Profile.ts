@@ -1,4 +1,5 @@
 import { License } from "../data/Licenses";
+import { Ability } from "./ability/Ability";
 
 export type DamageFormula =
 	"unarmed" | "sword" | "pole" | "mace" | "katana"
@@ -100,6 +101,7 @@ export const defaultEnvironment: Environment = {
 };
 
 export interface Profile {
+	ability: Ability;
 	damageType: DamageFormula;
 	animationType: AnimationClass;
 	/** Weapon attack value */
@@ -244,6 +246,7 @@ export function createProfile(startingProfile: Profile, doll: PaperDoll) {
 
 /** The items available to a particular character to equip */
 export interface EquipmentPool {
+	weapons: Equipment[];
 	armors: Equipment[];
 	helms: Equipment[];
 	accessories: Equipment[];

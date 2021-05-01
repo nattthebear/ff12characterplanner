@@ -8,6 +8,7 @@ import { Environment, Equipment, Profile, AllElements, Weather, Terrain, default
 import { CalculateResult } from "../dps/Calculate";
 import { useLayoutEffect, useRef, useState } from "react";
 import { makeStore } from "../store/MakeStore";
+import { Ability } from "../dps/ability/Ability";
 
 export interface Props {
 	party: PartyModel;
@@ -299,6 +300,15 @@ function EqCell(props: { value?: Equipment }) {
 	</td>;
 }
 
+function AbilityCell(props: { value: Ability }) {
+	const { value } = props;
+	return <td
+		aria-label={value.text}
+	>
+		{value.name}
+	</td>;
+}
+
 function DpsCell(props: { value: CalculateResult }) {
 	const { value } = props;
 	const label = `Base Damage: ${Math.round(value.baseDmg)}
@@ -390,6 +400,7 @@ function SingleCharacterDps(props: { name: string, results: OptimizerResult[] })
 		</tr>
 		<tr>
 			<th className="r">DPS</th>
+			<th>Ability</th>
 			<th>Weapon</th>
 			<th>Ammo</th>
 			<th>Helm</th>
@@ -399,6 +410,7 @@ function SingleCharacterDps(props: { name: string, results: OptimizerResult[] })
 
 		{props.results.map((r, i) => <tr key={i} className="data-row">
 			<DpsCell value={r.dps} />
+			<AbilityCell value={r.ability} />
 			<EqCell value={r.doll.weapon} />
 			<EqCell value={r.doll.ammo} />
 			<EqCell value={r.doll.helm} />

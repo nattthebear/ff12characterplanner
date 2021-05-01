@@ -2,8 +2,6 @@ import { Magick } from "./ability/Magick";
 import { AnimationTimings } from "./AnimationTiming";
 import { Profile, Environment, AllElements } from "./Profile";
 
-export type Command = "attack" | Magick;
-
 /** model attack damage against armor */
 function admg(att: number, lowMul: number, highMul: number, def: number) {
 	const lo = att * lowMul;
@@ -182,11 +180,12 @@ function calculateMagic(m: Magick, p: Profile, e: Environment): CalculateResult 
 }
 
 /** Calculates the final average DPS value for this situation */
-export function calculate(command: Command, p: Profile, e: Environment): CalculateResult {
-	if (command === "attack") {
+export function calculate(p: Profile, e: Environment): CalculateResult {
+	const { ability } = p;
+	if (ability.alg === "attack") {
 		return calculateAttack(p, e);
 	} else {
-		return calculateMagic(command, p, e);
+		return calculateMagic(ability, p, e);
 	}
 }
 

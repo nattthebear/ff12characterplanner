@@ -1,7 +1,47 @@
-import { Environment, Equipment, Profile } from "./Profile";
+import { Magick } from "./ability/Magick";
+import { AllElements, Environment, Equipment, Profile } from "./Profile";
 
 /** Given a profile where the weapon has already been chosen, and an environment, determine what stats could be beneficial */
 export function getOptimizerKeys(p: Profile, e: Environment) {
+	const { ability } = p;
+	if (ability.alg === "attack") {
+		return getOptimizerKeysForAttack(p, e);
+	} else {
+		return getOptimizerKeysForMagick(ability, e);
+	}
+}
+
+function getOptimizerKeysForMagick(m: Magick, e: Environment) {
+	const ret = new Set<keyof Profile>([
+		"mag",
+		"spd", // always needed for csmod
+
+		"serenity",
+		"spellbreaker",
+	]);
+
+	for (const element of AllElements) {
+		if (m[`${element}Damage` as const]) {
+			ret.add(`${element}Bonus` as const);
+			break;
+		}
+	}
+
+	if (e.weather !== "other" || e.terrain !== "other") {
+		ret.add("agateRing");
+	}
+
+	// if we already have these licenses, then the accessories with them won't be relevant
+	for (const k of ["haste", "faith"] as const) {
+		if (!e[k]) {
+			ret.add(k);
+		}
+	}
+
+	return ret;
+}
+
+function getOptimizerKeysForAttack(p: Profile, e: Environment) {
 	// can leave out any key that's only found on weapons, or is not relevant to this weapon
 	const ret = new Set<keyof Profile>([
 		"attack",
