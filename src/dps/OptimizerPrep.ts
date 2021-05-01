@@ -131,7 +131,7 @@ const hazardKeys = new Set<keyof Profile>([
 ]);
 
 /** Given a set of potential optimizerKeys, eliminate equipment that has no relevantkeys or is always worse than other equipment. */
-export function filterEquippables<T extends Equipment>(eqs: T[], keys: Set<keyof Profile>) {
+export function filterEquippables<T extends Equipment>(eqs: T[], keys: Set<keyof Profile>, allowEmpty: boolean) {
 	// Eliminate any item that has no possible value, and then any item that is pareto inferor to another.
 
 	const ret: Equipment[] = [];
@@ -186,7 +186,7 @@ export function filterEquippables<T extends Equipment>(eqs: T[], keys: Set<keyof
 	ret.push(...haz);
 	const realRet = ret as (T | undefined)[];
 	if (!realRet.length) {
-		realRet.push(undefined);
+		realRet.push(allowEmpty ? undefined : eqs[0]);
 	}
 	return realRet;
 }

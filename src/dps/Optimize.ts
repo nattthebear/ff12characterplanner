@@ -4,7 +4,6 @@ import { filterEquippables, getOptimizerKeys } from "./OptimizerPrep";
 import Ammos from "./equip/Ammo";
 import { Ability, Attack } from "./ability/Ability";
 import Weapon from "./equip/Weapon";
-import { start } from "@popperjs/core";
 
 export interface OptimizerResult {
 	ability: Ability;
@@ -28,21 +27,17 @@ export function optimizeMagick(startingProfile: Profile, e: Environment, pool: E
 
 	const possibleKeys = getOptimizerKeys(createProfile(startingProfile, doll), e);
 
-	const weapons = filterEquippables(pool.weapons, possibleKeys) as Equipment[];
-	if (!weapons[0]) {
-		// Simplify logic in the occasional case that no weapons are relevant.
-		weapons[0] = Unarmed;
-	}
-	const armors = filterEquippables(pool.armors, possibleKeys);
-	const helms = filterEquippables(pool.helms, possibleKeys);
-	const accessories = filterEquippables(pool.accessories, possibleKeys);
+	const weapons = filterEquippables(pool.weapons, possibleKeys, false) as Equipment[];
+	const armors = filterEquippables(pool.armors, possibleKeys, true);
+	const helms = filterEquippables(pool.helms, possibleKeys, true);
+	const accessories = filterEquippables(pool.accessories, possibleKeys, true);
 
 	let topDps: CalculateResult | undefined;
 	let topDoll: PaperDoll | undefined;
 
 	for (const weapon of weapons) {
 		doll.weapon = weapon;
-		const ammos = filterEquippables(Ammos.filter(a => a.type === weapon.animationType), possibleKeys);
+		const ammos = filterEquippables(Ammos.filter(a => a.type === weapon.animationType), possibleKeys, false);
 		for (const ammo of ammos) {
 			doll.ammo = ammo;
 			for (const armor of armors) {
@@ -82,10 +77,10 @@ export function optimizeAttack(startingProfile: Profile, e: Environment, weapon:
 	const possibleKeys = getOptimizerKeys(createProfile(startingProfile, doll), e);
 
 	// limit only to items that could potentially help the character
-	const ammos = filterEquippables(Ammos.filter(a => a.type === weapon.animationType), possibleKeys);
-	const armors = filterEquippables(pool.armors, possibleKeys);
-	const helms = filterEquippables(pool.helms, possibleKeys);
-	const accessories = filterEquippables(pool.accessories, possibleKeys);
+	const ammos = filterEquippables(Ammos.filter(a => a.type === weapon.animationType), possibleKeys, false);
+	const armors = filterEquippables(pool.armors, possibleKeys, true);
+	const helms = filterEquippables(pool.helms, possibleKeys, true);
+	const accessories = filterEquippables(pool.accessories, possibleKeys, true);
 
 	let topDps: CalculateResult | undefined;
 	let topDoll: PaperDoll | undefined;
