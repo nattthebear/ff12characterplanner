@@ -26,11 +26,11 @@ export interface Magick {
 	holyDamage?: boolean;
 }
 const Magicks: Magick[] = [
-	{ name: "Cure", license: LicenseByName("White Magick 1"), ct: 23, at: 0, att: 20, special: "heal", },
-	{ name: "Cura", license: LicenseByName("White Magick 4"), ct: 23, at: 0, aoe: 0, att: 46, special: "heal", },
-	{ name: "Curaga", license: LicenseByName("White Magick 6"), ct: 23, at: 0, att: 86, special: "heal", },
-	{ name: "Curaja", license: LicenseByName("White Magick 9"), ct: 23, at: 0, aoe: 0, att: 120, special: "heal", },
-	{ name: "Holy", license: LicenseByName("White Magick 11"), ct: 23, at: 0, att: 157, holyDamage: true, },
+	{ name: "Cure", license: LicenseByName("White Magick 1"), ct: 23, at: 111, att: 20, special: "heal", },
+	{ name: "Cura", license: LicenseByName("White Magick 4"), ct: 23, at: 117, aoe: 30, att: 46, special: "heal", },
+	{ name: "Curaga", license: LicenseByName("White Magick 6"), ct: 23, at: 144, att: 86, special: "heal", },
+	{ name: "Curaja", license: LicenseByName("White Magick 9"), ct: 23, at: 114, aoe: 30, att: 120, special: "heal", },
+	{ name: "Holy", license: LicenseByName("White Magick 11"), ct: 23, at: 227, att: 157, holyDamage: true, },
 
 	{ name: "Fire", license: LicenseByName("Black Magick 1"), ct: 23, at: 75, att: 22, fireDamage: true, },
 	{ name: "Fira", license: LicenseByName("Black Magick 5"), ct: 23, at: 75, aoe: 30, att: 67, fireDamage: true, },
@@ -57,7 +57,7 @@ const Magicks: Magick[] = [
 	{ name: "Graviga", license: LicenseByName("Time Magick 10"), ct: 23, at: 0, aoe: 0, att: 0, },
 	*/
 
-	{ name: "Drain", license: LicenseByName("Green Magick 2"), ct: 23, at: 0, att: 62, special: "drain", },
+	{ name: "Drain", license: LicenseByName("Green Magick 2"), ct: 23, at: 129, att: 62, special: "drain", },
 
 	{ name: "Dark", license: LicenseByName("Arcane Magick 1"), ct: 23, at: 96, aoe: 30, att: 46, darkDamage: true, },
 	{ name: "Darkra", license: LicenseByName("Arcane Magick 1"), ct: 23, at: 99, aoe: 30, att: 91, darkDamage: true, },
