@@ -134,16 +134,17 @@ function modifyElementalDamage(modifiedDamage: number, m: Magick | undefined, p:
 }
 
 function calculateMagic(m: Magick, p: Profile, e: Environment): CalculateResult {
-	const baseDmg = admg(m.att, 1, 1.125, m.special === "heal" ? 0 : e.mdef) * (2 + p.mag * (e.level + p.mag) / 256);
+	const isHeal = m.special === "heal";
+	const baseDmg = admg(m.att, 1, 1.125, isHeal ? 0 : e.mdef) * (2 + p.mag * (e.level + p.mag) / 256);
 
 	let modifiedDamage = baseDmg;
 	modifiedDamage = modifyElementalDamage(modifiedDamage, m, p, e);
-	if (e.undead && m.special === "drain" || !e.undead && m.special === "heal") {
+	if (e.undead && m.special === "drain" || !e.undead && isHeal) {
 		modifiedDamage = 0;
 	}
 	if (p.faith) {
 		// TODO: Validate
-		modifiedDamage *= m.special === "heal" ? 1.5 : 1.3;
+		modifiedDamage *= isHeal ? 1.5 : 1.3;
 	}
 	if (p.serenity && e.percentHp === 100) {
 		// TODO: Validate
@@ -151,7 +152,7 @@ function calculateMagic(m: Magick, p: Profile, e: Environment): CalculateResult 
 	}
 	if (p.spellbreaker && e.percentHp < 20) {
 		// TODO: Validate
-		modifiedDamage *= m.special === "heal" ? 1.5 : 2;
+		modifiedDamage *= isHeal ? 1.5 : 2;
 	}
 
 	// TODO: Hit rate on Drain?
@@ -159,7 +160,7 @@ function calculateMagic(m: Magick, p: Profile, e: Environment): CalculateResult 
 
 	let comboDamage = nonAvoidedDamage;
 	let animationTime = m.at / 30;
-	if (m.aoe) {
+	if (m.aoe != null) {
 		const extraHitTime = m.aoe / 30;
 		const extraHits = e.targetCount - 1;
 		animationTime += extraHits * extraHitTime;
