@@ -16,6 +16,6 @@ export type Ability = AttackBase | Magick;
 
 export const Attack: Ability = {
 	name: "Attack",
-	text: "Attack with equipped weapon",
+	text: "Attack with weapon in hand.",
 	alg: "attack",
 };
