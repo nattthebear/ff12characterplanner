@@ -32,6 +32,7 @@ enum Character {
 function resultToSnapshottable(r: OptimizerResult) {
 	// OptimizerResult is snapshottable, but contains a bunch of fluff we don't need
 	return {
+		ability: r.ability.name,
 		weapon: r.doll.weapon.name,
 		ammo: r.doll.ammo?.name,
 		helm: r.doll.helm?.name,

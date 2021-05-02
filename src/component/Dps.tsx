@@ -203,7 +203,7 @@ export default function Dps(props: Props) {
 			<NumberInput
 				min={1}
 				max={99}
-				label="Lvl"
+				label="C. Lvl"
 				tooltip="Character's level"
 				value={env.level}
 				changeValue={v => changeEnv("level", v)}
@@ -211,7 +211,7 @@ export default function Dps(props: Props) {
 			<NumberInput
 				min={1}
 				max={99}
-				label="Lvl"
+				label="T. Lvl"
 				tooltip="Target's level"
 				value={env.targetLevel}
 				changeValue={v => changeEnv("targetLevel", v)}
@@ -231,14 +231,6 @@ export default function Dps(props: Props) {
 				tooltip="Combined Max HP of entire active party"
 				value={env.partyMaxHp}
 				changeValue={v => changeEnv("partyMaxHp", v)}
-			/>
-			<NumberInput
-				min={1}
-				max={99}
-				label="Lvl"
-				tooltip="Target's level"
-				value={env.targetLevel}
-				changeValue={v => changeEnv("targetLevel", v)}
 			/>
 			<NumberInput
 				min={0}
