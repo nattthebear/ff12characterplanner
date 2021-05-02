@@ -45,6 +45,12 @@ export interface Environment {
 	holyReaction: ElementalReaction;
 	/** character level, 1-99 */
 	level: number;
+	/** target level, 1-99 */
+	targetLevel: number;
+	/** current minutes digit of game clock, 0-9 */
+	minuteOnesDigit: number;
+	/** total maxhp of entire party */
+	partyMaxHp: number;
 	/** True if target resists guns and measures */
 	resistGun: boolean;
 	/** slowest(1) to fastest(6) */
@@ -86,6 +92,9 @@ export const defaultEnvironment: Environment = {
 	darkReaction: 1,
 	holyReaction: 1,
 	level: 70,
+	targetLevel: 60,
+	minuteOnesDigit: 6,
+	partyMaxHp: 25000,
 	resistGun: false,
 	battleSpeed: 6,
 	berserk: true,

@@ -4,6 +4,8 @@ import { AbilityBase } from "./Ability";
 const l = LicenseByName;
 
 export interface Magick extends AbilityBase {
+	alg: "magick";
+
 	/** Charge Time constant */
 	ct: number;
 	/** Animation time in 1/30s */

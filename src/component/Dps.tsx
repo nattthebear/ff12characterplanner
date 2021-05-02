@@ -209,6 +209,38 @@ export default function Dps(props: Props) {
 				changeValue={v => changeEnv("level", v)}
 			/>
 			<NumberInput
+				min={1}
+				max={99}
+				label="Lvl"
+				tooltip="Target's level"
+				value={env.targetLevel}
+				changeValue={v => changeEnv("targetLevel", v)}
+			/>
+			<NumberInput
+				min={0}
+				max={9}
+				label="Time"
+				tooltip="One's digit of game clock minutes"
+				value={env.minuteOnesDigit}
+				changeValue={v => changeEnv("minuteOnesDigit", v)}
+			/>
+			<NumberInput
+				min={100}
+				max={50000}
+				label="Party HP"
+				tooltip="Combined Max HP of entire active party"
+				value={env.partyMaxHp}
+				changeValue={v => changeEnv("partyMaxHp", v)}
+			/>
+			<NumberInput
+				min={1}
+				max={99}
+				label="Lvl"
+				tooltip="Target's level"
+				value={env.targetLevel}
+				changeValue={v => changeEnv("targetLevel", v)}
+			/>
+			<NumberInput
 				min={0}
 				max={40}
 				label="Block"

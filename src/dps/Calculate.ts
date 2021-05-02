@@ -1,4 +1,5 @@
 import { Magick } from "./ability/Magick";
+import { Technick } from "./ability/Technick";
 import { AnimationTimings } from "./AnimationTiming";
 import { Profile, Environment, AllElements } from "./Profile";
 
@@ -131,6 +132,90 @@ function modifyElementalDamage(modifiedDamage: number, m: Magick | undefined, p:
 	return modifiedDamage;
 }
 
+/** Calculates the final average DPS value for this situation */
+export function calculate(p: Profile, e: Environment): CalculateResult {
+	const { ability } = p;
+	if (ability.alg === "attack") {
+		return calculateAttack(p, e);
+	} else if (ability.alg === "magick") {
+		return calculateMagic(ability, p, e);
+	} else {
+		return calculateTechnick(ability, p, e);
+	}
+}
+
+function calculateTechnick(t: Technick, p: Profile, e: Environment): CalculateResult {
+	let baseDmg = 0;
+	switch (t.name) {
+		case "1000 Needles":
+			baseDmg = 1000;
+			break;
+		case "Souleater":
+			baseDmg = e.undead ? 0 : 1.4 * admg(p.attack, 1, 1.125, 0) * (1 + p.str * (e.level + p.str) / 256);
+			break;
+		case "Gil Toss":
+			baseDmg = Math.min(10000, e.partyMaxHp * e.percentHp);
+			break;
+		case "Horology":
+			baseDmg = e.minuteOnesDigit * e.minuteOnesDigit * e.level / 2;
+			break;
+		case "Telekinesis":
+			baseDmg = (p.attack * e.targetLevel - 1) / 2;
+			break;
+	}
+
+	const modifiedDamage = baseDmg;
+
+	let nonAvoidedDamage = modifiedDamage;
+	let chanceMod = e.level - e.targetLevel;
+	if (chanceMod > 0) {
+		chanceMod *= 3;
+	}
+	const chance = Math.max(0, Math.min(t.chn + chanceMod, 100));
+	nonAvoidedDamage *= chance / 100;
+
+	if (t.name === "Telekinesis") {
+		switch (p.animationType) {
+			case "bow":
+			case "gun":
+			case "xbow":
+			case "handbomb":
+				nonAvoidedDamage = 0;
+				break;
+		}
+	}
+
+	let comboDamage = nonAvoidedDamage;
+	let animationTime = t.at / 30;
+	if (t.aoe != null) {
+		const extraHitTime = t.aoe / 30;
+		const extraHits = e.targetCount - 1;
+		animationTime += extraHits * extraHitTime;
+		if (t.name === "Gil Toss") {
+			// Something weird with giltoss that I didn't see on any other abilities:
+			// Extra hits do take extra time (unlike Scathe),
+			// but there's a minimum time of 75 ticks.
+			animationTime -= 20 / 30;
+		} else {
+			// GilToss splits damage, so doesn't add damage for AOE
+			comboDamage *= e.targetCount;
+		}
+	}
+
+	const chargeTime = calcChargeTime(t.ct, p, e)
+	const totalTime = chargeTime + animationTime;
+	const dps = comboDamage / totalTime;
+	return {
+		dps,
+		baseDmg,
+		modifiedDamage,
+		nonAvoidedDamage,
+		comboDamage,
+		chargeTime,
+		animationTime
+	};
+}
+
 function calculateMagic(m: Magick, p: Profile, e: Environment): CalculateResult {
 	const isHeal = m.special === "heal";
 	const baseDmg = admg(m.att, 1, 1.125, isHeal ? 0 : e.mdef) * (2 + p.mag * (e.level + p.mag) / 256);
@@ -177,16 +262,6 @@ function calculateMagic(m: Magick, p: Profile, e: Environment): CalculateResult 
 		chargeTime,
 		animationTime
 	};
-}
-
-/** Calculates the final average DPS value for this situation */
-export function calculate(p: Profile, e: Environment): CalculateResult {
-	const { ability } = p;
-	if (ability.alg === "attack") {
-		return calculateAttack(p, e);
-	} else {
-		return calculateMagic(ability, p, e);
-	}
 }
 
 function calculateAttack(p: Profile, e: Environment): CalculateResult {
