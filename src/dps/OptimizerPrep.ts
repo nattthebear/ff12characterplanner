@@ -1,4 +1,5 @@
 import { Magick } from "./ability/Magick";
+import { Technick } from "./ability/Technick";
 import { AllElements, Environment, Equipment, Profile } from "./Profile";
 
 /** Given a profile where the weapon has already been chosen, and an environment, determine what stats could be beneficial */
@@ -6,9 +7,33 @@ export function getOptimizerKeys(p: Profile, e: Environment) {
 	const { ability } = p;
 	if (ability.alg === "attack") {
 		return getOptimizerKeysForAttack(p, e);
-	} else {
+	} else if (ability.alg === "magick") {
 		return getOptimizerKeysForMagick(ability, e);
+	} else {
+		return getOptimizerKeysForTechnick(ability, e);
 	}
+}
+
+function getOptimizerKeysForTechnick(t: Technick, e: Environment) {
+	const ret = new Set<keyof Profile>([
+		"spd", // always needed for csmod
+	]);
+
+	if (t.name === "Telekinesis") {
+		ret.add("attack");
+		ret.add("animationType");
+	} else if (t.name === "Souleater") {
+		ret.add("attack");
+		ret.add("str");
+	}
+
+
+
+	// if we already have these licenses, then the accessories with them won't be relevant
+	if (!e.haste) {
+		ret.add("haste");
+	}
+	return ret;
 }
 
 function getOptimizerKeysForMagick(m: Magick, e: Environment) {
@@ -116,7 +141,7 @@ function getOptimizerKeysForAttack(p: Profile, e: Environment) {
 	return ret;
 }
 
-/** Keys that can be found on non-weapons that potentially have negative results. */
+/** Keys that can be found on non-weapons (or for magick/technick, any slot) that potentially have negative results. */
 const hazardKeys = new Set<keyof Profile>([
 	// TODO: Does it make sense to use the environment to choose these?
 	"fireDamage",
@@ -128,6 +153,7 @@ const hazardKeys = new Set<keyof Profile>([
 	"darkDamage",
 	"holyDamage", // Can't actually be found on non-weapons, but less confusing to leave it here
 	"agateRing",
+	"animationType", // Telekinesis
 ]);
 
 /** Given a set of potential optimizerKeys, eliminate equipment that has no relevantkeys or is always worse than other equipment. */
@@ -144,7 +170,7 @@ export function filterEquippables<T extends Equipment>(eqs: T[], keys: Set<keyof
 			if (keys.has(k as keyof Profile)) {
 				// Will have some effect.  Add to either haz or ret.
 				for (const k2 in eq) {
-					if (hazardKeys.has(k2 as keyof Profile)) {
+					if (keys.has(k2 as keyof Profile) && hazardKeys.has(k2 as keyof Profile)) {
 						haz.push(eq);
 						continue next_eq;
 					}

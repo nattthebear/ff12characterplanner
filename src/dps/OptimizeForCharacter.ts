@@ -4,10 +4,11 @@ import Weapon from "./equip/Weapon";
 import { BodyArmor, Helm } from "./equip/Armor";
 import Accessory from "./equip/Accessory";
 import { License, LicenseByName, LicenseGroups } from "../data/Licenses";
-import { optimizeAttack, optimizeMagick } from "./Optimize";
+import { optimizeAttack, optimizeNonAttack } from "./Optimize";
 import { BaseCharacterStats } from "./BaseCharacterStats";
 import { Attack } from "./ability/Ability";
 import Magicks from "./ability/Magick";
+import Technicks from "./ability/Technick";
 
 const battleLores = LicenseGroups.find(g => g.name === "Battle Lore")!.contents;
 const magickLores = LicenseGroups.find(g => g.name === "Magick Lore")!.contents;
@@ -34,6 +35,7 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel) {
 		accessories: Accessory.filter(filterThing)
 	};
 	const magicks = Magicks.filter(filterThing);
+	const technicks = Technicks.filter(filterThing);
 
 	const startingProfile: Profile = {
 		ability: Attack,
@@ -85,6 +87,9 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel) {
 		yield optimizeAttack(startingProfile, e, w, pool);
 	}
 	for (const m of magicks) {
-		yield optimizeMagick({ ...startingProfile, ability: m }, e, pool);
+		yield optimizeNonAttack({ ...startingProfile, ability: m }, e, pool);
+	}
+	for (const t of technicks) {
+		yield optimizeNonAttack({ ...startingProfile, ability: t }, e, pool);
 	}
 }

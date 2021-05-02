@@ -15,8 +15,8 @@ const Unarmed = Weapon.find(w => w.name === "Unarmed")!;
 
 // TODO: Unify these functions better
 
-/** Given a magick spell and environment, choose the maximum dps possible. */
-export function optimizeMagick(startingProfile: Profile, e: Environment, pool: EquipmentPool): OptimizerResult {
+/** Given a non-attack ability and environment, choose the maximum dps possible. */
+export function optimizeNonAttack(startingProfile: Profile, e: Environment, pool: EquipmentPool): OptimizerResult {
 	const doll: PaperDoll = {
 		weapon: Unarmed,
 		ammo: undefined,

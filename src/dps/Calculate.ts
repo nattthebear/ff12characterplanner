@@ -154,7 +154,7 @@ function calculateTechnick(t: Technick, p: Profile, e: Environment): CalculateRe
 			baseDmg = e.undead ? 0 : 1.4 * admg(p.attack, 1, 1.125, 0) * (1 + p.str * (e.level + p.str) / 256);
 			break;
 		case "Gil Toss":
-			baseDmg = Math.min(10000, e.partyMaxHp * e.percentHp);
+			baseDmg = Math.min(10000, e.partyMaxHp * e.percentHp / 100);
 			break;
 		case "Horology":
 			baseDmg = e.minuteOnesDigit * e.minuteOnesDigit * e.level / 2;
@@ -195,7 +195,9 @@ function calculateTechnick(t: Technick, p: Profile, e: Environment): CalculateRe
 			// Something weird with giltoss that I didn't see on any other abilities:
 			// Extra hits do take extra time (unlike Scathe),
 			// but there's a minimum time of 75 ticks.
-			animationTime -= 20 / 30;
+			if (extraHits > 0) {
+				animationTime -= 20 / 30;
+			}
 		} else {
 			// GilToss splits damage, so doesn't add damage for AOE
 			comboDamage *= e.targetCount;
@@ -226,19 +228,15 @@ function calculateMagic(m: Magick, p: Profile, e: Environment): CalculateResult 
 		modifiedDamage = 0;
 	}
 	if (p.faith) {
-		// TODO: Validate
 		modifiedDamage *= isHeal ? 1.5 : 1.3;
 	}
 	if (p.serenity && e.percentHp === 100) {
-		// TODO: Validate
 		modifiedDamage *= 1.5;
 	}
 	if (p.spellbreaker && e.percentHp < 20) {
-		// TODO: Validate
 		modifiedDamage *= isHeal ? 1.5 : 2;
 	}
 
-	// TODO: Hit rate on Drain?
 	const nonAvoidedDamage = modifiedDamage;	
 
 	let comboDamage = nonAvoidedDamage;
