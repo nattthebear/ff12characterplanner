@@ -4,7 +4,7 @@ import Weapon from "./equip/Weapon";
 import { BodyArmor, Helm } from "./equip/Armor";
 import Accessory from "./equip/Accessory";
 import { License, LicenseByName, LicenseGroups } from "../data/Licenses";
-import { optimizeAttack, optimizeNonAttack } from "./Optimize";
+import { optimize } from "./Optimize";
 import { BaseCharacterStats } from "./BaseCharacterStats";
 import { Attack } from "./ability/Ability";
 import Magicks from "./ability/Magick";
@@ -83,13 +83,18 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel) {
 	startingProfile.str += battleLores.filter(filterL).length;
 	startingProfile.mag += magickLores.filter(filterL).length;
 
-	for (const w of weapons) {
-		yield optimizeAttack(startingProfile, e, w, pool);
-	}
 	for (const m of magicks) {
-		yield optimizeNonAttack({ ...startingProfile, ability: m }, e, pool);
+		startingProfile.ability = m;
+		yield optimize(startingProfile, e, pool);
 	}
 	for (const t of technicks) {
-		yield optimizeNonAttack({ ...startingProfile, ability: t }, e, pool);
+		startingProfile.ability = t;
+		yield optimize(startingProfile, e, pool);
+	}
+	startingProfile.ability = Attack;
+	pool.weapons = [];
+	for (const w of weapons) {
+		pool.weapons[0] = w;
+		yield optimize(startingProfile, e, pool);
 	}
 }

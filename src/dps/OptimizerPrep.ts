@@ -2,10 +2,11 @@ import { Magick } from "./ability/Magick";
 import { Technick } from "./ability/Technick";
 import { AllElements, Environment, Equipment, Profile } from "./Profile";
 
-/** Given a profile where the weapon has already been chosen, and an environment, determine what stats could be beneficial */
+/** Given a profile and an environment, determine what stats could be beneficial */
 export function getOptimizerKeys(p: Profile, e: Environment) {
 	const { ability } = p;
 	if (ability.alg === "attack") {
+		// Assumes a single weapon has been chosen already!
 		return getOptimizerKeysForAttack(p, e);
 	} else if (ability.alg === "magick") {
 		return getOptimizerKeysForMagick(ability, e);
