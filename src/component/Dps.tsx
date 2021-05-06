@@ -221,7 +221,7 @@ export default function Dps(props: Props) {
 				min={0}
 				max={9}
 				label="Time"
-				tooltip="One's digit of game clock minutes"
+				tooltip="Ones digit of game clock minutes"
 				value={env.minuteOnesDigit}
 				changeValue={v => changeEnv("minuteOnesDigit", v)}
 			/>
@@ -305,13 +305,13 @@ export default function Dps(props: Props) {
 			/>
 			<BoolInput
 				label="All Licenses"
-				tooltip="Allow grey-shaded licenses."
+				tooltip="Allow grey-shaded licenses"
 				value={env.allowCertainLicenses}
 				changeValue={v => changeEnv("allowCertainLicenses", v)}
 			/>
 			<BoolInput
 				label="Secret Gear"
-				tooltip="Allow secret items."
+				tooltip="Allow secret items"
 				value={env.allowCheaterGear}
 				changeValue={v => changeEnv("allowCheaterGear", v)}
 			/>
