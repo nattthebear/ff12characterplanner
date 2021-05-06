@@ -8,6 +8,7 @@ import { Environment, Equipment, Profile, AllElements, Weather, Terrain, default
 import { CalculateResult } from "../dps/Calculate";
 import { useLayoutEffect, useRef, useState } from "react";
 import { makeStore } from "../store/MakeStore";
+import { Ability } from "../dps/ability/Ability";
 
 export interface Props {
 	party: PartyModel;
@@ -36,6 +37,7 @@ function NumberInput(props: NumberProps) {
 		<label htmlFor={id}>{props.label}</label>
 		<input
 			id={id}
+			className={`d-${props.max.toString().length}`}
 			type="number"
 			value={props.value}
 			min={props.min}
@@ -141,8 +143,11 @@ function tooltipFor(e: Equipment) {
 	f("berserk", "Berserk");
 	f("haste", "Haste");
 	f("bravery", "Bravery");
+	f("faith", "Faith");
 	f("focus", "Focus");
 	f("adrenaline", "Adrenaline");
+	f("serenity", "Serenity");
+	f("spellbreaker", "Spellbreaker");
 	f("genjiGloves", "Combo+");
 	f("cameoBelt", "Ignore Evasion");
 	f("agateRing", "Ignore Weather");
@@ -182,6 +187,14 @@ export default function Dps(props: Props) {
 			/>
 			<NumberInput
 				min={1}
+				max={10}
+				label="Aoe"
+				tooltip="Number of targets"
+				value={env.targetCount}
+				changeValue={v => changeEnv("targetCount", v)}
+			/>
+			<NumberInput
+				min={1}
 				max={100}
 				label="HP%"
 				tooltip="Character's HP percentage"
@@ -191,10 +204,34 @@ export default function Dps(props: Props) {
 			<NumberInput
 				min={1}
 				max={99}
-				label="Lvl"
+				label="C. Lvl"
 				tooltip="Character's level"
 				value={env.level}
 				changeValue={v => changeEnv("level", v)}
+			/>
+			<NumberInput
+				min={1}
+				max={99}
+				label="T. Lvl"
+				tooltip="Target's level"
+				value={env.targetLevel}
+				changeValue={v => changeEnv("targetLevel", v)}
+			/>
+			<NumberInput
+				min={0}
+				max={9}
+				label="Time"
+				tooltip="Ones digit of game clock minutes"
+				value={env.minuteOnesDigit}
+				changeValue={v => changeEnv("minuteOnesDigit", v)}
+			/>
+			<NumberInput
+				min={100}
+				max={50000}
+				label="Party HP"
+				tooltip="Combined Max HP of entire active party"
+				value={env.partyMaxHp}
+				changeValue={v => changeEnv("partyMaxHp", v)}
 			/>
 			<NumberInput
 				min={0}
@@ -243,6 +280,12 @@ export default function Dps(props: Props) {
 				changeValue={v => changeEnv("bravery", v)}
 			/>
 			<BoolInput
+				label="Faith"
+				tooltip="Is the faith buff available?"
+				value={env.faith}
+				changeValue={v => changeEnv("faith", v)}
+			/>
+			<BoolInput
 				label="Oil"
 				tooltip="Is the target oiled?"
 				value={env.oil}
@@ -253,6 +296,24 @@ export default function Dps(props: Props) {
 				tooltip="Can the target parry attacks?"
 				value={env.parry}
 				changeValue={v => changeEnv("parry", v)}
+			/>
+			<BoolInput
+				label="Undead"
+				tooltip="Is the target undead?"
+				value={env.undead}
+				changeValue={v => changeEnv("undead", v)}
+			/>
+			<BoolInput
+				label="All Licenses"
+				tooltip="Allow grey-shaded licenses"
+				value={env.allowCertainLicenses}
+				changeValue={v => changeEnv("allowCertainLicenses", v)}
+			/>
+			<BoolInput
+				label="Secret Gear"
+				tooltip="Allow secret items"
+				value={env.allowCheaterGear}
+				changeValue={v => changeEnv("allowCheaterGear", v)}
 			/>
 			<br />
 			{AllElements.map(s => <ElementInput
@@ -273,6 +334,15 @@ function EqCell(props: { value?: Equipment }) {
 		aria-label={value && tooltipFor(value)}
 	>
 		{value && value.name}
+	</td>;
+}
+
+function AbilityCell(props: { value: Ability }) {
+	const { value } = props;
+	return <td
+		aria-label={value.text}
+	>
+		{value.name}
 	</td>;
 }
 
@@ -367,6 +437,7 @@ function SingleCharacterDps(props: { name: string, results: OptimizerResult[] })
 		</tr>
 		<tr>
 			<th className="r">DPS</th>
+			<th>Ability</th>
 			<th>Weapon</th>
 			<th>Ammo</th>
 			<th>Helm</th>
@@ -376,6 +447,7 @@ function SingleCharacterDps(props: { name: string, results: OptimizerResult[] })
 
 		{props.results.map((r, i) => <tr key={i} className="data-row">
 			<DpsCell value={r.dps} />
+			<AbilityCell value={r.ability} />
 			<EqCell value={r.doll.weapon} />
 			<EqCell value={r.doll.ammo} />
 			<EqCell value={r.doll.helm} />

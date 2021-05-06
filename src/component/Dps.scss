@@ -10,9 +10,14 @@
 			padding: 2px;
 
 			input[type=number] {
-				width: 4em;
 				text-align: right;
 				margin-left: 4px;
+
+				&.d-1 { width: 2.2em; }
+				&.d-2 { width: 3.0em; }
+				&.d-3 { width: 3.8em; }
+				&.d-4 { width: 4.6em; }
+				&.d-5 { width: 5.4em; }
 			}
 			input[type=checkbox] {
 				margin-right: 4px;

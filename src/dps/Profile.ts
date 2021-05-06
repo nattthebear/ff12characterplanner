@@ -1,4 +1,5 @@
 import { License } from "../data/Licenses";
+import { Ability } from "./ability/Ability";
 
 export type DamageFormula =
 	"unarmed" | "sword" | "pole" | "mace" | "katana"
@@ -22,6 +23,8 @@ export interface Environment {
 	def: number;
 	/** Target magical defense */
 	mdef: number;
+	/** Number of foes */
+	targetCount: number;
 	/** character hp percentage, from 1 to 100 */
 	percentHp: number;
 	/** How much damage does the target take from the element? */
@@ -42,6 +45,12 @@ export interface Environment {
 	holyReaction: ElementalReaction;
 	/** character level, 1-99 */
 	level: number;
+	/** target level, 1-99 */
+	targetLevel: number;
+	/** current minutes digit of game clock, 0-9 */
+	minuteOnesDigit: number;
+	/** total maxhp of entire party */
+	partyMaxHp: number;
 	/** True if target resists guns and measures */
 	resistGun: boolean;
 	/** slowest(1) to fastest(6) */
@@ -52,6 +61,8 @@ export interface Environment {
 	haste: boolean;
 	/** true if the buff can be provided from external sources, and an accessory is not needed to provide it */
 	bravery: boolean;
+	/** true if the buff can be provided from external sources, and an accessory is not needed to provide it */
+	faith: boolean;
 	/** True if the target can parry attacks.  If so, it's always 25% (30% when player is defending). */
 	parry: boolean;
 	/** Target's block chance.  Varies from 0% (the most common) to a max (?) of 40% (Flowering Cactoid). */
@@ -62,12 +73,19 @@ export interface Environment {
 	weather: Weather;
 	/** True if the target can be and is oiled. */
 	oil: boolean;
+	/** True if the target eats brains. */
+	undead: boolean;
+	/** Equip gear and abilities from grey-colored licenses */
+	allowCertainLicenses: boolean;
+	/** Equip Seitengrat/Trango/Gendarme */
+	allowCheaterGear: boolean;
 }
 
 export const defaultEnvironment: Environment = {
 	character: -1,
 	def: 30,
 	mdef: 30,
+	targetCount: 1,
 	percentHp: 1,
 	fireReaction: 1,
 	iceReaction: 1,
@@ -78,19 +96,27 @@ export const defaultEnvironment: Environment = {
 	darkReaction: 1,
 	holyReaction: 1,
 	level: 70,
+	targetLevel: 60,
+	minuteOnesDigit: 6,
+	partyMaxHp: 25000,
 	resistGun: false,
 	battleSpeed: 6,
 	berserk: true,
 	haste: true,
 	bravery: true,
+	faith: true,
 	parry: false,
 	block: 0,
 	terrain: "other",
 	weather: "other",
 	oil: false,
+	undead: false,
+	allowCertainLicenses: true,
+	allowCheaterGear: true,
 };
 
 export interface Profile {
+	ability: Ability;
 	damageType: DamageFormula;
 	animationType: AnimationClass;
 	/** Weapon attack value */
@@ -112,10 +138,13 @@ export interface Profile {
 	berserk: boolean;
 	haste: boolean;
 	bravery: boolean;
+	faith: boolean;
 	/** Is the focus license available? */
 	focus: boolean;
 	/** Is the adrenaline license available? */
 	adrenaline: boolean;
+	serenity: boolean;
+	spellbreaker: boolean;
 
 	genjiGloves: boolean;
 	cameoBelt: boolean;
@@ -232,6 +261,7 @@ export function createProfile(startingProfile: Profile, doll: PaperDoll) {
 
 /** The items available to a particular character to equip */
 export interface EquipmentPool {
+	weapons: Equipment[];
 	armors: Equipment[];
 	helms: Equipment[];
 	accessories: Equipment[];

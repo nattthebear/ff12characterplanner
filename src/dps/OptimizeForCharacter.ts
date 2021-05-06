@@ -6,6 +6,9 @@ import Accessory from "./equip/Accessory";
 import { License, LicenseByName, LicenseGroups } from "../data/Licenses";
 import { optimize } from "./Optimize";
 import { BaseCharacterStats } from "./BaseCharacterStats";
+import { Attack } from "./ability/Ability";
+import Magicks from "./ability/Magick";
+import Technicks from "./ability/Technick";
 
 const battleLores = LicenseGroups.find(g => g.name === "Battle Lore")!.contents;
 const magickLores = LicenseGroups.find(g => g.name === "Magick Lore")!.contents;
@@ -18,21 +21,24 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel) {
 	}
 	function filterL(l: License) {
 		const v = licenseMap.get(l);
-		return v === Coloring.OBTAINED || v === Coloring.CERTAIN;
+		return v === Coloring.OBTAINED || e.allowCertainLicenses && v === Coloring.CERTAIN;
 	}
-	function filterEq(item: Equipment) {
-		return !item.l || filterL(item.l);
+	function filterThing(thing: { l?: License }) {
+		return !thing.l || filterL(thing.l);
 	}
 
-	const weapons = Weapon.filter(filterEq);
+	const weapons = Weapon.filter(w => filterThing(w) && (e.allowCheaterGear || w.attack! <= 150));
 	const pool: EquipmentPool = {
-		armors: BodyArmor.filter(filterEq),
-		helms: Helm.filter(filterEq),
-		accessories: Accessory.filter(filterEq)
+		weapons,
+		armors: BodyArmor.filter(filterThing),
+		helms: Helm.filter(filterThing),
+		accessories: Accessory.filter(filterThing)
 	};
+	const magicks = Magicks.filter(filterThing);
+	const technicks = Technicks.filter(filterThing);
 
-	// TODO: str/mag/vit/spd
 	const startingProfile: Profile = {
+		ability: Attack,
 		damageType: "unarmed",
 		animationType: "unarmed",
 		attack: 0,
@@ -43,8 +49,11 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel) {
 		berserk: e.berserk,
 		haste: e.haste,
 		bravery: e.bravery,
+		faith: e.faith,
 		focus: filterLName("Focus"),
 		adrenaline: filterLName("Adrenaline"),
+		serenity: filterLName("Serenity"),
+		spellbreaker: filterLName("Spellbreaker"),
 		genjiGloves: false,
 		cameoBelt: false,
 		agateRing: false,
@@ -74,7 +83,18 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel) {
 	startingProfile.str += battleLores.filter(filterL).length;
 	startingProfile.mag += magickLores.filter(filterL).length;
 
+	for (const m of magicks) {
+		startingProfile.ability = m;
+		yield optimize(startingProfile, e, pool);
+	}
+	for (const t of technicks) {
+		startingProfile.ability = t;
+		yield optimize(startingProfile, e, pool);
+	}
+	startingProfile.ability = Attack;
+	pool.weapons = [];
 	for (const w of weapons) {
-		yield optimize(startingProfile, e, w, pool);
+		pool.weapons[0] = w;
+		yield optimize(startingProfile, e, pool);
 	}
 }
