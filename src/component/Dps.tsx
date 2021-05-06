@@ -37,6 +37,7 @@ function NumberInput(props: NumberProps) {
 		<label htmlFor={id}>{props.label}</label>
 		<input
 			id={id}
+			className={`d-${props.max.toString().length}`}
 			type="number"
 			value={props.value}
 			min={props.min}
@@ -301,6 +302,18 @@ export default function Dps(props: Props) {
 				tooltip="Is the target undead?"
 				value={env.undead}
 				changeValue={v => changeEnv("undead", v)}
+			/>
+			<BoolInput
+				label="All Licenses"
+				tooltip="Allow grey-shaded licenses."
+				value={env.allowCertainLicenses}
+				changeValue={v => changeEnv("allowCertainLicenses", v)}
+			/>
+			<BoolInput
+				label="Secret Gear"
+				tooltip="Allow secret items."
+				value={env.allowCheaterGear}
+				changeValue={v => changeEnv("allowCheaterGear", v)}
 			/>
 			<br />
 			{AllElements.map(s => <ElementInput

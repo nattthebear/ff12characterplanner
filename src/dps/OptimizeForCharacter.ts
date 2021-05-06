@@ -21,13 +21,13 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel) {
 	}
 	function filterL(l: License) {
 		const v = licenseMap.get(l);
-		return v === Coloring.OBTAINED || v === Coloring.CERTAIN;
+		return v === Coloring.OBTAINED || e.allowCertainLicenses && v === Coloring.CERTAIN;
 	}
 	function filterThing(thing: { l?: License }) {
 		return !thing.l || filterL(thing.l);
 	}
 
-	const weapons = Weapon.filter(filterThing);
+	const weapons = Weapon.filter(w => filterThing(w) && (e.allowCheaterGear || w.attack! <= 150));
 	const pool: EquipmentPool = {
 		weapons,
 		armors: BodyArmor.filter(filterThing),

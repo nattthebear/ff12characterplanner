@@ -75,6 +75,10 @@ export interface Environment {
 	oil: boolean;
 	/** True if the target eats brains. */
 	undead: boolean;
+	/** Equip gear and abilities from grey-colored licenses */
+	allowCertainLicenses: boolean;
+	/** Equip Seitengrat/Trango/Gendarme */
+	allowCheaterGear: boolean;
 }
 
 export const defaultEnvironment: Environment = {
@@ -107,6 +111,8 @@ export const defaultEnvironment: Environment = {
 	weather: "other",
 	oil: false,
 	undead: false,
+	allowCertainLicenses: true,
+	allowCheaterGear: true,
 };
 
 export interface Profile {
