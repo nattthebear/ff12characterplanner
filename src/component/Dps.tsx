@@ -42,7 +42,14 @@ function NumberInput(props: NumberProps) {
 			value={props.value}
 			min={props.min}
 			max={props.max}
-			onChange={ev => ev.currentTarget.validity.valid && props.changeValue(ev.currentTarget.valueAsNumber)}
+			onChange={ev => {
+				if (ev.currentTarget.validity.valid) {
+					const newValue = ev.currentTarget.valueAsNumber;
+					if (newValue === newValue) {
+						props.changeValue(newValue);
+					}
+				}
+			}}
 		/>
 	</div>;
 }
