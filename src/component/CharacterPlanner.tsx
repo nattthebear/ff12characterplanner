@@ -1,4 +1,4 @@
-import * as React from "react";
+import { h } from "preact";
 import CharacterPanel from "./CharacterPanel";
 import LicenseBoard from "./LicenseBoard";
 import "./CharacterPlanner.scss";

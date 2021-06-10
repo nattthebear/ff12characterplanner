@@ -1,4 +1,4 @@
-import * as React from "react";
+import { ComponentChild, h } from "preact";
 import "./CharacterPanel.scss";
 import { LicenseGroups, LicenseGroup, License } from "../data/Licenses";
 import PartyModel, { Coloring } from "../model/PartyModel";
@@ -26,7 +26,7 @@ export default function CharacterPanel() {
 	}
 
 	function renderLicenseGroup(g: LicenseGroup, i: number, colors: Map<License, Coloring>, plannedColors?: Map<License, Coloring>) {
-		const children = Array<React.ReactNode>();
+		const children = Array<ComponentChild>();
 		if (typeof g.contents[0].grants!.what === "number") {
 			// display a numeric total
 			const a = Array<License>();
