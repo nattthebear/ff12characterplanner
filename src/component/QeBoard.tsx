@@ -1,11 +1,11 @@
-import { h, Fragment } from "preact";
+import * as React from "react";
 import "./QeBoard.scss";
 import PartyModel, { Coloring } from "../model/PartyModel";
 import { Characters } from "../data/Characters";
 import { License, Espers, Quickenings } from "../data/Licenses";
 import { Board } from "../data/Boards";
 import { dispatch, useStore } from "../store/Store";
-import { useMemo } from "preact/hooks";
+import { useMemo } from "react";
 import { changeIndices, changeParty, toggleQe } from "../store/State";
 
 const allLimitedLicenses = [...Espers, ...Quickenings];
@@ -100,12 +100,12 @@ export default function QeBoard() {
 		</div>;
 	}
 	function renderRow(l: License, esper: boolean) {
-		return <Fragment key={l.fullName}>
+		return <React.Fragment key={l.fullName}>
 			<div>
 				<div className="license-name" aria-label={l.text}>{l.fullName}</div>
 			</div>
 			{Characters.map((_, c) => renderCell(l, c, esper))}
-		</Fragment>;
+		</React.Fragment>;
 	}
 	
 	function renderJob(j: Board | undefined) {

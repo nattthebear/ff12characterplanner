@@ -1,4 +1,4 @@
-import { h } from "preact";
+import * as React from "react";
 import "./GithubCorner.scss";
 
 const content = <a href="https://github.com/nattthebear/ff12characterplanner" target="_blank" rel="noopener noreferrer" className="github-corner" aria-label="View source on Github">

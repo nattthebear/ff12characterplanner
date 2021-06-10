@@ -1,9 +1,9 @@
-import { h } from "preact";
+import * as React from "react";
 import CharacterPlanner from "./CharacterPlanner";
 import "normalize.css/normalize.css";
 import "./App.scss";
 import { useStore } from "../store/Store";
-import { useEffect } from "preact/hooks";
+import { useEffect } from "react";
 
 export default function App() {
 	const { party } = useStore();

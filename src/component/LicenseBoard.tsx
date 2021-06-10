@@ -1,4 +1,4 @@
-import { h } from "preact";
+import * as React from "react";
 import { License } from "../data/Licenses";
 import { Position, Board, Boards } from "../data/Boards";
 import "./LicenseBoard.scss";
