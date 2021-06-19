@@ -1,9 +1,8 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { render, h } from "preact";
 import App from "./component/App";
 import "./MouseOver";
 
-ReactDOM.render(
+render(
 	<App />,
 	document.getElementById("root")!
 );

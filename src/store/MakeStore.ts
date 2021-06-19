@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
-import { unstable_batchedUpdates } from "react-dom";
+import { useCallback, useEffect, useState } from "preact/hooks";
 
 export function makeStore<S>(initialValue: S) {
 	let state = initialValue;
@@ -23,11 +22,9 @@ export function makeStore<S>(initialValue: S) {
 		dispatch(action: (s: S) => S) {
 			// const when = performance.now();
 			state = action(state);
-			unstable_batchedUpdates(() => {
-				for (const sub of subs) {
-					sub();
-				}
-			});
+			for (const sub of subs) {
+				sub();
+			}
 			// Promise.resolve().then(() => console.log(`Synchronous portion of work from dispatch to end: ${performance.now() - when}ms`));
 		},
 	};

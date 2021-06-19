@@ -1,4 +1,4 @@
-import * as React from "react";
+import { h, Fragment } from "preact";
 import PartyModel from "../model/PartyModel";
 import { optimizeForCharacter } from "../dps/OptimizeForCharacter";
 import { OptimizerResult } from "../dps/Optimize";
@@ -6,7 +6,7 @@ import { Characters } from "../data/Characters";
 import "./Dps.scss";
 import { Environment, Equipment, Profile, AllElements, Weather, Terrain, defaultEnvironment } from "../dps/Profile";
 import { CalculateResult } from "../dps/Calculate";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "preact/hooks";
 import { makeStore } from "../store/MakeStore";
 import { Ability } from "../dps/ability/Ability";
 
