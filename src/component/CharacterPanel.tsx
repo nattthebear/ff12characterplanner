@@ -3,9 +3,9 @@ import "./CharacterPanel.scss";
 import { LicenseGroups, LicenseGroup, License } from "../data/Licenses";
 import PartyModel, { Coloring } from "../model/PartyModel";
 import { Characters } from "../data/Characters";
-import { confirm } from "../Dialog";
 import { dispatch, useStore } from "../store/Store";
 import { changeIndices, changeParty, toggleDps, toggleQe } from "../store/State";
+import ResetButton from "./CharacterPannel.ResetButton";
 
 export default function CharacterPanel() {
 	const props = useStore();
@@ -121,52 +121,37 @@ export default function CharacterPanel() {
 			label = `Unlearn current job from ${Characters[c].name}`;
 			disabled = true;
 		}
-		return <button
-			className="action"
-			aria-label={label}
+		return <ResetButton
+			label={label}
 			disabled={disabled}
-			onClick={async () => {
-				if (await confirm(label + "?")) {
-					dispatch(changeParty(props.party.removeJob(c, job!)));
-				}
-			}}
+			getNextParty={() => props.party.removeJob(c, job!)}
 		>
 			Reset Job
-		</button>;
+		</ResetButton>;
 	}
 
 	function renderResetCharacter() {
 		const c = props.characterIndex;
 		const disabled = props.party.unemployed(c);
 		const label = `Unlearn all jobs from ${Characters[c].name}`;
-		return <button
-			className="action"
-			aria-label={label}
+		return <ResetButton
+			label={label}
 			disabled={disabled}
-			onClick={async () => {
-				if (await confirm(label + "?")) {
-					dispatch(changeParty(props.party.removeAllJobs(c)));
-				}
-			}}
+			getNextParty={() => props.party.removeAllJobs(c)}
 		>
 			Reset Character
-		</button>;
+		</ResetButton>;
 	}
 
 	function renderResetAll() {
 		const disabled = props.party.allUnemployed();
-		return <button
-			className="action"
-			aria-label="Unlearn all jobs from all characters"
+		return <ResetButton
+			label="Unlearn all jobs from all characters"
 			disabled={disabled}
-			onClick={async () => {
-				if (await confirm("Unlearn all jobs from all characters?")) {
-					dispatch(changeParty(new PartyModel()));
-				}
-			}}
+			getNextParty={() => new PartyModel()}
 		>
 			Reset All
-		</button>;
+		</ResetButton>;
 	}
 
 	function renderToggleQe() {
