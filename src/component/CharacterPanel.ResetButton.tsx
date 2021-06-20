@@ -19,7 +19,7 @@ interface ResetButtonUndo {
 }
 
 function delay(ms: number) {
-	return new Promise(resolve => setTimeout(resolve, ms));
+	return new Promise<void>(resolve => setTimeout(resolve, ms));
 }
 
 export default function ResetButton(props: ResetButtonProps) {
@@ -27,14 +27,20 @@ export default function ResetButton(props: ResetButtonProps) {
 	const [undoRaw, changeUndo] = useState<ResetButtonUndo | undefined>(undefined);
 	const undo = store.party === undoRaw?.from ? undoRaw : undefined;
 
-	return <button
-		className="action"
-		aria-label={undo?.label ?? props.label}
-		disabled={undo ? false : props.disabled}
-		onClick={async () => {
-			if (undo) {
-				dispatch(changeParty(undo.to));
-			} else {
+	if (undo) {
+		return <button
+			className="action"
+			aria-label={undo.label}
+			onClick={() => dispatch(changeParty(undo.to))}
+		>
+			{undo.children}
+		</button>;
+	} else {
+		return <button
+			className="action"
+			aria-label={props.label}
+			disabled={props.disabled}
+			onClick={async () => {
 				const currentParty = store.party;
 				const nextParty = props.getNextParty();
 				dispatch(changeParty(nextParty));
@@ -47,9 +53,9 @@ export default function ResetButton(props: ResetButtonProps) {
 				changeUndo(nextUndo);
 				await delay(5000);
 				changeUndo(u => u === nextUndo ? undefined : u);
-			}
-		}}
-	>
-		{undo?.children ?? props.children}
-	</button>;
+			}}
+		>
+			{props.children}
+		</button>;
+	}
 }
