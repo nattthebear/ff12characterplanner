@@ -8,7 +8,7 @@ import { dispatch, useStore } from "../store/Store";
 import { changeParty, changePlannedParty } from "../store/State";
 
 export default function LicenseBoard() {
-	const props = useStore();
+	const store = useStore();
 
 	function renderPosition(key: number, pos: Position | undefined, colors: Map<License, Coloring>) {
 		if (!pos) {
@@ -25,9 +25,9 @@ export default function LicenseBoard() {
 		}
 		const onClick = () => {
 			if (obtained) {
-				dispatch(changeParty(props.party.delete(props.characterIndex, l)));
+				dispatch(changeParty(store.party.delete(store.characterIndex, l)));
 			} else {
-				dispatch(changeParty(props.party.add(props.characterIndex, l)));
+				dispatch(changeParty(store.party.add(store.characterIndex, l)));
 			}
 		};
 		return <td key={key} className={className} onClick={onClick} aria-label={l.text}>
@@ -37,7 +37,7 @@ export default function LicenseBoard() {
 	}
 
 	function renderBoard(b: Board) {
-		const colors = props.party.color(props.characterIndex);
+		const colors = store.party.color(store.characterIndex);
 		return <div className="license-board-holder">
 			<table className="license-board">
 				<tbody>
@@ -53,11 +53,11 @@ export default function LicenseBoard() {
 		return <div className="select-job">
 			{Boards.map((b, i) => <button
 				key={i}
-				onClick={() => dispatch(changeParty(props.party.addJob(props.characterIndex, b)))}
+				onClick={() => dispatch(changeParty(store.party.addJob(store.characterIndex, b)))}
 				className="job"
 				disabled={b === other}
 				aria-label={b.text}
-				onMouseOver={() => dispatch(changePlannedParty(props.party.addJob(props.characterIndex, b)))}
+				onMouseOver={() => dispatch(changePlannedParty(store.party.addJob(store.characterIndex, b)))}
 				onMouseOut={() => dispatch(changePlannedParty(undefined))}
 			>
 				<img className="zodiac" src={b.image} alt={b.imageAlt} />
@@ -67,11 +67,11 @@ export default function LicenseBoard() {
 		</div>;
 	}
 
-	const b = props.party.getJob(props.characterIndex, props.boardIndex);
+	const b = store.party.getJob(store.characterIndex, store.boardIndex);
 	if (b) {
 		return renderBoard(b);
 	} else {
-		const otherBoard = props.party.getJob(props.characterIndex, props.boardIndex ^ 1);
+		const otherBoard = store.party.getJob(store.characterIndex, store.boardIndex ^ 1);
 		return renderSelectJob(otherBoard);
 	}
 }

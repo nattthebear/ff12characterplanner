@@ -15,12 +15,12 @@ function compareLicenses(a: License, b: License) {
 }
 
 export default function QeBoard() {
-	const props = useStore();
+	const { party } = useStore();
 
-	const colorings = useMemo(() => Characters.map((_, c) => props.party.color(c)), [props.party]);
+	const colorings = useMemo(() => Characters.map((_, c) => party.color(c)), [party]);
 
 	function renderCell(l: License, c: number, esper: boolean) {
-		if (props.party.unemployed(c)) {
+		if (party.unemployed(c)) {
 			return <div key={c} className="l unreachable" onClick={() => { dispatch(changeIndices(c, 0)); dispatch(toggleQe()); }}>
 				Choose a job first.
 			</div>;
@@ -43,8 +43,8 @@ export default function QeBoard() {
 				// in another way if you want, but it's not obvious what's happening on the mist planner
 
 				// So, remember all obtained mist licenses before deleting and then re-add them.
-				const toAdd = allLimitedLicenses.filter(ll => ll !== l && props.party.has(c, ll));
-				const newParty = props.party.deleteAndAdd([{ c, l }], toAdd.map(l => ({ c, l })));
+				const toAdd = allLimitedLicenses.filter(ll => ll !== l && party.has(c, ll));
+				const newParty = party.deleteAndAdd([{ c, l }], toAdd.map(l => ({ c, l })));
 				const next = newParty.color(c);
 				for (const [ll, color] of next) {
 					if (color === Coloring.POSSIBLE && ll !== l) {
@@ -61,7 +61,7 @@ export default function QeBoard() {
 			case Coloring.POSSIBLE: {
 				className = "l possible";
 				// cell is yellow => show anything yellow now but grey after adding that license
-				const newParty = props.party.add(c, l);
+				const newParty = party.add(c, l);
 				const next = newParty.color(c);
 				for (const [ll, color] of initial) {
 					if (color == Coloring.POSSIBLE && next.get(ll) === Coloring.CERTAIN) {
@@ -76,7 +76,7 @@ export default function QeBoard() {
 				// cell is red
 				// && esper => show anything yellow or red now but grey after removing esper from owner and adding it here
 				// && quickening => show anything yellow or red now but grey after removing all quickenings from char and adding that one
-				const nextParty = props.party.deleteAndAdd(
+				const nextParty = party.deleteAndAdd(
 					esper
 						? Characters.map((_, c) => ({ c, l }))
 						: Quickenings.map(l => ({ c, l })),
@@ -120,8 +120,8 @@ export default function QeBoard() {
 		<div>{/* help goes here? */}</div>
 		{Characters.map((character, c) => <div key={c}>
 			<div className="character-name">{character.name}</div>
-			{renderJob(props.party.getJob(c, 0))}
-			{renderJob(props.party.getJob(c, 1))}
+			{renderJob(party.getJob(c, 0))}
+			{renderJob(party.getJob(c, 1))}
 		</div>)}
 		{Espers.map(e => renderRow(e, true))}
 		{Quickenings.map(q => renderRow(q, false))}

@@ -8,14 +8,14 @@ import { useStore } from "../store/Store";
 
 
 export default function CharacterPlanner() {
-	const props = useStore();
+	const store = useStore();
 
 	return <div className="character-planner">
 		<CharacterPanel />
-		{props.qeActive
+		{store.qeActive
 			? <QeBoard />
-			: props.dpsActive
-				? <Dps party={props.party} />
+			: store.dpsActive
+				? <Dps party={store.party} />
 				: <LicenseBoard />
 		}
 	</div>;

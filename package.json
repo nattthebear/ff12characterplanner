@@ -6,9 +6,7 @@
     "@popperjs/core": "^2.9.2",
     "dz-priority-queue": "^0.1.2",
     "normalize.css": "^8.0.0",
-    "preact": "^10.5.13",
-    "vex-dialog": "^1.1.0",
-    "vex-js": "^4.1.0"
+    "preact": "^10.5.13"
   },
   "scripts": {
     "start": "parcel serve ./public/index.html --dist-dir .parcel-dev --public-url / --port 3000",
