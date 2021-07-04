@@ -29,7 +29,7 @@ export default function ResetButton(props: ResetButtonProps) {
 
 	if (undo) {
 		return <button
-			className="action"
+			class="action"
 			aria-label={undo.label}
 			onClick={() => dispatch(changeParty(undo.to))}
 		>
@@ -37,7 +37,7 @@ export default function ResetButton(props: ResetButtonProps) {
 		</button>;
 	} else {
 		return <button
-			className="action"
+			class="action"
 			aria-label={props.label}
 			disabled={props.disabled}
 			onClick={async () => {

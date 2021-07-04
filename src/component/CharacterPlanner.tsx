@@ -10,7 +10,7 @@ import { useStore } from "../store/Store";
 export default function CharacterPlanner() {
 	const store = useStore();
 
-	return <div className="character-planner">
+	return <div class="character-planner">
 		<CharacterPanel />
 		{store.qeActive
 			? <QeBoard />

@@ -33,11 +33,11 @@ function getId() {
 
 function NumberInput(props: NumberProps) {
 	const id = getId();
-	return <div aria-label={props.tooltip} className="control">
+	return <div aria-label={props.tooltip} class="control">
 		<label htmlFor={id}>{props.label}</label>
 		<input
 			id={id}
-			className={`d-${props.max.toString().length}`}
+			class={`d-${props.max.toString().length}`}
 			type="number"
 			value={props.value}
 			min={props.min}
@@ -56,7 +56,7 @@ function NumberInput(props: NumberProps) {
 
 function BoolInput(props: InputProps<boolean>) {
 	const id = getId();
-	return <div aria-label={props.tooltip} className="control">
+	return <div aria-label={props.tooltip} class="control">
 		<input
 			id={id}
 			type="checkbox"
@@ -69,7 +69,7 @@ function BoolInput(props: InputProps<boolean>) {
 
 function ElementInput(props: InputProps<0 | 0.5 | 1 | 2>) {
 	const id = getId();
-	return <div aria-label={props.tooltip} className="control">
+	return <div aria-label={props.tooltip} class="control">
 		<label htmlFor={id}>{props.label}</label>
 		<select value={props.value} id={id} onChange={ev => props.changeValue(Number(ev.currentTarget.value) as 0 | 0.5 | 1 | 2)}>
 			<option value="0">Immune</option>
@@ -81,7 +81,7 @@ function ElementInput(props: InputProps<0 | 0.5 | 1 | 2>) {
 }
 function WeatherInput(props: InputProps<Weather>) {
 	const id = getId();
-	return <div aria-label={props.tooltip} className="control">
+	return <div aria-label={props.tooltip} class="control">
 		<label htmlFor={id}>{props.label}</label>
 		<select value={props.value} id={id} onChange={ev => props.changeValue(ev.currentTarget.value as Weather)}>
 			<option value="other">None</option>
@@ -94,7 +94,7 @@ function WeatherInput(props: InputProps<Weather>) {
 }
 function TerrainInput(props: InputProps<Terrain>) {
 	const id = getId();
-	return <div aria-label={props.tooltip} className="control">
+	return <div aria-label={props.tooltip} class="control">
 		<label htmlFor={id}>{props.label}</label>
 		<select value={props.value} id={id} onChange={ev => props.changeValue(ev.currentTarget.value as Terrain)}>
 			<option value="other">None</option>
@@ -174,8 +174,8 @@ const changeEnv = <K extends keyof Environment>(key: K, value: Environment[K]) =
 export default function Dps(props: Props) {
 	const env = useStore();
 
-	return <div className="dps-optimizer">
-		<div className="controls">
+	return <div class="dps-optimizer">
+		<div class="controls">
 			<NumberInput
 				min={0}
 				max={250}
@@ -362,7 +362,7 @@ Comboed Damage: ${Math.round(value.comboDamage)}
 Charge Time: ${value.chargeTime.toFixed(2)}s
 Animation Time: ${value.animationTime.toFixed(2)}s`;
 	return <td
-		className="r"
+		class="r"
 		aria-label={label}
 	>
 		{Math.round(value.dps)}
@@ -428,7 +428,7 @@ function PartyDps(props: PartyDpsProps) {
 		? state.results.map((result, idx) => <SingleCharacterDps key={idx} name={Characters[idx].name} results={result} />)
 		: <tr><td>Working...</td></tr>;
 
-	return <div className={same ? "results" : "results busy"}>
+	return <div class={same ? "results" : "results busy"}>
 		<table>
 			<tbody>
 				{components}
@@ -443,7 +443,7 @@ function SingleCharacterDps(props: { name: string, results: OptimizerResult[] })
 			<th colSpan={9999}>{props.name}</th>
 		</tr>
 		<tr>
-			<th className="r">DPS</th>
+			<th class="r">DPS</th>
 			<th>Ability</th>
 			<th>Weapon</th>
 			<th>Ammo</th>
@@ -452,7 +452,7 @@ function SingleCharacterDps(props: { name: string, results: OptimizerResult[] })
 			<th>Accessory</th>
 		</tr>
 
-		{props.results.map((r, i) => <tr key={i} className="data-row">
+		{props.results.map((r, i) => <tr key={i} class="data-row">
 			<DpsCell value={r.dps} />
 			<AbilityCell value={r.ability} />
 			<EqCell value={r.doll.weapon} />

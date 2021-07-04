@@ -12,7 +12,7 @@ export default function LicenseBoard() {
 
 	function renderPosition(key: number, pos: Position | undefined, colors: Map<License, Coloring>) {
 		if (!pos) {
-			return <td key={key} className="empty" />;
+			return <td key={key} class="empty" />;
 		}
 		const l = pos.value;
 		let className: string;
@@ -30,16 +30,16 @@ export default function LicenseBoard() {
 				dispatch(changeParty(store.party.add(store.characterIndex, l)));
 			}
 		};
-		return <td key={key} className={className} onClick={onClick} aria-label={l.text}>
-			<div className="name">{l.fullName}</div>
-			<div className="cost">{l.cost}</div>
+		return <td key={key} class={className} onClick={onClick} aria-label={l.text}>
+			<div class="name">{l.fullName}</div>
+			<div class="cost">{l.cost}</div>
 		</td>;
 	}
 
 	function renderBoard(b: Board) {
 		const colors = store.party.color(store.characterIndex);
-		return <div className="license-board-holder">
-			<table className="license-board">
+		return <div class="license-board-holder">
+			<table class="license-board">
 				<tbody>
 					{b.rows.map((row, j) => <tr key={j}>
 						{row.map((pos, i) => renderPosition(i, pos, colors))}
@@ -50,17 +50,17 @@ export default function LicenseBoard() {
 	}
 
 	function renderSelectJob(other: Board | undefined) {
-		return <div className="select-job">
+		return <div class="select-job">
 			{Boards.map((b, i) => <button
 				key={i}
 				onClick={() => dispatch(changeParty(store.party.addJob(store.characterIndex, b)))}
-				className="job"
+				class="job"
 				disabled={b === other}
 				aria-label={b.text}
 				onMouseOver={() => dispatch(changePlannedParty(store.party.addJob(store.characterIndex, b)))}
 				onMouseOut={() => dispatch(changePlannedParty(undefined))}
 			>
-				<img className="zodiac" src={b.image} alt={b.imageAlt} />
+				<img class="zodiac" src={b.image} alt={b.imageAlt} />
 				{b.name}
 			</button>)}
 			<GithubCorner />

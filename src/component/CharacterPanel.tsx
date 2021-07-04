@@ -15,12 +15,12 @@ export default function CharacterPanel() {
 		const selected = store.characterIndex === characterIndex && store.boardIndex === index;
 		if (!j) {
 			const disabled = index === 1 && !store.party.getJob(characterIndex, 0);
-			return <button disabled={disabled} className="job nojob" aria-pressed={selected} onClick={ev => { ev.stopPropagation(); dispatch(changeIndices(characterIndex, index)); }}>
-				<span className="name">No Job</span>
+			return <button disabled={disabled} class="job nojob" aria-pressed={selected} onClick={ev => { ev.stopPropagation(); dispatch(changeIndices(characterIndex, index)); }}>
+				<span class="name">No Job</span>
 			</button>;
 		} else {
-			return <button className="job" aria-pressed={selected} onClick={ev => { ev.stopPropagation(); dispatch(changeIndices(characterIndex, index)); }}>
-				<span className="name">{j.name}</span>
+			return <button class="job" aria-pressed={selected} onClick={ev => { ev.stopPropagation(); dispatch(changeIndices(characterIndex, index)); }}>
+				<span class="name">{j.name}</span>
 			</button>;
 		}
 	}
@@ -56,10 +56,10 @@ export default function CharacterPanel() {
 					dispatch(changeParty(party));
 				}
 			};
-			if (a.length) { children.push(<p key={0} className="l obtained" onClick={() => onClick(a, false)}>+{a.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
-			if (b.length) { children.push(<p key={1} className="l certain" onClick={() => onClick(b, true)}>+{b.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
-			if (c.length) { children.push(<p key={2} className="l possible" onClick={() => onClick(c, true)}>+{c.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
-			if (d.length) { children.push(<p key={3} className="l planned">+{d.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
+			if (a.length) { children.push(<p key={0} class="l obtained" onClick={() => onClick(a, false)}>+{a.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
+			if (b.length) { children.push(<p key={1} class="l certain" onClick={() => onClick(b, true)}>+{b.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
+			if (c.length) { children.push(<p key={2} class="l possible" onClick={() => onClick(c, true)}>+{c.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
+			if (d.length) { children.push(<p key={3} class="l planned">+{d.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
 		} else {
 			// display each license (could display each granted spell if desired?)
 			for (const l of g.contents) {
@@ -85,7 +85,7 @@ export default function CharacterPanel() {
 				};
 				children.push(<p
 					key={l.fullName}
-					className={className}
+					class={className}
 					aria-label={l.text}
 					onClick={onClick}
 				>
@@ -94,8 +94,8 @@ export default function CharacterPanel() {
 			}
 		}
 		if (children.length) {
-			return <div key={i} className="group">
-				<h3 className="name">{g.name}</h3>
+			return <div key={i} class="group">
+				<h3 class="name">{g.name}</h3>
 				{children}
 			</div>;
 		} else {
@@ -156,7 +156,7 @@ export default function CharacterPanel() {
 
 	function renderToggleQe() {
 		return <button
-			className="action"
+			class="action"
 			aria-label="Manage Quickenings and Espers for all characters at once."
 			onClick={() => dispatch(toggleQe())}
 			aria-pressed={store.qeActive}
@@ -167,7 +167,7 @@ export default function CharacterPanel() {
 
 	function renderToggleDps() {
 		return <button
-			className="action"
+			class="action"
 			aria-label="Simulate character damage output"
 			onClick={() => dispatch(toggleDps())}
 			aria-pressed={store.dpsActive}
@@ -184,17 +184,17 @@ export default function CharacterPanel() {
 		}
 	}
 
-	return <div className="character-panel">
-		<div className="actions">
+	return <div class="character-panel">
+		<div class="actions">
 			{renderResetJob()}
 			{renderResetCharacter()}
 			{renderResetAll()}
 			{renderToggleQe()}
 			{renderToggleDps()}
 		</div>
-		<div className="character-select">
-			{Characters.map((c, i) => <div className="character" key={i} aria-pressed={store.characterIndex === i} onClick={() => selectCharacter(i)}>
-				<span className="name">{c.name}</span>
+		<div class="character-select">
+			{Characters.map((c, i) => <div class="character" key={i} aria-pressed={store.characterIndex === i} onClick={() => selectCharacter(i)}>
+				<span class="name">{c.name}</span>
 				<br />
 				{renderClassInfo(i, 0)}
 				<br />
@@ -203,7 +203,7 @@ export default function CharacterPanel() {
 				<span>{store.party.getLpCount(i)} LP</span>
 			</div>)}
 		</div>
-		<div className="stats">
+		<div class="stats">
 			{renderStatInfo()}
 		</div>
 	</div>;
