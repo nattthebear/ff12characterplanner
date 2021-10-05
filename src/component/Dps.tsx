@@ -34,7 +34,7 @@ function getId() {
 function NumberInput(props: NumberProps) {
 	const id = getId();
 	return <div aria-label={props.tooltip} class="control">
-		<label htmlFor={id}>{props.label}</label>
+		<label for={id}>{props.label}</label>
 		<input
 			id={id}
 			class={`d-${props.max.toString().length}`}
@@ -63,14 +63,14 @@ function BoolInput(props: InputProps<boolean>) {
 			checked={props.value}
 			onChange={() => props.changeValue(!props.value)}
 		/>
-		<label htmlFor={id}>{props.label}</label>
+		<label for={id}>{props.label}</label>
 	</div>;
 }
 
 function ElementInput(props: InputProps<0 | 0.5 | 1 | 2>) {
 	const id = getId();
 	return <div aria-label={props.tooltip} class="control">
-		<label htmlFor={id}>{props.label}</label>
+		<label for={id}>{props.label}</label>
 		<select value={props.value} id={id} onChange={ev => props.changeValue(Number(ev.currentTarget.value) as 0 | 0.5 | 1 | 2)}>
 			<option value="0">Immune</option>
 			<option value="0.5">Strong</option>
@@ -82,7 +82,7 @@ function ElementInput(props: InputProps<0 | 0.5 | 1 | 2>) {
 function WeatherInput(props: InputProps<Weather>) {
 	const id = getId();
 	return <div aria-label={props.tooltip} class="control">
-		<label htmlFor={id}>{props.label}</label>
+		<label for={id}>{props.label}</label>
 		<select value={props.value} id={id} onChange={ev => props.changeValue(ev.currentTarget.value as Weather)}>
 			<option value="other">None</option>
 			<option value="windy">Wind</option>
@@ -95,7 +95,7 @@ function WeatherInput(props: InputProps<Weather>) {
 function TerrainInput(props: InputProps<Terrain>) {
 	const id = getId();
 	return <div aria-label={props.tooltip} class="control">
-		<label htmlFor={id}>{props.label}</label>
+		<label for={id}>{props.label}</label>
 		<select value={props.value} id={id} onChange={ev => props.changeValue(ev.currentTarget.value as Terrain)}>
 			<option value="other">None</option>
 			<option value="sand">Sand</option>
