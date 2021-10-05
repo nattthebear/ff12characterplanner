@@ -19,3 +19,65 @@ button {
 	min-height: 640px;
 	font-family: "Oxygen", sans-serif;
 }
+
+// Some shared styles
+.button {
+	margin: 2px;
+	border: 2px solid #000;
+	border-radius: 6px;
+	padding: 6px;
+	background-color: #fff;
+	&:hover {
+		background-color: #efe;
+	}
+	&:disabled {
+		background-color: #ccc;
+		color: #999;
+		border-color: #999;
+		img {
+			opacity: 0.3;
+		}
+	}
+	&[aria-pressed=true] {
+		border-color: #33f;
+		background-color: #eef;
+	}
+}
+
+.l {
+	cursor: pointer;
+	&.obtained {
+		background-color: #fff;
+		&:hover {
+			box-shadow: inset 0 0 8px #f00;
+		}
+	}
+	&.certain {
+		background-color: #ddd;
+		&:hover {
+			box-shadow: inset 0 0 8px #0a0;
+		}
+	}
+	&.possible {
+		background-color: #ffa;
+		&:hover {
+			box-shadow: inset 0 0 8px #0a0;
+		}
+	}
+	&.blocked {
+		background-color: #fbb;
+		&:hover {
+			box-shadow: inset 0 0 8px #f00;
+		}
+		cursor: not-allowed;
+	}
+	&.unreachable {
+		&:hover {
+			box-shadow: inset 0 0 8px #f00;
+		}
+		cursor: not-allowed;
+	}
+	&.planned {
+		background-color: #afa;
+	}
+}

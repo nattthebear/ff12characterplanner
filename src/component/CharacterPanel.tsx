@@ -156,7 +156,7 @@ export default function CharacterPanel() {
 
 	function renderToggleQe() {
 		return <button
-			class="action"
+			class="action button"
 			aria-label="Manage Quickenings and Espers for all characters at once."
 			onClick={() => dispatch(toggleQe())}
 			aria-pressed={store.qeActive}
@@ -167,7 +167,7 @@ export default function CharacterPanel() {
 
 	function renderToggleDps() {
 		return <button
-			class="action"
+			class="action button"
 			aria-label="Simulate character damage output"
 			onClick={() => dispatch(toggleDps())}
 			aria-pressed={store.dpsActive}
@@ -193,7 +193,7 @@ export default function CharacterPanel() {
 			{renderToggleDps()}
 		</div>
 		<div class="character-select">
-			{Characters.map((c, i) => <div class="character" key={i} aria-pressed={store.characterIndex === i} onClick={() => selectCharacter(i)}>
+			{Characters.map((c, i) => <div class="character button" key={i} aria-pressed={store.characterIndex === i} onClick={() => selectCharacter(i)}>
 				<span class="name">{c.name}</span>
 				<br />
 				{renderClassInfo(i, 0)}

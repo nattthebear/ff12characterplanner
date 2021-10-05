@@ -54,7 +54,7 @@ export default function LicenseBoard() {
 			{Boards.map((b, i) => <button
 				key={i}
 				onClick={() => dispatch(changeParty(store.party.addJob(store.characterIndex, b)))}
-				class="job"
+				class="job button"
 				disabled={b === other}
 				aria-label={b.text}
 				onMouseOver={() => dispatch(changePlannedParty(store.party.addJob(store.characterIndex, b)))}
