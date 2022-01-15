@@ -1,3 +1,18 @@
+import Aries from "url:../media/Aries.svg";
+import Taurus from "url:../media/Taurus.svg";
+import Gemini from "url:../media/Gemini.svg";
+import Cancer from "url:../media/Cancer.svg";
+import Leo from "url:../media/Leo.svg";
+import Virgo from "url:../media/Virgo.svg";
+import Libra from "url:../media/Libra.svg";
+import Scorpio from "url:../media/Scorpio.svg";
+import Sagittarius from "url:../media/Sagittarius.svg";
+import Capricorn from "url:../media/Capricorn.svg";
+import Aquarius from "url:../media/Aquarius.svg";
+import Pisces from "url:../media/Pisces.svg";
+import Ophiuchus from "url:../media/Ophiuchus.svg";
+import Star from "url:../media/Star.svg";
+
 export interface License {
 	fullName: string;
 	/** cost in LP */
@@ -10,6 +25,8 @@ export interface License {
 		group: string;
 		what: number | string[];
 	};
+	/** background image */
+	image?: string;
 	sortOrder: number;
 }
 
@@ -203,13 +220,14 @@ allLicenses.push({
 				group: "Quickening",
 				what: 1
 			},
+			image: Star,
 			sortOrder: sortOrder++
 		});
 		i++;
 	}
 }
 {
-	const e = (lp: number, fullName: string, title: string) => {
+	const e = (lp: number, fullName: string, title: string, image: string) => {
 		allLicenses.push({
 			fullName,
 			cost: lp,
@@ -219,22 +237,23 @@ allLicenses.push({
 				group: "Esper",
 				what: [fullName]
 			},
+			image,
 			sortOrder: sortOrder++
 		});
 	};
-	e(20, "Belias", "the Gigas");
-	e(30, "Mateus", "the Corrupt");
-	e(35, "Adrammelech", "the Wroth");
-	e(30, "Zalera", "the Death Seraph");
-	e(50, "Cúchulainn", "the Impure");
-	e(65, "Zeromus", "The Condemner");
-	e(65, "Exodus", "the Judge-Sal");
-	e(50, "Shemhazai", "the Whisperer");
-	e(50, "Hashmal", "Bringer of Order");
-	e(100, "Famfrit", "the Darkening Cloud");
-	e(100, "Chaos", "Walker of the Wheel");
-	e(115, "Ultima", "High Seraph");
-	e(200, "Zodiark", "Keeper of Precepts");
+	e(20, "Belias", "the Gigas", Aries);
+	e(30, "Mateus", "the Corrupt", Pisces);
+	e(35, "Adrammelech", "the Wroth", Capricorn);
+	e(30, "Zalera", "the Death Seraph", Gemini);
+	e(50, "Cúchulainn", "the Impure", Scorpio);
+	e(65, "Zeromus", "The Condemner", Cancer);
+	e(65, "Exodus", "the Judge-Sal", Libra);
+	e(50, "Shemhazai", "the Whisperer", Sagittarius);
+	e(50, "Hashmal", "Bringer of Order", Leo);
+	e(100, "Famfrit", "the Darkening Cloud", Aquarius);
+	e(100, "Chaos", "Walker of the Wheel", Taurus);
+	e(115, "Ultima", "High Seraph", Virgo);
+	e(200, "Zodiark", "Keeper of Precepts", Ophiuchus);
 }
 {
 	const p = (lp: number, fullName: string, desc: string) => {

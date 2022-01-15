@@ -33,6 +33,7 @@ export default function LicenseBoard() {
 		return <td key={key} class={className} onClick={onClick} aria-label={l.text}>
 			<div class="name">{l.fullName}</div>
 			<div class="cost">{l.cost}</div>
+			{l.image && <img class="mist" src={l.image} aria-role="none" />}
 		</td>;
 	}
 

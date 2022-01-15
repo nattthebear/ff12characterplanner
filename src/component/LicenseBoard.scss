@@ -29,6 +29,17 @@
 				bottom: 4px;
 				right: 4px;
 			}
+
+			.mist {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				padding: 10px;
+				opacity: 0.1;
+				top: 0;
+				left: 0;
+				object-fit: contain;
+			}
 		}
 	}
 }
