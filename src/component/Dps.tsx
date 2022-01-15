@@ -3,7 +3,7 @@ import PartyModel from "../model/PartyModel";
 import { optimizeForCharacter } from "../dps/OptimizeForCharacter";
 import { OptimizerResult } from "../dps/Optimize";
 import { Characters } from "../data/Characters";
-import "./Dps.scss";
+import "./Dps.css";
 import { Environment, Equipment, Profile, AllElements, Weather, Terrain, defaultEnvironment } from "../dps/Profile";
 import { CalculateResult } from "../dps/Calculate";
 import { useLayoutEffect, useRef, useState } from "preact/hooks";

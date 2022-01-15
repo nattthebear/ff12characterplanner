@@ -2,27 +2,27 @@
 	display: flex;
 	flex-direction: column;
 
-	.actions {
+	& .actions {
 		flex: 0 0 auto;
 		display: flex;
-		.action {
+		& .action {
 			flex: 1 0 0;
 			font-size: 12px;
 		}
 	}
 
-	.character-select {
+	& .character-select {
 		flex: 0 0 auto;
 		display: flex;
-		.character {
+		& .character {
 			text-align: center;
 			cursor: pointer;
 
-			>.name {
+			& >.name {
 				font-weight: bold;
 			}
 
-			.job {
+			& .job {
 				font-size: 14px;
 				border: none;
 				background-color: transparent;
@@ -42,7 +42,7 @@
 		}
 	}
 
-	.stats {
+	& .stats {
 		flex: 0 1 auto;
 		overflow: auto;
 		display: flex;
@@ -52,14 +52,14 @@
 		align-content: flex-start;
 		justify-content: flex-start;
 
-		.group {
+		& .group {
 			flex: 0 0 auto;
 			margin: 4px;
-			.name {
+			& .name {
 				font-size: 16px;
 				margin: 0;
 			}
-			.l {
+			& .l {
 				font-size: 12px;
 				margin: 0;
 			}

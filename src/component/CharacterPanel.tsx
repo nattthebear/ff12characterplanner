@@ -1,5 +1,5 @@
 import { ComponentChild, h } from "preact";
-import "./CharacterPanel.scss";
+import "./CharacterPanel.css";
 import { LicenseGroups, LicenseGroup, License } from "../data/Licenses";
 import PartyModel, { Coloring } from "../model/PartyModel";
 import { Characters } from "../data/Characters";

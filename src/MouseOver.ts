@@ -1,5 +1,5 @@
 import { createPopper, Instance } from '@popperjs/core';
-import "./MouseOver.scss";
+import "./MouseOver.css";
 
 let popper: Instance | undefined;
 
