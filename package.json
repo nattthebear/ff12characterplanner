@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@popperjs/core": "^2.10.2",
+    "@popperjs/core": "^2.11.2",
     "dz-priority-queue": "^0.1.2",
     "normalize.css": "^8.0.0",
-    "preact": "^10.5.15"
+    "preact": "^10.6.4"
   },
   "scripts": {
     "start": "parcel serve ./public/index.html --dist-dir .parcel-dev --public-url / --port 3000",
