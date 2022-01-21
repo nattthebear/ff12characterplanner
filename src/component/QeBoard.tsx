@@ -1,5 +1,5 @@
 import { h, Fragment } from "preact";
-import "./QeBoard.scss";
+import "./QeBoard.css";
 import PartyModel, { Coloring } from "../model/PartyModel";
 import { Characters } from "../data/Characters";
 import { License, Espers, Quickenings } from "../data/Licenses";

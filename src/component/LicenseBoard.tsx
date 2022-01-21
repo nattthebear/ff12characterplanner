@@ -1,7 +1,7 @@
 import { h } from "preact";
 import { License } from "../data/Licenses";
 import { Position, Board, Boards } from "../data/Boards";
-import "./LicenseBoard.scss";
+import "./LicenseBoard.css";
 import { Coloring } from "../model/PartyModel";
 import GithubCorner from "./GithubCorner";
 import { dispatch, useStore } from "../store/Store";

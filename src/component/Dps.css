@@ -2,14 +2,14 @@
 	display: flex;
 	flex-direction: column;
 
-	.controls {
+	& .controls {
 		flex: 0 0 auto;
 
-		.control {
+		& .control {
 			display: inline-block;
 			padding: 2px;
 
-			input[type=number] {
+			& input[type=number] {
 				text-align: right;
 				margin-left: 4px;
 
@@ -19,17 +19,17 @@
 				&.d-4 { width: 4.6em; }
 				&.d-5 { width: 5.4em; }
 			}
-			input[type=checkbox] {
+			& input[type=checkbox] {
 				margin-right: 4px;
 			}
 
-			select {
+			& select {
 				margin-left: 4px;
 			}
 		}
 	}
 
-	.results {
+	& .results {
 		overflow: auto;
 		font-size: 12px;
 
@@ -37,16 +37,16 @@
 			color: #aaa;
 		}
 
-		tr.data-row {
+		& tr.data-row {
 			&:hover {
 				background-color: #efe;
 			}
 		}
 
-		th {
+		& th {
 			text-align: left
 		}
-		.r {
+		& .r {
 			text-align: right;
 		}	
 	}

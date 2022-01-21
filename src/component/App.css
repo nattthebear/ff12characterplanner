@@ -20,7 +20,7 @@ button {
 	font-family: "Oxygen", sans-serif;
 }
 
-// Some shared styles
+/* Some shared styles */
 .button {
 	margin: 2px;
 	border: 2px solid #000;
@@ -34,7 +34,7 @@ button {
 		background-color: #ccc;
 		color: #999;
 		border-color: #999;
-		img {
+		& img {
 			opacity: 0.3;
 		}
 	}
@@ -66,16 +66,16 @@ button {
 	}
 	&.blocked {
 		background-color: #fbb;
+		cursor: not-allowed;
 		&:hover {
 			box-shadow: inset 0 0 8px #f00;
 		}
-		cursor: not-allowed;
 	}
 	&.unreachable {
+		cursor: not-allowed;
 		&:hover {
 			box-shadow: inset 0 0 8px #f00;
 		}
-		cursor: not-allowed;
 	}
 	&.planned {
 		background-color: #afa;

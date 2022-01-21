@@ -1,7 +1,7 @@
 import { h } from "preact";
 import CharacterPanel from "./CharacterPanel";
 import LicenseBoard from "./LicenseBoard";
-import "./CharacterPlanner.scss";
+import "./CharacterPlanner.css";
 import QeBoard from "./QeBoard";
 import Dps from "./Dps";
 import { useStore } from "../store/Store";

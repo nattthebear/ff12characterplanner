@@ -3,26 +3,26 @@
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 	grid-auto-rows: 1fr;
 
-	>* {
+	& >* {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
 	}
 
-	.character-name, .license-name {
+	& .character-name, & .license-name {
 		font-weight: bold;
 		font-size: 14px;
 	}
 
-	.job {
+	& .job {
 		font-size: 12px;
 		&.nojob {
 			font-style: italic;
 		}
 	}
 
-	.l {
+	& .l {
 		box-shadow: inset 0 0 2px #000;
 		font-size: 12px;
 

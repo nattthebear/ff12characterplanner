@@ -1,5 +1,5 @@
 import { h } from "preact";
-import "./GithubCorner.scss";
+import "./GithubCorner.css";
 
 const content = <a href="https://github.com/nattthebear/ff12characterplanner" target="_blank" rel="noopener noreferrer" class="github-corner" aria-label="View source on Github">
 	<svg
