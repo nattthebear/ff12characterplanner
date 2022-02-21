@@ -266,23 +266,19 @@ export default class PartyModel {
 	}
 
 	encode() {
-		let s = "";
+		let queryString = "";
 		for (let c = 0; c < 6; c++) {
-			s += encodeCharacter(this.jobs[c], this.selected[c]);
+			queryString += encodeCharacter(this.jobs[c], this.selected[c]);
 			if (c !== 5) {
-				s += ".";
+				queryString += ".";
 			}
 		}
-		return s;
+		return queryString;
 	}
 
-	static decode(s: string) {
-		const ss = s.split(".");
-		if (ss.length !== 6) {
-			console.warn("Wrong number of segments");
-			return undefined;
-		}
-		const cc = ss.map(decodeCharacter);
+	static decode(queryString: string) {
+		const queryParts = queryString.split(".");
+		const cc = queryParts.map(decodeCharacter);
 		const ret = new PartyModel();
 		for (let c = 0; c < 6; c++) {
 			const decoded = cc[c];
@@ -377,7 +373,7 @@ function encodeCharacter(boards: Board[], licenses: Set<License>) {
 	if (b !== 1) {
 		n.push(acc);
 	}
-	while (n[n.length - 1] === 0) {
+	while (n.length > 1 && n[n.length - 1] === 0) {
 		n.pop();
 	}
 	return toBase64Url(String.fromCharCode(...n));
