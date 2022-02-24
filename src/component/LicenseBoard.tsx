@@ -1,4 +1,5 @@
 import { h } from "preact";
+import { useEffect, useRef } from "preact/hooks";
 import { License } from "../data/Licenses";
 import { Position, Board, Boards } from "../data/Boards";
 import "./LicenseBoard.css";
@@ -9,6 +10,42 @@ import { changeParty, changePlannedParty } from "../store/State";
 
 export default function LicenseBoard() {
 	const store = useStore();
+	const scrollOffset = useRef<{ x: number; y: number }>();
+	const scrollEl = useRef<HTMLDivElement | null>(null);
+
+	useEffect(() => {
+		function onMouseMove(ev: MouseEvent) {
+			const element = scrollEl.current;
+			const offs = scrollOffset.current;
+			if (offs && element) {
+				element.scrollLeft = offs.x - ev.screenX;
+				element.scrollTop = offs.y - ev.screenY;
+			}
+		}
+		function onMouseUp() {
+			scrollOffset.current = undefined;
+		}
+		document.addEventListener("mousemove", onMouseMove, { passive: true });
+		document.addEventListener("mouseup", onMouseUp, { passive: true });
+		return () => {
+			document.removeEventListener("mousemove", onMouseMove);
+			document.removeEventListener("mouseup", onMouseUp);
+		};
+	}, []);
+
+	function onMouseDown(ev: MouseEvent) {
+		const element = scrollEl.current;
+		const target = ev.target as HTMLElement;
+		if (element) {
+			if (target.classList.contains("empty") || target.nodeName === "TABLE") {
+				scrollOffset.current = {
+					x: element.scrollLeft + ev.screenX,
+					y: element.scrollTop + ev.screenY,
+				};
+				ev.preventDefault();
+			}
+		}
+	}
 
 	function renderPosition(key: number, pos: Position | undefined, colors: Map<License, Coloring>) {
 		if (!pos) {
@@ -39,7 +76,7 @@ export default function LicenseBoard() {
 
 	function renderBoard(b: Board) {
 		const colors = store.party.color(store.characterIndex);
-		return <div class="license-board-holder">
+		return <div class="license-board-holder" ref={scrollEl} onMouseDown={onMouseDown}>
 			<table class="license-board">
 				<tbody>
 					{b.rows.map((row, j) => <tr key={j}>
