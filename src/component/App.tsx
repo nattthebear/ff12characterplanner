@@ -8,7 +8,10 @@ import { useEffect } from "preact/hooks";
 export default function App() {
 	const { party } = useStore();
 	useEffect(() => {
-		window.history.replaceState(null, "", window.location.href.split("?")[0] + "?" + party.encode());
+		const urlBase = window.location.href.split("?")[0];
+		const search = party.encode();
+		const urlSuffix = search === "AA.AA.AA.AA.AA.AA" ? "" : "?" + search;
+		window.history.replaceState(null, "", urlBase + urlSuffix);
 	}, [party]);
 
 	return <CharacterPlanner />;
