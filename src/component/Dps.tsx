@@ -6,7 +6,7 @@ import { Characters } from "../data/Characters";
 import "./Dps.css";
 import { Environment, Equipment, Profile, AllElements, Weather, Terrain, defaultEnvironment } from "../dps/Profile";
 import { CalculateResult } from "../dps/Calculate";
-import { useLayoutEffect, useRef, useState } from "preact/hooks";
+import { useLayoutEffect, useMemo, useRef, useState } from "preact/hooks";
 import { makeStore } from "../store/MakeStore";
 import { Ability } from "../dps/ability/Ability";
 
@@ -424,9 +424,10 @@ function PartyDps(props: PartyDpsProps) {
 		}
 	});
 
-	const components = state.results
+	const components = useMemo(() => state.results
 		? state.results.map((result, idx) => <SingleCharacterDps key={idx} name={Characters[idx].name} results={result} />)
-		: <tr><td>Working...</td></tr>;
+		: <tr><td>Working...</td></tr>,
+	[state.results]);
 
 	return <div class={same ? "results" : "results busy"}>
 		<table>
