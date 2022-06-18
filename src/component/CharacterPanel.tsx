@@ -193,7 +193,7 @@ export default function CharacterPanel() {
 			{renderToggleDps()}
 		</div>
 		<div class="character-select">
-			{Characters.map((c, i) => <div class="character button" key={i} aria-pressed={store.characterIndex === i} onClick={() => selectCharacter(i)}>
+			{Characters.map((c, i) => <div class="character button" aria-pressed={store.characterIndex === i} onClick={() => selectCharacter(i)}>
 				<span class="name">{c.name}</span>
 				<br />
 				{renderClassInfo(i, 0)}

@@ -21,7 +21,7 @@ export default function QeBoard() {
 
 	function renderCell(l: License, c: number, esper: boolean) {
 		if (party.unemployed(c)) {
-			return <div key={c} class="l unreachable" onClick={() => { dispatch(changeIndices(c, 0)); dispatch(toggleQe()); }}>
+			return <div class="l unreachable" onClick={() => { dispatch(changeIndices(c, 0)); dispatch(toggleQe()); }}>
 				Choose a job first.
 			</div>;
 		}
@@ -95,19 +95,19 @@ export default function QeBoard() {
 			}
 		}
 		content.sort(compareLicenses);
-		return <div key={c} class={className} onClick={clickHandler}>
-			{content.map((v, i) => <div key={i} aria-label={v.text}>{v.fullName}</div>)}
+		return <div class={className} onClick={clickHandler}>
+			{content.map(v => <div aria-label={v.text}>{v.fullName}</div>)}
 		</div>;
 	}
 	function renderRow(l: License, esper: boolean) {
-		return <Fragment key={l.fullName}>
+		return <>
 			<div>
 				<div class="license-name" aria-label={l.text}>{l.fullName}</div>
 			</div>
 			{Characters.map((_, c) => renderCell(l, c, esper))}
-		</Fragment>;
+		</>;
 	}
-	
+
 	function renderJob(j: Board | undefined) {
 		if (!j) {
 			return <div class="job nojob">No Job</div>;
@@ -118,7 +118,7 @@ export default function QeBoard() {
 
 	return <div class="qe-board">
 		<div>{/* help goes here? */}</div>
-		{Characters.map((character, c) => <div key={c}>
+		{Characters.map((character, c) => <div>
 			<div class="character-name">{character.name}</div>
 			{renderJob(party.getJob(c, 0))}
 			{renderJob(party.getJob(c, 1))}

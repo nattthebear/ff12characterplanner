@@ -324,7 +324,6 @@ export default function Dps(props: Props) {
 			/>
 			<br />
 			{AllElements.map(s => <ElementInput
-				key={s}
 				label={s[0].toUpperCase() + s.slice(1)}
 				tooltip={`How much ${s} damage does the target take?`}
 				value={env[`${s}Reaction` as const]}
@@ -425,7 +424,7 @@ function PartyDps(props: PartyDpsProps) {
 	});
 
 	const components = useMemo(() => state.results
-		? state.results.map((result, idx) => <SingleCharacterDps key={idx} name={Characters[idx].name} results={result} />)
+		? state.results.map((result, idx) => <SingleCharacterDps name={Characters[idx].name} results={result} />)
 		: <tr><td>Working...</td></tr>,
 	[state.results]);
 
@@ -453,7 +452,7 @@ function SingleCharacterDps(props: { name: string, results: OptimizerResult[] })
 			<th>Accessory</th>
 		</tr>
 
-		{props.results.map((r, i) => <tr key={i} class="data-row">
+		{props.results.map(r => <tr class="data-row">
 			<DpsCell value={r.dps} />
 			<AbilityCell value={r.ability} />
 			<EqCell value={r.doll.weapon} />
