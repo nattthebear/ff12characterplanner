@@ -10,9 +10,10 @@
   },
   "scripts": {
     "start": "parcel serve ./public/index.html --dist-dir .parcel-dev --public-url / --port 3000",
-    "build": "tsc && rimraf ./build && parcel build ./public/index.html --public-url . --dist-dir build --reporter @parcel/reporter-bundle-analyzer --no-scope-hoist",
+    "build": "tsc && rimraf ./build && parcel build ./public/index.html --public-url . --dist-dir build --reporter @parcel/reporter-bundle-analyzer",
     "test": "jest --watch",
-    "deploy": "rimraf ./docs && copyfiles -u 1 ./build/**/* ./docs"
+    "deploy": "rimraf ./docs && copyfiles -u 1 ./build/**/* ./docs",
+	"start:prod": "http-server ./docs -p 3010"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.8",
@@ -24,6 +25,7 @@
     "@types/jest": "^27.4.0",
     "browserslist": "^4.19.1",
     "copyfiles": "^2.0.0",
+    "http-server": "^14.1.1",
     "jest": "^27.4.7",
     "parcel": "^2.2.1",
     "rimraf": "^3.0.2",
