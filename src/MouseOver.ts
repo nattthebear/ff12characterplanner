@@ -1,7 +1,12 @@
-import { createPopper, Instance } from '@popperjs/core';
+import { computePosition, autoUpdate, shift, flip } from "@floating-ui/dom";
 import "./MouseOver.css";
 
-let popper: Instance | undefined;
+const holder = document.createElement("div");
+holder.className = "tooltip";
+holder.style.display = "none";
+document.body.appendChild(holder);
+
+let cleanup: (() => void) | undefined;
 
 document.addEventListener("mouseover", event => {
 	let target = event.target as Element | null;
@@ -9,16 +14,18 @@ document.addEventListener("mouseover", event => {
 	while (target && (label = target.getAttribute("aria-label")) == null) {
 		target = target.parentElement;
 	}
-	if (popper) {
-		popper.destroy();
-		popper.state.elements.popper.remove();
-		popper = undefined;
-	}
+	cleanup?.();
+
 	if (label) {
-		const holder = document.createElement("div");
-		holder.className = "tooltip";
 		holder.textContent = label;
-		document.body.appendChild(holder);
-		popper = createPopper(target!, holder);
+		holder.style.display = "";
+		async function updateStyles() {
+			const styles = await computePosition(target!, holder, { middleware: [flip(), shift()] });
+			holder.style.transform = `translate(${Math.round(styles.x)}px,${Math.round(styles.y)}px)`;
+		}
+		cleanup = autoUpdate(target!, holder, updateStyles, { ancestorResize: false, elementResize: false });
+	} else {
+		holder.style.display = "none";
+		cleanup = undefined;
 	}
 });

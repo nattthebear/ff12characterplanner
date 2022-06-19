@@ -7,11 +7,11 @@ export function makeStore<S>(initialValue: S) {
 	return {
 		useStore() {
 			const updateSignal = useState(false)[1];
-			const sub = useCallback(() => {
-				updateSignal(b => !b);
-			}, []);
 
 			useEffect(() => {
+				function sub() {
+					updateSignal(b => !b);
+				}
 				subs.add(sub);
 				return () => {
 					subs.delete(sub);
