@@ -1,7 +1,7 @@
 import { Characters } from "../data/Characters";
 import { Board, Boards } from "../data/Boards";
 import { License, Quickenings, Espers } from "../data/Licenses";
-import { PriorityQueue } from "dz-priority-queue";
+import { Heap } from "./Heap";
 
 export enum Coloring {
 	/** character has the license learned */
@@ -116,7 +116,7 @@ export default class PartyModel {
 		function comparePaths(a: Path, b: Path) {
 			return a.length < b.length;
 		}
-		const queue = new PriorityQueue<Path>([], comparePaths);
+		const queue = new Heap(comparePaths);
 		const dests = new Map<License, Path>();
 		for (const l of this.selected[c]) {
 			for (const j of this.jobs[c]) {
@@ -125,7 +125,7 @@ export default class PartyModel {
 						nodes: [l],
 						length: 0
 					};
-					queue.push(path);
+					queue.insert(path);
 					dests.set(l, path);
 					break;
 				}
@@ -135,7 +135,7 @@ export default class PartyModel {
 			if (dests.has(to)) {
 				return dests.get(to)!;
 			}
-			const p = queue.pop()!;
+			const p = queue.remove()!;
 			const l = p.nodes[p.nodes.length - 1];
 			for (const j of this.jobs[c]) {
 				const location = j.lookup.get(l);
@@ -145,7 +145,7 @@ export default class PartyModel {
 							nodes: [...p.nodes, next],
 							length: p.length + next.cost
 						};
-						queue.push(nextPath);
+						queue.insert(nextPath);
 						dests.set(next, nextPath);
 					}
 				}
