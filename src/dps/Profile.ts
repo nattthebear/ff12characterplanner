@@ -196,6 +196,7 @@ export interface Equipment extends Partial<Profile> {
 	name: string;
 	l?: License;
 	mutateProfile(p: Profile): void;
+	tooltip: string
 }
 
 export interface Ammo extends Equipment {
@@ -210,9 +211,10 @@ export interface PaperDoll {
 	accessory?: Equipment;
 }
 
-export function buildEquipments<T extends Equipment>(eqs: Omit<T, "mutateProfile">[]): T[] {
+export function buildEquipments<T extends Equipment>(eqs: Omit<T, "mutateProfile" | "tooltip">[]): T[] {
 	for (const e of eqs) {
 		buildMutator(e as T);
+		buildTooltip(e as T);
 	}
 	return eqs as T[];
 }
@@ -236,6 +238,69 @@ function buildMutator(e: Equipment) {
 	}
 	e.mutateProfile = Function("ret", s) as any;
 }
+
+function buildTooltip(e: Equipment) {
+	const ret = Array<string>();
+	if (e.animationType) {
+		ret.push({
+			unarmed: "Unarmed",
+			dagger: "Dagger",
+			ninja: "Ninja Sword",
+			katana: "Katana",
+			sword: "Sword",
+			bigsword: "Greatsword",
+			hammer: "Hammer/Axe",
+			pole: "Pole",
+			spear: "Spear",
+			mace: "Mace",
+			bow: "Bow",
+			gun: "Gun",
+			xbow: "Crossbow",
+			measure: "Measure",
+			rod: "Rod",
+			staff: "Staff",
+			handbomb: "Handbomb"
+		}[e.animationType]);
+	}
+	if (e.damageType === "gun" && e.animationType !== "gun") {
+		ret.push("Pierce");
+	}
+	function f(k: keyof Profile, s: string) {
+		const v = e[k];
+		if (typeof v === "number" && v > 0) {
+			ret.push(`${v} ${s}`);
+		} else if (v === true) {
+			ret.push(s);
+		}
+	}
+	f("attack", "Att");
+	f("chargeTime", "CT");
+	f("combo", "Cb");
+	f("str", "Str");
+	f("mag", "Mag");
+	f("vit", "Vit");
+	f("spd", "Spd");
+	f("brawler", "Brawler");
+	f("berserk", "Berserk");
+	f("haste", "Haste");
+	f("bravery", "Bravery");
+	f("faith", "Faith");
+	f("focus", "Focus");
+	f("adrenaline", "Adrenaline");
+	f("serenity", "Serenity");
+	f("spellbreaker", "Spellbreaker");
+	f("genjiGloves", "Combo+");
+	f("cameoBelt", "Ignore Evasion");
+	f("agateRing", "Ignore Weather");
+	for (const elt of AllElements) {
+		f(`${elt}Damage` as const, elt[0].toUpperCase() + elt.slice(1) + " Damage");
+	}
+	for (const elt of AllElements) {
+		f(`${elt}Bonus` as const, elt[0].toUpperCase() + elt.slice(1) + " Bonus");
+	}
+	e.tooltip = ret.join(",");
+}
+
 
 export function createProfile(startingProfile: Profile, doll: PaperDoll) {
 	const ret = { ...startingProfile };

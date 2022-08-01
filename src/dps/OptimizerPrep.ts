@@ -9,7 +9,7 @@ export function getOptimizerKeys(p: Profile, e: Environment) {
 		// Assumes a single weapon has been chosen already!
 		return getOptimizerKeysForAttack(p, e);
 	} else if (ability.alg === "magick") {
-		return getOptimizerKeysForMagick(ability, e);
+		return getOptimizerKeysForMagick(ability, p, e);
 	} else {
 		return getOptimizerKeysForTechnick(ability, e);
 	}
@@ -28,22 +28,17 @@ function getOptimizerKeysForTechnick(t: Technick, e: Environment) {
 		ret.add("str");
 	}
 
-
-
-	// if we already have these licenses, then the accessories with them won't be relevant
+	// if we already have these buffs, then the accessories with them won't be relevant
 	if (!e.haste) {
 		ret.add("haste");
 	}
 	return ret;
 }
 
-function getOptimizerKeysForMagick(m: Magick, e: Environment) {
+function getOptimizerKeysForMagick(m: Magick, p: Profile, e: Environment) {
 	const ret = new Set<keyof Profile>([
 		"mag",
 		"spd", // always needed for csmod
-
-		"serenity",
-		"spellbreaker",
 	]);
 
 	for (const element of AllElements) {
@@ -57,9 +52,15 @@ function getOptimizerKeysForMagick(m: Magick, e: Environment) {
 		ret.add("agateRing");
 	}
 
-	// if we already have these licenses, then the accessories with them won't be relevant
+	// if we already have these buffs, then the accessories with them won't be relevant
 	for (const k of ["haste", "faith"] as const) {
 		if (!e[k]) {
+			ret.add(k);
+		}
+	}
+	// if we already have these licenses, then the accessories with them won't be relevant
+	for (const k of ["serenity", "spellbreaker"] as const) {
+		if (!p[k]) {
 			ret.add(k);
 		}
 	}
@@ -105,9 +106,15 @@ function getOptimizerKeysForAttack(p: Profile, e: Environment) {
 		ret.add("agateRing");
 	}
 
-	// if we already have these licenses, then the accessories with them won't be relevant
+	// if we already have these buffs, then the accessories with them won't be relevant
 	for (const k of ["berserk", "haste", "bravery"] as const) {
 		if (!e[k]) {
+			ret.add(k);
+		}
+	}
+	// if we already have these licenses, then the accessories with them won't be relevant
+	for (const k of ["focus", "adrenaline"] as const) {
+		if (!p[k]) {
 			ret.add(k);
 		}
 	}

@@ -80,7 +80,7 @@ export default function LicenseBoard() {
 			<table class="license-board">
 				<tbody>
 					{b.rows.map((row) => <tr>
-						{row.map((pos, i) => renderPosition(pos, colors))}
+						{row.map((pos) => renderPosition(pos, colors))}
 					</tr>)}
 				</tbody>
 			</table>

@@ -105,68 +105,6 @@ function TerrainInput(props: InputProps<Terrain>) {
 	</div>;
 }
 
-function tooltipFor(e: Equipment) {
-	const ret = Array<string>();
-	if (e.animationType) {
-		ret.push({
-			unarmed: "Unarmed",
-			dagger: "Dagger",
-			ninja: "Ninja Sword",
-			katana: "Katana",
-			sword: "Sword",
-			bigsword: "Greatsword",
-			hammer: "Hammer/Axe",
-			pole: "Pole",
-			spear: "Spear",
-			mace: "Mace",
-			bow: "Bow",
-			gun: "Gun",
-			xbow: "Crossbow",
-			measure: "Measure",
-			rod: "Rod",
-			staff: "Staff",
-			handbomb: "Handbomb"
-		}[e.animationType]);
-	}
-	if (e.damageType === "gun" && e.animationType !== "gun") {
-		ret.push("Pierce");
-	}
-	function f(k: keyof Profile, s: string) {
-		const v = e[k];
-		if (typeof v === "number" && v > 0) {
-			ret.push(`${v} ${s}`);
-		} else if (v === true) {
-			ret.push(s);
-		}
-	}
-	f("attack", "Att");
-	f("chargeTime", "CT");
-	f("combo", "Cb");
-	f("str", "Str");
-	f("mag", "Mag");
-	f("vit", "Vit");
-	f("spd", "Spd");
-	f("brawler", "Brawler");
-	f("berserk", "Berserk");
-	f("haste", "Haste");
-	f("bravery", "Bravery");
-	f("faith", "Faith");
-	f("focus", "Focus");
-	f("adrenaline", "Adrenaline");
-	f("serenity", "Serenity");
-	f("spellbreaker", "Spellbreaker");
-	f("genjiGloves", "Combo+");
-	f("cameoBelt", "Ignore Evasion");
-	f("agateRing", "Ignore Weather");
-	for (const elt of AllElements) {
-		f(`${elt}Damage` as const, elt[0].toUpperCase() + elt.slice(1) + " Damage");
-	}
-	for (const elt of AllElements) {
-		f(`${elt}Bonus` as const, elt[0].toUpperCase() + elt.slice(1) + " Bonus");
-	}
-	return ret.join(",");
-}
-
 const { useStore, dispatch } = makeStore(defaultEnvironment);
 const changeEnv = <K extends keyof Environment>(key: K, value: Environment[K]) =>
 	dispatch(e => ({ ...e, [key]: value }));
@@ -337,7 +275,7 @@ export default function Dps(props: Props) {
 function EqCell(props: { value?: Equipment }) {
 	const { value } = props;
 	return <td
-		aria-label={value && tooltipFor(value)}
+		aria-label={value?.tooltip}
 	>
 		{value && value.name}
 	</td>;
