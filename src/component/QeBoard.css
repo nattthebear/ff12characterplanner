@@ -3,6 +3,8 @@
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 	grid-auto-rows: 1fr;
 
+	text-align: center;
+
 	& >* {
 		display: flex;
 		justify-content: center;
