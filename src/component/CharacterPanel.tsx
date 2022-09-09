@@ -53,8 +53,8 @@ export default function CharacterPanel() {
 					} else {
 						party = party.delete(store.characterIndex, l);
 					}
-					dispatch(changeParty(party));
 				}
+				dispatch(changeParty(party));
 			};
 			if (a.length) { children.push(<p key={0} class="l obtained" onClick={() => onClick(a, false)}>+{a.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
 			if (b.length) { children.push(<p key={1} class="l certain" onClick={() => onClick(b, true)}>+{b.reduce((acc, val) => acc + (val.grants!.what as number), 0)}</p>); }
