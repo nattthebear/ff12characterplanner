@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "preact/hooks";
+import { useEffect, useReducer } from "preact/hooks";
 
 export function makeStore<S>(initialValue: S) {
 	let state = initialValue;
@@ -6,15 +6,12 @@ export function makeStore<S>(initialValue: S) {
 
 	return {
 		useStore() {
-			const updateSignal = useState(false)[1];
+			const updateSignal = useReducer<number, void>(i => i + 1, 0)[1];
 
 			useEffect(() => {
-				function sub() {
-					updateSignal(b => !b);
-				}
-				subs.add(sub);
+				subs.add(updateSignal);
 				return () => {
-					subs.delete(sub);
+					subs.delete(updateSignal);
 				};
 			}, []);
 			return state;
