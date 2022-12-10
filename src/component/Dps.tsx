@@ -1,4 +1,5 @@
 import { h, Fragment } from "preact";
+import { useId } from "preact/hooks";
 import PartyModel from "../model/PartyModel";
 import { optimizeForCharacter } from "../dps/OptimizeForCharacter";
 import { OptimizerResult } from "../dps/Optimize";
@@ -26,13 +27,8 @@ interface NumberProps extends InputProps<number> {
 	max: number;
 }
 
-let nextLabelId = 0;
-function getId() {
-	return "lid-" + ++nextLabelId;
-}
-
 function NumberInput(props: NumberProps) {
-	const id = getId();
+	const id = useId();
 	return <div aria-label={props.tooltip} class="control">
 		<label for={id}>{props.label}</label>
 		<input
@@ -55,7 +51,7 @@ function NumberInput(props: NumberProps) {
 }
 
 function BoolInput(props: InputProps<boolean>) {
-	const id = getId();
+	const id = useId();
 	return <div aria-label={props.tooltip} class="control">
 		<input
 			id={id}
@@ -68,7 +64,7 @@ function BoolInput(props: InputProps<boolean>) {
 }
 
 function ElementInput(props: InputProps<0 | 0.5 | 1 | 2>) {
-	const id = getId();
+	const id = useId();
 	return <div aria-label={props.tooltip} class="control">
 		<label for={id}>{props.label}</label>
 		<select value={props.value} id={id} onChange={ev => props.changeValue(Number(ev.currentTarget.value) as 0 | 0.5 | 1 | 2)}>
@@ -80,7 +76,7 @@ function ElementInput(props: InputProps<0 | 0.5 | 1 | 2>) {
 	</div>;
 }
 function WeatherInput(props: InputProps<Weather>) {
-	const id = getId();
+	const id = useId();
 	return <div aria-label={props.tooltip} class="control">
 		<label for={id}>{props.label}</label>
 		<select value={props.value} id={id} onChange={ev => props.changeValue(ev.currentTarget.value as Weather)}>
@@ -93,7 +89,7 @@ function WeatherInput(props: InputProps<Weather>) {
 	</div>;
 }
 function TerrainInput(props: InputProps<Terrain>) {
-	const id = getId();
+	const id = useId();
 	return <div aria-label={props.tooltip} class="control">
 		<label for={id}>{props.label}</label>
 		<select value={props.value} id={id} onChange={ev => props.changeValue(ev.currentTarget.value as Terrain)}>
