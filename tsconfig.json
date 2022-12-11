@@ -14,7 +14,7 @@
 	"jsxFactory": "h",
 	"jsxFragmentFactory": "Fragment",
     "moduleResolution": "node",
-    "rootDir": "src",
+    "rootDir": ".",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -39,5 +39,9 @@
   ],
   "include": [
     "src"
-  ]
+  ],
+  "ts-node": {
+	  "experimentalSpecifierResolution": "node",
+	  "transpileOnly": true
+  }
 }

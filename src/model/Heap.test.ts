@@ -1,3 +1,6 @@
+import { describe, it } from "node:test";
+import * as assert from "node:assert/strict";
+
 import { Heap } from "./Heap";
 
 describe("Heap", () => {
@@ -7,20 +10,20 @@ describe("Heap", () => {
 
 	it('basic tests', () => {
 		const h = new Heap(cmp);
-		expect(h.size()).toBe(0);
-		expect(h.remove()).toBe(undefined);
+		assert.equal(h.size(), 0);
+		assert.equal(h.remove(), undefined);
 		h.insert(42);
-		expect(h.size()).toBe(1);
-		expect(h.remove()).toBe(42);
-		expect(h.size()).toBe(0);
+		assert.equal(h.size(), 1);
+		assert.equal(h.remove(), 42);
+		assert.equal(h.size(), 0);
 		h.insert(1);
 		h.insert(7);
 		h.insert(-13);
-		expect(h.size()).toBe(3);
-		expect(h.remove()).toBe(-13);
-		expect(h.remove()).toBe(1);
-		expect(h.remove()).toBe(7);
-		expect(h.size()).toBe(0);
+		assert.equal(h.size(), 3);
+		assert.equal(h.remove(), -13);
+		assert.equal(h.remove(), 1);
+		assert.equal(h.remove(), 7);
+		assert.equal(h.size(), 0);
 	});
 
 	it('random tests', () => {
@@ -37,12 +40,12 @@ describe("Heap", () => {
 					mirror.push(value);
 					h.insert(value);
 					mirror.sort((x, y) => y - x);
-					expect((h as any).nodes[0]).toBe(mirror[mirror.length - 1]);
-					expect(h.size()).toBe(mirror.length);
+					assert.equal((h as any).nodes[0], mirror[mirror.length - 1]);
+					assert.equal(h.size(), mirror.length);
 				} else {
 					const v1 = h.remove();
 					const v2 = mirror.pop();
-					expect(v1).toBe(v2);
+					assert.equal(v1, v2);
 				}
 			}
 		}

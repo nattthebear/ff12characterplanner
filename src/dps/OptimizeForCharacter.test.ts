@@ -1,3 +1,6 @@
+import { describe, snapshot } from "../../test/snapshots";
+import * as assert from "node:assert/strict";
+
 import { defaultEnvironment, Environment } from "./Profile";
 import PartyModel from "../model/PartyModel";
 import { Boards } from "../data/Boards";
@@ -86,48 +89,48 @@ function timeTest(pp: TestParameters) {
 	return performance.now() - start;
 }
 
-describe("OptimizeForCharacter", () => {
+describe("OptimizeForCharacter", import.meta.url, it => {
 	it("basic test", () => {
-		expect(doTest({
+		snapshot(doTest({
 			character: Character.Vaan, job: Job.Knight, job2: Job.Bushi,
-		})).toMatchSnapshot();
-		expect(doTest({
+		}));
+		snapshot(doTest({
 			character: Character.Basch, job: Job.Foebreaker, job2: Job.Bushi,
-		})).toMatchSnapshot();
-		expect(doTest({
+		}));
+		snapshot(doTest({
 			character: Character.Balthier, job: Job.Shikari, job2: Job.Bushi,
 			licenses: ["Quickening 2", "Quickening 3", "Quickening 4", "Zodiark"]
-		})).toMatchSnapshot();
-		expect(doTest({
+		}));
+		snapshot(doTest({
 			character: Character.Vaan, job: Job.Monk, job2: Job.Archer,
 			licenses: ["Shemhazai"]
-		})).toMatchSnapshot();
-		expect(doTest({
+		}));
+		snapshot(doTest({
 			character: Character.Fran, job: Job.Monk, job2: Job.Foebreaker,
-		})).toMatchSnapshot();
+		}));
 	});
 
 	it("something brawler", () => {
-		expect(doTest({
+		snapshot(doTest({
 			character: Character.Penelo,
 			job: Job.Knight,
 			env: {
 				level: 53,
 				def: 40
 			}
-		})).toMatchSnapshot();
+		}));
 	});
 
 	it("machinist + dark robes", () => {
-		expect(doTest({
+		snapshot(doTest({
 			character: Character.Penelo,
 			job: Job.Machinist,
 			job2: Job.RedBattlemage,
-		})).toMatchSnapshot();		
+		}));		
 	});
 
 	it("vit optimization", () => {
-		expect(doTest({
+		snapshot(doTest({
 			character: Character.Ashe,
 			job: Job.Foebreaker,
 			job2: Job.BlackMage,
@@ -136,8 +139,8 @@ describe("OptimizeForCharacter", () => {
 				level: 99,
 				def: 10,
 			}
-		})).toMatchSnapshot();
-		expect(doTest({
+		}));
+		snapshot(doTest({
 			character: Character.Ashe,
 			job: Job.BlackMage,
 			job2: Job.Monk,
@@ -146,7 +149,7 @@ describe("OptimizeForCharacter", () => {
 				level: 99,
 				def: 10,
 			}
-		})).toMatchSnapshot();
+		}));
 	});
 
 	it("elemental tests", () => {
@@ -165,51 +168,51 @@ describe("OptimizeForCharacter", () => {
 			{ darkReaction: 0 },
 		];
 		for (const env of envs) {
-			expect(doTest({ character: Character.Balthier, job: Job.Archer, job2: Job.Machinist, env })).toMatchSnapshot();
+			snapshot(doTest({ character: Character.Balthier, job: Job.Archer, job2: Job.Machinist, env }));
 		}
 	});
 
 	it("a tricky elemental test", () => {
 		// For the Aevis Killer, Earth Arrows are the best here, but the old optimizer doesn't see that.
-		expect(doTest({ character: Character.Penelo, job: Job.Archer, env: { def: 32, earthReaction: 0.5 } })).toMatchSnapshot();
+		snapshot(doTest({ character: Character.Penelo, job: Job.Archer, env: { def: 32, earthReaction: 0.5 } }));
 	});
 
 	it("weather", () => {
-		expect(doTest({ character: Character.Ashe, job: Job.Machinist, job2: Job.BlackMage, env: { weather: "windy" } })).toMatchSnapshot();
-		expect(doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Foebreaker,
+		snapshot(doTest({ character: Character.Ashe, job: Job.Machinist, job2: Job.BlackMage, env: { weather: "windy" } }));
+		snapshot(doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Foebreaker,
 			env: {
 				weather: "windy",
 				def: 20,
 				level: 70,
 				iceReaction: 0, lightningReaction: 0, waterReaction: 0, windReaction: 0, earthReaction: 0, holyReaction: 0, darkReaction: 0,
 			}
-		})).toMatchSnapshot();
-		expect(doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Foebreaker,
+		}));
+		snapshot(doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Foebreaker,
 			env: {
 				weather: "rainy",
 				def: 20,
 				level: 90,
 				iceReaction: 0, lightningReaction: 0, waterReaction: 0, windReaction: 0, earthReaction: 0, holyReaction: 0, darkReaction: 0,
 			}
-		})).toMatchSnapshot();
-		expect(doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Bushi,
+		}));
+		snapshot(doTest({ character: Character.Ashe, job: Job.Archer, job2: Job.Bushi,
 			env: {
 				weather: "rainy",
 				def: 20,
 				level: 90,
 				iceReaction: 0, lightningReaction: 0, waterReaction: 0, windReaction: 0, earthReaction: 0, holyReaction: 0, darkReaction: 0,
 			}
-		})).toMatchSnapshot();
+		}));
 	});
 
 	it("wyrmhero bravery", () => {
-		expect(doTest({ character: Character.Fran, job: Job.Monk, env: { bravery: false } })).toMatchSnapshot();
-		expect(doTest({ character: Character.Fran, job: Job.WhiteMage, env: { bravery: false } })).toMatchSnapshot();
+		snapshot(doTest({ character: Character.Fran, job: Job.Monk, env: { bravery: false } }));
+		snapshot(doTest({ character: Character.Fran, job: Job.WhiteMage, env: { bravery: false } }));
 	});
 
 	it("Perf tests", () => {
 		const t1 = timeTest({ character: Character.Basch, job: Job.Knight, job2: Job.Foebreaker });
 		const t2 = timeTest({ character: Character.Basch, job: Job.Bushi, job2: Job.WhiteMage });
-		expect ([t1, t2]).toMatchSnapshot();
+		snapshot ([t1, t2]);
 	});
 });
