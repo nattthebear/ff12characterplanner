@@ -11,13 +11,15 @@
   "scripts": {
     "start": "parcel serve ./public/index.html --dist-dir .parcel-dev --public-url / --port 3000",
     "build": "tsc && rimraf ./build && parcel build ./public/index.html --public-url . --dist-dir build --reporter @parcel/reporter-bundle-analyzer --log-level verbose",
-	"test": "node --experimental-loader ts-node/esm --experimental-loader ./test/mock-url-module-loader.mjs --test src/model/Heap.test.ts src/dps/OptimizeForCharacter.test.ts",
+    "test": "node --experimental-loader ts-node/esm --experimental-loader ./test/mock-url-module-loader.mjs --test src/model/Heap.test.ts src/dps/OptimizeForCharacter.test.ts",
     "deploy": "rimraf ./docs && copyfiles -u 1 ./build/**/* ./docs",
     "start:prod": "http-server ./docs -p 3010"
   },
   "devDependencies": {
+    "@parcel/optimizer-blob-url": "^2.8.1",
     "@parcel/optimizer-data-url": "^2.8.1",
     "@parcel/reporter-bundle-analyzer": "^2.8.1",
+    "@parcel/transformer-inline": "^2.8.1",
     "@parcel/transformer-inline-string": "^2.8.1",
     "@parcel/validator-typescript": "^2.8.1",
     "browserslist": "^4.21.4",

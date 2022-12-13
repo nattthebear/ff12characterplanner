@@ -1,0 +1,31 @@
+import { default as AriesSvg } from "bundle-text:../media/Aries.svg";
+import { default as TaurusSvg } from "bundle-text:../media/Taurus.svg";
+import { default as GeminiSvg } from "bundle-text:../media/Gemini.svg";
+import { default as CancerSvg } from "bundle-text:../media/Cancer.svg";
+import { default as LeoSvg } from "bundle-text:../media/Leo.svg";
+import { default as VirgoSvg } from "bundle-text:../media/Virgo.svg";
+import { default as LibraSvg } from "bundle-text:../media/Libra.svg";
+import { default as ScorpioSvg } from "bundle-text:../media/Scorpio.svg";
+import { default as SagittariusSvg } from "bundle-text:../media/Sagittarius.svg";
+import { default as CapricornSvg } from "bundle-text:../media/Capricorn.svg";
+import { default as AquariusSvg } from "bundle-text:../media/Aquarius.svg";
+import { default as PiscesSvg } from "bundle-text:../media/Pisces.svg";
+import { default as OphiuchusSvg } from "bundle-text:../media/Ophiuchus.svg";
+import { default as StarSvg } from "bundle-text:../media/Star.svg";
+
+const transformImage = (svg: string) => URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
+
+export const Aries = transformImage(AriesSvg);
+export const Taurus = transformImage(TaurusSvg);
+export const Gemini = transformImage(GeminiSvg);
+export const Cancer = transformImage(CancerSvg);
+export const Leo = transformImage(LeoSvg);
+export const Virgo = transformImage(VirgoSvg);
+export const Libra = transformImage(LibraSvg);
+export const Scorpio = transformImage(ScorpioSvg);
+export const Sagittarius = transformImage(SagittariusSvg);
+export const Capricorn = transformImage(CapricornSvg);
+export const Aquarius = transformImage(AquariusSvg);
+export const Pisces = transformImage(PiscesSvg);
+export const Ophiuchus = transformImage(OphiuchusSvg);
+export const Star = transformImage(StarSvg);

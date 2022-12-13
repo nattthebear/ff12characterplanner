@@ -1,17 +1,4 @@
-import Aries from "url:../media/Aries.svg";
-import Taurus from "url:../media/Taurus.svg";
-import Gemini from "url:../media/Gemini.svg";
-import Cancer from "url:../media/Cancer.svg";
-import Leo from "url:../media/Leo.svg";
-import Virgo from "url:../media/Virgo.svg";
-import Libra from "url:../media/Libra.svg";
-import Scorpio from "url:../media/Scorpio.svg";
-import Sagittarius from "url:../media/Sagittarius.svg";
-import Capricorn from "url:../media/Capricorn.svg";
-import Aquarius from "url:../media/Aquarius.svg";
-import Pisces from "url:../media/Pisces.svg";
-import Ophiuchus from "url:../media/Ophiuchus.svg";
-import Star from "url:../media/Star.svg";
+import { Star, Aries, Pisces, Capricorn, Gemini, Scorpio, Cancer, Libra, Sagittarius, Leo, Aquarius, Taurus, Virgo, Ophiuchus } from "./Images";
 
 export interface License {
 	fullName: string;

@@ -1,4 +1,4 @@
-const MOCK_PROTOCOL = "url:";
+const MOCK_PROTOCOL = "bundle-text:";
 
 export function resolve(specifier, context, nextResolve) {
 	if (specifier.startsWith(MOCK_PROTOCOL)) {
