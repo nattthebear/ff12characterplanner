@@ -1,6 +1,6 @@
 import { h } from "preact";
 import CharacterPlanner from "./CharacterPlanner";
-import "normalize.css/normalize.css";
+import "modern-normalize/modern-normalize.css";
 import "./App.css";
 import { useStore } from "../store/Store";
 import { useEffect } from "preact/hooks";

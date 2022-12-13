@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@floating-ui/dom": "^1.0.9",
-    "normalize.css": "^8.0.0",
+    "modern-normalize": "^1.1.0",
     "preact": "^10.11.3"
   },
   "type": "module",
