@@ -22,13 +22,15 @@ export function snapshot(value: any) {
 		throw new Error("Bad activeFile");
 	}
 	const pathParts = activeFile.slice(8).split("/");
-	const fullPath = pathParts.slice(0, -1).join("/");
-	const fullName = pathParts.slice(-1);
-	const location = fullPath + "/__snapshots__/" + fullName + ".snap";
+	const testPath = pathParts.slice(0, -1).join("/");
+	const testFileName = pathParts.slice(-1);
+
+	const snapFilePath = testPath + "/__snapshots__/";
+	const snapFileLocation = snapFilePath + testFileName + ".snap";
 
 	let data: Record<string, Record<string, any[]>>;
-	if (fs.existsSync(location)) {
-		data = JSON.parse(fs.readFileSync(location, { encoding: "utf-8" }));
+	if (fs.existsSync(snapFileLocation)) {
+		data = JSON.parse(fs.readFileSync(snapFileLocation, { encoding: "utf-8" }));
 	} else {
 		data = {};
 	}
@@ -36,6 +38,9 @@ export function snapshot(value: any) {
 	const testData = suiteData[activeTest] ??= [];
 	testData[activeIndex] = value;
 
-	fs.writeFileSync(location, JSON.stringify(data, null, "\t") + "\n", { encoding: "utf-8" });
+	if (!fs.existsSync(snapFilePath)) {
+		fs.mkdirSync(snapFilePath);
+	}
+	fs.writeFileSync(snapFileLocation, JSON.stringify(data, null, "\t") + "\n", { encoding: "utf-8" });
 	activeIndex++;
 }

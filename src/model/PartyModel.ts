@@ -12,6 +12,12 @@ export enum Coloring {
 	POSSIBLE,
 }
 
+interface Path {
+	node: License;
+	prev: Path | null
+	length: number;
+}
+
 export default class PartyModel {
 	private jobs: Board[][];
 	private selected: Set<License>[];
@@ -109,10 +115,6 @@ export default class PartyModel {
 
 	/** Find the shortest path to a license */
 	private findPath(c: number, to: License) {
-		interface Path {
-			nodes: License[];
-			length: number;
-		}
 		function comparePaths(a: Path, b: Path) {
 			return a.length < b.length;
 		}
@@ -122,8 +124,9 @@ export default class PartyModel {
 			for (const j of this.jobs[c]) {
 				if (j.lookup.has(l)) {
 					const path = {
-						nodes: [l],
-						length: 0
+						node: l,
+						prev: null,
+						length: 0,
 					};
 					queue.insert(path);
 					dests.set(l, path);
@@ -136,14 +139,19 @@ export default class PartyModel {
 				return dests.get(to)!;
 			}
 			const p = queue.remove()!;
-			const l = p.nodes[p.nodes.length - 1];
+			const l = p.node;
 			for (const j of this.jobs[c]) {
 				const location = j.lookup.get(l);
 				if (location) {
-					for (const next of location.adjacent.map(loc => loc.value).filter(val => val === to || !val.limited && !dests.has(val))) {
+					for (const nextLocation of location.adjacent) {
+						const next = nextLocation.value;
+						if (next !== to && next.limited || dests.has(next)) {
+							continue;
+						}
 						const nextPath = {
-							nodes: [...p.nodes, next],
-							length: p.length + next.cost
+							node: next,
+							prev: p,
+							length: p.length + next.cost,
 						};
 						queue.insert(nextPath);
 						dests.set(next, nextPath);
@@ -151,7 +159,7 @@ export default class PartyModel {
 				}
 			}
 		}
-		return undefined;
+		return null;
 	}
 
 	private isBlocked(c: number, l: License) {
@@ -167,8 +175,8 @@ export default class PartyModel {
 			return this;
 		}
 		const r = new PartyModel(this);
-		for (const n of path.nodes) {
-			r.selected[c].add(n);
+		for (let curr: Path | null = path; curr; curr = curr.prev) {
+			r.selected[c].add(curr.node);
 		}
 		r.verify();
 		return r;
@@ -192,10 +200,8 @@ export default class PartyModel {
 		r.verify();
 		for (const { c, l } of toAdd) {
 			const path = r.findPath(c, l);
-			if (path) {
-				for (const n of path.nodes) {
-					r.selected[c].add(n);
-				}
+			for (let curr: Path | null = path; curr; curr = curr.prev) {
+				r.selected[c].add(curr.node);
 			}
 		}
 		r.verify();
