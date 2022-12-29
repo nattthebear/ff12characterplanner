@@ -13,7 +13,8 @@
     "build": "tsc && rimraf ./build && parcel build ./public/index.html --public-url . --dist-dir build --reporter @parcel/reporter-bundle-analyzer --log-level verbose",
     "test": "node --experimental-loader ts-node/esm --experimental-loader ./test/mock-url-module-loader.mjs --test src/model/Heap.test.ts src/dps/OptimizeForCharacter.test.ts src/model/PartyModel.test.ts",
     "deploy": "rimraf ./docs && copyfiles -u 1 ./build/**/* ./docs",
-    "start:prod": "http-server ./docs -p 3010"
+    "start:prod": "http-server ./docs -p 3010",
+	"clear-cache": "rimraf ./.parcel-dev ./.parcel-cache"
   },
   "devDependencies": {
     "@parcel/optimizer-blob-url": "^2.8.1",

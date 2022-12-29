@@ -373,10 +373,10 @@ function PartyDps(props: PartyDpsProps) {
 
 function SingleCharacterDps(props: { name: string, results: OptimizerResult[] }) {
 	return <>
-		<tr>
+		<tr class="sticky">
 			<th colSpan={9999}>{props.name}</th>
 		</tr>
-		<tr>
+		<tr class="sticky second-row">
 			<th class="r">DPS</th>
 			<th>Ability</th>
 			<th>Weapon</th>

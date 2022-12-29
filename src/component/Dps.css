@@ -33,8 +33,31 @@
 		overflow: auto;
 		font-size: 12px;
 
+		& table {
+			border-collapse: collapse;
+		}
+
 		&.busy {
 			color: #aaa;
+		}
+
+		& tr:nth-child(even) {
+			background-color: #f8f8f8;
+		}
+
+		& .sticky {
+			background-color: #fff;
+			position: sticky;
+			height: 20px;
+			top: 0;
+
+			&.second-row {
+				top: 20px;
+			}
+		}
+
+		& th, & td {
+			padding: 2px;
 		}
 
 		& tr.data-row {
