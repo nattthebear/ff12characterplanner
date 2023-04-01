@@ -386,8 +386,8 @@ allLicenses.push({
 	eq(90, "Swords", "Swords 9", "Durandal", "Simha");
 	eq(50, "Swords", "Blood Sword", "Blood Sword");
 	eq(80, "Swords", "Karkata", "Karkata");
-	eq(20, "Bows", "Bows 1", "Shortbow", "Silver Bow");
-	eq(30, "Bows", "Bows 2", "Aevis Killer");
+	eq(20, "Bows", "Bows 1", "Shortbow");
+	eq(30, "Bows", "Bows 2", "Silver Bow", "Aevis Killer");
 	eq(35, "Bows", "Bows 3", "Longbow", "Killer Bow");
 	eq(45, "Bows", "Bows 4", "Elfin Bow", "Loxley Bow");
 	eq(60, "Bows", "Bows 5", "Giant Stonebow", "Burning Bow");
