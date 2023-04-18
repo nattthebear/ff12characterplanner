@@ -53,7 +53,7 @@ function calcChargeTime(ct: number | undefined, p: Profile, e: Environment) {
 	}
 	const bmod = 1 / (0.8 + e.battleSpeed / 5);
 	let stmod = 1;
-	if (p.berserk) {
+	if (p.ability.alg === "attack" && p.berserk) {
 		stmod /= 2;
 	}
 	if (p.haste) {

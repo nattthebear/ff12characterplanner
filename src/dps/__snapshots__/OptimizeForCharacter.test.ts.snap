@@ -676,23 +676,6 @@
 					}
 				},
 				{
-					"ability": "Souleater",
-					"weapon": "Seitengrat",
-					"ammo": "Artemis Arrows",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 5772.685504083221,
-						"baseDmg": 26423.35732421875,
-						"modifiedDamage": 26423.35732421875,
-						"nonAvoidedDamage": 26423.35732421875,
-						"comboDamage": 26423.35732421875,
-						"chargeTime": 0.3773076162781758,
-						"animationTime": 4.2
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Longsword",
 					"helm": "Steel Mask",
@@ -706,6 +689,23 @@
 						"comboDamage": 11073.460367226562,
 						"chargeTime": 0.4320180637460976,
 						"animationTime": 1.573302
+					}
+				},
+				{
+					"ability": "Souleater",
+					"weapon": "Seitengrat",
+					"ammo": "Artemis Arrows",
+					"helm": "Steel Mask",
+					"armor": "Maximillian",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 5333.079580144415,
+						"baseDmg": 26423.35732421875,
+						"modifiedDamage": 26423.35732421875,
+						"nonAvoidedDamage": 26423.35732421875,
+						"comboDamage": 26423.35732421875,
+						"chargeTime": 0.7546152325563515,
+						"animationTime": 4.2
 					}
 				},
 				{
@@ -779,12 +779,12 @@
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 242.7997773537218,
+						"dps": 225.3653251300108,
 						"baseDmg": 1000,
 						"modifiedDamage": 1000,
 						"nonAvoidedDamage": 1000,
 						"comboDamage": 1000,
-						"chargeTime": 0.3186199217273353,
+						"chargeTime": 0.6372398434546706,
 						"animationTime": 3.8
 					}
 				},
@@ -795,12 +795,12 @@
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.8957529627539,
+						"dps": 76.82801949438597,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37701057273946903,
+						"chargeTime": 0.7540211454789381,
 						"animationTime": 2.5
 					}
 				},
@@ -1492,12 +1492,12 @@
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 242.77030701912895,
+						"dps": 225.3145504090693,
 						"baseDmg": 1000,
 						"modifiedDamage": 1000,
 						"nonAvoidedDamage": 1000,
 						"comboDamage": 1000,
-						"chargeTime": 0.3191198885834323,
+						"chargeTime": 0.6382397771668646,
 						"animationTime": 3.8
 					}
 				},
@@ -1508,12 +1508,12 @@
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.87763584957854,
+						"dps": 76.79969960144689,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.3776105329667855,
+						"chargeTime": 0.755221065933571,
 						"animationTime": 2.5
 					}
 				}
@@ -2087,12 +2087,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 2910.790902663314,
+						"dps": 2349.446926036683,
 						"baseDmg": 4589.5,
 						"modifiedDamage": 4589.5,
 						"nonAvoidedDamage": 4589.5,
 						"comboDamage": 4589.5,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 1.2
 					}
 				},
@@ -2136,12 +2136,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 242.8140906736982,
+						"dps": 225.38998949425073,
 						"baseDmg": 1000,
 						"modifiedDamage": 1000,
 						"nonAvoidedDamage": 1000,
 						"comboDamage": 1000,
-						"chargeTime": 0.31837713876265145,
+						"chargeTime": 0.6367542775253029,
 						"animationTime": 3.8
 					}
 				},
@@ -2152,12 +2152,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				}
@@ -2794,12 +2794,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				}
@@ -3476,12 +3476,12 @@
 					"armor": "Genji Armor",
 					"accessory": "Leather Gorget",
 					"dps": {
-						"dps": 1160.4058704982037,
+						"dps": 1005.7765749185251,
 						"baseDmg": 1318.4794921875,
 						"modifiedDamage": 3428.0466796875003,
 						"nonAvoidedDamage": 3428.0466796875003,
 						"comboDamage": 3428.0466796875003,
-						"chargeTime": 0.4541790220483092,
+						"chargeTime": 0.9083580440966184,
 						"animationTime": 2.5
 					}
 				},
@@ -3492,12 +3492,12 @@
 					"armor": "Genji Armor",
 					"accessory": "Leather Gorget",
 					"dps": {
-						"dps": 1109.9534413461079,
+						"dps": 962.0471586177196,
 						"baseDmg": 1261.154296875,
 						"modifiedDamage": 3279.001171875,
 						"nonAvoidedDamage": 3279.001171875,
 						"comboDamage": 3279.001171875,
-						"chargeTime": 0.4541790220483092,
+						"chargeTime": 0.9083580440966184,
 						"animationTime": 2.5
 					}
 				},
@@ -3825,23 +3825,6 @@
 					}
 				},
 				{
-					"ability": "Souleater",
-					"weapon": "Seitengrat",
-					"ammo": "Artemis Arrows",
-					"helm": "Grand Helm",
-					"armor": "Grand Armor",
-					"accessory": "Hermes Sandals",
-					"dps": {
-						"dps": 3323.281508790637,
-						"baseDmg": 15948.754199218749,
-						"modifiedDamage": 15948.754199218749,
-						"nonAvoidedDamage": 15948.754199218749,
-						"comboDamage": 15948.754199218749,
-						"chargeTime": 0.5990981675887574,
-						"animationTime": 4.2
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Unarmed",
 					"helm": "Grand Helm",
@@ -3871,6 +3854,23 @@
 						"comboDamage": 7094.5774398281255,
 						"chargeTime": 0.6365936009835635,
 						"animationTime": 1.68168
+					}
+				},
+				{
+					"ability": "Souleater",
+					"weapon": "Seitengrat",
+					"ammo": "Artemis Arrows",
+					"helm": "Grand Helm",
+					"armor": "Grand Armor",
+					"accessory": "Hermes Sandals",
+					"dps": {
+						"dps": 2954.4598249026617,
+						"baseDmg": 15948.754199218749,
+						"modifiedDamage": 15948.754199218749,
+						"nonAvoidedDamage": 15948.754199218749,
+						"comboDamage": 15948.754199218749,
+						"chargeTime": 1.198196335177515,
+						"animationTime": 4.2
 					}
 				},
 				{
@@ -4188,12 +4188,12 @@
 					"armor": "White Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 10681.006157211508,
+						"dps": 9938.704668463164,
 						"baseDmg": 10852.5244140625,
 						"modifiedDamage": 42324.84521484375,
 						"nonAvoidedDamage": 42324.84521484375,
 						"comboDamage": 42324.84521484375,
-						"chargeTime": 0.2959605045822923,
+						"chargeTime": 0.5919210091645846,
 						"animationTime": 3.6666666666666665
 					}
 				},
@@ -4231,22 +4231,6 @@
 					}
 				},
 				{
-					"ability": "Darkra",
-					"weapon": "Zeus Mace",
-					"helm": "Celebrant's Miter",
-					"armor": "White Robes",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 8239.075933297036,
-						"baseDmg": 7596.76708984375,
-						"modifiedDamage": 29627.391650390626,
-						"nonAvoidedDamage": 29627.391650390626,
-						"comboDamage": 29627.391650390626,
-						"chargeTime": 0.2959605045822923,
-						"animationTime": 3.3
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Bhuj",
 					"helm": "Celebrant's Miter",
@@ -4263,19 +4247,19 @@
 					}
 				},
 				{
-					"ability": "Ardor",
-					"weapon": "Unarmed",
+					"ability": "Darkra",
+					"weapon": "Zeus Mace",
 					"helm": "Celebrant's Miter",
 					"armor": "White Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 7516.019079457425,
-						"baseDmg": 14442.20556640625,
-						"modifiedDamage": 37549.73447265625,
-						"nonAvoidedDamage": 37549.73447265625,
-						"comboDamage": 37549.73447265625,
-						"chargeTime": 0.2959605045822923,
-						"animationTime": 4.7
+						"dps": 7612.536734590679,
+						"baseDmg": 7596.76708984375,
+						"modifiedDamage": 29627.391650390626,
+						"nonAvoidedDamage": 29627.391650390626,
+						"comboDamage": 29627.391650390626,
+						"chargeTime": 0.5919210091645846,
+						"animationTime": 3.3
 					}
 				},
 				{
@@ -4309,6 +4293,22 @@
 						"comboDamage": 16411.423526367187,
 						"chargeTime": 0.6730321156421418,
 						"animationTime": 1.6
+					}
+				},
+				{
+					"ability": "Ardor",
+					"weapon": "Unarmed",
+					"helm": "Celebrant's Miter",
+					"armor": "White Robes",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 7095.671762225355,
+						"baseDmg": 14442.20556640625,
+						"modifiedDamage": 37549.73447265625,
+						"nonAvoidedDamage": 37549.73447265625,
+						"comboDamage": 37549.73447265625,
+						"chargeTime": 0.5919210091645846,
+						"animationTime": 4.7
 					}
 				},
 				{
@@ -4368,12 +4368,12 @@
 					"armor": "White Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 5201.211780713739,
+						"dps": 4703.34871807511,
 						"baseDmg": 5593.22412109375,
 						"modifiedDamage": 14542.38271484375,
 						"nonAvoidedDamage": 14542.38271484375,
 						"comboDamage": 14542.38271484375,
-						"chargeTime": 0.2959605045822923,
+						"chargeTime": 0.5919210091645846,
 						"animationTime": 2.5
 					}
 				},
@@ -4384,12 +4384,12 @@
 					"armor": "White Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 4767.319602843689,
+						"dps": 4351.349327784076,
 						"baseDmg": 5676.705078125,
 						"modifiedDamage": 14759.433203125,
 						"nonAvoidedDamage": 14759.433203125,
 						"comboDamage": 14759.433203125,
-						"chargeTime": 0.2959605045822923,
+						"chargeTime": 0.5919210091645846,
 						"animationTime": 2.8
 					}
 				},
@@ -4401,29 +4401,13 @@
 					"armor": "Lordly Robes",
 					"accessory": "Hermes Sandals",
 					"dps": {
-						"dps": 4575.5384589733285,
+						"dps": 4192.183632197599,
 						"baseDmg": 21151.459765625,
 						"modifiedDamage": 21151.459765625,
 						"nonAvoidedDamage": 21151.459765625,
 						"comboDamage": 21151.459765625,
-						"chargeTime": 0.4227258180168414,
+						"chargeTime": 0.8454516360336828,
 						"animationTime": 4.2
-					}
-				},
-				{
-					"ability": "Dark",
-					"weapon": "Zeus Mace",
-					"helm": "Celebrant's Miter",
-					"armor": "White Robes",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 4283.939613098028,
-						"baseDmg": 3840.1240234375,
-						"modifiedDamage": 14976.48369140625,
-						"nonAvoidedDamage": 14976.48369140625,
-						"comboDamage": 14976.48369140625,
-						"chargeTime": 0.2959605045822923,
-						"animationTime": 3.2
 					}
 				},
 				{
@@ -4444,19 +4428,19 @@
 					}
 				},
 				{
-					"ability": "Blizzara",
-					"weapon": "Unarmed",
+					"ability": "Dark",
+					"weapon": "Zeus Mace",
 					"helm": "Celebrant's Miter",
 					"armor": "White Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 4110.8486307822795,
-						"baseDmg": 5843.6669921875,
-						"modifiedDamage": 15193.5341796875,
-						"nonAvoidedDamage": 15193.5341796875,
-						"comboDamage": 15193.5341796875,
-						"chargeTime": 0.2959605045822923,
-						"animationTime": 3.4
+						"dps": 3949.5769176652198,
+						"baseDmg": 3840.1240234375,
+						"modifiedDamage": 14976.48369140625,
+						"nonAvoidedDamage": 14976.48369140625,
+						"comboDamage": 14976.48369140625,
+						"chargeTime": 0.5919210091645846,
+						"animationTime": 3.2
 					}
 				},
 				{
@@ -4492,19 +4476,19 @@
 					}
 				},
 				{
-					"ability": "Aero",
+					"ability": "Blizzara",
 					"weapon": "Unarmed",
 					"helm": "Celebrant's Miter",
 					"armor": "White Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 3358.5277757285,
-						"baseDmg": 4257.52880859375,
-						"modifiedDamage": 11069.574902343751,
-						"nonAvoidedDamage": 11069.574902343751,
-						"comboDamage": 11069.574902343751,
-						"chargeTime": 0.2959605045822923,
-						"animationTime": 3
+						"dps": 3806.0708477964477,
+						"baseDmg": 5843.6669921875,
+						"modifiedDamage": 15193.5341796875,
+						"nonAvoidedDamage": 15193.5341796875,
+						"comboDamage": 15193.5341796875,
+						"chargeTime": 0.5919210091645846,
+						"animationTime": 3.4
 					}
 				},
 				{
@@ -4525,18 +4509,34 @@
 					}
 				},
 				{
+					"ability": "Aero",
+					"weapon": "Unarmed",
+					"helm": "Celebrant's Miter",
+					"armor": "White Robes",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 3081.7979777674263,
+						"baseDmg": 4257.52880859375,
+						"modifiedDamage": 11069.574902343751,
+						"nonAvoidedDamage": 11069.574902343751,
+						"comboDamage": 11069.574902343751,
+						"chargeTime": 0.5919210091645846,
+						"animationTime": 3
+					}
+				},
+				{
 					"ability": "Drain",
 					"weapon": "Unarmed",
 					"helm": "Celebrant's Miter",
 					"armor": "White Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 2928.034359742733,
+						"dps": 2750.888709819056,
 						"baseDmg": 5175.8193359375,
 						"modifiedDamage": 13457.1302734375,
 						"nonAvoidedDamage": 13457.1302734375,
 						"comboDamage": 13457.1302734375,
-						"chargeTime": 0.2959605045822923,
+						"chargeTime": 0.5919210091645846,
 						"animationTime": 4.3
 					}
 				},
@@ -4612,12 +4612,12 @@
 					"armor": "White Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 1488.3111282201517,
+						"dps": 1410.924019057137,
 						"baseDmg": 3088.79541015625,
 						"modifiedDamage": 8030.86806640625,
 						"nonAvoidedDamage": 8030.86806640625,
 						"comboDamage": 8030.86806640625,
-						"chargeTime": 0.2959605045822923,
+						"chargeTime": 0.5919210091645846,
 						"animationTime": 5.1
 					}
 				},
@@ -4688,22 +4688,6 @@
 					}
 				},
 				{
-					"ability": "Horology",
-					"weapon": "Unarmed",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 459.66702585717286,
-						"baseDmg": 1782,
-						"modifiedDamage": 1782,
-						"nonAvoidedDamage": 1782,
-						"comboDamage": 1782,
-						"chargeTime": 0.37671923318184836,
-						"animationTime": 3.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Multiscale",
 					"helm": "Celebrant's Miter",
@@ -4734,6 +4718,22 @@
 						"comboDamage": 984.275296875,
 						"chargeTime": 0.6730321156421418,
 						"animationTime": 1.6
+					}
+				},
+				{
+					"ability": "Horology",
+					"weapon": "Unarmed",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 418.95516159269795,
+						"baseDmg": 1782,
+						"modifiedDamage": 1782,
+						"nonAvoidedDamage": 1782,
+						"comboDamage": 1782,
+						"chargeTime": 0.7534384663636967,
+						"animationTime": 3.5
 					}
 				},
 				{
@@ -4792,12 +4792,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -5096,22 +5096,6 @@
 					}
 				},
 				{
-					"ability": "Firaga",
-					"weapon": "Flame Staff",
-					"helm": "Celebrant's Miter",
-					"armor": "Maximillian",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 13704.143351049976,
-						"baseDmg": 10017.71484375,
-						"modifiedDamage": 39069.087890625,
-						"nonAvoidedDamage": 39069.087890625,
-						"comboDamage": 39069.087890625,
-						"chargeTime": 0.35089603120881147,
-						"animationTime": 2.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Caldera",
 					"ammo": "Castellanos",
@@ -5126,6 +5110,22 @@
 						"comboDamage": 24012.97565612971,
 						"chargeTime": 0.4900870920211969,
 						"animationTime": 1.4
+					}
+				},
+				{
+					"ability": "Firaga",
+					"weapon": "Flame Staff",
+					"helm": "Celebrant's Miter",
+					"armor": "Maximillian",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 12202.256464189166,
+						"baseDmg": 10017.71484375,
+						"modifiedDamage": 39069.087890625,
+						"nonAvoidedDamage": 39069.087890625,
+						"comboDamage": 39069.087890625,
+						"chargeTime": 0.7017920624176229,
+						"animationTime": 2.5
 					}
 				},
 				{
@@ -5146,22 +5146,6 @@
 					}
 				},
 				{
-					"ability": "Thundaga",
-					"weapon": "Cloud Staff",
-					"helm": "Celebrant's Miter",
-					"armor": "Maximillian",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 11185.976442669038,
-						"baseDmg": 10184.6767578125,
-						"modifiedDamage": 39720.23935546875,
-						"nonAvoidedDamage": 39720.23935546875,
-						"comboDamage": 39720.23935546875,
-						"chargeTime": 0.35089603120881147,
-						"animationTime": 3.2
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Slasher",
 					"helm": "Steel Mask",
@@ -5178,19 +5162,19 @@
 					}
 				},
 				{
-					"ability": "Blizzaga",
-					"weapon": "Staff of the Magi",
+					"ability": "Thundaga",
+					"weapon": "Cloud Staff",
 					"helm": "Celebrant's Miter",
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 10568.181073421356,
-						"baseDmg": 10435.11962890625,
-						"modifiedDamage": 40696.966552734375,
-						"nonAvoidedDamage": 40696.966552734375,
-						"comboDamage": 40696.966552734375,
-						"chargeTime": 0.35089603120881147,
-						"animationTime": 3.5
+						"dps": 10179.99901585154,
+						"baseDmg": 10184.6767578125,
+						"modifiedDamage": 39720.23935546875,
+						"nonAvoidedDamage": 39720.23935546875,
+						"comboDamage": 39720.23935546875,
+						"chargeTime": 0.7017920624176229,
+						"animationTime": 3.2
 					}
 				},
 				{
@@ -5211,19 +5195,19 @@
 					}
 				},
 				{
-					"ability": "Aeroga",
+					"ability": "Blizzaga",
 					"weapon": "Staff of the Magi",
 					"helm": "Celebrant's Miter",
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 8487.770919447103,
-						"baseDmg": 8598.53857421875,
-						"modifiedDamage": 33534.30043945312,
-						"nonAvoidedDamage": 33534.30043945312,
-						"comboDamage": 33534.30043945312,
-						"chargeTime": 0.35089603120881147,
-						"animationTime": 3.6
+						"dps": 9685.621265446009,
+						"baseDmg": 10435.11962890625,
+						"modifiedDamage": 40696.966552734375,
+						"nonAvoidedDamage": 40696.966552734375,
+						"comboDamage": 40696.966552734375,
+						"chargeTime": 0.7017920624176229,
+						"animationTime": 3.5
 					}
 				},
 				{
@@ -5259,19 +5243,19 @@
 					}
 				},
 				{
-					"ability": "Fira",
-					"weapon": "Flame Staff",
+					"ability": "Aeroga",
+					"weapon": "Staff of the Magi",
 					"helm": "Celebrant's Miter",
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 7651.48003766957,
-						"baseDmg": 5593.22412109375,
-						"modifiedDamage": 21813.574072265626,
-						"nonAvoidedDamage": 21813.574072265626,
-						"comboDamage": 21813.574072265626,
-						"chargeTime": 0.35089603120881147,
-						"animationTime": 2.5
+						"dps": 7795.425709304676,
+						"baseDmg": 8598.53857421875,
+						"modifiedDamage": 33534.30043945312,
+						"nonAvoidedDamage": 33534.30043945312,
+						"comboDamage": 33534.30043945312,
+						"chargeTime": 0.7017920624176229,
+						"animationTime": 3.6
 					}
 				},
 				{
@@ -5307,18 +5291,34 @@
 					}
 				},
 				{
+					"ability": "Fira",
+					"weapon": "Flame Staff",
+					"helm": "Celebrant's Miter",
+					"armor": "Maximillian",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 6812.926525838951,
+						"baseDmg": 5593.22412109375,
+						"modifiedDamage": 21813.574072265626,
+						"nonAvoidedDamage": 21813.574072265626,
+						"comboDamage": 21813.574072265626,
+						"chargeTime": 0.7017920624176229,
+						"animationTime": 2.5
+					}
+				},
+				{
 					"ability": "Scourge",
 					"weapon": "Staff of the Magi",
 					"helm": "Celebrant's Miter",
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 7250.5112121439015,
+						"dps": 6697.644943075747,
 						"baseDmg": 11854.2958984375,
 						"modifiedDamage": 30821.169335937502,
 						"nonAvoidedDamage": 30821.169335937502,
 						"comboDamage": 30821.169335937502,
-						"chargeTime": 0.35089603120881147,
+						"chargeTime": 0.7017920624176229,
 						"animationTime": 3.9
 					}
 				},
@@ -5329,29 +5329,13 @@
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 7026.302862869781,
+						"dps": 6322.234276070271,
 						"baseDmg": 5676.705078125,
 						"modifiedDamage": 22139.149804687502,
 						"nonAvoidedDamage": 22139.149804687502,
 						"comboDamage": 22139.149804687502,
-						"chargeTime": 0.35089603120881147,
+						"chargeTime": 0.7017920624176229,
 						"animationTime": 2.8
-					}
-				},
-				{
-					"ability": "Shock",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Maximillian",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 6485.8209985116455,
-						"baseDmg": 11102.96728515625,
-						"modifiedDamage": 28867.71494140625,
-						"nonAvoidedDamage": 28867.71494140625,
-						"comboDamage": 28867.71494140625,
-						"chargeTime": 0.35089603120881147,
-						"animationTime": 4.1
 					}
 				},
 				{
@@ -5371,19 +5355,19 @@
 					}
 				},
 				{
-					"ability": "Blizzara",
+					"ability": "Shock",
 					"weapon": "Staff of the Magi",
 					"helm": "Celebrant's Miter",
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 6075.96187148556,
-						"baseDmg": 5843.6669921875,
-						"modifiedDamage": 22790.30126953125,
-						"nonAvoidedDamage": 22790.30126953125,
-						"comboDamage": 22790.30126953125,
-						"chargeTime": 0.35089603120881147,
-						"animationTime": 3.4
+						"dps": 6011.862772514942,
+						"baseDmg": 11102.96728515625,
+						"modifiedDamage": 28867.71494140625,
+						"nonAvoidedDamage": 28867.71494140625,
+						"comboDamage": 28867.71494140625,
+						"chargeTime": 0.7017920624176229,
+						"animationTime": 4.1
 					}
 				},
 				{
@@ -5403,19 +5387,19 @@
 					}
 				},
 				{
-					"ability": "Scathe",
+					"ability": "Blizzara",
 					"weapon": "Staff of the Magi",
 					"helm": "Celebrant's Miter",
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 5413.751669538491,
-						"baseDmg": 15861.3818359375,
-						"modifiedDamage": 41239.5927734375,
-						"nonAvoidedDamage": 41239.5927734375,
-						"comboDamage": 41239.5927734375,
-						"chargeTime": 0.35089603120881147,
-						"animationTime": 7.266666666666667
+						"dps": 5556.181523277535,
+						"baseDmg": 5843.6669921875,
+						"modifiedDamage": 22790.30126953125,
+						"nonAvoidedDamage": 22790.30126953125,
+						"comboDamage": 22790.30126953125,
+						"chargeTime": 0.7017920624176229,
+						"animationTime": 3.4
 					}
 				},
 				{
@@ -5435,6 +5419,22 @@
 					}
 				},
 				{
+					"ability": "Scathe",
+					"weapon": "Staff of the Magi",
+					"helm": "Celebrant's Miter",
+					"armor": "Maximillian",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 5175.353751022893,
+						"baseDmg": 15861.3818359375,
+						"modifiedDamage": 41239.5927734375,
+						"nonAvoidedDamage": 41239.5927734375,
+						"comboDamage": 41239.5927734375,
+						"chargeTime": 0.7017920624176229,
+						"animationTime": 7.266666666666667
+					}
+				},
+				{
 					"ability": "Attack",
 					"weapon": "Storm Staff",
 					"helm": "Magepower Shishak",
@@ -5448,22 +5448,6 @@
 						"comboDamage": 8546.3091796875,
 						"chargeTime": 0.5056932459215809,
 						"animationTime": 1.2
-					}
-				},
-				{
-					"ability": "Aero",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Maximillian",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 4955.200698222117,
-						"baseDmg": 4257.52880859375,
-						"modifiedDamage": 16604.362353515626,
-						"nonAvoidedDamage": 16604.362353515626,
-						"comboDamage": 16604.362353515626,
-						"chargeTime": 0.35089603120881147,
-						"animationTime": 3
 					}
 				},
 				{
@@ -5483,6 +5467,22 @@
 					}
 				},
 				{
+					"ability": "Aero",
+					"weapon": "Staff of the Magi",
+					"helm": "Celebrant's Miter",
+					"armor": "Maximillian",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 4485.492991918999,
+						"baseDmg": 4257.52880859375,
+						"modifiedDamage": 16604.362353515626,
+						"nonAvoidedDamage": 16604.362353515626,
+						"comboDamage": 16604.362353515626,
+						"chargeTime": 0.7017920624176229,
+						"animationTime": 3
+					}
+				},
+				{
 					"ability": "Attack",
 					"weapon": "Iron Sword",
 					"helm": "Steel Mask",
@@ -5496,22 +5496,6 @@
 						"comboDamage": 8630.785286220704,
 						"chargeTime": 0.5145076071961912,
 						"animationTime": 1.6335119999999999
-					}
-				},
-				{
-					"ability": "Bio",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Maximillian",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 3743.9557116776855,
-						"baseDmg": 5593.22412109375,
-						"modifiedDamage": 14542.38271484375,
-						"nonAvoidedDamage": 14542.38271484375,
-						"comboDamage": 14542.38271484375,
-						"chargeTime": 0.35089603120881147,
-						"animationTime": 3.533333333333333
 					}
 				},
 				{
@@ -5531,18 +5515,34 @@
 					}
 				},
 				{
+					"ability": "Bio",
+					"weapon": "Staff of the Magi",
+					"helm": "Celebrant's Miter",
+					"armor": "Maximillian",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 3433.7549318926717,
+						"baseDmg": 5593.22412109375,
+						"modifiedDamage": 14542.38271484375,
+						"nonAvoidedDamage": 14542.38271484375,
+						"comboDamage": 14542.38271484375,
+						"chargeTime": 0.7017920624176229,
+						"animationTime": 3.533333333333333
+					}
+				},
+				{
 					"ability": "Flare",
 					"weapon": "Staff of the Magi",
 					"helm": "Celebrant's Miter",
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 3363.823977677858,
+						"dps": 3255.2204936996245,
 						"baseDmg": 13607.39599609375,
 						"modifiedDamage": 35379.22958984375,
 						"nonAvoidedDamage": 35379.22958984375,
 						"comboDamage": 35379.22958984375,
-						"chargeTime": 0.35089603120881147,
+						"chargeTime": 0.7017920624176229,
 						"animationTime": 10.166666666666666
 					}
 				},
@@ -5560,22 +5560,6 @@
 						"comboDamage": 5331.989355468751,
 						"chargeTime": 0.5056932459215809,
 						"animationTime": 1.2
-					}
-				},
-				{
-					"ability": "Drain",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Maximillian",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 2893.448957606534,
-						"baseDmg": 5175.8193359375,
-						"modifiedDamage": 13457.1302734375,
-						"nonAvoidedDamage": 13457.1302734375,
-						"comboDamage": 13457.1302734375,
-						"chargeTime": 0.35089603120881147,
-						"animationTime": 4.3
 					}
 				},
 				{
@@ -5611,18 +5595,34 @@
 					}
 				},
 				{
+					"ability": "Drain",
+					"weapon": "Staff of the Magi",
+					"helm": "Celebrant's Miter",
+					"armor": "Maximillian",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 2690.4617596064113,
+						"baseDmg": 5175.8193359375,
+						"modifiedDamage": 13457.1302734375,
+						"nonAvoidedDamage": 13457.1302734375,
+						"comboDamage": 13457.1302734375,
+						"chargeTime": 0.7017920624176229,
+						"animationTime": 4.3
+					}
+				},
+				{
 					"ability": "Thunder",
 					"weapon": "Cloud Staff",
 					"helm": "Celebrant's Miter",
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 2626.6274756179123,
+						"dps": 2338.7658223029234,
 						"baseDmg": 1920.06201171875,
 						"modifiedDamage": 7488.241845703125,
 						"nonAvoidedDamage": 7488.241845703125,
 						"comboDamage": 7488.241845703125,
-						"chargeTime": 0.35089603120881147,
+						"chargeTime": 0.7017920624176229,
 						"animationTime": 2.5
 					}
 				},
@@ -5633,12 +5633,12 @@
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 2512.426281025829,
+						"dps": 2237.0803517680138,
 						"baseDmg": 1836.5810546875,
 						"modifiedDamage": 7162.666113281251,
 						"nonAvoidedDamage": 7162.666113281251,
 						"comboDamage": 7162.666113281251,
-						"chargeTime": 0.35089603120881147,
+						"chargeTime": 0.7017920624176229,
 						"animationTime": 2.5
 					}
 				},
@@ -5649,29 +5649,13 @@
 					"armor": "Maximillian",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 2209.967321086097,
+						"dps": 2076.307108219533,
 						"baseDmg": 3088.79541015625,
 						"modifiedDamage": 12046.302099609375,
 						"nonAvoidedDamage": 12046.302099609375,
 						"comboDamage": 12046.302099609375,
-						"chargeTime": 0.35089603120881147,
+						"chargeTime": 0.7017920624176229,
 						"animationTime": 5.1
-					}
-				},
-				{
-					"ability": "Blizzard",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Maximillian",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 2169.9863826734145,
-						"baseDmg": 2087.02392578125,
-						"modifiedDamage": 8139.393310546875,
-						"nonAvoidedDamage": 8139.393310546875,
-						"comboDamage": 8139.393310546875,
-						"chargeTime": 0.35089603120881147,
-						"animationTime": 3.4
 					}
 				},
 				{
@@ -5688,6 +5672,22 @@
 						"comboDamage": 3403.3974609375,
 						"chargeTime": 0.5056932459215809,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Blizzard",
+					"weapon": "Staff of the Magi",
+					"helm": "Celebrant's Miter",
+					"armor": "Maximillian",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 1984.350544027691,
+						"baseDmg": 2087.02392578125,
+						"modifiedDamage": 8139.393310546875,
+						"nonAvoidedDamage": 8139.393310546875,
+						"comboDamage": 8139.393310546875,
+						"chargeTime": 0.7017920624176229,
+						"animationTime": 3.4
 					}
 				},
 				{
@@ -5983,22 +5983,6 @@
 					}
 				},
 				{
-					"ability": "Firaga",
-					"weapon": "Flame Staff",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 13978.005210414056,
-						"baseDmg": 10017.71484375,
-						"modifiedDamage": 39069.087890625,
-						"nonAvoidedDamage": 39069.087890625,
-						"comboDamage": 39069.087890625,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 2.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Sword of Kings",
 					"helm": "Celebrant's Miter",
@@ -6012,6 +5996,22 @@
 						"comboDamage": 29757.505866714844,
 						"chargeTime": 0.4144859360519518,
 						"animationTime": 1.911816
+					}
+				},
+				{
+					"ability": "Firaga",
+					"weapon": "Flame Staff",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 12643.387963882025,
+						"baseDmg": 10017.71484375,
+						"modifiedDamage": 39069.087890625,
+						"nonAvoidedDamage": 39069.087890625,
+						"comboDamage": 39069.087890625,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 2.5
 					}
 				},
 				{
@@ -6054,29 +6054,13 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 11364.744304711205,
+						"dps": 10480.051356853472,
 						"baseDmg": 10184.6767578125,
 						"modifiedDamage": 39720.23935546875,
 						"nonAvoidedDamage": 39720.23935546875,
 						"comboDamage": 39720.23935546875,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 3.2
-					}
-				},
-				{
-					"ability": "Blizzaga",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 10723.724473245926,
-						"baseDmg": 10435.11962890625,
-						"modifiedDamage": 40696.966552734375,
-						"nonAvoidedDamage": 40696.966552734375,
-						"comboDamage": 40696.966552734375,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 3.5
 					}
 				},
 				{
@@ -6096,6 +6080,22 @@
 					}
 				},
 				{
+					"ability": "Blizzaga",
+					"weapon": "Staff of the Magi",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 9950.162481623001,
+						"baseDmg": 10435.11962890625,
+						"modifiedDamage": 40696.966552734375,
+						"nonAvoidedDamage": 40696.966552734375,
+						"comboDamage": 40696.966552734375,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 3.5
+					}
+				},
+				{
 					"ability": "Attack",
 					"weapon": "Battle Bamboo",
 					"helm": "Celebrant's Miter",
@@ -6109,22 +6109,6 @@
 						"comboDamage": 20140.915161275392,
 						"chargeTime": 0.3498493911544043,
 						"animationTime": 1.916499
-					}
-				},
-				{
-					"ability": "Aeroga",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 8609.487411692999,
-						"baseDmg": 8598.53857421875,
-						"modifiedDamage": 33534.30043945312,
-						"nonAvoidedDamage": 33534.30043945312,
-						"comboDamage": 33534.30043945312,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 3.6
 					}
 				},
 				{
@@ -6144,19 +6128,19 @@
 					}
 				},
 				{
-					"ability": "Fira",
-					"weapon": "Flame Staff",
+					"ability": "Aeroga",
+					"weapon": "Staff of the Magi",
 					"helm": "Celebrant's Miter",
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 7804.386242481181,
-						"baseDmg": 5593.22412109375,
-						"modifiedDamage": 21813.574072265626,
-						"nonAvoidedDamage": 21813.574072265626,
-						"comboDamage": 21813.574072265626,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 2.5
+						"dps": 8003.259036002095,
+						"baseDmg": 8598.53857421875,
+						"modifiedDamage": 33534.30043945312,
+						"nonAvoidedDamage": 33534.30043945312,
+						"comboDamage": 33534.30043945312,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 3.6
 					}
 				},
 				{
@@ -6192,18 +6176,34 @@
 					}
 				},
 				{
+					"ability": "Fira",
+					"weapon": "Flame Staff",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 7059.224946500798,
+						"baseDmg": 5593.22412109375,
+						"modifiedDamage": 21813.574072265626,
+						"nonAvoidedDamage": 21813.574072265626,
+						"comboDamage": 21813.574072265626,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 2.5
+					}
+				},
+				{
 					"ability": "Scourge",
 					"weapon": "Staff of the Magi",
 					"helm": "Celebrant's Miter",
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 7347.049640650029,
+						"dps": 6864.279746398754,
 						"baseDmg": 11854.2958984375,
 						"modifiedDamage": 30821.169335937502,
 						"nonAvoidedDamage": 30821.169335937502,
 						"comboDamage": 30821.169335937502,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 3.9
 					}
 				},
@@ -6214,29 +6214,13 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 7153.1055015892225,
+						"dps": 6530.567382879342,
 						"baseDmg": 5676.705078125,
 						"modifiedDamage": 22139.149804687502,
 						"nonAvoidedDamage": 22139.149804687502,
 						"comboDamage": 22139.149804687502,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 2.8
-					}
-				},
-				{
-					"ability": "Shock",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 6568.248062451447,
-						"baseDmg": 11102.96728515625,
-						"modifiedDamage": 28867.71494140625,
-						"nonAvoidedDamage": 28867.71494140625,
-						"comboDamage": 28867.71494140625,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 4.1
 					}
 				},
 				{
@@ -6256,19 +6240,19 @@
 					}
 				},
 				{
-					"ability": "Blizzara",
+					"ability": "Shock",
 					"weapon": "Staff of the Magi",
 					"helm": "Celebrant's Miter",
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 6167.808579352829,
-						"baseDmg": 5843.6669921875,
-						"modifiedDamage": 22790.30126953125,
-						"nonAvoidedDamage": 22790.30126953125,
-						"comboDamage": 22790.30126953125,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 3.4
+						"dps": 6155.057320157361,
+						"baseDmg": 11102.96728515625,
+						"modifiedDamage": 28867.71494140625,
+						"nonAvoidedDamage": 28867.71494140625,
+						"comboDamage": 28867.71494140625,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 4.1
 					}
 				},
 				{
@@ -6285,6 +6269,22 @@
 						"comboDamage": 13032.356869060548,
 						"chargeTime": 0.3498493911544043,
 						"animationTime": 1.916499
+					}
+				},
+				{
+					"ability": "Blizzara",
+					"weapon": "Staff of the Magi",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 5711.7395719187225,
+						"baseDmg": 5843.6669921875,
+						"modifiedDamage": 22790.30126953125,
+						"nonAvoidedDamage": 22790.30126953125,
+						"comboDamage": 22790.30126953125,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 3.4
 					}
 				},
 				{
@@ -6310,12 +6310,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 5453.741192273458,
+						"dps": 5248.939715543232,
 						"baseDmg": 15861.3818359375,
 						"modifiedDamage": 41239.5927734375,
 						"nonAvoidedDamage": 41239.5927734375,
 						"comboDamage": 41239.5927734375,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 7.266666666666667
 					}
 				},
@@ -6336,22 +6336,6 @@
 					}
 				},
 				{
-					"ability": "Aero",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 5039.198564127352,
-						"baseDmg": 4257.52880859375,
-						"modifiedDamage": 16604.362353515626,
-						"nonAvoidedDamage": 16604.362353515626,
-						"comboDamage": 16604.362353515626,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 3
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Flame Staff",
 					"helm": "Celebrant's Miter",
@@ -6365,6 +6349,22 @@
 						"comboDamage": 7903.44521484375,
 						"chargeTime": 0.4661951719699898,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Aero",
+					"weapon": "Staff of the Magi",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 4625.066730900692,
+						"baseDmg": 4257.52880859375,
+						"modifiedDamage": 16604.362353515626,
+						"nonAvoidedDamage": 16604.362353515626,
+						"comboDamage": 16604.362353515626,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 3
 					}
 				},
 				{
@@ -6384,22 +6384,6 @@
 					}
 				},
 				{
-					"ability": "Bio",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 3798.5797897166935,
-						"baseDmg": 5593.22412109375,
-						"modifiedDamage": 14542.38271484375,
-						"nonAvoidedDamage": 14542.38271484375,
-						"comboDamage": 14542.38271484375,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 3.533333333333333
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Iron Sword",
 					"helm": "Celebrant's Miter",
@@ -6416,18 +6400,34 @@
 					}
 				},
 				{
+					"ability": "Bio",
+					"weapon": "Staff of the Magi",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 3526.782162291843,
+						"baseDmg": 5593.22412109375,
+						"modifiedDamage": 14542.38271484375,
+						"nonAvoidedDamage": 14542.38271484375,
+						"comboDamage": 14542.38271484375,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 3.533333333333333
+					}
+				},
+				{
 					"ability": "Flare",
 					"weapon": "Staff of the Magi",
 					"helm": "Celebrant's Miter",
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 3381.7836514829837,
+						"dps": 3289.0267574597574,
 						"baseDmg": 13607.39599609375,
 						"modifiedDamage": 35379.22958984375,
 						"nonAvoidedDamage": 35379.22958984375,
 						"comboDamage": 35379.22958984375,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 10.166666666666666
 					}
 				},
@@ -6470,12 +6470,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 2928.620728423993,
+						"dps": 2751.9240210399234,
 						"baseDmg": 5175.8193359375,
 						"modifiedDamage": 13457.1302734375,
 						"nonAvoidedDamage": 13457.1302734375,
 						"comboDamage": 13457.1302734375,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 4.3
 					}
 				},
@@ -6486,28 +6486,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 2679.117665329361,
+						"dps": 2423.316026410722,
 						"baseDmg": 1920.06201171875,
 						"modifiedDamage": 7488.241845703125,
 						"nonAvoidedDamage": 7488.241845703125,
 						"comboDamage": 7488.241845703125,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 2.5
-					}
-				},
-				{
-					"ability": "Fire",
-					"weapon": "Flame Staff",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 2562.6342885759104,
-						"baseDmg": 1836.5810546875,
-						"modifiedDamage": 7162.666113281251,
-						"nonAvoidedDamage": 7162.666113281251,
-						"comboDamage": 7162.666113281251,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 2.5
 					}
 				},
@@ -6528,35 +6512,35 @@
 					}
 				},
 				{
+					"ability": "Fire",
+					"weapon": "Flame Staff",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 2317.954460045038,
+						"baseDmg": 1836.5810546875,
+						"modifiedDamage": 7162.666113281251,
+						"nonAvoidedDamage": 7162.666113281251,
+						"comboDamage": 7162.666113281251,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 2.5
+					}
+				},
+				{
 					"ability": "Aqua",
 					"weapon": "Cloud Staff",
 					"helm": "Celebrant's Miter",
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 2232.847472406787,
+						"dps": 2117.070555274124,
 						"baseDmg": 3088.79541015625,
 						"modifiedDamage": 12046.302099609375,
 						"nonAvoidedDamage": 12046.302099609375,
 						"comboDamage": 12046.302099609375,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 5.1
-					}
-				},
-				{
-					"ability": "Blizzard",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 2202.7887783402957,
-						"baseDmg": 2087.02392578125,
-						"modifiedDamage": 8139.393310546875,
-						"nonAvoidedDamage": 8139.393310546875,
-						"comboDamage": 8139.393310546875,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 3.4
 					}
 				},
 				{
@@ -6573,6 +6557,22 @@
 						"comboDamage": 3403.3974609375,
 						"chargeTime": 0.4661951719699898,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Blizzard",
+					"weapon": "Staff of the Magi",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 2039.9069899709725,
+						"baseDmg": 2087.02392578125,
+						"modifiedDamage": 8139.393310546875,
+						"nonAvoidedDamage": 8139.393310546875,
+						"comboDamage": 8139.393310546875,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 3.4
 					}
 				},
 				{
@@ -7267,12 +7267,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 459.66702585717286,
+						"dps": 418.95516159269795,
 						"baseDmg": 1782,
 						"modifiedDamage": 1782,
 						"nonAvoidedDamage": 1782,
 						"comboDamage": 1782,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 3.5
 					}
 				},
@@ -7332,12 +7332,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -7968,12 +7968,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 459.66702585717286,
+						"dps": 418.95516159269795,
 						"baseDmg": 1782,
 						"modifiedDamage": 1782,
 						"nonAvoidedDamage": 1782,
 						"comboDamage": 1782,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 3.5
 					}
 				},
@@ -8066,12 +8066,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -8696,22 +8696,6 @@
 					}
 				},
 				{
-					"ability": "Horology",
-					"weapon": "Unarmed",
-					"helm": "Thief's Cap",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 459.66702585717286,
-						"baseDmg": 1782,
-						"modifiedDamage": 1782,
-						"nonAvoidedDamage": 1782,
-						"comboDamage": 1782,
-						"chargeTime": 0.37671923318184836,
-						"animationTime": 3.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Multiscale",
 					"helm": "Thief's Cap",
@@ -8725,6 +8709,22 @@
 						"comboDamage": 744.062109375,
 						"chargeTime": 0.42641748303343957,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Horology",
+					"weapon": "Unarmed",
+					"helm": "Thief's Cap",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 418.95516159269795,
+						"baseDmg": 1782,
+						"modifiedDamage": 1782,
+						"nonAvoidedDamage": 1782,
+						"comboDamage": 1782,
+						"chargeTime": 0.7534384663636967,
+						"animationTime": 3.5
 					}
 				},
 				{
@@ -8800,12 +8800,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -9430,22 +9430,6 @@
 					}
 				},
 				{
-					"ability": "Horology",
-					"weapon": "Unarmed",
-					"helm": "Thief's Cap",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 459.66702585717286,
-						"baseDmg": 1782,
-						"modifiedDamage": 1782,
-						"nonAvoidedDamage": 1782,
-						"comboDamage": 1782,
-						"chargeTime": 0.37671923318184836,
-						"animationTime": 3.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Multiscale",
 					"helm": "Thief's Cap",
@@ -9459,6 +9443,22 @@
 						"comboDamage": 744.062109375,
 						"chargeTime": 0.42641748303343957,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Horology",
+					"weapon": "Unarmed",
+					"helm": "Thief's Cap",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 418.95516159269795,
+						"baseDmg": 1782,
+						"modifiedDamage": 1782,
+						"nonAvoidedDamage": 1782,
+						"comboDamage": 1782,
+						"chargeTime": 0.7534384663636967,
+						"animationTime": 3.5
 					}
 				},
 				{
@@ -9534,12 +9534,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -10181,22 +10181,6 @@
 					}
 				},
 				{
-					"ability": "Horology",
-					"weapon": "Unarmed",
-					"helm": "Thief's Cap",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 459.66702585717286,
-						"baseDmg": 1782,
-						"modifiedDamage": 1782,
-						"nonAvoidedDamage": 1782,
-						"comboDamage": 1782,
-						"chargeTime": 0.37671923318184836,
-						"animationTime": 3.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Multiscale",
 					"helm": "Thief's Cap",
@@ -10210,6 +10194,22 @@
 						"comboDamage": 744.062109375,
 						"chargeTime": 0.42641748303343957,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Horology",
+					"weapon": "Unarmed",
+					"helm": "Thief's Cap",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 418.95516159269795,
+						"baseDmg": 1782,
+						"modifiedDamage": 1782,
+						"nonAvoidedDamage": 1782,
+						"comboDamage": 1782,
+						"chargeTime": 0.7534384663636967,
+						"animationTime": 3.5
 					}
 				},
 				{
@@ -10268,12 +10268,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -10898,22 +10898,6 @@
 					}
 				},
 				{
-					"ability": "Horology",
-					"weapon": "Unarmed",
-					"helm": "Thief's Cap",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 459.66702585717286,
-						"baseDmg": 1782,
-						"modifiedDamage": 1782,
-						"nonAvoidedDamage": 1782,
-						"comboDamage": 1782,
-						"chargeTime": 0.37671923318184836,
-						"animationTime": 3.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Multiscale",
 					"helm": "Thief's Cap",
@@ -10927,6 +10911,22 @@
 						"comboDamage": 744.062109375,
 						"chargeTime": 0.42641748303343957,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Horology",
+					"weapon": "Unarmed",
+					"helm": "Thief's Cap",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 418.95516159269795,
+						"baseDmg": 1782,
+						"modifiedDamage": 1782,
+						"nonAvoidedDamage": 1782,
+						"comboDamage": 1782,
+						"chargeTime": 0.7534384663636967,
+						"animationTime": 3.5
 					}
 				},
 				{
@@ -11002,12 +11002,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -11632,22 +11632,6 @@
 					}
 				},
 				{
-					"ability": "Horology",
-					"weapon": "Unarmed",
-					"helm": "Thief's Cap",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 459.66702585717286,
-						"baseDmg": 1782,
-						"modifiedDamage": 1782,
-						"nonAvoidedDamage": 1782,
-						"comboDamage": 1782,
-						"chargeTime": 0.37671923318184836,
-						"animationTime": 3.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Multiscale",
 					"helm": "Thief's Cap",
@@ -11661,6 +11645,22 @@
 						"comboDamage": 744.062109375,
 						"chargeTime": 0.42641748303343957,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Horology",
+					"weapon": "Unarmed",
+					"helm": "Thief's Cap",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 418.95516159269795,
+						"baseDmg": 1782,
+						"modifiedDamage": 1782,
+						"nonAvoidedDamage": 1782,
+						"comboDamage": 1782,
+						"chargeTime": 0.7534384663636967,
+						"animationTime": 3.5
 					}
 				},
 				{
@@ -11736,12 +11736,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -12383,22 +12383,6 @@
 					}
 				},
 				{
-					"ability": "Horology",
-					"weapon": "Unarmed",
-					"helm": "Thief's Cap",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 459.66702585717286,
-						"baseDmg": 1782,
-						"modifiedDamage": 1782,
-						"nonAvoidedDamage": 1782,
-						"comboDamage": 1782,
-						"chargeTime": 0.37671923318184836,
-						"animationTime": 3.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Multiscale",
 					"helm": "Thief's Cap",
@@ -12412,6 +12396,22 @@
 						"comboDamage": 744.062109375,
 						"chargeTime": 0.42641748303343957,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Horology",
+					"weapon": "Unarmed",
+					"helm": "Thief's Cap",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 418.95516159269795,
+						"baseDmg": 1782,
+						"modifiedDamage": 1782,
+						"nonAvoidedDamage": 1782,
+						"comboDamage": 1782,
+						"chargeTime": 0.7534384663636967,
+						"animationTime": 3.5
 					}
 				},
 				{
@@ -12470,12 +12470,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -13100,22 +13100,6 @@
 					}
 				},
 				{
-					"ability": "Horology",
-					"weapon": "Unarmed",
-					"helm": "Thief's Cap",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 459.66702585717286,
-						"baseDmg": 1782,
-						"modifiedDamage": 1782,
-						"nonAvoidedDamage": 1782,
-						"comboDamage": 1782,
-						"chargeTime": 0.37671923318184836,
-						"animationTime": 3.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Multiscale",
 					"helm": "Thief's Cap",
@@ -13129,6 +13113,22 @@
 						"comboDamage": 744.062109375,
 						"chargeTime": 0.42641748303343957,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Horology",
+					"weapon": "Unarmed",
+					"helm": "Thief's Cap",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 418.95516159269795,
+						"baseDmg": 1782,
+						"modifiedDamage": 1782,
+						"nonAvoidedDamage": 1782,
+						"comboDamage": 1782,
+						"chargeTime": 0.7534384663636967,
+						"animationTime": 3.5
 					}
 				},
 				{
@@ -13204,12 +13204,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -13834,22 +13834,6 @@
 					}
 				},
 				{
-					"ability": "Horology",
-					"weapon": "Unarmed",
-					"helm": "Thief's Cap",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 459.66702585717286,
-						"baseDmg": 1782,
-						"modifiedDamage": 1782,
-						"nonAvoidedDamage": 1782,
-						"comboDamage": 1782,
-						"chargeTime": 0.37671923318184836,
-						"animationTime": 3.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Multiscale",
 					"helm": "Thief's Cap",
@@ -13863,6 +13847,22 @@
 						"comboDamage": 744.062109375,
 						"chargeTime": 0.42641748303343957,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Horology",
+					"weapon": "Unarmed",
+					"helm": "Thief's Cap",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 418.95516159269795,
+						"baseDmg": 1782,
+						"modifiedDamage": 1782,
+						"nonAvoidedDamage": 1782,
+						"comboDamage": 1782,
+						"chargeTime": 0.7534384663636967,
+						"animationTime": 3.5
 					}
 				},
 				{
@@ -13938,12 +13938,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -14568,22 +14568,6 @@
 					}
 				},
 				{
-					"ability": "Horology",
-					"weapon": "Unarmed",
-					"helm": "Thief's Cap",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 459.66702585717286,
-						"baseDmg": 1782,
-						"modifiedDamage": 1782,
-						"nonAvoidedDamage": 1782,
-						"comboDamage": 1782,
-						"chargeTime": 0.37671923318184836,
-						"animationTime": 3.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Multiscale",
 					"helm": "Thief's Cap",
@@ -14597,6 +14581,22 @@
 						"comboDamage": 744.062109375,
 						"chargeTime": 0.42641748303343957,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Horology",
+					"weapon": "Unarmed",
+					"helm": "Thief's Cap",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 418.95516159269795,
+						"baseDmg": 1782,
+						"modifiedDamage": 1782,
+						"nonAvoidedDamage": 1782,
+						"comboDamage": 1782,
+						"chargeTime": 0.7534384663636967,
+						"animationTime": 3.5
 					}
 				},
 				{
@@ -14672,12 +14672,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -15302,22 +15302,6 @@
 					}
 				},
 				{
-					"ability": "Horology",
-					"weapon": "Unarmed",
-					"helm": "Thief's Cap",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 459.66702585717286,
-						"baseDmg": 1782,
-						"modifiedDamage": 1782,
-						"nonAvoidedDamage": 1782,
-						"comboDamage": 1782,
-						"chargeTime": 0.37671923318184836,
-						"animationTime": 3.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Multiscale",
 					"helm": "Thief's Cap",
@@ -15331,6 +15315,22 @@
 						"comboDamage": 744.062109375,
 						"chargeTime": 0.42641748303343957,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Horology",
+					"weapon": "Unarmed",
+					"helm": "Thief's Cap",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 418.95516159269795,
+						"baseDmg": 1782,
+						"modifiedDamage": 1782,
+						"nonAvoidedDamage": 1782,
+						"comboDamage": 1782,
+						"chargeTime": 0.7534384663636967,
+						"animationTime": 3.5
 					}
 				},
 				{
@@ -15406,12 +15406,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -15757,12 +15757,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -15835,22 +15835,6 @@
 					}
 				},
 				{
-					"ability": "Firaga",
-					"weapon": "Flame Staff",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 16773.60625249687,
-						"baseDmg": 10017.71484375,
-						"modifiedDamage": 46882.90546875,
-						"nonAvoidedDamage": 46882.90546875,
-						"comboDamage": 46882.90546875,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 2.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Mithuna",
 					"ammo": "Dark Shot",
@@ -15884,6 +15868,22 @@
 					}
 				},
 				{
+					"ability": "Firaga",
+					"weapon": "Flame Staff",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 15172.065556658432,
+						"baseDmg": 10017.71484375,
+						"modifiedDamage": 46882.90546875,
+						"nonAvoidedDamage": 46882.90546875,
+						"comboDamage": 46882.90546875,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 2.5
+					}
+				},
+				{
 					"ability": "Attack",
 					"weapon": "Sword of Kings",
 					"helm": "Circlet",
@@ -15906,29 +15906,13 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 11364.744304711205,
+						"dps": 10480.051356853472,
 						"baseDmg": 10184.6767578125,
 						"modifiedDamage": 39720.23935546875,
 						"nonAvoidedDamage": 39720.23935546875,
 						"comboDamage": 39720.23935546875,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 3.2
-					}
-				},
-				{
-					"ability": "Blizzaga",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 10723.724473245926,
-						"baseDmg": 10435.11962890625,
-						"modifiedDamage": 40696.966552734375,
-						"nonAvoidedDamage": 40696.966552734375,
-						"comboDamage": 40696.966552734375,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 3.5
 					}
 				},
 				{
@@ -15949,35 +15933,35 @@
 					}
 				},
 				{
+					"ability": "Blizzaga",
+					"weapon": "Staff of the Magi",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 9950.162481623001,
+						"baseDmg": 10435.11962890625,
+						"modifiedDamage": 40696.966552734375,
+						"nonAvoidedDamage": 40696.966552734375,
+						"comboDamage": 40696.966552734375,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 3.5
+					}
+				},
+				{
 					"ability": "Aeroga",
 					"weapon": "Staff of the Magi",
 					"helm": "Celebrant's Miter",
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 10331.384894031597,
+						"dps": 9603.910843202513,
 						"baseDmg": 8598.53857421875,
 						"modifiedDamage": 40241.160527343745,
 						"nonAvoidedDamage": 40241.160527343745,
 						"comboDamage": 40241.160527343745,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 3.6
-					}
-				},
-				{
-					"ability": "Fira",
-					"weapon": "Flame Staff",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 9365.263490977417,
-						"baseDmg": 5593.22412109375,
-						"modifiedDamage": 26176.28888671875,
-						"nonAvoidedDamage": 26176.28888671875,
-						"comboDamage": 26176.28888671875,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 2.5
 					}
 				},
 				{
@@ -15994,6 +15978,22 @@
 						"comboDamage": 14318.113037109375,
 						"chargeTime": 0.47553370486353136,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Fira",
+					"weapon": "Flame Staff",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 8471.069935800957,
+						"baseDmg": 5593.22412109375,
+						"modifiedDamage": 26176.28888671875,
+						"nonAvoidedDamage": 26176.28888671875,
+						"comboDamage": 26176.28888671875,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 2.5
 					}
 				},
 				{
@@ -16068,29 +16068,13 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 7347.049640650029,
+						"dps": 6864.279746398754,
 						"baseDmg": 11854.2958984375,
 						"modifiedDamage": 30821.169335937502,
 						"nonAvoidedDamage": 30821.169335937502,
 						"comboDamage": 30821.169335937502,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 3.9
-					}
-				},
-				{
-					"ability": "Thundara",
-					"weapon": "Cloud Staff",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 7153.1055015892225,
-						"baseDmg": 5676.705078125,
-						"modifiedDamage": 22139.149804687502,
-						"nonAvoidedDamage": 22139.149804687502,
-						"comboDamage": 22139.149804687502,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 2.8
 					}
 				},
 				{
@@ -16127,35 +16111,35 @@
 					}
 				},
 				{
+					"ability": "Thundara",
+					"weapon": "Cloud Staff",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 6530.567382879342,
+						"baseDmg": 5676.705078125,
+						"modifiedDamage": 22139.149804687502,
+						"nonAvoidedDamage": 22139.149804687502,
+						"comboDamage": 22139.149804687502,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 2.8
+					}
+				},
+				{
 					"ability": "Shock",
 					"weapon": "Staff of the Magi",
 					"helm": "Celebrant's Miter",
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 6568.248062451447,
+						"dps": 6155.057320157361,
 						"baseDmg": 11102.96728515625,
 						"modifiedDamage": 28867.71494140625,
 						"nonAvoidedDamage": 28867.71494140625,
 						"comboDamage": 28867.71494140625,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 4.1
-					}
-				},
-				{
-					"ability": "Blizzara",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 6167.808579352829,
-						"baseDmg": 5843.6669921875,
-						"modifiedDamage": 22790.30126953125,
-						"nonAvoidedDamage": 22790.30126953125,
-						"comboDamage": 22790.30126953125,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 3.4
 					}
 				},
 				{
@@ -16172,22 +16156,6 @@
 						"comboDamage": 10265.81689453125,
 						"chargeTime": 0.47553370486353136,
 						"animationTime": 1.2
-					}
-				},
-				{
-					"ability": "Aero",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 6047.038276952823,
-						"baseDmg": 4257.52880859375,
-						"modifiedDamage": 19925.23482421875,
-						"nonAvoidedDamage": 19925.23482421875,
-						"comboDamage": 19925.23482421875,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 3
 					}
 				},
 				{
@@ -16224,6 +16192,38 @@
 					}
 				},
 				{
+					"ability": "Blizzara",
+					"weapon": "Staff of the Magi",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 5711.7395719187225,
+						"baseDmg": 5843.6669921875,
+						"modifiedDamage": 22790.30126953125,
+						"nonAvoidedDamage": 22790.30126953125,
+						"comboDamage": 22790.30126953125,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 3.4
+					}
+				},
+				{
+					"ability": "Aero",
+					"weapon": "Staff of the Magi",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 5550.080077080831,
+						"baseDmg": 4257.52880859375,
+						"modifiedDamage": 19925.23482421875,
+						"nonAvoidedDamage": 19925.23482421875,
+						"comboDamage": 19925.23482421875,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 3
+					}
+				},
+				{
 					"ability": "Attack",
 					"weapon": "Flame Staff",
 					"helm": "Circlet",
@@ -16246,12 +16246,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 5453.741192273458,
+						"dps": 5248.939715543232,
 						"baseDmg": 15861.3818359375,
 						"modifiedDamage": 41239.5927734375,
 						"nonAvoidedDamage": 41239.5927734375,
 						"comboDamage": 41239.5927734375,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 7.266666666666667
 					}
 				},
@@ -16321,22 +16321,6 @@
 					}
 				},
 				{
-					"ability": "Bio",
-					"weapon": "Staff of the Magi",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 3798.5797897166935,
-						"baseDmg": 5593.22412109375,
-						"modifiedDamage": 14542.38271484375,
-						"nonAvoidedDamage": 14542.38271484375,
-						"comboDamage": 14542.38271484375,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 3.533333333333333
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Ras Algethi",
 					"ammo": "Dark Shot",
@@ -16351,6 +16335,22 @@
 						"comboDamage": 7443.581932617188,
 						"chargeTime": 0.6730321156421418,
 						"animationTime": 1.4
+					}
+				},
+				{
+					"ability": "Bio",
+					"weapon": "Staff of the Magi",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 3526.782162291843,
+						"baseDmg": 5593.22412109375,
+						"modifiedDamage": 14542.38271484375,
+						"nonAvoidedDamage": 14542.38271484375,
+						"comboDamage": 14542.38271484375,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 3.533333333333333
 					}
 				},
 				{
@@ -16376,12 +16376,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 3381.7836514829837,
+						"dps": 3289.0267574597574,
 						"baseDmg": 13607.39599609375,
 						"modifiedDamage": 35379.22958984375,
 						"nonAvoidedDamage": 35379.22958984375,
 						"comboDamage": 35379.22958984375,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 10.166666666666666
 					}
 				},
@@ -16408,12 +16408,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 3075.161146291092,
+						"dps": 2781.5453520540455,
 						"baseDmg": 1836.5810546875,
 						"modifiedDamage": 8595.1993359375,
 						"nonAvoidedDamage": 8595.1993359375,
 						"comboDamage": 8595.1993359375,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 2.5
 					}
 				},
@@ -16424,29 +16424,13 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 2928.620728423993,
+						"dps": 2751.9240210399234,
 						"baseDmg": 5175.8193359375,
 						"modifiedDamage": 13457.1302734375,
 						"nonAvoidedDamage": 13457.1302734375,
 						"comboDamage": 13457.1302734375,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 4.3
-					}
-				},
-				{
-					"ability": "Thunder",
-					"weapon": "Cloud Staff",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 2679.117665329361,
-						"baseDmg": 1920.06201171875,
-						"modifiedDamage": 7488.241845703125,
-						"nonAvoidedDamage": 7488.241845703125,
-						"comboDamage": 7488.241845703125,
-						"chargeTime": 0.29504030099497264,
-						"animationTime": 2.5
 					}
 				},
 				{
@@ -16463,6 +16447,22 @@
 						"comboDamage": 4459.351704158204,
 						"chargeTime": 0.4227258180168414,
 						"animationTime": 1.368588
+					}
+				},
+				{
+					"ability": "Thunder",
+					"weapon": "Cloud Staff",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 2423.316026410722,
+						"baseDmg": 1920.06201171875,
+						"modifiedDamage": 7488.241845703125,
+						"nonAvoidedDamage": 7488.241845703125,
+						"comboDamage": 7488.241845703125,
+						"chargeTime": 0.5900806019899453,
+						"animationTime": 2.5
 					}
 				},
 				{
@@ -16521,12 +16521,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Agate Ring",
 					"dps": {
-						"dps": 2224.7259435162623,
+						"dps": 2102.515736585516,
 						"baseDmg": 3088.79541015625,
 						"modifiedDamage": 12046.302099609375,
 						"nonAvoidedDamage": 12046.302099609375,
 						"comboDamage": 12046.302099609375,
-						"chargeTime": 0.31473530019151286,
+						"chargeTime": 0.6294706003830257,
 						"animationTime": 5.1
 					}
 				},
@@ -16537,12 +16537,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 2202.7887783402957,
+						"dps": 2039.9069899709725,
 						"baseDmg": 2087.02392578125,
 						"modifiedDamage": 8139.393310546875,
 						"nonAvoidedDamage": 8139.393310546875,
 						"comboDamage": 8139.393310546875,
-						"chargeTime": 0.29504030099497264,
+						"chargeTime": 0.5900806019899453,
 						"animationTime": 3.4
 					}
 				},
@@ -16652,12 +16652,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 459.66702585717286,
+						"dps": 418.95516159269795,
 						"baseDmg": 1782,
 						"modifiedDamage": 1782,
 						"nonAvoidedDamage": 1782,
 						"comboDamage": 1782,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 3.5
 					}
 				},
@@ -16717,12 +16717,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -17406,22 +17406,6 @@
 					}
 				},
 				{
-					"ability": "1000 Needles",
-					"weapon": "Unarmed",
-					"helm": "Steel Mask",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 242.77030701912895,
-						"baseDmg": 1000,
-						"modifiedDamage": 1000,
-						"nonAvoidedDamage": 1000,
-						"comboDamage": 1000,
-						"chargeTime": 0.3191198885834323,
-						"animationTime": 3.8
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Longsword",
 					"helm": "Grand Helm",
@@ -17438,18 +17422,34 @@
 					}
 				},
 				{
+					"ability": "1000 Needles",
+					"weapon": "Unarmed",
+					"helm": "Steel Mask",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 225.3145504090693,
+						"baseDmg": 1000,
+						"modifiedDamage": 1000,
+						"nonAvoidedDamage": 1000,
+						"comboDamage": 1000,
+						"chargeTime": 0.6382397771668646,
+						"animationTime": 3.8
+					}
+				},
+				{
 					"ability": "Gil Toss",
 					"weapon": "Unarmed",
 					"helm": "Steel Mask",
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.87763584957854,
+						"dps": 76.79969960144689,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.3776105329667855,
+						"chargeTime": 0.755221065933571,
 						"animationTime": 2.5
 					}
 				},
@@ -18156,12 +18156,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 242.7997773537218,
+						"dps": 225.3653251300108,
 						"baseDmg": 1000,
 						"modifiedDamage": 1000,
 						"nonAvoidedDamage": 1000,
 						"comboDamage": 1000,
-						"chargeTime": 0.3186199217273353,
+						"chargeTime": 0.6372398434546706,
 						"animationTime": 3.8
 					}
 				},
@@ -18172,12 +18172,12 @@
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.8957529627539,
+						"dps": 76.82801949438597,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37701057273946903,
+						"chargeTime": 0.7540211454789381,
 						"animationTime": 2.5
 					}
 				},
@@ -18696,22 +18696,6 @@
 					}
 				},
 				{
-					"ability": "1000 Needles",
-					"weapon": "Unarmed",
-					"helm": "Celebrant's Miter",
-					"armor": "Mirage Vest",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 242.8140906736982,
-						"baseDmg": 1000,
-						"modifiedDamage": 1000,
-						"nonAvoidedDamage": 1000,
-						"comboDamage": 1000,
-						"chargeTime": 0.31837713876265145,
-						"animationTime": 3.8
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Longsword",
 					"helm": "Genji Helm",
@@ -18728,18 +18712,34 @@
 					}
 				},
 				{
+					"ability": "1000 Needles",
+					"weapon": "Unarmed",
+					"helm": "Celebrant's Miter",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 225.38998949425073,
+						"baseDmg": 1000,
+						"modifiedDamage": 1000,
+						"nonAvoidedDamage": 1000,
+						"comboDamage": 1000,
+						"chargeTime": 0.6367542775253029,
+						"animationTime": 3.8
+					}
+				},
+				{
 					"ability": "Gil Toss",
 					"weapon": "Unarmed",
 					"helm": "Celebrant's Miter",
 					"armor": "Mirage Vest",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 86.90455332461586,
+						"dps": 76.84177911605626,
 						"baseDmg": 250,
 						"modifiedDamage": 250,
 						"nonAvoidedDamage": 250,
 						"comboDamage": 250,
-						"chargeTime": 0.37671923318184836,
+						"chargeTime": 0.7534384663636967,
 						"animationTime": 2.5
 					}
 				},
@@ -19123,12 +19123,12 @@
 					"armor": "Gigas Chestplate",
 					"accessory": "Leather Gorget",
 					"dps": {
-						"dps": 1077.3997164254968,
+						"dps": 933.8313637963485,
 						"baseDmg": 1224.166015625,
 						"modifiedDamage": 3182.831640625,
 						"nonAvoidedDamage": 3182.831640625,
 						"comboDamage": 3182.831640625,
-						"chargeTime": 0.4541790220483092,
+						"chargeTime": 0.9083580440966184,
 						"animationTime": 2.5
 					}
 				},
@@ -19139,12 +19139,12 @@
 					"armor": "Gigas Chestplate",
 					"accessory": "Leather Gorget",
 					"dps": {
-						"dps": 1030.5562504939535,
+						"dps": 893.2300001530289,
 						"baseDmg": 1170.94140625,
 						"modifiedDamage": 3044.44765625,
 						"nonAvoidedDamage": 3044.44765625,
 						"comboDamage": 3044.44765625,
-						"chargeTime": 0.4541790220483092,
+						"chargeTime": 0.9083580440966184,
 						"animationTime": 2.5
 					}
 				},
@@ -19264,22 +19264,6 @@
 					}
 				},
 				{
-					"ability": "Holy",
-					"weapon": "Holy Rod",
-					"helm": "Celebrant's Miter",
-					"armor": "White Robes",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 6455.4959386491,
-						"baseDmg": 13106.51025390625,
-						"modifiedDamage": 51115.38999023438,
-						"nonAvoidedDamage": 51115.38999023438,
-						"comboDamage": 51115.38999023438,
-						"chargeTime": 0.35145309919147205,
-						"animationTime": 7.566666666666666
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Empyrean Rod",
 					"helm": "Circlet",
@@ -19293,6 +19277,22 @@
 						"comboDamage": 11279.267578125,
 						"chargeTime": 0.5490189331178323,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Holy",
+					"weapon": "Holy Rod",
+					"helm": "Celebrant's Miter",
+					"armor": "White Robes",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 6181.1402867332645,
+						"baseDmg": 13106.51025390625,
+						"modifiedDamage": 51115.38999023438,
+						"nonAvoidedDamage": 51115.38999023438,
+						"comboDamage": 51115.38999023438,
+						"chargeTime": 0.7029061983829441,
+						"animationTime": 7.566666666666666
 					}
 				},
 				{
@@ -19366,12 +19366,12 @@
 					"armor": "White Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 2893.102431964036,
+						"dps": 2689.8625998199122,
 						"baseDmg": 5175.8193359375,
 						"modifiedDamage": 13457.1302734375,
 						"nonAvoidedDamage": 13457.1302734375,
 						"comboDamage": 13457.1302734375,
-						"chargeTime": 0.35145309919147205,
+						"chargeTime": 0.7029061983829441,
 						"animationTime": 4.3
 					}
 				},
@@ -19408,22 +19408,6 @@
 					}
 				},
 				{
-					"ability": "Thunder",
-					"weapon": "Rod of Faith",
-					"helm": "Celebrant's Miter",
-					"armor": "White Robes",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 1750.742886805424,
-						"baseDmg": 1920.06201171875,
-						"modifiedDamage": 4992.161230468751,
-						"nonAvoidedDamage": 4992.161230468751,
-						"comboDamage": 4992.161230468751,
-						"chargeTime": 0.35145309919147205,
-						"animationTime": 2.5
-					}
-				},
-				{
 					"ability": "Attack",
 					"weapon": "Rod",
 					"helm": "Circlet",
@@ -19437,22 +19421,6 @@
 						"comboDamage": 3007.8046875,
 						"chargeTime": 0.5490189331178323,
 						"animationTime": 1.2
-					}
-				},
-				{
-					"ability": "Fire",
-					"weapon": "Rod of Faith",
-					"helm": "Celebrant's Miter",
-					"armor": "White Robes",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 1674.6236308573618,
-						"baseDmg": 1836.5810546875,
-						"modifiedDamage": 4775.1107421875,
-						"nonAvoidedDamage": 4775.1107421875,
-						"comboDamage": 4775.1107421875,
-						"chargeTime": 0.35145309919147205,
-						"animationTime": 2.5
 					}
 				},
 				{
@@ -19470,6 +19438,38 @@
 						"comboDamage": 3455.8436353211,
 						"chargeTime": 0.5843091255406979,
 						"animationTime": 1.6
+					}
+				},
+				{
+					"ability": "Thunder",
+					"weapon": "Rod of Faith",
+					"helm": "Celebrant's Miter",
+					"armor": "White Robes",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 1558.6348526188965,
+						"baseDmg": 1920.06201171875,
+						"modifiedDamage": 4992.161230468751,
+						"nonAvoidedDamage": 4992.161230468751,
+						"comboDamage": 4992.161230468751,
+						"chargeTime": 0.7029061983829441,
+						"animationTime": 2.5
+					}
+				},
+				{
+					"ability": "Fire",
+					"weapon": "Rod of Faith",
+					"helm": "Celebrant's Miter",
+					"armor": "White Robes",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 1490.8681198963357,
+						"baseDmg": 1836.5810546875,
+						"modifiedDamage": 4775.1107421875,
+						"nonAvoidedDamage": 4775.1107421875,
+						"comboDamage": 4775.1107421875,
+						"chargeTime": 0.7029061983829441,
+						"animationTime": 2.5
 					}
 				},
 				{
@@ -19522,8 +19522,8 @@
 				}
 			],
 			[
-				1797.8252000808716,
-				1893.2285995483398
+				1906.608798980713,
+				1997.3717002868652
 			]
 		]
 	}
