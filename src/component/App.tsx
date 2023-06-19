@@ -1,18 +1,22 @@
-import { h } from "preact";
+import { h, TPC } from "vdomk";
 import CharacterPlanner from "./CharacterPlanner";
 import "modern-normalize/modern-normalize.css";
 import "./App.css";
 import { useStore } from "../store/Store";
-import { useEffect } from "preact/hooks";
 
-export default function App() {
-	const { party } = useStore();
-	useEffect(() => {
-		const urlBase = window.location.href.split("?")[0];
-		const search = party.encode();
-		const urlSuffix = search === "AA.AA.AA.AA.AA.AA" ? "" : "?" + search;
-		window.history.replaceState(null, "", urlBase + urlSuffix);
-	}, [party]);
+const App: TPC<{}> = (_, hooks) => {
+	const getState = useStore(hooks);
 
-	return <CharacterPlanner />;
-}
+	return () => {
+		const { party } = getState();
+		hooks.effect(() => {
+			const urlBase = window.location.href.split("?")[0];
+			const search = party.encode();
+			const urlSuffix = search === "AA.AA.AA.AA.AA.AA" ? "" : "?" + search;
+			window.history.replaceState(null, "", urlBase + urlSuffix);
+		})
+		return <CharacterPlanner />;
+	}
+};
+
+export default App;

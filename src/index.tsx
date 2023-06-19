@@ -1,8 +1,6 @@
-import { render, h } from "preact";
+import { h, createRoot } from "vdomk";
 import App from "./component/App";
 import "./MouseOver";
 
-render(
-	<App />,
-	document.getElementById("root")!
-);
+const root = createRoot(document.getElementById("root")!);
+root.render(<App />);

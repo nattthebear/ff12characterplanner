@@ -1,5 +1,4 @@
-import { h } from "preact";
-import { useEffect, useRef } from "preact/hooks";
+import { h, TPC } from "vdomk";
 import { License } from "../data/Licenses";
 import { Position, Board, Boards } from "../data/Boards";
 import "./LicenseBoard.css";
@@ -8,37 +7,42 @@ import GithubCorner from "./GithubCorner";
 import { dispatch, useStore } from "../store/Store";
 import { changeParty, changePlannedParty } from "../store/State";
 
-export default function LicenseBoard() {
-	const store = useStore();
-	const scrollOffset = useRef<{ x: number; y: number }>();
-	const scrollEl = useRef<HTMLDivElement | null>(null);
+const LicenseBoard: TPC<{}> = (_, hooks) => {
+	const getState = useStore(hooks);
+	let store = getState();
+	let scrollOffset: { x: number; y: number } | undefined;
+	let scrollEl: HTMLDivElement | null = null;
+	const acceptScrollEl = (el: HTMLDivElement | null) => {
+		scrollEl = el;
+	};
 
-	useEffect(() => {
+	hooks.effect(() => {
 		function onMouseMove(ev: MouseEvent) {
-			const element = scrollEl.current;
-			const offs = scrollOffset.current;
+			const element = scrollEl;
+			const offs = scrollOffset;
 			if (offs && element) {
 				element.scrollLeft = offs.x - ev.screenX;
 				element.scrollTop = offs.y - ev.screenY;
 			}
 		}
 		function onMouseUp() {
-			scrollOffset.current = undefined;
+			scrollOffset = undefined;
 		}
 		document.addEventListener("mousemove", onMouseMove, { passive: true });
 		document.addEventListener("mouseup", onMouseUp, { passive: true });
-		return () => {
+
+		hooks.cleanup(() => {
 			document.removeEventListener("mousemove", onMouseMove);
 			document.removeEventListener("mouseup", onMouseUp);
-		};
-	}, []);
+		});
+	});
 
 	function onMouseDown(ev: MouseEvent) {
-		const element = scrollEl.current;
+		const element = scrollEl;
 		const target = ev.target as HTMLElement;
 		if (element) {
 			if (target.classList.contains("empty") || target.nodeName === "TABLE") {
-				scrollOffset.current = {
+				scrollOffset = {
 					x: element.scrollLeft + ev.screenX,
 					y: element.scrollTop + ev.screenY,
 				};
@@ -76,7 +80,7 @@ export default function LicenseBoard() {
 
 	function renderBoard(b: Board) {
 		const colors = store.party.color(store.characterIndex);
-		return <div class="license-board-holder" ref={scrollEl} onMouseDown={onMouseDown}>
+		return <div class="license-board-holder" ref={acceptScrollEl} onMouseDown={onMouseDown}>
 			<table class="license-board">
 				<tbody>
 					{b.rows.map((row) => <tr>
@@ -104,11 +108,16 @@ export default function LicenseBoard() {
 		</div>;
 	}
 
-	const b = store.party.getJob(store.characterIndex, store.boardIndex);
-	if (b) {
-		return renderBoard(b);
-	} else {
-		const otherBoard = store.party.getJob(store.characterIndex, store.boardIndex ^ 1);
-		return renderSelectJob(otherBoard);
-	}
-}
+	return () => {
+		store = getState();
+
+		const b = store.party.getJob(store.characterIndex, store.boardIndex);
+		if (b) {
+			return renderBoard(b);
+		} else {
+			const otherBoard = store.party.getJob(store.characterIndex, store.boardIndex ^ 1);
+			return renderSelectJob(otherBoard);
+		}
+	};
+};
+export default LicenseBoard;
