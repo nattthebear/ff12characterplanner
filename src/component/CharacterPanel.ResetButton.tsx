@@ -1,4 +1,4 @@
-import { h, TPC, VNode } from "vdomk";
+import { h, scheduleUpdate, TPC, VNode } from "vdomk";
 import PartyModel from "../model/PartyModel";
 import { changeParty } from "../store/State";
 import { dispatch, useStore } from "../store/Store";
@@ -21,8 +21,8 @@ function delay(ms: number) {
 	return new Promise<void>(resolve => setTimeout(resolve, ms));
 }
 
-const ResetButton: TPC<ResetButtonProps> = (_, hooks) => {
-	const getState = useStore(hooks);
+const ResetButton: TPC<ResetButtonProps> = (_, instance) => {
+	const getState = useStore(instance);
 	let undoRaw: ResetButtonUndo | undefined;
 
 	return (props) => {
@@ -53,11 +53,11 @@ const ResetButton: TPC<ResetButtonProps> = (_, hooks) => {
 						children: <i>Undo {props.children}</i>,
 					};
 					undoRaw = nextUndo;
-					hooks.scheduleUpdate();
+					scheduleUpdate(instance);
 					await delay(5000);
 					if (undoRaw === nextUndo) {
 						undoRaw = undefined;
-						hooks.scheduleUpdate();
+						scheduleUpdate(instance);
 					}
 				}}
 			>

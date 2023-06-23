@@ -1,4 +1,4 @@
-import { h, Fragment, TPC } from "vdomk";
+import { h, Fragment, TPC, effect, scheduleUpdate } from "vdomk";
 import PartyModel from "../model/PartyModel";
 import { optimizeForCharacter } from "../dps/OptimizeForCharacter";
 import { OptimizerResult } from "../dps/Optimize";
@@ -326,7 +326,7 @@ function renderComponents(results: PartyDpsState["results"]) {
 		: <tr><td>Working...</td></tr>;
 }
 
-const PartyDps: TPC<PartyDpsProps> = (props, hooks) => {
+const PartyDps: TPC<PartyDpsProps> = (props, instance) => {
 	let state: PartyDpsState = { results: undefined, for: undefined };
 
 	async function checkForCalculate() {
@@ -360,7 +360,7 @@ const PartyDps: TPC<PartyDpsProps> = (props, hooks) => {
 				env
 			}
 		};
-		hooks.scheduleUpdate();
+		scheduleUpdate(instance);
 	}
 
 	const components = createSelector(() => state.results, renderComponents);
@@ -369,7 +369,7 @@ const PartyDps: TPC<PartyDpsProps> = (props, hooks) => {
 		props = nextProps;
 
 		const same = state.for && state.for.env === props.env && state.for.party === props.party;
-		hooks.effect(() => {
+		effect(instance, () => {
 			// TODO
 			if (!same) {
 				checkForCalculate();

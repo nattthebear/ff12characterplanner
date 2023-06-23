@@ -1,15 +1,15 @@
-import { h, TPC } from "vdomk";
+import { h, TPC, effect } from "vdomk";
 import CharacterPlanner from "./CharacterPlanner";
 import "modern-normalize/modern-normalize.css";
 import "./App.css";
 import { useStore } from "../store/Store";
 
-const App: TPC<{}> = (_, hooks) => {
-	const getState = useStore(hooks);
+const App: TPC<{}> = (_, instance) => {
+	const getState = useStore(instance);
 
 	return () => {
 		const { party } = getState();
-		hooks.effect(() => {
+		effect(instance, () => {
 			const urlBase = window.location.href.split("?")[0];
 			const search = party.encode();
 			const urlSuffix = search === "AA.AA.AA.AA.AA.AA" ? "" : "?" + search;

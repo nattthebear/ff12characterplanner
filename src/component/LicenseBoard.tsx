@@ -1,4 +1,4 @@
-import { h, TPC } from "vdomk";
+import { h, TPC, effect, cleanup } from "vdomk";
 import { License } from "../data/Licenses";
 import { Position, Board, Boards } from "../data/Boards";
 import "./LicenseBoard.css";
@@ -7,8 +7,8 @@ import GithubCorner from "./GithubCorner";
 import { dispatch, useStore } from "../store/Store";
 import { changeParty, changePlannedParty } from "../store/State";
 
-const LicenseBoard: TPC<{}> = (_, hooks) => {
-	const getState = useStore(hooks);
+const LicenseBoard: TPC<{}> = (_, instance) => {
+	const getState = useStore(instance);
 	let store = getState();
 	let scrollOffset: { x: number; y: number } | undefined;
 	let scrollEl: HTMLDivElement | null = null;
@@ -16,7 +16,7 @@ const LicenseBoard: TPC<{}> = (_, hooks) => {
 		scrollEl = el;
 	};
 
-	hooks.effect(() => {
+	effect(instance,() => {
 		function onMouseMove(ev: MouseEvent) {
 			const element = scrollEl;
 			const offs = scrollOffset;
@@ -31,7 +31,7 @@ const LicenseBoard: TPC<{}> = (_, hooks) => {
 		document.addEventListener("mousemove", onMouseMove, { passive: true });
 		document.addEventListener("mouseup", onMouseUp, { passive: true });
 
-		hooks.cleanup(() => {
+		cleanup(instance, () => {
 			document.removeEventListener("mousemove", onMouseMove);
 			document.removeEventListener("mouseup", onMouseUp);
 		});

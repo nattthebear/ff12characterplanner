@@ -1,14 +1,14 @@
-import { Hooks } from "vdomk";
+import { ComponentContext, scheduleUpdate, cleanup } from "vdomk";
 
 export function makeStore<S>(initialValue: S) {
 	let state = initialValue;
 	const subs = new Set<() => void>();
 
 	return {
-		useStore(hooks: Hooks) {
-			const subscription = () => hooks.scheduleUpdate();
+		useStore(instance: ComponentContext) {
+			const subscription = () => scheduleUpdate(instance);
 			subs.add(subscription);
-			hooks.cleanup(() => {
+			cleanup(instance, () => {
 				subs.delete(subscription);
 			});
 			return () => state;
