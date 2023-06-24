@@ -1,11 +1,11 @@
-import { ComponentContext, scheduleUpdate, cleanup } from "vdomk";
+import { LayerInstance, scheduleUpdate, cleanup } from "vdomk";
 
 export function makeStore<S>(initialValue: S) {
 	let state = initialValue;
 	const subs = new Set<() => void>();
 
 	return {
-		useStore(instance: ComponentContext) {
+		useStore(instance: LayerInstance) {
 			const subscription = () => scheduleUpdate(instance);
 			subs.add(subscription);
 			cleanup(instance, () => {
