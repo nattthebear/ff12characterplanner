@@ -16,7 +16,7 @@ const LicenseBoard: TPC<{}> = (_, instance) => {
 		scrollEl = el;
 	};
 
-	effect(instance,() => {
+	effect(instance, () => {
 		function onMouseMove(ev: MouseEvent) {
 			const element = scrollEl;
 			const offs = scrollOffset;

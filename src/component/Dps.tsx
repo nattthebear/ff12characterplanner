@@ -370,7 +370,6 @@ const PartyDps: TPC<PartyDpsProps> = (props, instance) => {
 
 		const same = state.for && state.for.env === props.env && state.for.party === props.party;
 		effect(instance, () => {
-			// TODO
 			if (!same) {
 				checkForCalculate();
 			}
