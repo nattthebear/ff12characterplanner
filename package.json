@@ -5,7 +5,7 @@
   "dependencies": {
     "@floating-ui/dom": "^1.4.2",
     "modern-normalize": "^2.0.0",
-    "vdomk": "file:../../vdomk/vdomk-0.1.0.tgz"
+    "vdomk": "^0.1.0"
   },
   "type": "module",
   "scripts": {
