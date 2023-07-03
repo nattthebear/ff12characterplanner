@@ -9,12 +9,12 @@ const App: TPC<{}> = (_, instance) => {
 
 	return () => {
 		const { party } = getState();
-		effect(instance, () => {
+		requestIdleCallback(() => {
 			const urlBase = window.location.href.split("?")[0];
 			const search = party.encode();
 			const urlSuffix = search === "AA.AA.AA.AA.AA.AA" ? "" : "?" + search;
 			window.history.replaceState(null, "", urlBase + urlSuffix);
-		})
+		});
 		return <CharacterPlanner />;
 	}
 };
