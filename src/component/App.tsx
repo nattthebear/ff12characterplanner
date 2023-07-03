@@ -1,9 +1,8 @@
-import { h, TPC, effect, Fragment } from "vdomk";
+import { h, TPC, effect } from "vdomk";
 import CharacterPlanner from "./CharacterPlanner";
 import "modern-normalize/modern-normalize.css";
 import "./App.css";
 import { useStore } from "../store/Store";
-import Tooltip from "../MouseOver";
 
 const App: TPC<{}> = (_, instance) => {
 	const getState = useStore(instance);
@@ -15,11 +14,8 @@ const App: TPC<{}> = (_, instance) => {
 			const search = party.encode();
 			const urlSuffix = search === "AA.AA.AA.AA.AA.AA" ? "" : "?" + search;
 			window.history.replaceState(null, "", urlBase + urlSuffix);
-		});
-		return <>
-			<CharacterPlanner />
-			<Tooltip />
-		</>;
+		})
+		return <CharacterPlanner />;
 	}
 };
 
