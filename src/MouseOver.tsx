@@ -29,7 +29,7 @@ const Tooltip: TPC<{}> = (_, instance) => {
 
 	return () => {
 		effect(instance, updateStyles);
-		return <div ref={ref} class={labelText ? "tooltip" : "tooltip hidden"}>{labelText}</div>
+		return <div ref={ref} class={labelText ? "tooltip" : "tooltip hidden"}>{labelText}</div>;
 	};
 };
 

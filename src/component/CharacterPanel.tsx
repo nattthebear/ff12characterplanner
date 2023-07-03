@@ -7,8 +7,8 @@ import { dispatch, useStore } from "../store/Store";
 import { changeIndices, changeParty, toggleDps, toggleQe } from "../store/State";
 import ResetButton from "./CharacterPanel.ResetButton";
 
-const CharacterPanel: TPC<{}> = (_, hooks) => {
-	const getState = useStore(hooks);
+const CharacterPanel: TPC<{}> = (_, instance) => {
+	const getState = useStore(instance);
 	return () => {
 		const store = getState();
 

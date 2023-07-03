@@ -6,8 +6,8 @@ import QeBoard from "./QeBoard";
 import Dps from "./Dps";
 import { useStore } from "../store/Store";
 
-const CharacterPlanner: TPC<{}> = (_, hooks) => {
-	const getState = useStore(hooks);
+const CharacterPlanner: TPC<{}> = (_, instance) => {
+	const getState = useStore(instance);
 	return () => {
 		const store = getState();
 		return <div class="character-planner">

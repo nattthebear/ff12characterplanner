@@ -109,8 +109,8 @@ const { useStore, dispatch } = makeStore(defaultEnvironment);
 const changeEnv = <K extends keyof Environment>(key: K, value: Environment[K]) =>
 	dispatch(e => ({ ...e, [key]: value }));
 
-const DPS: TPC<Props> = (_, hooks) => {
-	const getEnv = useStore(hooks);
+const DPS: TPC<Props> = (_, instance) => {
+	const getEnv = useStore(instance);
 
 	return props => {
 		const env = getEnv();

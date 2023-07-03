@@ -16,8 +16,8 @@ function compareLicenses(a: License, b: License) {
 
 const makeColorings = (party: PartyModel) => Characters.map((_, c) => party.color(c));
 
-const QeBoard: TPC<{}> = (_, hooks) => {
-	const getState = useStore(hooks);
+const QeBoard: TPC<{}> = (_, instance) => {
+	const getState = useStore(instance);
 	let { party } = getState();
 	const makeColoringsMemo = createSelector(() => party, makeColorings);
 	let colorings = makeColoringsMemo();
