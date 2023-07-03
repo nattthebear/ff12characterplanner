@@ -20,14 +20,14 @@ export function createSelector<T extends any[], R>(...args: [
 	const inputSelectors = args.slice(0, -1) as InputSelectors<T>;
 	const selector = args.at(-1) as Selector<T, R>;
 
-	let prevArgs: T | undefined;
+	let prevSelectorArgs: T | undefined;
 	let prevResult: R;
 
 	return function memoizedSelector() {
-		const args = inputSelectors.map(call) as T;
-		if (!prevArgs || !equal(prevArgs, args)) {
-			prevArgs = args;
-			prevResult = selector(...args);
+		const selectorArgs = inputSelectors.map(call) as T;
+		if (!prevSelectorArgs || !equal(prevSelectorArgs, selectorArgs)) {
+			prevSelectorArgs = selectorArgs;
+			prevResult = selector(...selectorArgs);
 		}
 		return prevResult;
 	}
