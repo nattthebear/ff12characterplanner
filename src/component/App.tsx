@@ -1,4 +1,4 @@
-import { h, TPC, effect } from "vdomk";
+import { h, TPC } from "vdomk";
 import CharacterPlanner from "./CharacterPlanner";
 import "modern-normalize/modern-normalize.css";
 import "./App.css";

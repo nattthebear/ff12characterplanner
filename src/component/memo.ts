@@ -1,6 +1,3 @@
-
-const call = <T>(fn: () => T) => fn();
-
 export type InputSelectors<T extends any[]> = { [K in keyof T]: () => T[K] };
 export type Selector<T extends any[], R> = (...args: T) => R;
 
@@ -13,6 +10,7 @@ function equal<T extends any[]>(x: T, y: T) {
 	}
 	return true;
 }
+const call = <T>(fn: () => T) => fn();
 
 export function createSelector<T extends any[], R>(...args: [
 	...inputSelectors: InputSelectors<T>, selector: Selector<T, R>
