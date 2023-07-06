@@ -1,12 +1,12 @@
-import { h, Fragment } from "preact";
+import { h, Fragment, TPC } from "vdomk";
 import "./QeBoard.css";
 import PartyModel, { Coloring } from "../model/PartyModel";
 import { Characters } from "../data/Characters";
 import { License, Espers, Quickenings } from "../data/Licenses";
 import { Board } from "../data/Boards";
 import { dispatch, useStore } from "../store/Store";
-import { useMemo } from "preact/hooks";
 import { changeIndices, changeParty, toggleQe } from "../store/State";
+import { createSelector } from "./memo";
 
 const allLimitedLicenses = [...Espers, ...Quickenings];
 
@@ -14,10 +14,13 @@ function compareLicenses(a: License, b: License) {
 	return a.sortOrder - b.sortOrder;
 }
 
-export default function QeBoard() {
-	const { party } = useStore();
+const makeColorings = (party: PartyModel) => Characters.map((_, c) => party.color(c));
 
-	const colorings = useMemo(() => Characters.map((_, c) => party.color(c)), [party]);
+const QeBoard: TPC<{}> = (_, instance) => {
+	const getState = useStore(instance);
+	let { party } = getState();
+	const makeColoringsMemo = createSelector(() => party, makeColorings);
+	let colorings = makeColoringsMemo();
 
 	function renderCell(l: License, c: number, esper: boolean) {
 		if (party.unemployed(c)) {
@@ -116,14 +119,20 @@ export default function QeBoard() {
 		}
 	}
 
-	return <div class="qe-board">
-		<div>{/* help goes here? */}</div>
-		{Characters.map((character, c) => <div>
-			<div class="character-name">{character.name}</div>
-			{renderJob(party.getJob(c, 0))}
-			{renderJob(party.getJob(c, 1))}
-		</div>)}
-		{Espers.map(e => renderRow(e, true))}
-		{Quickenings.map(q => renderRow(q, false))}
-	</div>;
+	return () => {
+		({ party } = getState());
+		colorings = makeColoringsMemo();
+
+		return <div class="qe-board">
+			<div>{/* help goes here? */}</div>
+			{Characters.map((character, c) => <div>
+				<div class="character-name">{character.name}</div>
+				{renderJob(party.getJob(c, 0))}
+				{renderJob(party.getJob(c, 1))}
+			</div>)}
+			{Espers.map(e => renderRow(e, true))}
+			{Quickenings.map(q => renderRow(q, false))}
+		</div>;
+	}
 }
+export default QeBoard;

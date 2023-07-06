@@ -5,7 +5,7 @@
   "dependencies": {
     "@floating-ui/dom": "^1.4.2",
     "modern-normalize": "^2.0.0",
-    "preact": "^10.15.1"
+    "vdomk": "^0.1.2"
   },
   "type": "module",
   "scripts": {
