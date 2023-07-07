@@ -1,4 +1,4 @@
-import { h, TPC, effect, cleanup } from "vdomk";
+import { h, TPC, cleanup } from "vdomk";
 import { License } from "../data/Licenses";
 import { Position, Board, Boards } from "../data/Boards";
 import "./LicenseBoard.css";
@@ -16,7 +16,7 @@ const LicenseBoard: TPC<{}> = (_, instance) => {
 		scrollEl = el;
 	};
 
-	effect(instance, () => {
+	{
 		function onMouseMove(ev: MouseEvent) {
 			const element = scrollEl;
 			const offs = scrollOffset;
@@ -35,7 +35,7 @@ const LicenseBoard: TPC<{}> = (_, instance) => {
 			document.removeEventListener("mousemove", onMouseMove);
 			document.removeEventListener("mouseup", onMouseUp);
 		});
-	});
+	}
 
 	function onMouseDown(ev: MouseEvent) {
 		const element = scrollEl;
