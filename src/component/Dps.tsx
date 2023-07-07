@@ -1,14 +1,13 @@
-import { h, Fragment, TPC, effect, scheduleUpdate } from "vdomk";
+import { h, Fragment, TPC, scheduleUpdate, VNode } from "vdomk";
 import PartyModel from "../model/PartyModel";
 import { optimizeForCharacter } from "../dps/OptimizeForCharacter";
 import { OptimizerResult } from "../dps/Optimize";
 import { Characters } from "../data/Characters";
 import "./Dps.css";
-import { Environment, Equipment, Profile, AllElements, Weather, Terrain, defaultEnvironment } from "../dps/Profile";
+import { Environment, Equipment, AllElements, Weather, Terrain, defaultEnvironment } from "../dps/Profile";
 import { CalculateResult } from "../dps/Calculate";
 import { makeStore } from "../store/MakeStore";
 import { Ability } from "../dps/ability/Ability";
-import { createSelector } from "./memo";
 
 export interface Props {
 	party: PartyModel;
@@ -316,22 +315,28 @@ interface PartyDpsProps {
 interface PartyDpsState {
 	results: OptimizerResult[][] | undefined;
 	for: PartyDpsProps | undefined;
+	nodes: VNode;
 }
 
-function renderComponents(results: PartyDpsState["results"]) {
-	return results
-		? results.map((result, idx) => <SingleCharacterDps name={Characters[idx].name} results={result} />)
-		: <tr><td>Working...</td></tr>;
+function renderComponents(results: NonNullable<PartyDpsState["results"]>) {
+	return results.map((result, idx) => <SingleCharacterDps name={Characters[idx].name} results={result} />);
 }
 
 const PartyDps: TPC<PartyDpsProps> = (props, instance) => {
-	let state: PartyDpsState = { results: undefined, for: undefined };
+	let state: PartyDpsState = {
+		results: undefined,
+		for: undefined,
+		nodes: <tr><td>Working...</td></tr>
+	};
 
-	async function checkForCalculate() {
+	const notStale = () => state.for && state.for.env === props.env && state.for.party === props.party;
+
+	async function calculate() {
 		const results: OptimizerResult[][] = [[], [], [], [], [], []];
 		const { party, env } = props;
 
 		let time = performance.now();
+		let wentAsync = false;
 
 		for (let i = 0; i < 6; i++) {
 			const dest = results[i];
@@ -340,6 +345,7 @@ const PartyDps: TPC<PartyDpsProps> = (props, instance) => {
 				if (performance.now() - time > 120) {
 					// Interrupt processing to aid responsiveness
 					await new Promise(r => setTimeout(r, 0));
+					wentAsync = true;
 					time = performance.now();
 					if (party !== props.party || env !== props.env) {
 						// stop processing now if this data is already old
@@ -356,27 +362,25 @@ const PartyDps: TPC<PartyDpsProps> = (props, instance) => {
 			for: {
 				party,
 				env
-			}
+			},
+			nodes: renderComponents(results),
 		};
-		scheduleUpdate(instance);
+		if (wentAsync) {
+			scheduleUpdate(instance);
+		}
 	}
-
-	const components = createSelector(() => state.results, renderComponents);
 
 	return nextProps => {
 		props = nextProps;
 
-		const same = state.for && state.for.env === props.env && state.for.party === props.party;
-		effect(instance, () => {
-			if (!same) {
-				checkForCalculate();
-			}
-		});
-	
-		return <div class={same ? "results" : "results busy"}>
+		if (!notStale()) {
+			calculate();
+		}
+
+		return <div class={notStale() ? "results" : "results busy"}>
 			<table>
 				<tbody>
-					{components()}
+					{state.nodes}
 				</tbody>
 			</table>	
 		</div>;
