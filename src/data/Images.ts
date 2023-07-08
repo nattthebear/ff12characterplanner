@@ -1,17 +1,17 @@
-import { default as AriesSvg } from "bundle-text:../media/Aries.svg";
-import { default as TaurusSvg } from "bundle-text:../media/Taurus.svg";
-import { default as GeminiSvg } from "bundle-text:../media/Gemini.svg";
-import { default as CancerSvg } from "bundle-text:../media/Cancer.svg";
-import { default as LeoSvg } from "bundle-text:../media/Leo.svg";
-import { default as VirgoSvg } from "bundle-text:../media/Virgo.svg";
-import { default as LibraSvg } from "bundle-text:../media/Libra.svg";
-import { default as ScorpioSvg } from "bundle-text:../media/Scorpio.svg";
-import { default as SagittariusSvg } from "bundle-text:../media/Sagittarius.svg";
-import { default as CapricornSvg } from "bundle-text:../media/Capricorn.svg";
-import { default as AquariusSvg } from "bundle-text:../media/Aquarius.svg";
-import { default as PiscesSvg } from "bundle-text:../media/Pisces.svg";
-import { default as OphiuchusSvg } from "bundle-text:../media/Ophiuchus.svg";
-import { default as StarSvg } from "bundle-text:../media/Star.svg";
+import AriesSvg from "bundle-text:../media/Aries.svg";
+import TaurusSvg from "bundle-text:../media/Taurus.svg";
+import GeminiSvg from "bundle-text:../media/Gemini.svg";
+import CancerSvg from "bundle-text:../media/Cancer.svg";
+import LeoSvg from "bundle-text:../media/Leo.svg";
+import VirgoSvg from "bundle-text:../media/Virgo.svg";
+import LibraSvg from "bundle-text:../media/Libra.svg";
+import ScorpioSvg from "bundle-text:../media/Scorpio.svg";
+import SagittariusSvg from "bundle-text:../media/Sagittarius.svg";
+import CapricornSvg from "bundle-text:../media/Capricorn.svg";
+import AquariusSvg from "bundle-text:../media/Aquarius.svg";
+import PiscesSvg from "bundle-text:../media/Pisces.svg";
+import OphiuchusSvg from "bundle-text:../media/Ophiuchus.svg";
+import StarSvg from "bundle-text:../media/Star.svg";
 
 const transformImage = (svg: string) => URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
 

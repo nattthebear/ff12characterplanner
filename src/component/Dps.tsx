@@ -278,7 +278,7 @@ function EqCell(props: { value?: Equipment }) {
 	return <td
 		aria-label={value?.tooltip}
 	>
-		{value && value.name}
+		{value?.name}
 	</td>;
 }
 
@@ -341,10 +341,10 @@ const PartyDps: TPC<PartyDpsProps> = (props, instance) => {
 		for (let i = 0; i < 6; i++) {
 			const dest = results[i];
 			const characterEnv = { ...env, character: i };
-			for (const r of optimizeForCharacter(characterEnv, party)) {
+			for (const result of optimizeForCharacter(characterEnv, party)) {
 				if (performance.now() - time > 120) {
 					// Interrupt processing to aid responsiveness
-					await new Promise(r => setTimeout(r, 0));
+					await new Promise(resolve => setTimeout(resolve, 0));
 					wentAsync = true;
 					time = performance.now();
 					if (party !== props.party || env !== props.env) {
@@ -352,7 +352,7 @@ const PartyDps: TPC<PartyDpsProps> = (props, instance) => {
 						return;
 					}
 				}
-				dest.push(r);
+				dest.push(result);
 			}
 			dest.sort((a, b) => b.dps.dps - a.dps.dps);
 		}
@@ -402,14 +402,14 @@ function SingleCharacterDps(props: { name: string, results: OptimizerResult[] })
 			<th>Accessory</th>
 		</tr>
 
-		{props.results.map(r => <tr class="data-row">
-			<DpsCell value={r.dps} />
-			<AbilityCell value={r.ability} />
-			<EqCell value={r.doll.weapon} />
-			<EqCell value={r.doll.ammo} />
-			<EqCell value={r.doll.helm} />
-			<EqCell value={r.doll.armor} />
-			<EqCell value={r.doll.accessory} />
+		{props.results.map(({ ability, doll, dps }) => <tr class="data-row">
+			<DpsCell value={dps} />
+			<AbilityCell value={ability} />
+			<EqCell value={doll.weapon} />
+			<EqCell value={doll.ammo} />
+			<EqCell value={doll.helm} />
+			<EqCell value={doll.armor} />
+			<EqCell value={doll.accessory} />
 		</tr>)}
 	</>;
 }
