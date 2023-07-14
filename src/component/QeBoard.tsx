@@ -2,13 +2,11 @@ import { h, Fragment, TPC } from "vdomk";
 import "./QeBoard.css";
 import PartyModel, { Coloring } from "../model/PartyModel";
 import { Characters } from "../data/Characters";
-import { License, Espers, Quickenings } from "../data/Licenses";
+import { License, AllLimitedLicenses } from "../data/Licenses";
 import { Board } from "../data/Boards";
 import { dispatch, useStore } from "../store/Store";
 import { changeIndices, changeParty, toggleQe } from "../store/State";
 import { createSelector } from "./memo";
-
-const allLimitedLicenses = [...Espers, ...Quickenings];
 
 function compareLicenses(a: License, b: License) {
 	return a.sortOrder - b.sortOrder;
@@ -16,24 +14,54 @@ function compareLicenses(a: License, b: License) {
 
 const makeColorings = (party: PartyModel) => Characters.map((_, c) => party.color(c));
 
+const makeCoverSets = (party: PartyModel) => {
+	const ret = [];
+	for (let c = 0; c < 6; c++) {
+		ret.push(party.getCovered(c));
+	}
+	return ret;
+};
+
 const QeBoard: TPC<{}> = (_, instance) => {
 	const getState = useStore(instance);
 	let { party } = getState();
+
+	// let byCharacter: { colors: Map<License, Coloring>, covers: Map<License, License[]> }[];
+
 	const makeColoringsMemo = createSelector(() => party, makeColorings);
 	let colorings = makeColoringsMemo();
+	const makeCoverSetsMemo = createSelector(() => party, makeCoverSets);
+	let coverSets = makeCoverSetsMemo();
 
-	function renderCell(l: License, c: number, esper: boolean) {
+	function renderCell(mist: License, c: number) {
 		if (party.unemployed(c)) {
 			return <div class="l unreachable" onClick={() => { dispatch(changeIndices(c, 0)); dispatch(toggleQe()); }}>
 				Choose a job first.
 			</div>;
 		}
 
-		const initial = colorings[c];
+		const colors = colorings[c];
 		let className;
-		const content = Array<License>();
 		let clickHandler: (() => void) | undefined;
-		switch (initial.get(l)) {
+		let content: License[];
+
+		{
+			const contentSet = new Set<License>();
+			const covers = coverSets[c];
+			for (const license of covers.get(mist)!) {
+				contentSet.add(license);
+			}
+			for (const otherMist of AllLimitedLicenses) {
+				if (otherMist !== mist && party.has(c, otherMist)) {
+					for (const license of covers.get(otherMist)!) {
+						contentSet.delete(license);
+					}
+				}
+			}
+			content = [...contentSet];
+		}
+
+		switch (colors.get(mist)) {
 			case Coloring.OBTAINED: {
 				className = "l obtained";
 				// cell is white => show anything white or grey now but yellow after removing that license (except for the license itself)
@@ -46,32 +74,20 @@ const QeBoard: TPC<{}> = (_, instance) => {
 				// in another way if you want, but it's not obvious what's happening on the mist planner
 
 				// So, remember all obtained mist licenses before deleting and then re-add them.
-				const toAdd = allLimitedLicenses.filter(ll => ll !== l && party.has(c, ll));
-				const newParty = party.deleteAndAdd([{ c, l }], toAdd.map(l => ({ c, l })));
-				const next = newParty.color(c);
-				for (const [ll, color] of next) {
-					if (color === Coloring.POSSIBLE && ll !== l) {
-						const v = initial.get(ll);
-						if (v === Coloring.OBTAINED || v === Coloring.CERTAIN) {
-							content.push(ll);
-						}
-					}
-				}
-
-				clickHandler = () => dispatch(changeParty(newParty));
+				clickHandler = () => {
+					const toAdd = AllLimitedLicenses.filter(ll => ll !== mist && party.has(c, ll));
+					const newParty = party.deleteAndAdd([{ c, l: mist }], toAdd.map(l => ({ c, l })));
+					dispatch(changeParty(newParty));
+				};
 				break;
 			}
 			case Coloring.POSSIBLE: {
 				className = "l possible";
 				// cell is yellow => show anything yellow now but grey after adding that license
-				const newParty = party.add(c, l);
-				const next = newParty.color(c);
-				for (const [ll, color] of initial) {
-					if (color == Coloring.POSSIBLE && next.get(ll) === Coloring.CERTAIN) {
-						content.push(ll);
-					}
-				}
-				clickHandler = () => dispatch(changeParty(newParty));
+				clickHandler = () => {
+					const newParty = party.add(c, mist);
+					dispatch(changeParty(newParty));
+				};
 				break;
 			}
 			default: {
@@ -79,21 +95,6 @@ const QeBoard: TPC<{}> = (_, instance) => {
 				// cell is red
 				// && esper => show anything yellow or red now but grey after removing esper from owner and adding it here
 				// && quickening => show anything yellow or red now but grey after removing all quickenings from char and adding that one
-				const nextParty = party.deleteAndAdd(
-					esper
-						? Characters.map((_, c) => ({ c, l }))
-						: Quickenings.map(l => ({ c, l })),
-					[{ c, l }]
-				);
-				const next = nextParty.color(c);
-				for (const [ll, color] of next) {
-					if (color === Coloring.CERTAIN) {
-						const currentColor = initial.get(ll);
-						if (currentColor == null || currentColor === Coloring.POSSIBLE) {
-							content.push(ll);
-						}
-					}
-				}
 				break;
 			}
 		}
@@ -102,12 +103,12 @@ const QeBoard: TPC<{}> = (_, instance) => {
 			{content.map(v => <div aria-label={v.text}>{v.fullName}</div>)}
 		</div>;
 	}
-	function renderRow(l: License, esper: boolean) {
+	function renderRow(mist: License) {
 		return <>
 			<div>
-				<div class="license-name" aria-label={l.text}>{l.fullName}</div>
+				<div class="license-name" aria-label={mist.text}>{mist.fullName}</div>
 			</div>
-			{Characters.map((_, c) => renderCell(l, c, esper))}
+			{Characters.map((_, c) => renderCell(mist, c))}
 		</>;
 	}
 
@@ -120,19 +121,22 @@ const QeBoard: TPC<{}> = (_, instance) => {
 	}
 
 	return () => {
+		const from = performance.now();
 		({ party } = getState());
 		colorings = makeColoringsMemo();
+		coverSets = makeCoverSetsMemo();
 
-		return <div class="qe-board">
+		const ret = <div class="qe-board">
 			<div>{/* help goes here? */}</div>
 			{Characters.map((character, c) => <div>
 				<div class="character-name">{character.name}</div>
 				{renderJob(party.getJob(c, 0))}
 				{renderJob(party.getJob(c, 1))}
 			</div>)}
-			{Espers.map(e => renderRow(e, true))}
-			{Quickenings.map(q => renderRow(q, false))}
+			{AllLimitedLicenses.map(renderRow)}
 		</div>;
+		console.log("Z Render", performance.now() - from);
+		return ret;
 	}
 }
 export default QeBoard;
