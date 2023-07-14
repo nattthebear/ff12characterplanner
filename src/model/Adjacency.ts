@@ -1,4 +1,4 @@
-import { Board } from "../data/Boards";
+import { Board, Boards } from "../data/Boards";
 import { AllLimitedLicenses, License } from "../data/Licenses";
 import PartyModel, { Coloring } from "./PartyModel";
 
@@ -33,9 +33,21 @@ function generateBoardSet(characterIndex: number, boards: Board[]) {
 	return boardSet;
 }
 
+function makeKey(characterIndex: number, boards: Board[]) {
+	let key = boards[0].name;
+	const b1Name = boards[1]?.name ?? "";
+	if (b1Name < key) {
+		key += b1Name;
+	} else {
+		key = b1Name + key;
+	}
+	key += characterIndex;
+	return key;
+}
+
 /** Returns a mapping from mist licenses to the licenses behind them */
 export function getCoverSet(characterIndex: number, boards: Board[]) {
-	const key = characterIndex + ":" + boards.map(b => b.name).join("$");
+	const key = makeKey(characterIndex, boards);
 	let ret = coverCache.get(key);
 	if (!ret) {
 		ret = generateBoardSet(characterIndex, boards);
