@@ -104,11 +104,10 @@ const QeBoard: TPC<{}> = (_, instance) => {
 	}
 
 	return () => {
-		const from = performance.now();
 		({ party } = getState());
 		byCharacter = Characters.map((_, c) => ({ colors: party.color(c), covers: party.getCovered(c) }));
 
-		const ret = <div class="qe-board">
+		return <div class="qe-board">
 			<div>{/* help goes here? */}</div>
 			{Characters.map((character, c) => <div>
 				<div class="character-name">{character.name}</div>
@@ -117,8 +116,6 @@ const QeBoard: TPC<{}> = (_, instance) => {
 			</div>)}
 			{AllLimitedLicenses.map(renderRow)}
 		</div>;
-		console.log("Z Render", performance.now() - from);
-		return ret;
 	}
 }
 export default QeBoard;
