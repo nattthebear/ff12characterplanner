@@ -6,32 +6,16 @@ import { License, AllLimitedLicenses } from "../data/Licenses";
 import { Board } from "../data/Boards";
 import { dispatch, useStore } from "../store/Store";
 import { changeIndices, changeParty, toggleQe } from "../store/State";
-import { createSelector } from "./memo";
 
 function compareLicenses(a: License, b: License) {
 	return a.sortOrder - b.sortOrder;
 }
 
-const makeColorings = (party: PartyModel) => Characters.map((_, c) => party.color(c));
-
-const makeCoverSets = (party: PartyModel) => {
-	const ret = [];
-	for (let c = 0; c < 6; c++) {
-		ret.push(party.getCovered(c));
-	}
-	return ret;
-};
-
 const QeBoard: TPC<{}> = (_, instance) => {
 	const getState = useStore(instance);
 	let { party } = getState();
 
-	// let byCharacter: { colors: Map<License, Coloring>, covers: Map<License, License[]> }[];
-
-	const makeColoringsMemo = createSelector(() => party, makeColorings);
-	let colorings = makeColoringsMemo();
-	const makeCoverSetsMemo = createSelector(() => party, makeCoverSets);
-	let coverSets = makeCoverSetsMemo();
+	let byCharacter: { colors: Map<License, Coloring>, covers: Map<License, License[]> }[];
 
 	function renderCell(mist: License, c: number) {
 		if (party.unemployed(c)) {
@@ -40,14 +24,13 @@ const QeBoard: TPC<{}> = (_, instance) => {
 			</div>;
 		}
 
-		const colors = colorings[c];
+		const { colors, covers } = byCharacter[c];
 		let className;
 		let clickHandler: (() => void) | undefined;
 		let content: License[];
 
 		{
 			const contentSet = new Set<License>();
-			const covers = coverSets[c];
 			for (const license of covers.get(mist)!) {
 				contentSet.add(license);
 			}
@@ -123,8 +106,7 @@ const QeBoard: TPC<{}> = (_, instance) => {
 	return () => {
 		const from = performance.now();
 		({ party } = getState());
-		colorings = makeColoringsMemo();
-		coverSets = makeCoverSetsMemo();
+		byCharacter = Characters.map((_, c) => ({ colors: party.color(c), covers: party.getCovered(c) }));
 
 		const ret = <div class="qe-board">
 			<div>{/* help goes here? */}</div>
