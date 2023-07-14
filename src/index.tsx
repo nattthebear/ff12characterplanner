@@ -22,12 +22,17 @@ if (!window.requestIdleCallback) {
 	};
 }
 
-import { h, createRoot } from "vdomk";
-import App from "./component/App";
-import "./MouseOver";
+import "modern-normalize/modern-normalize.css";
+import "./component/shared.css";
+
+import { h, Fragment, createRoot } from "vdomk";
+import CharacterPlanner from "./component/CharacterPlanner";
+import MouseOver from "./component/MouseOver";
 
 createRoot(
 	document.body,
-	<App />,
-	document.body.lastChild // tooltip must come after the app root
+	<>
+		<CharacterPlanner />
+		<MouseOver />
+	</>
 );

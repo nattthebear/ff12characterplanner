@@ -1,3 +1,5 @@
+/* Global and shared styles */
+
 button {
 	cursor: pointer;
 	&:disabled {
@@ -13,7 +15,6 @@ button {
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-/* Some shared styles */
 .button {
 	margin: 2px;
 	border: 2px solid #000;
