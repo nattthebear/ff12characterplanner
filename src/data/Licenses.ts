@@ -525,3 +525,4 @@ export { byGroup as LicenseGroups };
 // quickenings and espers can have special logic, so provide them seperately
 export const Quickenings = byGroup.find(g => g.name === "Quickening")!.contents;
 export const Espers = byGroup.find(g => g.name === "Esper")!.contents;
+export const AllLimitedLicenses = [...Espers, ...Quickenings];

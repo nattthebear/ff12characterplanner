@@ -2,6 +2,7 @@ import { Characters } from "../data/Characters";
 import { Board, Boards } from "../data/Boards";
 import { License, Quickenings, Espers } from "../data/Licenses";
 import { Heap } from "./Heap";
+import { getCoverSet } from "./Adjacency";
 
 export enum Coloring {
 	/** character has the license learned */
@@ -242,6 +243,11 @@ export default class PartyModel {
 		r.jobs[c].length = 0;
 		r.verify();
 		return r;
+	}
+
+	/** Returns a mapping from mist licenses to the licenses behind them */
+	getCovered(c: number) {
+		return getCoverSet(c, this.jobs[c]);
 	}
 
 	color(c: number) {
