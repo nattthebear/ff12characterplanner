@@ -34,7 +34,7 @@ function generateBoardSet(characterIndex: number, boards: Board[]) {
 }
 
 function makeKey(characterIndex: number, boards: Board[]) {
-	let key = boards[0].name;
+	let key = boards[0]?.name ?? "";
 	const b1Name = boards[1]?.name ?? "";
 	if (b1Name < key) {
 		key += b1Name;
