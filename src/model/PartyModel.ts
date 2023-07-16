@@ -163,7 +163,12 @@ export default class PartyModel {
 		return null;
 	}
 
-	private isBlocked(c: number, l: License) {
+	/**
+	 * @param c character index
+	 * @param l a mist license that c has not obtained
+	 * @returns true if the license cannot be obtained due to mist constraints
+	 */
+	isBlocked(c: number, l: License) {
 		return this.blockedEspers.has(l) || Quickenings.includes(l) && this.quickeningCount[c] === 3;
 	}
 
@@ -272,7 +277,7 @@ export default class PartyModel {
 			}
 		}
 		colorHelper(l => !l.limited, Coloring.CERTAIN);
-		colorHelper(l => !this.blockedEspers.has(l) && (!Quickenings.includes(l) || this.quickeningCount[c] < 3), Coloring.POSSIBLE);
+		colorHelper(l => !this.isBlocked(c, l), Coloring.POSSIBLE);
 
 		return ret;
 	}

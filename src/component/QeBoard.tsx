@@ -1,6 +1,5 @@
 import { h, Fragment, TPC } from "vdomk";
 import "./QeBoard.css";
-import PartyModel, { Coloring } from "../model/PartyModel";
 import { Characters } from "../data/Characters";
 import { License, AllLimitedLicenses } from "../data/Licenses";
 import { Board } from "../data/Boards";
@@ -15,7 +14,7 @@ const QeBoard: TPC<{}> = (_, instance) => {
 	const getState = useStore(instance);
 	let { party } = getState();
 
-	let byCharacter: { colors: Map<License, Coloring>, covers: Map<License, License[]> }[];
+	let coversByCharacter: Map<License, License[]>[];
 
 	function renderCell(mist: License, c: number) {
 		if (party.unemployed(c)) {
@@ -24,7 +23,7 @@ const QeBoard: TPC<{}> = (_, instance) => {
 			</div>;
 		}
 
-		const { colors, covers } = byCharacter[c];
+		const covers = coversByCharacter[c];
 		let className;
 		let clickHandler: (() => void) | undefined;
 		let content: License[];
@@ -44,42 +43,35 @@ const QeBoard: TPC<{}> = (_, instance) => {
 			content = [...contentSet];
 		}
 
-		switch (colors.get(mist)) {
-			case Coloring.OBTAINED: {
-				className = "l obtained";
-				// cell is white => show anything white or grey now but yellow after removing that license (except for the license itself)
+		if (party.has(c, mist)) {
+			className = "l obtained";
+			// cell is white => show anything white or grey now but yellow after removing that license (except for the license itself)
 
-				// in certain cases, the unusual topology of double boards can cause the pathfinder to select a path to
-				// a mist license B that goes through another already obtained mist license A, as this is the shortest way
-				// if A is then removed, B is automatically lost.
+			// in certain cases, the unusual topology of double boards can cause the pathfinder to select a path to
+			// a mist license B that goes through another already obtained mist license A, as this is the shortest way
+			// if A is then removed, B is automatically lost.
 
-				// on the normal boards, this isn't a problem because you get to see what's going on and obtain the licenses
-				// in another way if you want, but it's not obvious what's happening on the mist planner
+			// on the normal boards, this isn't a problem because you get to see what's going on and obtain the licenses
+			// in another way if you want, but it's not obvious what's happening on the mist planner
 
-				// So, remember all obtained mist licenses before deleting and then re-add them.
-				clickHandler = () => {
-					const toAdd = AllLimitedLicenses.filter(ll => ll !== mist && party.has(c, ll));
-					const newParty = party.deleteAndAdd([{ c, l: mist }], toAdd.map(l => ({ c, l })));
-					dispatch(changeParty(newParty));
-				};
-				break;
-			}
-			case Coloring.POSSIBLE: {
-				className = "l possible";
-				// cell is yellow => show anything yellow now but grey after adding that license
-				clickHandler = () => {
-					const newParty = party.add(c, mist);
-					dispatch(changeParty(newParty));
-				};
-				break;
-			}
-			default: {
-				className = "l blocked";
-				// cell is red
-				// && esper => show anything yellow or red now but grey after removing esper from owner and adding it here
-				// && quickening => show anything yellow or red now but grey after removing all quickenings from char and adding that one
-				break;
-			}
+			// So, remember all obtained mist licenses before deleting and then re-add them.
+			clickHandler = () => {
+				const toAdd = AllLimitedLicenses.filter(ll => ll !== mist && party.has(c, ll));
+				const newParty = party.deleteAndAdd([{ c, l: mist }], toAdd.map(l => ({ c, l })));
+				dispatch(changeParty(newParty));
+			};
+		} else if (!party.isBlocked(c, mist)) {
+			className = "l possible";
+			// cell is yellow => show anything yellow now but grey after adding that license
+			clickHandler = () => {
+				const newParty = party.add(c, mist);
+				dispatch(changeParty(newParty));
+			};
+		} else {
+			className = "l blocked";
+			// cell is red
+			// && esper => show anything yellow or red now but grey after removing esper from owner and adding it here
+			// && quickening => show anything yellow or red now but grey after removing all quickenings from char and adding that one
 		}
 		content.sort(compareLicenses);
 		return <div class={className} onClick={clickHandler}>
@@ -105,7 +97,7 @@ const QeBoard: TPC<{}> = (_, instance) => {
 
 	return () => {
 		({ party } = getState());
-		byCharacter = Characters.map((_, c) => ({ colors: party.color(c), covers: party.getCovered(c) }));
+		coversByCharacter = Characters.map((_, c) => party.getCovered(c));
 
 		return <div class="qe-board">
 			<div>{/* help goes here? */}</div>
