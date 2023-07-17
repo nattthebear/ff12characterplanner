@@ -1,14 +1,9 @@
-import { Board, Boards } from "../data/Boards";
+import { Board } from "../data/Boards";
 import { AllLimitedLicenses, License } from "../data/Licenses";
 import PartyModel, { Coloring } from "./PartyModel";
 
-function generateLicenseSet(characterIndex: number, boards: Board[], mist: License) {
-	let party = new PartyModel();
-	for (const board of boards) {
-		party = party.addJob(characterIndex, board);
-	}
-	const oldColors = party.color(characterIndex);
-	party = party.add(characterIndex, mist);
+function generateLicenseSet(characterIndex: number, initialParty: PartyModel, oldColors: Map<License, Coloring>, mist: License) {
+	const party = initialParty.add(characterIndex, mist);
 	const newColors = party.color(characterIndex);
 
 	const ret: License[] = [];
@@ -26,9 +21,15 @@ function generateLicenseSet(characterIndex: number, boards: Board[], mist: Licen
 const coverCache: Map<string, Map<License, License[]>> = new Map;
 
 function generateBoardSet(characterIndex: number, boards: Board[]) {
+	let party = new PartyModel();
+	for (const board of boards) {
+		party = party.addJob(characterIndex, board);
+	}
+	const oldColors = party.color(characterIndex);
+
 	const boardSet = new Map<License, License[]>();
 	for (const mist of AllLimitedLicenses) {
-		boardSet.set(mist, generateLicenseSet(characterIndex, boards, mist));
+		boardSet.set(mist, generateLicenseSet(characterIndex, party, oldColors, mist));
 	}
 	return boardSet;
 }
