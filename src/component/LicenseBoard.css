@@ -2,44 +2,44 @@
 	overflow: auto;
 	background-color: #333;
 	min-width: 240px;
+}
 
-	& .license-board {
-		border-spacing: 0;
+.license-board {
+	border-spacing: 0;
 
-		& td {
-			min-width: 80px;
-			max-width: 80px;
-			height: 80px;
-			padding: 4px;
-			position: relative;
-			vertical-align: top;
+	& td {
+		min-width: 80px;
+		max-width: 80px;
+		height: 80px;
+		padding: 4px;
+		position: relative;
+		vertical-align: top;
+	}
+
+	& .l {
+		box-shadow: inset 0 0 2px #000;
+
+		& .name {
+			font-size: 10px;
 		}
 
-		& .l {
-			box-shadow: inset 0 0 2px #000;
+		& .cost {
+			font-size: 24px;
+			font-weight: bold;
+			position: absolute;
+			bottom: 4px;
+			right: 4px;
+		}
 
-			& .name {
-				font-size: 10px;
-			}
-
-			& .cost {
-				font-size: 24px;
-				font-weight: bold;
-				position: absolute;
-				bottom: 4px;
-				right: 4px;
-			}
-
-			& .mist {
-				position: absolute;
-				width: 100%;
-				height: 100%;
-				padding: 10px;
-				opacity: 0.1;
-				top: 0;
-				left: 0;
-				object-fit: contain;
-			}
+		& .mist {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			padding: 10px;
+			opacity: 0.1;
+			top: 0;
+			left: 0;
+			object-fit: contain;
 		}
 	}
 }
