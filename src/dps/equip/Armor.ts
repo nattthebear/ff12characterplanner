@@ -1,7 +1,5 @@
-import { buildEquipments }  from "../Profile";
-import { LicenseByName } from "../../data/Licenses";
-
-const l = LicenseByName;
+import { buildEquipments } from "./Equipment";
+import { LicenseByName as l } from "../../data/Licenses";
 
 export const Helm = buildEquipments([
 	{ name: "Leather Cap", l: l("Light Armor 1"), },

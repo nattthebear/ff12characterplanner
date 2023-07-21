@@ -1,6 +1,7 @@
 import { Magick } from "./ability/Magick";
 import { Technick } from "./ability/Technick";
-import { AllElements, Environment, Equipment, Profile } from "./Profile";
+import { AllElements, Equipment } from "./equip/Equipment";
+import { Environment, Profile } from "./Profile";
 
 /** Given a profile and an environment, determine what stats could be beneficial */
 export function getOptimizerKeys(p: Profile, e: Environment) {
@@ -165,7 +166,7 @@ const hazardKeys = new Set<keyof Profile>([
 ]);
 
 /** Given a set of potential optimizerKeys, eliminate equipment that has no relevantkeys or is always worse than other equipment. */
-export function filterEquippables<T extends Equipment>(eqs: T[], keys: Set<keyof Profile>, allowEmpty: boolean) {
+export function filterEquippables(eqs: Equipment[], keys: Set<keyof Profile>, allowEmpty: boolean) {
 	// Eliminate any item that has no possible value, and then any item that is pareto inferor to another.
 
 	const ret: Equipment[] = [];
@@ -174,10 +175,10 @@ export function filterEquippables<T extends Equipment>(eqs: T[], keys: Set<keyof
 
 	next_eq:
 	for (const eq of eqs) {
-		for (const k in eq) {
+		for (const k of eq.keys) {
 			if (keys.has(k as keyof Profile)) {
 				// Will have some effect.  Add to either haz or ret.
-				for (const k2 in eq) {
+				for (const k2 of eq.keys) {
 					if (keys.has(k2 as keyof Profile) && hazardKeys.has(k2 as keyof Profile)) {
 						haz.push(eq);
 						continue next_eq;
@@ -198,12 +199,11 @@ export function filterEquippables<T extends Equipment>(eqs: T[], keys: Set<keyof
 			const x = ret[i];
 			const y = ret[j];
 
-			for (const _k in x) {
-				const k = _k as keyof Profile;
+			for (const k of x.keys) {
 				if (!keys.has(k)) {
 					continue;
 				}
-				if (!(k in y)) {
+				if (!y.keys.has(k)) {
 					continue inner_eq;
 				}
 				const vx = +x[k]!;
@@ -218,7 +218,7 @@ export function filterEquippables<T extends Equipment>(eqs: T[], keys: Set<keyof
 		}
 	}
 	ret.push(...haz);
-	const realRet = ret as (T | undefined)[];
+	const realRet = ret as (Equipment | undefined)[];
 	if (!realRet.length) {
 		realRet.push(allowEmpty ? undefined : eqs[0]);
 	}

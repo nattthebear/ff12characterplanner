@@ -1,4 +1,4 @@
-import { Environment, Equipment, EquipmentPool, Profile } from "./Profile";
+import { Environment, EquipmentPool, Profile } from "./Profile";
 import PartyModel, { Coloring } from "../model/PartyModel";
 import Weapon from "./equip/Weapon";
 import { BodyArmor, Helm } from "./equip/Armor";

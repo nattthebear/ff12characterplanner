@@ -1,7 +1,8 @@
 import { Magick } from "./ability/Magick";
 import { Technick } from "./ability/Technick";
 import { AnimationTimings } from "./AnimationTiming";
-import { Profile, Environment, AllElements } from "./Profile";
+import { AllElements } from "./equip/Equipment";
+import { Profile, Environment } from "./Profile";
 
 /** model attack damage against armor */
 function admg(att: number, lowMul: number, highMul: number, def: number) {
