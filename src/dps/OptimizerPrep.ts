@@ -1,7 +1,12 @@
 import { Magick } from "./ability/Magick";
 import { Technick } from "./ability/Technick";
-import { AllElements, Equipment, OptimizerKey } from "./equip/Equipment";
+import { AllElements, Equipment, KEY_adrenaline, KEY_agateRing, KEY_animationType, KEY_berserk, KEY_bravery, KEY_brawler, KEY_cameoBelt, KEY_darkDamage, KEY_earthDamage, KEY_faith, KEY_fireDamage, KEY_focus, KEY_genjiGloves, KEY_haste, KEY_holyDamage, KEY_iceDamage, KEY_lightningDamage, KEY_serenity, KEY_spellbreaker, KEY_waterDamage, KEY_windDamage, LENGTH_Shared, MASK_Hazard, MASK_Shared, MASK_Unique, SKEY_attack, SKEY_darkBonus, SKEY_earthBonus, SKEY_fireBonus, SKEY_holyBonus, SKEY_iceBonus, SKEY_lightningBonus, SKEY_mag, SKEY_spd, SKEY_str, SKEY_vit, SKEY_waterBonus, SKEY_windBonus } from "./equip/Equipment";
 import { Environment, Profile } from "./Profile";
+
+interface OptimizerKeys {
+	hazardUniqueMask: number;
+	sharedMask: number;
+}
 
 /** Given a profile and an environment, determine what stats could be beneficial */
 export function getOptimizerKeys(p: Profile, e: Environment) {
@@ -16,142 +21,174 @@ export function getOptimizerKeys(p: Profile, e: Environment) {
 	}
 }
 
-function getOptimizerKeysForTechnick(t: Technick, e: Environment) {
-	const ret = new Set<OptimizerKey>([
-		"spd", // always needed for csmod
-	]);
+function getOptimizerKeysForTechnick(t: Technick, e: Environment): OptimizerKeys {
+	let hazardUniqueMask = 0;
+	let sharedMask = SKEY_spd; // always needed for csmod
 
 	if (t.name === "Telekinesis") {
-		ret.add("attack");
-		ret.add("animationType");
+		sharedMask |= SKEY_attack;
+		hazardUniqueMask |= KEY_animationType;
 	} else if (t.name === "Souleater") {
-		ret.add("attack");
-		ret.add("str");
+		sharedMask |= SKEY_attack;
+		sharedMask |= SKEY_str;
 	}
 
 	// if we already have these buffs, then the accessories with them won't be relevant
 	if (!e.haste) {
-		ret.add("haste");
+		hazardUniqueMask |= KEY_haste;
 	}
-	return ret;
+
+	return {
+		hazardUniqueMask,
+		sharedMask,
+	};
 }
 
-function getOptimizerKeysForMagick(m: Magick, p: Profile, e: Environment) {
-	const ret = new Set<OptimizerKey>([
-		"mag",
-		"spd", // always needed for csmod
-	]);
+function getOptimizerKeysForMagick(m: Magick, p: Profile, e: Environment): OptimizerKeys {
+	let hazardUniqueMask = 0;
+	let sharedMask = SKEY_mag | SKEY_spd; // spd always needed for csmod
 
-	for (const element of AllElements) {
-		if (m[`${element}Damage` as const]) {
-			ret.add(`${element}Bonus` as const);
-			break;
-		}
+	if (m.fireDamage) {
+		sharedMask |= SKEY_fireBonus;
+	}
+	if (m.iceDamage) {
+		sharedMask |= SKEY_iceBonus;
+	}
+	if (m.lightningDamage) {
+		sharedMask |= SKEY_lightningBonus;
+	}
+	if (m.waterDamage) {
+		sharedMask |= SKEY_waterBonus;
+	}
+	if (m.windDamage) {
+		sharedMask |= SKEY_windBonus;
+	}
+	if (m.earthDamage) {
+		sharedMask |= SKEY_earthBonus;
+	}
+	if (m.darkDamage) {
+		sharedMask |= SKEY_darkBonus;
+	}
+	if (m.holyDamage) {
+		sharedMask |= SKEY_holyBonus;
 	}
 
 	if (e.weather !== "other" || e.terrain !== "other") {
-		ret.add("agateRing");
+		hazardUniqueMask |= KEY_agateRing;
 	}
 
 	// if we already have these buffs, then the accessories with them won't be relevant
-	for (const k of ["haste", "faith"] as const) {
-		if (!e[k]) {
-			ret.add(k);
-		}
+	if (!e.haste) {
+		hazardUniqueMask |= KEY_haste;
 	}
-	// if we already have these licenses, then the accessories with them won't be relevant
-	for (const k of ["serenity", "spellbreaker"] as const) {
-		if (!p[k]) {
-			ret.add(k);
-		}
+	if (!e.faith) {
+		hazardUniqueMask |= KEY_faith;
 	}
 
-	return ret;
+	// if we already have these licenses, then the accessories with them won't be relevant
+	if (!p.serenity) {
+		hazardUniqueMask |= KEY_serenity;
+	}
+	if (!p.spellbreaker) {
+		hazardUniqueMask |= KEY_spellbreaker;
+	}
+
+	return {
+		hazardUniqueMask,
+		sharedMask,
+	};
 }
 
-function getOptimizerKeysForAttack(p: Profile, e: Environment) {
+function getOptimizerKeysForAttack(p: Profile, e: Environment): OptimizerKeys {
 	// can leave out any key that's only found on weapons, or is not relevant to this weapon
-	const ret = new Set<OptimizerKey>([
-		"attack",
-		"spd", // always needed for csmod
 
+	let hazardUniqueMask =
 		// Depending on what other things are potentially available and the environment, some elemental
 		// possibilities can be eliminated sometimes.  Let's not worry about that right now?
-		"fireDamage",
-		"iceDamage",
-		"lightningDamage",
-		"waterDamage",
-		"windDamage",
-		"earthDamage",
-		"darkDamage",
-		"holyDamage",
-
+		KEY_fireDamage
+		| KEY_iceDamage
+		| KEY_lightningDamage
+		| KEY_waterDamage
+		| KEY_windDamage
+		| KEY_earthDamage
+		| KEY_darkDamage
+		| KEY_holyDamage
+		| KEY_focus // TODO: ARE THESE TWO AN OLD BUG?
+		| KEY_adrenaline;
+	let sharedMask =
+		SKEY_attack
+		| SKEY_spd // always needed for csmod
 		// Only bonuses found off of weapons
-		"holyBonus",
-		"darkBonus",
-
-		"focus",
-		"adrenaline",
-	]);
+		| SKEY_holyBonus
+		| SKEY_darkBonus;
 
 	if (p.combo > 0) {
-		ret.add("genjiGloves");
+		hazardUniqueMask |= KEY_genjiGloves;
 	}
 	if (e.parry 
 		|| e.block > 0
 		|| (e.weather === "windy" || e.weather === "windy and rainy") && (p.animationType === "bow" || p.animationType === "xbow")
 	) {
-		ret.add("cameoBelt");
+		hazardUniqueMask |= KEY_cameoBelt;
 	}
 	if (e.weather !== "other" || e.terrain !== "other") {
-		ret.add("agateRing");
+		hazardUniqueMask |= KEY_agateRing;
 	}
 
 	// if we already have these buffs, then the accessories with them won't be relevant
-	for (const k of ["berserk", "haste", "bravery"] as const) {
-		if (!e[k]) {
-			ret.add(k);
-		}
+	if (!e.berserk) {
+		hazardUniqueMask |= KEY_berserk;
 	}
+	if (!e.haste) {
+		hazardUniqueMask |= KEY_haste;
+	}
+	if (!e.bravery) {
+		hazardUniqueMask |= KEY_bravery;
+	}
+
 	// if we already have these licenses, then the accessories with them won't be relevant
-	for (const k of ["focus", "adrenaline"] as const) {
-		if (!p[k]) {
-			ret.add(k);
-		}
+	if (!p.focus) {
+		hazardUniqueMask |= KEY_focus;
+	}
+	if (!p.adrenaline) {
+		hazardUniqueMask |= KEY_adrenaline;
 	}
 
 	switch (p.damageType) {
 		case "unarmed":
-			ret.add("str");
+			sharedMask |= SKEY_str;
 			if (!p.brawler) {
-				ret.add("brawler");
+				hazardUniqueMask |= KEY_brawler;
 			}
 			break;
 		case "sword":
 		case "pole":
 		case "dagger":
-			ret.add("str");
+			sharedMask |= SKEY_str;
 			break;
 		case "hammer":
-			ret.add("str");
-			ret.add("vit");
+			sharedMask |= SKEY_str;
+			sharedMask |= SKEY_vit;
 			break;
 		case "mace":
-			ret.add("mag");
+			sharedMask |= SKEY_mag;
 			break;
 		case "katana":
-			ret.add("str");
-			ret.add("mag");
+			sharedMask |= SKEY_str;
+			sharedMask |= SKEY_mag;
 			break;
 		default:
 			break;
 	}
 
-	return ret;
+	return {
+		hazardUniqueMask,
+		sharedMask,
+	};
 }
 
 /** Given a set of potential optimizerKeys, eliminate equipment that has no relevantkeys or is always worse than other equipment. */
-export function filterEquippables(eqs: Equipment[], oKeys: Set<OptimizerKey>, allowEmpty: boolean) {
+export function filterEquippables(eqs: Equipment[], { hazardUniqueMask, sharedMask }: OptimizerKeys, allowEmpty: boolean) {
 	// Eliminate any item that has no possible value, and then any item that is pareto inferor to another.
 	const items: Equipment[] = [];
 	/** hazardKeys make an item uncomparable */
@@ -159,26 +196,18 @@ export function filterEquippables(eqs: Equipment[], oKeys: Set<OptimizerKey>, al
 
 	let i = 0; // starting point for items to remove
 
-	next_eq:
+	const okeyHazardMask = hazardUniqueMask & MASK_Hazard;
+	const okeyUniqueMask = hazardUniqueMask & MASK_Unique;
+	const okeySharedMask = sharedMask & MASK_Shared;
+
 	for (const eq of eqs) {
-		for (const key of eq.hazardKeys) {
-			if (oKeys.has(key)) {
-				hazardItems.push(eq);
-				continue next_eq;
-			}
-		}
-		for (const key of eq.uniqueBenefitKeys) {
-			if (oKeys.has(key)) {
-				items.unshift(eq);
-				i++;
-				continue next_eq;
-			}
-		}
-		for (const key of eq.sharedBenefitMap.keys()) {
-			if (oKeys.has(key)) {
-				items.push(eq);
-				continue next_eq;
-			}
+		if (eq.hazardUniqueMask & okeyHazardMask) {
+			hazardItems.push(eq);
+		} else if (eq.hazardUniqueMask & okeyUniqueMask) {
+			items.unshift(eq);
+			i++;
+		} else if (eq.sharedMask & okeySharedMask) {
+			items.push(eq);	
 		}
 	}
 
@@ -191,19 +220,33 @@ export function filterEquippables(eqs: Equipment[], oKeys: Set<OptimizerKey>, al
 			const x = items[i];
 			const y = items[j];
 
-			for (const k of x.sharedBenefitMap.keys()) {
-				if (!oKeys.has(k)) {
+			const xs = x.sharedValues;
+			const ys = y.sharedValues;
+
+			for (let sharedIndex = 0; sharedIndex < LENGTH_Shared; sharedIndex++) {
+				if (!(okeySharedMask & 1 << sharedIndex)) {
 					continue;
 				}
-				if (!y.sharedBenefitMap.has(k)) {
-					continue inner_eq;
-				}
-				const vx = x.sharedBenefitMap.get(k)!;
-				const vy = y.sharedBenefitMap.get(k)!;
-				if (vx > vy) {
+				const xv = xs[sharedIndex];
+				const yv = ys[sharedIndex];
+				if (xv > yv) {
 					continue inner_eq;
 				}
 			}
+
+			// for (const k of x.sharedBenefitMap.keys()) {
+			// 	if (!oKeys.has(k)) {
+			// 		continue;
+			// 	}
+			// 	if (!y.sharedBenefitMap.has(k)) {
+			// 		continue inner_eq;
+			// 	}
+			// 	const vx = x.sharedBenefitMap.get(k)!;
+			// 	const vy = y.sharedBenefitMap.get(k)!;
+			// 	if (vx > vy) {
+			// 		continue inner_eq;
+			// 	}
+			// }
 			// x is pareto inferior to y
 			items.splice(i--, 1);
 			break;
