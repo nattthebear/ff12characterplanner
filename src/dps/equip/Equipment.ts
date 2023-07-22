@@ -5,63 +5,108 @@ import { Ability } from "../ability/Ability";
 export const AllElements = ["fire", "ice", "lightning", "water", "wind", "earth", "dark", "holy"] as const;
 
 /** Keys that can be found on non-weapons (or for magick/technick, any slot) that potentially have negative results. */
-const HazardKeys = [
-	"fireDamage",
-	"iceDamage",
-	"lightningDamage",
-	"waterDamage",
-	"windDamage",
-	"earthDamage",
-	"darkDamage",
-	"holyDamage", // Can't actually be found on non-weapons, but less confusing to leave it here
+export const MASK_Hazard = 0x3ff;
 
-	"agateRing",
-	"animationType", // Telekinesis
-] as const satisfies readonly (keyof Profile)[];
+export const KEY_fireDamage = 1 << 0;
+export const KEY_iceDamage = 1 << 1;
+export const KEY_lightningDamage = 1 << 2;
+export const KEY_waterDamage = 1 << 3;
+export const KEY_windDamage = 1 << 4;
+export const KEY_earthDamage = 1 << 5;
+export const KEY_darkDamage = 1 << 6;
+export const KEY_holyDamage = 1 << 7; // Can't actually be found on non-weapons, but less confusing to leave it here
+
+export const KEY_agateRing = 1 << 8;
+export const KEY_animationType = 1 << 9; // Telekinesis
+
 /**
  * Keys that can be found on non-weapons (or for magick/technick, any slot) that impact DPS and are never negative.
  * Additionally, no more than one item per slot has them.
  */
-const UniqueBenefitKeys = [
-	"brawler",
-	"berserk",
-	"haste",
-	"bravery",
-	"faith",
-	"focus",
-	"adrenaline",
-	"serenity",
-	"spellbreaker",
+export const MASK_Unique = 0x1ffc00;
 
-	"genjiGloves",
-	"cameoBelt",
-] as const satisfies readonly (keyof Profile)[];
+export const KEY_brawler = 1 << 10;
+export const KEY_berserk = 1 << 11;
+export const KEY_haste = 1 << 12;
+export const KEY_bravery = 1 << 13;
+export const KEY_faith = 1 << 14;
+export const KEY_focus = 1 << 15;
+export const KEY_adrenaline = 1 << 16;
+export const KEY_serenity = 1 << 17;
+export const KEY_spellbreaker = 1 << 18;
+
+export const KEY_genjiGloves = 1 << 19;
+export const KEY_cameoBelt = 1 << 20;
+
 
 /**
  * Keys that can be found on non-weapons (or for magick/technick, any slot) that impact DPS and are never negative.
  * Additionally, many items may have them and we have to compare their values to eliminate worse items.
  */
-const SharedBenefitKeys = [
-	"attack",
-	"str",
-	"mag",
-	"vit",
-	"spd",
+export const MASK_Shared = 0x1fff;
 
-	"fireBonus",
-	"iceBonus",
-	"lightningBonus",
-	"waterBonus",
-	"windBonus",
-	"earthBonus",
-	"darkBonus",
-	"holyBonus",
-] as const satisfies readonly (keyof Profile)[];
+export const SKEY_attack = 1 << 0;
+export const SKEY_str = 1 << 1;
+export const SKEY_mag = 1 << 2;
+export const SKEY_vit = 1 << 3;
+export const SKEY_spd = 1 << 4;
 
-export type HazardKey = typeof HazardKeys[number];
-export type UniqueBenefitKey = typeof UniqueBenefitKeys[number];
-export type SharedBenefitKey = typeof SharedBenefitKeys[number];
-export type OptimizerKey = HazardKey | UniqueBenefitKey | SharedBenefitKey;
+export const SKEY_fireBonus = 1 << 5;
+export const SKEY_iceBonus = 1 << 6;
+export const SKEY_lightningBonus = 1 << 7;
+export const SKEY_waterBonus = 1 << 8;
+export const SKEY_windBonus = 1 << 9;
+export const SKEY_earthBonus = 1 << 10;
+export const SKEY_darkBonus = 1 << 11;
+export const SKEY_holyBonus = 1 << 12;
+
+const hazardUniqueMap = {
+	// hazard
+	fireDamage: KEY_fireDamage,
+	iceDamage: KEY_iceDamage,
+	lightningDamage: KEY_lightningDamage,
+	waterDamage: KEY_waterDamage,
+	windDamage: KEY_windDamage,
+	earthDamage: KEY_earthDamage,
+	darkDamage: KEY_darkDamage,
+	holyDamage: KEY_holyDamage,
+
+	agateRing: KEY_agateRing,
+	animationType: KEY_animationType,
+
+	// unique
+	brawler: KEY_brawler,
+	berserk: KEY_berserk,
+	haste: KEY_haste,
+	bravery: KEY_bravery,
+	faith: KEY_faith,
+	focus: KEY_focus,
+	adrenaline: KEY_adrenaline,
+	serenity: KEY_serenity,
+	spellbreaker: KEY_spellbreaker,
+
+	genjiGloves: KEY_genjiGloves,
+	cameoBelt: KEY_cameoBelt,
+} satisfies Partial<Record<keyof Profile, number>> & Record<string, number>;
+
+const sharedMap = {
+	attack: SKEY_attack,
+	str: SKEY_str,
+	mag: SKEY_mag,
+	vit: SKEY_vit,
+	spd: SKEY_spd,
+
+	fireBonus: SKEY_fireBonus,
+	iceBonus: SKEY_iceBonus,
+	lightningBonus: SKEY_lightningBonus,
+	waterBonus: SKEY_waterBonus,
+	windBonus: SKEY_windBonus,
+	earthBonus: SKEY_earthBonus,
+	darkBonus: SKEY_darkBonus,
+	holyBonus: SKEY_holyBonus,
+} satisfies Partial<Record<keyof Profile, number>> & Record<string, number>;
+
+export const LENGTH_Shared = Object.keys(sharedMap).length;
 
 function buildMutator(e: Partial<Profile>, isAmmo: boolean) {
 	let s = "";
@@ -145,38 +190,28 @@ function buildTooltip(e: Partial<Profile>, isAmmo: boolean) {
 	return ret.join(",");
 }
 
-function buildHazardKeys(e: Partial<Profile>, isAmmo: boolean) {
-	return new Set(
-		HazardKeys.filter(key => (!isAmmo || key !== "animationType") && e[key] != null)
-	);
-}
-
-function buildUniqueBenefitKeys(e: Partial<Profile>) {
-	return new Set(
-		UniqueBenefitKeys.filter(key => e[key] != null)
-	);
-}
-
-function buildSharedBenefitMap(e: Partial<Profile>) {
-	return new Map(
-		(
-			SharedBenefitKeys
-				.map<[SharedBenefitKey, number | boolean | undefined]>(key => [key, e[key]])
-				.filter(([, v]) => v != null)
-				.map<[SharedBenefitKey, number]>(([k, v]) => [k, +v!])
-		) as [SharedBenefitKey, number][]
-	)
-}
-
 export class Equipment implements Partial<Profile> {
 	constructor(input: Partial<Profile> & { name: string, l?: License }, isAmmo: boolean) {
 		Object.assign(this, input);
 
 		this.mutateProfile = buildMutator(input, isAmmo);
 		this.tooltip = buildTooltip(input, isAmmo);
-		this.hazardKeys = buildHazardKeys(input, isAmmo);
-		this.uniqueBenefitKeys = buildUniqueBenefitKeys(input);
-		this.sharedBenefitMap = buildSharedBenefitMap(input);
+
+		for (const key in input) {
+			let v: number;
+			if ((v = (hazardUniqueMap as any)[key]) != null) {
+				if (!isAmmo || key !== "animationType") {
+					this.hazardUniqueMask |= v;
+				}
+			}
+			if ((v = (sharedMap as any)[key]) != null) {
+				this.sharedMask |= v;
+			}
+		}
+
+		for (const key in sharedMap) {
+			this.sharedValues.push(+((input as any)[key] ?? 0));
+		}
 	}
 
 	name!: string;
@@ -184,9 +219,9 @@ export class Equipment implements Partial<Profile> {
 	mutateProfile: (p: Profile) => void;
 	tooltip: string;
 
-	hazardKeys: Set<HazardKey>;
-	uniqueBenefitKeys: Set<UniqueBenefitKey>;
-	sharedBenefitMap: Map<SharedBenefitKey, number>;
+	hazardUniqueMask: number = 0;
+	sharedMask: number = 0;
+	sharedValues: number[] = [];
 
 	ability?: Ability;
 	damageType?: DamageFormula;
