@@ -220,6 +220,10 @@ export function filterEquippables(eqs: Equipment[], { hazardUniqueMask, sharedMa
 			const x = items[i];
 			const y = items[j];
 
+			if (x.sharedMask & ~y.sharedMask & okeySharedMask) {
+				continue inner_eq;
+			}
+
 			const xs = x.sharedValues;
 			const ys = y.sharedValues;
 
@@ -234,19 +238,6 @@ export function filterEquippables(eqs: Equipment[], { hazardUniqueMask, sharedMa
 				}
 			}
 
-			// for (const k of x.sharedBenefitMap.keys()) {
-			// 	if (!oKeys.has(k)) {
-			// 		continue;
-			// 	}
-			// 	if (!y.sharedBenefitMap.has(k)) {
-			// 		continue inner_eq;
-			// 	}
-			// 	const vx = x.sharedBenefitMap.get(k)!;
-			// 	const vy = y.sharedBenefitMap.get(k)!;
-			// 	if (vx > vy) {
-			// 		continue inner_eq;
-			// 	}
-			// }
 			// x is pareto inferior to y
 			items.splice(i--, 1);
 			break;
