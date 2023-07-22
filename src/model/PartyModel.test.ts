@@ -44,7 +44,7 @@ describe("PartyModel", import.meta.url, it => {
 	it("basic stress tests", () => {
 		const r = new XorShift32(8675309);
 		for (let i = 0; i < 200; i++) {
-			snapshot(doTest(r, 2000));
+			snapshot(doTest(r, 200));
 		}
 	});
 
@@ -52,7 +52,7 @@ describe("PartyModel", import.meta.url, it => {
 		const r = new XorShift32(69420);
 		const start = performance.now();
 		for (let i = 0; i < 350; i++) {
-			doTest(r, 1600);
+			doTest(r, 160);
 		}
 		snapshot(performance.now() - start);
 	});

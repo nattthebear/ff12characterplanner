@@ -82,14 +82,56 @@ export interface CalculateResult {
 function modifyElementalDamage(modifiedDamage: number, m: Magick | undefined, p: Profile, e: Environment) {
 	const z = m ?? p;
 
-	for (const element of AllElements) {
-		if (z[`${element}Damage` as const]) {
-			if (p[`${element}Bonus` as const]) {
-				modifiedDamage *= 1.5;
-			}
-			modifiedDamage *= e[`${element}Reaction` as const];
+	// Unrolled and undynamicked for speed
+	if (z.fireDamage) {
+		if (p.fireBonus) {
+			modifiedDamage *= 1.5;
 		}
+		modifiedDamage *= e.fireReaction;
 	}
+	if (z.iceDamage) {
+		if (p.iceBonus) {
+			modifiedDamage *= 1.5;
+		}
+		modifiedDamage *= e.iceReaction;
+	}
+	if (z.lightningDamage) {
+		if (p.lightningBonus) {
+			modifiedDamage *= 1.5;
+		}
+		modifiedDamage *= e.lightningReaction;
+	}
+	if (z.waterDamage) {
+		if (p.waterBonus) {
+			modifiedDamage *= 1.5;
+		}
+		modifiedDamage *= e.waterReaction;
+	}
+	if (z.windDamage) {
+		if (p.windBonus) {
+			modifiedDamage *= 1.5;
+		}
+		modifiedDamage *= e.windReaction;
+	}
+	if (z.earthDamage) {
+		if (p.earthBonus) {
+			modifiedDamage *= 1.5;
+		}
+		modifiedDamage *= e.earthReaction;
+	}
+	if (z.darkDamage) {
+		if (p.darkBonus) {
+			modifiedDamage *= 1.5;
+		}
+		modifiedDamage *= e.darkReaction;
+	}
+	if (z.holyDamage) {
+		if (p.holyBonus) {
+			modifiedDamage *= 1.5;
+		}
+		modifiedDamage *= e.holyReaction;
+	}
+
 	if (e.oil && z.fireDamage) {
 		modifiedDamage *= 3;
 	}
