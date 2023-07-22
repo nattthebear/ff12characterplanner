@@ -1,6 +1,13 @@
 import { Magick } from "./ability/Magick";
 import { Technick } from "./ability/Technick";
-import { AllElements, Equipment, KEY_adrenaline, KEY_agateRing, KEY_animationType, KEY_berserk, KEY_bravery, KEY_brawler, KEY_cameoBelt, KEY_darkDamage, KEY_earthDamage, KEY_faith, KEY_fireDamage, KEY_focus, KEY_genjiGloves, KEY_haste, KEY_holyDamage, KEY_iceDamage, KEY_lightningDamage, KEY_serenity, KEY_spellbreaker, KEY_waterDamage, KEY_windDamage, LENGTH_Shared, MASK_Hazard, MASK_Shared, MASK_Unique, SKEY_attack, SKEY_darkBonus, SKEY_earthBonus, SKEY_fireBonus, SKEY_holyBonus, SKEY_iceBonus, SKEY_lightningBonus, SKEY_mag, SKEY_spd, SKEY_str, SKEY_vit, SKEY_waterBonus, SKEY_windBonus } from "./equip/Equipment";
+import {
+	Equipment,
+	KEY_adrenaline, KEY_agateRing, KEY_animationType, KEY_berserk, KEY_bravery, KEY_brawler, KEY_cameoBelt, KEY_darkDamage,
+	KEY_earthDamage, KEY_faith, KEY_fireDamage, KEY_focus, KEY_genjiGloves, KEY_haste, KEY_holyDamage, KEY_iceDamage, KEY_lightningDamage,
+	KEY_serenity, KEY_spellbreaker, KEY_waterDamage, KEY_windDamage, LENGTH_Shared, MASK_Hazard, MASK_Shared, MASK_Unique, SKEY_attack,
+	SKEY_darkBonus, SKEY_earthBonus, SKEY_fireBonus, SKEY_holyBonus, SKEY_iceBonus, SKEY_lightningBonus, SKEY_mag, SKEY_spd, SKEY_str,
+	SKEY_vit, SKEY_waterBonus, SKEY_windBonus
+} from "./equip/Equipment";
 import { Environment, Profile } from "./Profile";
 
 interface OptimizerKeys {
@@ -86,10 +93,10 @@ function getOptimizerKeysForMagick(m: Magick, p: Profile, e: Environment): Optim
 	}
 
 	// if we already have these licenses, then the accessories with them won't be relevant
-	if (!p.serenity) {
+	if (!p.serenity && e.percentHp === 100) {
 		hazardUniqueMask |= KEY_serenity;
 	}
-	if (!p.spellbreaker) {
+	if (!p.spellbreaker && e.percentHp < 20) {
 		hazardUniqueMask |= KEY_spellbreaker;
 	}
 
@@ -112,9 +119,7 @@ function getOptimizerKeysForAttack(p: Profile, e: Environment): OptimizerKeys {
 		| KEY_windDamage
 		| KEY_earthDamage
 		| KEY_darkDamage
-		| KEY_holyDamage
-		| KEY_focus // TODO: ARE THESE TWO AN OLD BUG?
-		| KEY_adrenaline;
+		| KEY_holyDamage;
 	let sharedMask =
 		SKEY_attack
 		| SKEY_spd // always needed for csmod
@@ -147,10 +152,10 @@ function getOptimizerKeysForAttack(p: Profile, e: Environment): OptimizerKeys {
 	}
 
 	// if we already have these licenses, then the accessories with them won't be relevant
-	if (!p.focus) {
+	if (!p.focus && e.percentHp === 100) {
 		hazardUniqueMask |= KEY_focus;
 	}
-	if (!p.adrenaline) {
+	if (!p.adrenaline && e.percentHp < 20) {
 		hazardUniqueMask |= KEY_adrenaline;
 	}
 
