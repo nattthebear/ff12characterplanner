@@ -1,8 +1,9 @@
-import { Profile, Environment, PaperDoll, Equipment, createProfile, EquipmentPool } from "./Profile";
+import { Profile, Environment, PaperDoll, createProfile, EquipmentPool } from "./Profile";
 import { calculate, CalculateResult } from "./Calculate";
 import { filterEquippables, getOptimizerKeys } from "./OptimizerPrep";
 import Ammos from "./equip/Ammo";
 import { Ability, Attack } from "./ability/Ability";
+import type { Equipment } from "./equip/Equipment";
 
 export interface OptimizerResult {
 	ability: Ability;
@@ -35,7 +36,7 @@ export function optimize(startingProfile: Profile, e: Environment, pool: Equipme
 
 	for (const weapon of weapons) {
 		doll.weapon = weapon;
-		const ammos = filterEquippables(Ammos.filter(a => a.type === weapon.animationType), possibleKeys, false);
+		const ammos = filterEquippables(Ammos.filter(a => a.animationType === weapon.animationType), possibleKeys, false);
 		for (const ammo of ammos) {
 			doll.ammo = ammo;
 			for (const armor of armors) {

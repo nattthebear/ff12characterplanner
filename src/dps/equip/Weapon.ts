@@ -1,7 +1,5 @@
-import { buildEquipments }  from "../Profile";
-import { LicenseByName } from "../../data/Licenses";
-
-const l = LicenseByName;
+import { LicenseByName as l } from "../../data/Licenses";
+import { buildEquipments } from "./Equipment";
 
 const Weapon = buildEquipments([
 	{ name: "Unarmed", damageType: "unarmed", animationType: "unarmed", attack: 12, chargeTime: 26, combo: 5, },

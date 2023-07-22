@@ -4,10 +4,11 @@ import { optimizeForCharacter } from "../dps/OptimizeForCharacter";
 import { OptimizerResult } from "../dps/Optimize";
 import { Characters } from "../data/Characters";
 import "./Dps.css";
-import { Environment, Equipment, AllElements, Weather, Terrain, defaultEnvironment } from "../dps/Profile";
+import { Environment, Weather, Terrain, defaultEnvironment } from "../dps/Profile";
 import { CalculateResult } from "../dps/Calculate";
 import { makeStore } from "../store/MakeStore";
 import { Ability } from "../dps/ability/Ability";
+import { AllElements, Equipment } from "../dps/equip/Equipment";
 
 export interface Props {
 	party: PartyModel;

@@ -1,5 +1,5 @@
-import { License } from "../data/Licenses";
-import { Ability } from "./ability/Ability";
+import type { Ability } from "./ability/Ability";
+import type { Equipment } from "./equip/Equipment";
 
 export type DamageFormula =
 	"unarmed" | "sword" | "pole" | "mace" | "katana"
@@ -10,7 +10,6 @@ export type AnimationClass = "unarmed"
 	| "bigsword" | "hammer" | "pole" | "spear" | "mace"
 	| "bow" | "gun" | "xbow" | "measure" | "rod" | "staff" | "handbomb";
 
-export const AllElements = ["fire", "ice", "lightning", "water", "wind", "earth", "dark", "holy"] as const;
 
 export type ElementalReaction = 0 | 0.5 | 1 | 2;
 export type Terrain = "other" | "sand" | "water" | "snow";
@@ -192,115 +191,13 @@ export interface Profile {
 	holyBonus: boolean;
 }
 
-export interface Equipment extends Partial<Profile> {
-	name: string;
-	l?: License;
-	mutateProfile(p: Profile): void;
-	tooltip: string
-}
-
-export interface Ammo extends Equipment {
-	type: AnimationClass;
-}
-
 export interface PaperDoll {
 	weapon: Equipment;
-	ammo?: Ammo;
+	ammo?: Equipment;
 	helm?: Equipment;
 	armor?: Equipment;
 	accessory?: Equipment;
 }
-
-export function buildEquipments<T extends Equipment>(eqs: Omit<T, "mutateProfile" | "tooltip">[]): T[] {
-	for (const e of eqs) {
-		buildMutator(e as T);
-		buildTooltip(e as T);
-	}
-	return eqs as T[];
-}
-
-function buildMutator(e: Equipment) {
-	let s = "";
-	for (const k in e) {
-		if (k === "name" || k === "l" || k === "type") {
-			continue;
-		}
-		const v = (e as any)[k];
-		if (typeof v === "boolean" && v) {
-			s += `ret.${k} = true;\n`;
-		} else if (typeof v === "number") {
-			s += `ret.${k} += ${v};\n`;
-		} else if (typeof v === "string") {
-			s += `ret.${k} = ${JSON.stringify(v)};\n`;
-		} else {
-			throw new Error(`Unexpected type on Profile[${k}]: ${typeof v}`);
-		}
-	}
-	e.mutateProfile = Function("ret", s) as any;
-}
-
-function buildTooltip(e: Equipment) {
-	const ret = Array<string>();
-	if (e.animationType) {
-		ret.push({
-			unarmed: "Unarmed",
-			dagger: "Dagger",
-			ninja: "Ninja Sword",
-			katana: "Katana",
-			sword: "Sword",
-			bigsword: "Greatsword",
-			hammer: "Hammer/Axe",
-			pole: "Pole",
-			spear: "Spear",
-			mace: "Mace",
-			bow: "Bow",
-			gun: "Gun",
-			xbow: "Crossbow",
-			measure: "Measure",
-			rod: "Rod",
-			staff: "Staff",
-			handbomb: "Handbomb"
-		}[e.animationType]);
-	}
-	if (e.damageType === "gun" && e.animationType !== "gun") {
-		ret.push("Pierce");
-	}
-	function f(k: keyof Profile, s: string) {
-		const v = e[k];
-		if (typeof v === "number" && v > 0) {
-			ret.push(`${v} ${s}`);
-		} else if (v === true) {
-			ret.push(s);
-		}
-	}
-	f("attack", "Att");
-	f("chargeTime", "CT");
-	f("combo", "Cb");
-	f("str", "Str");
-	f("mag", "Mag");
-	f("vit", "Vit");
-	f("spd", "Spd");
-	f("brawler", "Brawler");
-	f("berserk", "Berserk");
-	f("haste", "Haste");
-	f("bravery", "Bravery");
-	f("faith", "Faith");
-	f("focus", "Focus");
-	f("adrenaline", "Adrenaline");
-	f("serenity", "Serenity");
-	f("spellbreaker", "Spellbreaker");
-	f("genjiGloves", "Combo+");
-	f("cameoBelt", "Ignore Evasion");
-	f("agateRing", "Ignore Weather");
-	for (const elt of AllElements) {
-		f(`${elt}Damage` as const, elt[0].toUpperCase() + elt.slice(1) + " Damage");
-	}
-	for (const elt of AllElements) {
-		f(`${elt}Bonus` as const, elt[0].toUpperCase() + elt.slice(1) + " Bonus");
-	}
-	e.tooltip = ret.join(",");
-}
-
 
 export function createProfile(startingProfile: Profile, doll: PaperDoll) {
 	const ret = { ...startingProfile };
