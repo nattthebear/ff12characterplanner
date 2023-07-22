@@ -1,6 +1,6 @@
 import { Magick } from "./ability/Magick";
 import { Technick } from "./ability/Technick";
-import { AllElements, Equipment } from "./equip/Equipment";
+import { AllElements, Equipment, OptimizerKey } from "./equip/Equipment";
 import { Environment, Profile } from "./Profile";
 
 /** Given a profile and an environment, determine what stats could be beneficial */
@@ -17,7 +17,7 @@ export function getOptimizerKeys(p: Profile, e: Environment) {
 }
 
 function getOptimizerKeysForTechnick(t: Technick, e: Environment) {
-	const ret = new Set<keyof Profile>([
+	const ret = new Set<OptimizerKey>([
 		"spd", // always needed for csmod
 	]);
 
@@ -37,7 +37,7 @@ function getOptimizerKeysForTechnick(t: Technick, e: Environment) {
 }
 
 function getOptimizerKeysForMagick(m: Magick, p: Profile, e: Environment) {
-	const ret = new Set<keyof Profile>([
+	const ret = new Set<OptimizerKey>([
 		"mag",
 		"spd", // always needed for csmod
 	]);
@@ -71,7 +71,7 @@ function getOptimizerKeysForMagick(m: Magick, p: Profile, e: Environment) {
 
 function getOptimizerKeysForAttack(p: Profile, e: Environment) {
 	// can leave out any key that's only found on weapons, or is not relevant to this weapon
-	const ret = new Set<keyof Profile>([
+	const ret = new Set<OptimizerKey>([
 		"attack",
 		"spd", // always needed for csmod
 
@@ -150,23 +150,8 @@ function getOptimizerKeysForAttack(p: Profile, e: Environment) {
 	return ret;
 }
 
-/** Keys that can be found on non-weapons (or for magick/technick, any slot) that potentially have negative results. */
-const hazardKeys = new Set<keyof Profile>([
-	// TODO: Does it make sense to use the environment to choose these?
-	"fireDamage",
-	"iceDamage",
-	"lightningDamage",
-	"waterDamage",
-	"windDamage",
-	"earthDamage",
-	"darkDamage",
-	"holyDamage", // Can't actually be found on non-weapons, but less confusing to leave it here
-	"agateRing",
-	"animationType", // Telekinesis
-]);
-
 /** Given a set of potential optimizerKeys, eliminate equipment that has no relevantkeys or is always worse than other equipment. */
-export function filterEquippables(eqs: Equipment[], keys: Set<keyof Profile>, allowEmpty: boolean) {
+export function filterEquippables(eqs: Equipment[], oKeys: Set<OptimizerKey>, allowEmpty: boolean) {
 	// Eliminate any item that has no possible value, and then any item that is pareto inferor to another.
 
 	const ret: Equipment[] = [];
@@ -175,15 +160,14 @@ export function filterEquippables(eqs: Equipment[], keys: Set<keyof Profile>, al
 
 	next_eq:
 	for (const eq of eqs) {
-		for (const k of eq.keys) {
-			if (keys.has(k as keyof Profile)) {
-				// Will have some effect.  Add to either haz or ret.
-				for (const k2 of eq.keys) {
-					if (keys.has(k2 as keyof Profile) && hazardKeys.has(k2 as keyof Profile)) {
-						haz.push(eq);
-						continue next_eq;
-					}
-				}
+		for (const key of eq.hazardKeys) {
+			if (oKeys.has(key)) {
+				haz.push(eq);
+				continue next_eq;
+			}
+		}
+		for (const key of eq.benefitMap.keys()) {
+			if (oKeys.has(key)) {
 				ret.push(eq);
 				continue next_eq;
 			}
@@ -199,15 +183,15 @@ export function filterEquippables(eqs: Equipment[], keys: Set<keyof Profile>, al
 			const x = ret[i];
 			const y = ret[j];
 
-			for (const k of x.keys) {
-				if (!keys.has(k)) {
+			for (const k of x.benefitMap.keys()) {
+				if (!oKeys.has(k)) {
 					continue;
 				}
-				if (!y.keys.has(k)) {
+				if (!y.benefitMap.has(k)) {
 					continue inner_eq;
 				}
-				const vx = +x[k]!;
-				const vy = +y[k]!;
+				const vx = x.benefitMap.get(k)!;
+				const vy = y.benefitMap.get(k)!;
 				if (vx > vy) {
 					continue inner_eq;
 				}

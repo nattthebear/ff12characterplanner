@@ -3,54 +3,62 @@ import type { AnimationClass, DamageFormula, Profile } from "../Profile";
 import { Ability } from "../ability/Ability";
 
 export const AllElements = ["fire", "ice", "lightning", "water", "wind", "earth", "dark", "holy"] as const;
-const OptimizerKeys = [
+
+/** Keys that can be found on non-weapons (or for magick/technick, any slot) that potentially have negative results. */
+const HazardKeys = [
+	"fireDamage",
+	"iceDamage",
+	"lightningDamage",
+	"waterDamage",
+	"windDamage",
+	"earthDamage",
+	"darkDamage",
+	"holyDamage", // Can't actually be found on non-weapons, but less confusing to leave it here
+
+	"agateRing",
+	"animationType", // Telekinesis
+] as const satisfies readonly (keyof Profile)[];
+/** Keys that can be found on non-weapons (or for magick/technick, any slot) that impact DPS and are never negative */
+const BenefitKeys = [
 	// "ability",
 	// "damageType",
-	// "animationType",
-	// "attack",
+	"attack",
 	// "combo",
 	// "chargeTime",
 	"str",
 	"mag",
 	"vit",
 	"spd",
-	// "brawler",
-	// "berserk",
-	// "haste",
-	// "bravery",
-	// "faith",
-	// "focus",
-	// "adrenaline",
-	// "serenity",
-	// "spellbreaker",
+	"brawler",
+	"berserk",
+	"haste",
+	"bravery",
+	"faith",
+	"focus",
+	"adrenaline",
+	"serenity",
+	"spellbreaker",
 
-	// "genjiGloves",
-	// "cameoBelt",
-	// "agateRing",
+	"genjiGloves",
+	"cameoBelt",
 
 	// "swiftness1",
 	// "swiftness2",
 	// "swiftness3",
-	
-	// "fireDamage",
-	// "iceDamage",
-	// "lightningDamage",
-	// "waterDamage",
-	// "windDamage",
-	// "earthDamage",
-	// "darkDamage",
-	// "holyDamage",
 
-	// "fireBonus",
-	// "iceBonus",
-	// "lightningBonus",
-	// "waterBonus",
-	// "windBonus",
-	// "earthBonus",
-	// "darkBonus",
-	// "holyBonus",
+	"fireBonus",
+	"iceBonus",
+	"lightningBonus",
+	"waterBonus",
+	"windBonus",
+	"earthBonus",
+	"darkBonus",
+	"holyBonus",
 ] as const satisfies readonly (keyof Profile)[];
-export type OptimizerKey = typeof OptimizerKeys[number];
+
+export type HazardKey = typeof HazardKeys[number];
+export type BenefitKey = typeof BenefitKeys[number];
+export type OptimizerKey = HazardKey | BenefitKey;
 
 function buildMutator(e: Partial<Profile>, isAmmo: boolean) {
 	let s = "";
@@ -134,11 +142,21 @@ function buildTooltip(e: Partial<Profile>, isAmmo: boolean) {
 	return ret.join(",");
 }
 
-function buildKeys(e: Partial<Profile>) {
+function buildHazardKeys(e: Partial<Profile>, isAmmo: boolean) {
 	return new Set(
-		// OptimizerKeys.filter(key => e[key] != null)
-		Object.keys(e) as OptimizerKey[]
+		HazardKeys.filter(key => (!isAmmo || key !== "animationType") && e[key] != null)
 	);
+}
+
+function buildBenefitKeys(e: Partial<Profile>) {
+	return new Map(
+		(
+			BenefitKeys
+				.map<[BenefitKey, number | boolean | undefined]>(key => [key, e[key]])
+				.filter(([, v]) => v != null)
+				.map<[BenefitKey, number]>(([k, v]) => [k, +v!])
+		) as [BenefitKey, number][]
+	)
 }
 
 export class Equipment implements Partial<Profile> {
@@ -147,14 +165,18 @@ export class Equipment implements Partial<Profile> {
 
 		this.mutateProfile = buildMutator(input, isAmmo);
 		this.tooltip = buildTooltip(input, isAmmo);
-		this.keys = buildKeys(input);
+		this.benefitMap = buildBenefitKeys(input);
+		this.hazardKeys = buildHazardKeys(input, isAmmo);
 	}
 
 	name!: string;
 	l?: License;
 	mutateProfile: (p: Profile) => void;
 	tooltip: string;
-	keys: Set<OptimizerKey>;
+
+	/** Each benefit key that exists with its associated numerical value */
+	benefitMap: Map<BenefitKey, number>
+	hazardKeys: Set<HazardKey>
 
 	ability?: Ability;
 	damageType?: DamageFormula;
