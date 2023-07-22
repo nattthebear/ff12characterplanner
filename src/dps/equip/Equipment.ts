@@ -108,11 +108,6 @@ const sharedMap = {
 
 export const LENGTH_Shared = Object.keys(sharedMap).length;
 
-// export type HazardKey = typeof HazardKeys[number];
-// export type UniqueBenefitKey = typeof UniqueBenefitKeys[number];
-// export type SharedBenefitKey = typeof SharedBenefitKeys[number];
-// export type OptimizerKey = HazardKey | UniqueBenefitKey | SharedBenefitKey;
-
 function buildMutator(e: Partial<Profile>, isAmmo: boolean) {
 	let s = "";
 	for (const k in e) {
