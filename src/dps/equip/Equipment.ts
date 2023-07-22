@@ -18,17 +18,11 @@ const HazardKeys = [
 	"agateRing",
 	"animationType", // Telekinesis
 ] as const satisfies readonly (keyof Profile)[];
-/** Keys that can be found on non-weapons (or for magick/technick, any slot) that impact DPS and are never negative */
-const BenefitKeys = [
-	// "ability",
-	// "damageType",
-	"attack",
-	// "combo",
-	// "chargeTime",
-	"str",
-	"mag",
-	"vit",
-	"spd",
+/**
+ * Keys that can be found on non-weapons (or for magick/technick, any slot) that impact DPS and are never negative.
+ * Additionally, no more than one item per slot has them.
+ */
+const UniqueBenefitKeys = [
 	"brawler",
 	"berserk",
 	"haste",
@@ -41,10 +35,18 @@ const BenefitKeys = [
 
 	"genjiGloves",
 	"cameoBelt",
+] as const satisfies readonly (keyof Profile)[];
 
-	// "swiftness1",
-	// "swiftness2",
-	// "swiftness3",
+/**
+ * Keys that can be found on non-weapons (or for magick/technick, any slot) that impact DPS and are never negative.
+ * Additionally, many items may have them and we have to compare their values to eliminate worse items.
+ */
+const SharedBenefitKeys = [
+	"attack",
+	"str",
+	"mag",
+	"vit",
+	"spd",
 
 	"fireBonus",
 	"iceBonus",
@@ -57,8 +59,9 @@ const BenefitKeys = [
 ] as const satisfies readonly (keyof Profile)[];
 
 export type HazardKey = typeof HazardKeys[number];
-export type BenefitKey = typeof BenefitKeys[number];
-export type OptimizerKey = HazardKey | BenefitKey;
+export type UniqueBenefitKey = typeof UniqueBenefitKeys[number];
+export type SharedBenefitKey = typeof SharedBenefitKeys[number];
+export type OptimizerKey = HazardKey | UniqueBenefitKey | SharedBenefitKey;
 
 function buildMutator(e: Partial<Profile>, isAmmo: boolean) {
 	let s = "";
@@ -148,14 +151,20 @@ function buildHazardKeys(e: Partial<Profile>, isAmmo: boolean) {
 	);
 }
 
-function buildBenefitKeys(e: Partial<Profile>) {
+function buildUniqueBenefitKeys(e: Partial<Profile>) {
+	return new Set(
+		UniqueBenefitKeys.filter(key => e[key] != null)
+	);
+}
+
+function buildSharedBenefitMap(e: Partial<Profile>) {
 	return new Map(
 		(
-			BenefitKeys
-				.map<[BenefitKey, number | boolean | undefined]>(key => [key, e[key]])
+			SharedBenefitKeys
+				.map<[SharedBenefitKey, number | boolean | undefined]>(key => [key, e[key]])
 				.filter(([, v]) => v != null)
-				.map<[BenefitKey, number]>(([k, v]) => [k, +v!])
-		) as [BenefitKey, number][]
+				.map<[SharedBenefitKey, number]>(([k, v]) => [k, +v!])
+		) as [SharedBenefitKey, number][]
 	)
 }
 
@@ -165,8 +174,9 @@ export class Equipment implements Partial<Profile> {
 
 		this.mutateProfile = buildMutator(input, isAmmo);
 		this.tooltip = buildTooltip(input, isAmmo);
-		this.benefitMap = buildBenefitKeys(input);
 		this.hazardKeys = buildHazardKeys(input, isAmmo);
+		this.uniqueBenefitKeys = buildUniqueBenefitKeys(input);
+		this.sharedBenefitMap = buildSharedBenefitMap(input);
 	}
 
 	name!: string;
@@ -174,9 +184,9 @@ export class Equipment implements Partial<Profile> {
 	mutateProfile: (p: Profile) => void;
 	tooltip: string;
 
-	/** Each benefit key that exists with its associated numerical value */
-	benefitMap: Map<BenefitKey, number>
-	hazardKeys: Set<HazardKey>
+	hazardKeys: Set<HazardKey>;
+	uniqueBenefitKeys: Set<UniqueBenefitKey>;
+	sharedBenefitMap: Map<SharedBenefitKey, number>;
 
 	ability?: Ability;
 	damageType?: DamageFormula;

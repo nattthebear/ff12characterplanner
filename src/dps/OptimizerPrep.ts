@@ -153,56 +153,64 @@ function getOptimizerKeysForAttack(p: Profile, e: Environment) {
 /** Given a set of potential optimizerKeys, eliminate equipment that has no relevantkeys or is always worse than other equipment. */
 export function filterEquippables(eqs: Equipment[], oKeys: Set<OptimizerKey>, allowEmpty: boolean) {
 	// Eliminate any item that has no possible value, and then any item that is pareto inferor to another.
-
-	const ret: Equipment[] = [];
+	const items: Equipment[] = [];
 	/** hazardKeys make an item uncomparable */
-	const haz: Equipment[] = [];
+	const hazardItems: Equipment[] = [];
+
+	let i = 0; // starting point for items to remove
 
 	next_eq:
 	for (const eq of eqs) {
 		for (const key of eq.hazardKeys) {
 			if (oKeys.has(key)) {
-				haz.push(eq);
+				hazardItems.push(eq);
 				continue next_eq;
 			}
 		}
-		for (const key of eq.benefitMap.keys()) {
+		for (const key of eq.uniqueBenefitKeys) {
 			if (oKeys.has(key)) {
-				ret.push(eq);
+				items.unshift(eq);
+				i++;
+				continue next_eq;
+			}
+		}
+		for (const key of eq.sharedBenefitMap.keys()) {
+			if (oKeys.has(key)) {
+				items.push(eq);
 				continue next_eq;
 			}
 		}
 	}
 
-	for (let i = 0; i < ret.length; i++) {
+	for (; i < items.length; i++) {
 		inner_eq:
-		for (let j = 0; j < ret.length; j++) {
+		for (let j = 0; j < items.length; j++) {
 			if (i === j) {
 				continue;
 			}
-			const x = ret[i];
-			const y = ret[j];
+			const x = items[i];
+			const y = items[j];
 
-			for (const k of x.benefitMap.keys()) {
+			for (const k of x.sharedBenefitMap.keys()) {
 				if (!oKeys.has(k)) {
 					continue;
 				}
-				if (!y.benefitMap.has(k)) {
+				if (!y.sharedBenefitMap.has(k)) {
 					continue inner_eq;
 				}
-				const vx = x.benefitMap.get(k)!;
-				const vy = y.benefitMap.get(k)!;
+				const vx = x.sharedBenefitMap.get(k)!;
+				const vy = y.sharedBenefitMap.get(k)!;
 				if (vx > vy) {
 					continue inner_eq;
 				}
 			}
 			// x is pareto inferior to y
-			ret.splice(i--, 1);
+			items.splice(i--, 1);
 			break;
 		}
 	}
-	ret.push(...haz);
-	const realRet = ret as (Equipment | undefined)[];
+	items.push(...hazardItems);
+	const realRet = items as (Equipment | undefined)[];
 	if (!realRet.length) {
 		realRet.push(allowEmpty ? undefined : eqs[0]);
 	}
