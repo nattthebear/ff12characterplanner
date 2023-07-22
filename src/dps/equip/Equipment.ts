@@ -208,9 +208,9 @@ export class Equipment implements Partial<Profile> {
 				this.sharedMask |= v;
 			}
 		}
-		let i = 0;
+
 		for (const key in sharedMap) {
-			this.sharedValues[i++] = +((input as any)[key] ?? 0);
+			this.sharedValues.push(+((input as any)[key] ?? 0));
 		}
 	}
 
