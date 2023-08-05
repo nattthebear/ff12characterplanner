@@ -339,7 +339,7 @@ function createUrlLookup() {
 				for (const r of b.rows) {
 					for (const p of r) {
 						if (p) {
-							if (a && !a.lookup.has(p.value)) {
+							if (!a || !a.lookup.has(p.value)) {
 								v.licenses.push(p.value);
 							}
 						}
