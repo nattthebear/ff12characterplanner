@@ -1,8 +1,9 @@
 import { Characters } from "../data/Characters";
-import { Board, Boards } from "../data/Boards";
+import { Board } from "../data/Boards";
 import { License, Quickenings, Espers } from "../data/Licenses";
 import { Heap } from "./Heap";
 import { getCoverSet } from "./Adjacency";
+import { decodeCharacter, encodeCharacter } from "./PartyModel.encode";
 
 export enum Coloring {
 	/** character has the license learned */
@@ -285,7 +286,7 @@ export default class PartyModel {
 	encode() {
 		let queryString = "";
 		for (let c = 0; c < 6; c++) {
-			queryString += encodeCharacter(this.jobs[c], this.selected[c]);
+			queryString += encodeCharacter(this.jobs[c], this.selected[c], c);
 			if (c !== 5) {
 				queryString += ".";
 			}
@@ -308,118 +309,3 @@ export default class PartyModel {
 		return ret;
 	}
 }
-
-// lookup tables for url encoding
-interface UrlLookup {
-	job1?: Board;
-	job2?: Board;
-	licenses: License[];
-}
-function createUrlLookup() {
-	const possibleJobs: (Board | undefined)[] = Boards.slice();
-	possibleJobs.unshift(undefined);
-	const ret = Array<UrlLookup>();
-	for (const a of possibleJobs) {
-		for (const b of possibleJobs) {
-			if (a && a === b) {
-				continue;
-				// same job twice not valid unless it's undefined
-			}
-			const v = { job1: a, job2: b, licenses: Array<License>() };
-			if (a) {
-				for (const r of a.rows) {
-					for (const p of r) {
-						if (p) {
-							v.licenses.push(p.value);
-						}
-					}
-				}
-			}
-			if (b) {
-				for (const r of b.rows) {
-					for (const p of r) {
-						if (p) {
-							if (!a || !a.lookup.has(p.value)) {
-								v.licenses.push(p.value);
-							}
-						}
-					}
-				}
-			}
-			ret.push(v);
-		}
-	}
-	const m = new Map<Board | undefined, Map<Board | undefined, number>>();
-	for (let i = 0; i < ret.length; i++) {
-		if (!m.has(ret[i].job1)) {
-			m.set(ret[i].job1, new Map());
-		}
-		m.get(ret[i].job1)!.set(ret[i].job2, i);
-	}
-	return {
-		urlLookup: ret,
-		urlReverseLookup: m
-	};
-}
-const { urlLookup, urlReverseLookup } = createUrlLookup();
-
-function toBase64Url(s: string) {
-	return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-}
-function fromBase64Url(s: string) {
-	return atob(s.replace(/-/g, "+").replace(/_/g, "/"));
-}
-
-function encodeCharacter(boards: Board[], licenses: Set<License>) {
-	const idx = urlReverseLookup.get(boards[0])!.get(boards[1])!;
-	const mapping = urlLookup[idx];
-	const n = [idx];
-	let b = 1;
-	let acc = 0;
-	for (const l of mapping.licenses) {
-		if (licenses.has(l)) {
-			acc |= b;
-		}
-		b <<= 1;
-		if (b === 256) {
-			n.push(acc);
-			acc = 0;
-			b = 1;
-		}
-	}
-	if (b !== 1) {
-		n.push(acc);
-	}
-	while (n.length > 1 && n[n.length - 1] === 0) {
-		n.pop();
-	}
-	return toBase64Url(String.fromCharCode(...n));
-}
-
-function decodeCharacter(s: string) {
-	s = fromBase64Url(s);
-	const idx = s.charCodeAt(0) | 0;
-	const mapping = urlLookup[idx];
-	if (!mapping) {
-		console.warn("Invalid tag id");
-		return undefined;
-	}
-	const ret = new Set<License>();
-	let b = 1;
-	let i = 1;
-	for (const l of mapping.licenses) {
-		if (s.charCodeAt(i) & b) {
-			ret.add(l);
-		}
-		b <<= 1;
-		if (b === 256) {
-			i++;
-			b = 1;
-		}
-	}
-	return {
-		jobs: [mapping.job1, mapping.job2].filter(j => j) as Board[],
-		licenses: ret
-	};
-}
-
