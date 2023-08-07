@@ -9,17 +9,20 @@ const Tooltip: TPC<{}> = (_, instance) => {
 	let labelText: string | null = null;
 	let referenceElement: Element | null = null;
 
-	document.addEventListener("mouseover", event => {
+	function handleMouseOver(event: MouseEvent) {
 		referenceElement = event.target as Element | null;
 		while (referenceElement && (labelText = referenceElement.getAttribute("aria-label")) == null) {
 			referenceElement = referenceElement.parentElement;
 		}
-		scheduleUpdate(instance);
-	}, { passive: true });
+		scheduleUpdate(instance);		
+	}
+
+	document.addEventListener("mouseover", handleMouseOver, { passive: true });
+	document.documentElement.addEventListener("mouseleave", handleMouseOver, { passive: true });
 
 	async function updateStyles() {
 		if (referenceElement && floatingElement) {
-			const styles = await computePosition(referenceElement, floatingElement, { middleware: [flip(), shift()] });
+			const styles = await computePosition(referenceElement, floatingElement, { middleware: [flip(), shift()], strategy: "fixed" });
 			floatingElement.style.transform = `translate(${Math.round(styles.x)}px,${Math.round(styles.y)}px)`;
 		}
 	}
