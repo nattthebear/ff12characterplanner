@@ -16,17 +16,17 @@
 	right: 0;
 	pointer-events: none;
 
-	& svg {
+	svg {
 		color: #fff;
 		fill: #000;
 		display: block;
 		
-		& g {
+		g {
 			pointer-events: initial;
 			&:hover .octo-arm {
 				animation:octocat-wave 560ms ease-in-out;
 			}
-			& .octo-arm {
+			.octo-arm {
 				transform-origin: 130px 106px;
 			}
 		}

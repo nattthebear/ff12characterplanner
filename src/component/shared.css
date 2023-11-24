@@ -28,7 +28,7 @@ button {
 		background-color: #ccc;
 		color: #999;
 		border-color: #999;
-		& img {
+		img {
 			opacity: 0.3;
 		}
 	}

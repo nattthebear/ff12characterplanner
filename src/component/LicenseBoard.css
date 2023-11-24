@@ -7,7 +7,7 @@
 .license-board {
 	border-spacing: 0;
 
-	& td {
+	td {
 		min-width: 80px;
 		max-width: 80px;
 		height: 80px;
@@ -16,14 +16,14 @@
 		vertical-align: top;
 	}
 
-	& .l {
+	.l {
 		box-shadow: inset 0 0 2px #000;
 
-		& .name {
+		.name {
 			font-size: 10px;
 		}
 
-		& .cost {
+		.cost {
 			font-size: 24px;
 			font-weight: bold;
 			position: absolute;
@@ -31,7 +31,7 @@
 			right: 4px;
 		}
 
-		& .mist {
+		.mist {
 			position: absolute;
 			width: 100%;
 			height: 100%;
@@ -52,11 +52,11 @@
 	position: relative;
 	min-width: 240px;
 
-	& .job {
+	.job {
 		line-height: 32px;
 		text-align: left;
 
-		& .zodiac {
+		.zodiac {
 			height: 32px;
 			float: right;
 			margin-left: 20px;
