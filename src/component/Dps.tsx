@@ -4,103 +4,15 @@ import { optimizeForCharacter } from "../dps/OptimizeForCharacter";
 import { OptimizerResult } from "../dps/Optimize";
 import { Characters } from "../data/Characters";
 import "./Dps.css";
-import { Environment, Weather, Terrain, defaultEnvironment } from "../dps/Profile";
+import { Environment, defaultEnvironment } from "../dps/Profile";
 import { CalculateResult } from "../dps/Calculate";
 import { makeStore } from "../store/MakeStore";
 import { Ability } from "../dps/ability/Ability";
 import { AllElements, Equipment } from "../dps/equip/Equipment";
+import { BoolInput, ElementInput, NumberInput, TerrainInput, WeatherInput } from "./Dps.Inputs";
 
 export interface Props {
 	party: PartyModel;
-}
-
-interface InputProps<T> {
-	value: T;
-	changeValue: (newValue: T) => void;
-	label: string;
-	tooltip: string;
-}
-
-interface NumberProps extends InputProps<number> {
-	min: number;
-	max: number;
-}
-
-function NumberInput(props: NumberProps) {
-	return <div aria-label={props.tooltip} class="control">
-		<label>
-			{props.label}
-			<input
-				class={`d-${props.max.toString().length}`}
-				type="number"
-				value={props.value}
-				min={props.min}
-				max={props.max}
-				onChange={ev => {
-					if (ev.currentTarget.validity.valid) {
-						const newValue = ev.currentTarget.valueAsNumber;
-						if (newValue === newValue) {
-							props.changeValue(newValue);
-						}
-					}
-				}}
-			/>
-		</label>
-	</div>;
-}
-
-function BoolInput(props: InputProps<boolean>) {
-	return <div aria-label={props.tooltip} class="control">
-		<label>
-			<input
-				type="checkbox"
-				checked={props.value}
-				onChange={() => props.changeValue(!props.value)}
-			/>
-			{props.label}
-		</label>
-	</div>;
-}
-
-function ElementInput(props: InputProps<0 | 0.5 | 1 | 2>) {
-	return <div aria-label={props.tooltip} class="control">
-		<label>
-			{props.label}
-			<select value={props.value} onChange={ev => props.changeValue(Number(ev.currentTarget.value) as 0 | 0.5 | 1 | 2)}>
-				<option value="0">Immune</option>
-				<option value="0.5">Strong</option>
-				<option value="1">Normal</option>
-				<option value="2">Weak</option>
-			</select>
-		</label>
-	</div>;
-}
-function WeatherInput(props: InputProps<Weather>) {
-	return <div aria-label={props.tooltip} class="control">
-		<label>
-			{props.label}
-			<select value={props.value} onChange={ev => props.changeValue(ev.currentTarget.value as Weather)}>
-				<option value="other">None</option>
-				<option value="windy">Wind</option>
-				<option value="rainy">Rain</option>
-				<option value="foggy">Fog</option>
-				<option value="windy and rainy">Downpour</option>
-			</select>
-		</label>
-	</div>;
-}
-function TerrainInput(props: InputProps<Terrain>) {
-	return <div aria-label={props.tooltip} class="control">
-		<label>
-			{props.label}
-			<select value={props.value} onChange={ev => props.changeValue(ev.currentTarget.value as Terrain)}>
-				<option value="other">None</option>
-				<option value="sand">Sand</option>
-				<option value="water">Water</option>
-				<option value="snow">Snow</option>
-			</select>
-		</label>
-	</div>;
 }
 
 const { useStore, dispatch } = makeStore(defaultEnvironment);
