@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@floating-ui/dom": "^1.4.2",
+    "@floating-ui/dom": "^1.6.3",
     "modern-normalize": "^2.0.0",
     "vdomk": "^0.1.5"
   },
@@ -15,23 +15,25 @@
     "test-profile": "dexnode --experimental-loader ts-node/esm --experimental-loader ./test/mock-url-module-loader.mjs --test src/dps/OptimizeForCharacter.test.ts",
     "deploy": "rimraf ./docs && copyfiles -u 1 ./build/**/* ./docs",
     "start:prod": "http-server ./docs -p 3010",
-    "clear-cache": "rimraf ./.parcel-dev ./.parcel-cache"
+    "clear-cache": "rimraf ./.parcel-dev ./.parcel-cache",
+	"diff-compare": "node --experimental-loader ts-node/esm diffCompare.ts"
   },
   "devDependencies": {
-    "@parcel/optimizer-blob-url": "^2.10.3",
-    "@parcel/optimizer-data-url": "^2.10.3",
-    "@parcel/reporter-bundle-analyzer": "^2.10.3",
-    "@parcel/transformer-inline": "^2.10.3",
-    "@parcel/transformer-inline-string": "^2.10.3",
-    "@parcel/validator-typescript": "^2.10.3",
-    "browserslist": "^4.21.9",
+    "@parcel/optimizer-blob-url": "^2.12.0",
+    "@parcel/optimizer-data-url": "^2.12.0",
+    "@parcel/reporter-bundle-analyzer": "^2.12.0",
+    "@parcel/transformer-inline": "^2.12.0",
+    "@parcel/transformer-inline-string": "^2.12.0",
+    "@parcel/validator-typescript": "^2.12.0",
+    "browserslist": "^4.23.0",
     "copyfiles": "^2.0.0",
     "dexnode": "^1.2.1",
     "http-server": "^14.1.1",
-    "parcel": "^2.10.3",
+    "parcel": "^2.12.0",
+    "prettier": "^3.2.5",
     "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",
-    "typescript": "^5.3.2"
+    "typescript": "^5.4.2"
   },
   "browserslist": {
     "production": [
