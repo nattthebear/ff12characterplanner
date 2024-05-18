@@ -3,11 +3,11 @@ import { TPC, effect, h, scheduleUpdate } from "vdomk";
 import "./MouseOver.css";
 
 const Tooltip: TPC<{}> = (_, instance) => {
-	let floatingElement: HTMLDivElement | null = null;
+	let floatingElement: HTMLDivElement | null | undefined;
 	const ref = (value: HTMLDivElement | null) => floatingElement = value;
 
-	let labelText: string | null = null;
-	let referenceElement: Element | null = null;
+	let labelText: string | null | undefined;
+	let referenceElement: Element | null | undefined;
 
 	function handleMouseOver(event: MouseEvent) {
 		referenceElement = event.target as Element | null;

@@ -16,7 +16,8 @@
     "deploy": "rimraf ./docs && copyfiles -u 1 ./build/**/* ./docs",
     "start:prod": "http-server ./docs -p 3010",
     "clear-cache": "rimraf ./.parcel-dev ./.parcel-cache",
-	"diff-compare": "node --experimental-loader ts-node/esm diffCompare.ts"
+	"diff-compare": "node --experimental-loader ts-node/esm diffCompare.ts",
+	"diff-historical": "node --experimental-loader ts-node/esm historicalBundleDiff.ts"
   },
   "devDependencies": {
     "@parcel/optimizer-blob-url": "^2.12.0",

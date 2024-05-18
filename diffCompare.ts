@@ -1,7 +1,7 @@
 import * as prettier from "prettier";
 import { readdir, readFile, writeFile } from "node:fs/promises";
 
-// Assumes the old build is in docs/ and the new build is in diff/
+// Assumes the old build is in docs/ and the new build is in build/
 async function readdirRelativeNames(path: string) {
 	return (await readdir(path)).map(item => path + "/" + item);
 }

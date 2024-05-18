@@ -5,24 +5,22 @@ import "./LicenseBoard.css";
 import { Coloring } from "../model/PartyModel";
 import GithubCorner from "./GithubCorner";
 import { dispatch, useStore } from "../store/Store";
-import { changeParty, changePlannedParty } from "../store/State";
+import { State, changeParty, changePlannedParty } from "../store/State";
 
 const LicenseBoard: TPC<{}> = (_, instance) => {
 	const getState = useStore(instance);
-	let store = getState();
+	let store: State;
 	let scrollOffset: { x: number; y: number } | undefined;
-	let scrollEl: HTMLDivElement | null = null;
+	let scrollEl: HTMLDivElement | null | undefined;
 	const acceptScrollEl = (el: HTMLDivElement | null) => {
 		scrollEl = el;
 	};
 
 	{
 		function onMouseMove(ev: MouseEvent) {
-			const element = scrollEl;
-			const offs = scrollOffset;
-			if (offs && element) {
-				element.scrollLeft = offs.x - ev.screenX;
-				element.scrollTop = offs.y - ev.screenY;
+			if (scrollOffset && scrollEl) {
+				scrollEl.scrollLeft = scrollOffset.x - ev.screenX;
+				scrollEl.scrollTop = scrollOffset.y - ev.screenY;
 			}
 		}
 		function onMouseUp() {
@@ -38,13 +36,12 @@ const LicenseBoard: TPC<{}> = (_, instance) => {
 	}
 
 	function onMouseDown(ev: MouseEvent) {
-		const element = scrollEl;
 		const target = ev.target as HTMLElement;
-		if (element) {
+		if (scrollEl) {
 			if (target.classList.contains("empty") || target.nodeName === "TABLE") {
 				scrollOffset = {
-					x: element.scrollLeft + ev.screenX,
-					y: element.scrollTop + ev.screenY,
+					x: scrollEl.scrollLeft + ev.screenX,
+					y: scrollEl.scrollTop + ev.screenY,
 				};
 				ev.preventDefault();
 			}
@@ -111,9 +108,9 @@ const LicenseBoard: TPC<{}> = (_, instance) => {
 	return () => {
 		store = getState();
 
-		const b = store.party.getJob(store.characterIndex, store.boardIndex);
-		if (b) {
-			return renderBoard(b);
+		const board = store.party.getJob(store.characterIndex, store.boardIndex);
+		if (board) {
+			return renderBoard(board);
 		} else {
 			const otherBoard = store.party.getJob(store.characterIndex, store.boardIndex ^ 1);
 			return renderSelectJob(otherBoard);

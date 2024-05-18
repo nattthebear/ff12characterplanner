@@ -5,6 +5,7 @@ import { License, AllLimitedLicenses } from "../data/Licenses";
 import { Board } from "../data/Boards";
 import { dispatch, useStore } from "../store/Store";
 import { changeIndices, changeParty, toggleQe } from "../store/State";
+import PartyModel from "../model/PartyModel";
 
 function compareLicenses(a: License, b: License) {
 	return a.sortOrder - b.sortOrder;
@@ -12,8 +13,7 @@ function compareLicenses(a: License, b: License) {
 
 const QeBoard: TPC<{}> = (_, instance) => {
 	const getState = useStore(instance);
-	let { party } = getState();
-
+	let party: PartyModel;
 	let coversByCharacter: Map<License, License[]>[];
 
 	function renderCell(mist: License, c: number) {
