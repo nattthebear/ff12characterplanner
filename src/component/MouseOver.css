@@ -1,7 +1,15 @@
+@position-try --try-top {
+	bottom: anchor(top);
+	top: unset;
+}
+
 .tooltip {
-	top: 0;
-	left: 0;
 	position: fixed;
+	position-anchor: --tooltip;
+	top: anchor(bottom);
+	justify-self: anchor-center;
+	position-try-fallbacks: --try-top;
+
 	white-space: pre-wrap;
 	font-size: 12px;
 	color: #fff;
