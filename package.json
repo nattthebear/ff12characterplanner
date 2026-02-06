@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@floating-ui/dom": "^1.6.3",
     "modern-normalize": "^2.0.0",
     "vdomk": "^0.1.5"
   },
