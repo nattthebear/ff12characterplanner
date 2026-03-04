@@ -330,7 +330,7 @@ function calculateAttack(p: Profile, e: Environment): CalculateResult {
 			break;
 		}
 		case "hammer": {
-			baseDmg = admg(p.attack, 0, 1.111, e.def) * (1 + p.str * (e.level + p.str) / 128);
+			baseDmg = admg(p.attack, 0, 1.111, e.def) * (1 + p.str * (e.level + p.vit) / 128);
 			break;
 		}
 		case "dagger": {
