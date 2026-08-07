@@ -1,5 +1,5 @@
 import { h, Fragment, type TPC, scheduleUpdate, type VNode } from "vdomk";
-import PartyModel from "../model/PartyModel.ts";
+import PartyModel, { Coloring } from "../model/PartyModel.ts";
 import { optimizeForCharacter } from "../dps/OptimizeForCharacter.ts";
 import type { ForcedGear } from "../dps/OptimizeForCharacter.ts";
 import type { OptimizerResult } from "../dps/Optimize.ts";
@@ -62,6 +62,10 @@ const DPS: TPC<Props> = (_, instance) => {
 					tooltip="Character's HP percentage"
 					value={env.percentHp}
 					changeValue={v => changeEnv("percentHp", v)}
+				/>
+				<HpStatus
+					focusActive={env.percentHp === 100}
+					adrenalineActive={env.percentHp < 20}
 				/>
 				<NumberInput
 					min={1}
@@ -190,6 +194,23 @@ const DPS: TPC<Props> = (_, instance) => {
 	};
 }
 export default DPS;
+
+function HpStatus(props: { focusActive: boolean; adrenalineActive: boolean }) {
+	return <span class="hp-status">
+		<span
+			class={props.focusActive ? "active" : ""}
+			aria-label="1.5x damage with Focus / Serenity"
+		>
+			100%
+		</span>
+		<span
+			class={props.adrenalineActive ? "active" : ""}
+			aria-label="2x damage with Adrenaline / Spellbreaker"
+		>
+			≤15%
+		</span>
+	</span>;
+}
 
 function EqCell(props: { value?: Equipment }) {
 	const { value } = props;
