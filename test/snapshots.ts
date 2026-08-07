@@ -10,9 +10,12 @@ export function describe(name: string, location: string, suite: (it: (name: stri
 	activeFile = location;
 	activeSuite = name;
 	function it(name: string, test: () => void) {
-		activeTest = name;
-		activeIndex = 0;
-		baseIt(name, test);
+		// runs the callback after registration, so set the active test name and reset the index at execution time
+		baseIt(name, () => {
+			activeTest = name;
+			activeIndex = 0;
+			test();
+		});
 	}
 	baseDescribe(name, () => suite(it));
 }
@@ -21,7 +24,7 @@ export function snapshot(value: any) {
 	if (!activeFile.startsWith("file:///")) {
 		throw new Error("Bad activeFile");
 	}
-	const pathParts = activeFile.slice(8).split("/");
+	const pathParts = activeFile.slice(7).split("/");
 	const testPath = pathParts.slice(0, -1).join("/");
 	const testFileName = pathParts.slice(-1);
 

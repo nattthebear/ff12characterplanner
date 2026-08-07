@@ -26,7 +26,9 @@
 			select {
 				margin-left: 4px;
 			}
+
 		}
+
 	}
 
 	.results {
@@ -54,6 +56,21 @@
 			&.second-row {
 				top: 20px;
 			}
+
+			&.filter-row {
+				top: 40px;
+				height: auto;
+
+				select {
+					width: 100%;
+					min-width: 70px;
+					font-size: 11px;
+				}
+
+				td {
+					padding: 1px;
+				}
+			}
 		}
 
 		th, td {
@@ -71,6 +88,7 @@
 		}
 		.r {
 			text-align: right;
-		}	
+		}
+
 	}
 }

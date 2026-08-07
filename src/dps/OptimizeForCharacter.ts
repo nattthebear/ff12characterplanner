@@ -6,14 +6,25 @@ import Accessory from "./equip/Accessory";
 import { License, LicenseByName, LicenseGroups } from "../data/Licenses";
 import { optimize } from "./Optimize";
 import { BaseCharacterStats } from "./BaseCharacterStats";
-import { Attack } from "./ability/Ability";
+import { Ability, Attack } from "./ability/Ability";
+import type { Equipment } from "./equip/Equipment";
 import Magicks from "./ability/Magick";
 import Technicks from "./ability/Technick";
 
 const battleLores = LicenseGroups.find(g => g.name === "Battle Lore")!.contents;
 const magickLores = LicenseGroups.find(g => g.name === "Magick Lore")!.contents;
 
-export function* optimizeForCharacter(e: Environment, party: PartyModel) {
+export interface ForcedGear {
+	/** Restrict results to this ability kind. */
+	ability?: Ability["alg"];
+	/** null means explicitly no equipment in this slot */
+	ammos?: Equipment | null;
+	armors?: Equipment | null;
+	helms?: Equipment | null;
+	accessories?: Equipment | null;
+}
+
+export function* optimizeForCharacter(e: Environment, party: PartyModel, forced?: ForcedGear) {
 	const licenseMap = party.color(e.character);
 
 	function filterLName(name: string) {
@@ -27,12 +38,13 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel) {
 		return !thing.l || filterL(thing.l);
 	}
 
-	const weapons = Weapon.filter(w => filterThing(w) && (e.allowCheaterGear || w.attack! <= 150));
+	let weapons = Weapon.filter(w => filterThing(w) && (e.allowCheaterGear || w.attack! <= 150));
 	const pool: EquipmentPool = {
 		weapons,
-		armors: BodyArmor.filter(filterThing),
-		helms: Helm.filter(filterThing),
-		accessories: Accessory.filter(filterThing)
+		ammos: forced?.ammos === null ? [] : forced?.ammos ? [forced.ammos] : undefined,
+		armors: forced?.armors === null ? [] : forced?.armors ? [forced.armors] : BodyArmor.filter(filterThing),
+		helms: forced?.helms === null ? [] : forced?.helms ? [forced.helms] : Helm.filter(filterThing),
+		accessories: forced?.accessories === null ? [] : forced?.accessories ? [forced.accessories] : Accessory.filter(filterThing)
 	};
 	const magicks = Magicks.filter(filterThing);
 	const technicks = Technicks.filter(filterThing);
@@ -83,18 +95,24 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel) {
 	startingProfile.str += battleLores.filter(filterL).length;
 	startingProfile.mag += magickLores.filter(filterL).length;
 
-	for (const m of magicks) {
-		startingProfile.ability = m;
-		yield optimize(startingProfile, e, pool);
+	if (!forced?.ability || forced.ability === "magick") {
+		for (const m of magicks) {
+			startingProfile.ability = m;
+			yield optimize(startingProfile, e, pool);
+		}
 	}
-	for (const t of technicks) {
-		startingProfile.ability = t;
-		yield optimize(startingProfile, e, pool);
+	if (!forced?.ability || forced.ability === "technick") {
+		for (const t of technicks) {
+			startingProfile.ability = t;
+			yield optimize(startingProfile, e, pool);
+		}
 	}
 	startingProfile.ability = Attack;
 	pool.weapons = [];
-	for (const w of weapons) {
-		pool.weapons[0] = w;
-		yield optimize(startingProfile, e, pool);
+	if (!forced?.ability || forced.ability === "attack") {
+		for (const w of weapons) {
+			pool.weapons[0] = w;
+			yield optimize(startingProfile, e, pool);
+		}
 	}
 }

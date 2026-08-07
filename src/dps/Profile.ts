@@ -224,6 +224,7 @@ export function createProfile(startingProfile: Profile, doll: PaperDoll) {
 /** The items available to a particular character to equip */
 export interface EquipmentPool {
 	weapons: Equipment[];
+	ammos?: Equipment[];
 	armors: Equipment[];
 	helms: Equipment[];
 	accessories: Equipment[];
