@@ -26,9 +26,7 @@
 			select {
 				margin-left: 4px;
 			}
-
 		}
-
 	}
 
 	.results {
@@ -89,6 +87,5 @@
 		.r {
 			text-align: right;
 		}
-
 	}
 }

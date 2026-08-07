@@ -191,7 +191,6 @@ const DPS: TPC<Props> = (_, instance) => {
 }
 export default DPS;
 
-
 function EqCell(props: { value?: Equipment }) {
 	const { value } = props;
 	return <td
@@ -226,7 +225,6 @@ Animation Time: ${value.animationTime.toFixed(2)}s`;
 	</td>;
 }
 
-
 interface Filters {
 	ability: string;
 	topN: string;
@@ -251,7 +249,6 @@ const ABILITY_OPTIONS: [string, string][] = [
 	["magick", "Magic"],
 	["technick", "Technick"],
 ];
-
 
 const NO_EQUIP = "__none__";
 // builds dropdown options: empty value = auto, "__none__" = no equipment, then the given items
@@ -334,7 +331,6 @@ function Dropdown(props: { value: string; options: readonly (readonly [string, s
 }
 
 interface PartyDpsProps {
-
 	party: PartyModel;
 	env: Environment;
 }
