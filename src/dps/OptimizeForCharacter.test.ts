@@ -35,6 +35,8 @@ const Character = {
 type Character = (typeof Character)[keyof typeof Character];
 
 function resultToSnapshottable(r: OptimizerResult) {
+	// aoeDps is display-only, don't let it impact the snapshot
+	const { aoeDps, ...dps } = r.dps;
 	// OptimizerResult is snapshottable, but contains a bunch of fluff we don't need
 	return {
 		ability: r.ability.name,
@@ -43,7 +45,7 @@ function resultToSnapshottable(r: OptimizerResult) {
 		helm: r.doll.helm?.name,
 		armor: r.doll.armor?.name,
 		accessory: r.doll.accessory?.name,
-		dps: r.dps
+		dps
 	};
 }
 
