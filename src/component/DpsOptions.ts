@@ -1,3 +1,4 @@
+import { SECRET_WEAPONS } from "../dps/OptimizeForCharacter.ts";
 import type { Environment } from "../dps/Profile.ts";
 import PartyModel, { Coloring } from "../model/PartyModel.ts";
 import Weapon from "../dps/equip/Weapon.ts";
@@ -21,7 +22,6 @@ export function buildOptions(env: Environment, party: PartyModel, character: num
 		const v = licenseMap.get(license);
 		return v === Coloring.OBTAINED || env.allowCertainLicenses && v === Coloring.CERTAIN;
 	};
-	const SECRET_WEAPONS = new Set(["Seitengrat", "Great Trango", "Wyrmhero Blade"]);
 	const isEquippable = (thing: { l?: License }) => !thing.l || isActive(thing.l);
 	const weaponTypes = new Set(Weapon.filter(w => isEquippable(w) && (env.allowCheaterGear || !SECRET_WEAPONS.has(w.name))).map(w => w.animationType));
 	const accessories = Accessory.filter(isEquippable);

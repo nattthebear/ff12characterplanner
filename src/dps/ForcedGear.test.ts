@@ -5,7 +5,7 @@ import { defaultEnvironment } from "./Profile.ts";
 import type { Environment } from "./Profile.ts";
 import PartyModel from "../model/PartyModel.ts";
 import { Boards } from "../data/Boards.ts";
-import { optimizeForCharacter } from "./OptimizeForCharacter.ts";
+import { optimizeForCharacter, SECRET_WEAPONS } from "./OptimizeForCharacter.ts";
 import type { ForcedGear } from "./OptimizeForCharacter.ts";
 import type { OptimizerResult } from "./Optimize.ts";
 import { Helm, BodyArmor } from "./equip/Armor.ts";
@@ -34,6 +34,21 @@ function partyWithJob(job: number) {
 }
 
 describe("ForcedGear", () => {
+	it("default environment: secret gear disabled", () => {
+		assert.equal(defaultEnvironment.allowCheaterGear, false);
+	});
+
+	it("secret weapons must only appear when allowCheaterGear is set", () => {
+		const party = partyWithJob(Job.Foebreaker);
+		const e = testEnv(0);
+
+		const withoutSecret = collect(e, party);
+		assert(!withoutSecret.some(r => SECRET_WEAPONS.has(r.doll.weapon.name)));
+
+		const withSecret = collect({ ...e, allowCheaterGear: true }, party);
+		assert(withSecret.some(r => SECRET_WEAPONS.has(r.doll.weapon.name)));
+	});
+
 	// Forcing an ability kind must restrict every yielded result to that kind.
 	it("forced ability restricts the result ability kind", () => {
 		const e = testEnv(0);

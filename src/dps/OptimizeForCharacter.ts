@@ -12,6 +12,9 @@ import type { Equipment } from "./equip/Equipment.ts";
 import Magicks from "./ability/Magick.ts";
 import Technicks from "./ability/Technick.ts";
 
+// Seitengrat, Great Trango and Wyrmhero Blade are only available with Secret Gear (allowCheaterGear).
+export const SECRET_WEAPONS = new Set(["Seitengrat", "Great Trango", "Wyrmhero Blade"]);
+
 const battleLores = LicenseGroups.find(g => g.name === "Battle Lore")!.contents;
 const magickLores = LicenseGroups.find(g => g.name === "Magick Lore")!.contents;
 
@@ -39,7 +42,7 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel, forced?
 		return !thing.l || filterL(thing.l);
 	}
 
-	let weapons = Weapon.filter(w => filterThing(w) && (e.allowCheaterGear || w.attack! <= 150));
+	let weapons = Weapon.filter(w => filterThing(w) && (e.allowCheaterGear || !SECRET_WEAPONS.has(w.name)));
 	if (forced?.ammos === null) {
 		// 'None' ammo: weapons that need ammo (bow/xbow/gun/handbomb) can't be used
 		const requiresAmmo = new Set(Ammos.map(a => a.animationType));
