@@ -9,7 +9,7 @@ import { CalculateResult } from "../dps/Calculate";
 import { makeStore } from "../store/MakeStore";
 import { Ability } from "../dps/ability/Ability";
 import { AllElements, Equipment } from "../dps/equip/Equipment";
-import { BodyArmor, Helm, HelmMDEF, BodyArmorDEF } from "../dps/equip/Armor";
+import { BodyArmor, Helm } from "../dps/equip/Armor";
 import Accessory from "../dps/equip/Accessory";
 import Ammos from "../dps/equip/Ammo";
 import Weapon from "../dps/equip/Weapon";
@@ -292,8 +292,8 @@ export function buildOptions(env: Environment, party: PartyModel, character: num
 	accessories.sort((a, b) => accessoryRank(a) - accessoryRank(b) || a.name.localeCompare(b.name));
 	return {
 		ammos: Ammos.filter(a => weaponTypes.has(a.animationType)).map(a => a.name),
-		helms: Helm.filter(isEquippable).map(h => h.name).sort((a, b) => HelmMDEF[b] - HelmMDEF[a] || a.localeCompare(b)),
-		armors: BodyArmor.filter(isEquippable).map(a => a.name).sort((a, b) => BodyArmorDEF[b] - BodyArmorDEF[a] || a.localeCompare(b)),
+		helms: Helm.filter(isEquippable).map(h => h.name).reverse(),
+		armors: BodyArmor.filter(isEquippable).map(a => a.name).reverse(),
 		accessories: accessories.map(a => a.name),
 	};
 }

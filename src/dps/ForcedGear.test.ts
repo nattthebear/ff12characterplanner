@@ -6,7 +6,7 @@ import PartyModel from "../model/PartyModel";
 import { Boards } from "../data/Boards";
 import { optimizeForCharacter, ForcedGear } from "./OptimizeForCharacter";
 import { OptimizerResult } from "./Optimize";
-import { Helm, BodyArmor, HelmMDEF, BodyArmorDEF } from "./equip/Armor";
+import { Helm, BodyArmor } from "./equip/Armor";
 import Accessory from "./equip/Accessory";
 import Ammos from "./equip/Ammo";
 
@@ -108,16 +108,6 @@ describe("ForcedGear", () => {
 		});
 		assert(forced.length > 0);
 		assert(forced.every(r => r.doll.helm === undefined && r.doll.armor === undefined && r.doll.accessory === undefined));
-	});
-
-	// The dropdown sort tables must cover exactly the helms/armors defined in Armor.ts.
-	it("HelmMDEF/BodyArmorDEF cover all helms and armors", () => {
-		const helmNames = Helm.map(h => h.name);
-		const armorNames = BodyArmor.map(a => a.name);
-		assert(helmNames.every(name => name in HelmMDEF));
-		assert(armorNames.every(name => name in BodyArmorDEF));
-		assert(Object.keys(HelmMDEF).every(name => helmNames.includes(name)));
-		assert(Object.keys(BodyArmorDEF).every(name => armorNames.includes(name)));
 	});
 
 	// Knight has the Focus and Adrenaline licenses. Pinning every gear slot except the weapon lets us compare the same build at different HP%
