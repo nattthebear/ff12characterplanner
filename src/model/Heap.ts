@@ -1,7 +1,11 @@
 export class Heap<T> {
 	private nodes: T[] = [];
+	private compare: (x: T, y: T) => boolean
+
 	/** @param compare returns `true` if x should be removed before y */
-	constructor(private compare: (x: T, y: T) => boolean) {}
+	constructor(compare: (x: T, y: T) => boolean) {
+		this.compare = compare;
+	}
 
 	size() {
 		return this.nodes.length;

@@ -1,5 +1,5 @@
-import { LicenseByName as l } from "../../data/Licenses";
-import { buildEquipments } from "./Equipment";
+import { LicenseByName as l } from "../../data/Licenses.ts";
+import { buildEquipments } from "./Equipment.ts";
 
 const Weapon = buildEquipments([
 	{ name: "Unarmed", damageType: "unarmed", animationType: "unarmed", attack: 12, chargeTime: 26, combo: 5, },

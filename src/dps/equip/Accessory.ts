@@ -1,5 +1,5 @@
-import { buildEquipments } from "./Equipment";
-import { LicenseByName as l } from "../../data/Licenses";
+import { buildEquipments } from "./Equipment.ts";
+import { LicenseByName as l } from "../../data/Licenses.ts";
 
 const Accessory = buildEquipments([
 	{ name: "Bangle", l: l("Accessories 2"), },

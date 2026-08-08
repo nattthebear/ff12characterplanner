@@ -1,11 +1,11 @@
-import { h, VNode, TPC } from "vdomk";
+import { h, type VNode, type TPC } from "vdomk";
 import "./CharacterPanel.css";
-import { LicenseGroups, LicenseGroup, License } from "../data/Licenses";
-import PartyModel, { Coloring } from "../model/PartyModel";
-import { Characters } from "../data/Characters";
-import { dispatch, useStore } from "../store/Store";
-import { changeIndices, changeParty, toggleDps, toggleQe } from "../store/State";
-import ResetButton from "./CharacterPanel.ResetButton";
+import { LicenseGroups, type LicenseGroup, type License } from "../data/Licenses.ts";
+import PartyModel, { Coloring } from "../model/PartyModel.ts";
+import { Characters } from "../data/Characters.ts";
+import { dispatch, useStore } from "../store/Store.ts";
+import { changeIndices, changeParty, toggleDps, toggleQe } from "../store/State.ts";
+import ResetButton from "./CharacterPanel.ResetButton.tsx";
 
 const CharacterPanel: TPC<{}> = (_, instance) => {
 	const getState = useStore(instance);

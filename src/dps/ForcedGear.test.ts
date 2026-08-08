@@ -1,14 +1,16 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 
-import { defaultEnvironment, Environment } from "./Profile";
-import PartyModel from "../model/PartyModel";
-import { Boards } from "../data/Boards";
-import { optimizeForCharacter, ForcedGear } from "./OptimizeForCharacter";
-import { OptimizerResult } from "./Optimize";
-import { Helm, BodyArmor } from "./equip/Armor";
-import Accessory from "./equip/Accessory";
-import Ammos from "./equip/Ammo";
+import { defaultEnvironment } from "./Profile.ts";
+import type { Environment } from "./Profile.ts";
+import PartyModel from "../model/PartyModel.ts";
+import { Boards } from "../data/Boards.ts";
+import { optimizeForCharacter } from "./OptimizeForCharacter.ts";
+import type { ForcedGear } from "./OptimizeForCharacter.ts";
+import type { OptimizerResult } from "./Optimize.ts";
+import { Helm, BodyArmor } from "./equip/Armor.ts";
+import Accessory from "./equip/Accessory.ts";
+import Ammos from "./equip/Ammo.ts";
 
 // Job board indices (see Boards.ts / the existing OptimizeForCharacter.test.ts Job enum).
 const Job = { WhiteMage: 0, Uhlan: 1, Machinist: 2, Knight: 4, TimeBattlemage: 6, Foebreaker: 7, Archer: 8 } as const;

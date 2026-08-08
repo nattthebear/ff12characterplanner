@@ -1,11 +1,11 @@
-import { h, Fragment, TPC } from "vdomk";
+import { h, Fragment, type TPC } from "vdomk";
 import "./QeBoard.css";
-import { Characters } from "../data/Characters";
-import { License, AllLimitedLicenses } from "../data/Licenses";
-import { Board } from "../data/Boards";
-import { dispatch, useStore } from "../store/Store";
-import { changeIndices, changeParty, toggleQe } from "../store/State";
-import PartyModel from "../model/PartyModel";
+import { Characters } from "../data/Characters.ts";
+import { type License, AllLimitedLicenses } from "../data/Licenses.ts";
+import { type Board } from "../data/Boards.ts";
+import { dispatch, useStore } from "../store/Store.ts";
+import { changeIndices, changeParty, toggleQe } from "../store/State.ts";
+import PartyModel from "../model/PartyModel.ts";
 
 function compareLicenses(a: License, b: License) {
 	return a.sortOrder - b.sortOrder;

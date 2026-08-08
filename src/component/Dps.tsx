@@ -1,20 +1,21 @@
-import { h, Fragment, TPC, scheduleUpdate } from "vdomk";
-import PartyModel, { Coloring } from "../model/PartyModel";
-import { optimizeForCharacter, ForcedGear } from "../dps/OptimizeForCharacter";
-import { OptimizerResult } from "../dps/Optimize";
-import { Characters } from "../data/Characters";
+import { h, Fragment, type TPC, scheduleUpdate, type VNode } from "vdomk";
+import PartyModel, { Coloring } from "../model/PartyModel.ts";
+import { optimizeForCharacter } from "../dps/OptimizeForCharacter.ts";
+import type { ForcedGear } from "../dps/OptimizeForCharacter.ts";
+import type { OptimizerResult } from "../dps/Optimize.ts";
+import { Characters } from "../data/Characters.ts";
 import "./Dps.css";
-import { Environment, defaultEnvironment } from "../dps/Profile";
-import { CalculateResult } from "../dps/Calculate";
-import { makeStore } from "../store/MakeStore";
-import { Ability } from "../dps/ability/Ability";
-import { AllElements, Equipment } from "../dps/equip/Equipment";
-import { BodyArmor, Helm } from "../dps/equip/Armor";
-import Accessory from "../dps/equip/Accessory";
-import Ammos from "../dps/equip/Ammo";
-import Weapon from "../dps/equip/Weapon";
-import { License } from "../data/Licenses";
-import { BoolInput, ElementInput, NumberInput, TerrainInput, WeatherInput } from "./Dps.Inputs";
+import { type Environment, defaultEnvironment } from "../dps/Profile.ts";
+import type { CalculateResult } from "../dps/Calculate.ts";
+import { makeStore } from "../store/MakeStore.ts";
+import type { Ability } from "../dps/ability/Ability.ts";
+import { AllElements, Equipment } from "../dps/equip/Equipment.ts";
+import { BodyArmor, Helm } from "../dps/equip/Armor.ts";
+import Accessory from "../dps/equip/Accessory.ts";
+import Ammos from "../dps/equip/Ammo.ts";
+import Weapon from "../dps/equip/Weapon.ts";
+import type { License } from "../data/Licenses.ts";
+import { BoolInput, ElementInput, NumberInput, TerrainInput, WeatherInput } from "./Dps.Inputs.tsx";
 
 export interface Props {
 	party: PartyModel;

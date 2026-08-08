@@ -1,5 +1,5 @@
 
-import { AnimationClass } from "./Profile";
+import type { AnimationClass } from "./Profile.ts";
 
 /** base speed, followed by combo variants, for each character */
 const AttackFrames: {

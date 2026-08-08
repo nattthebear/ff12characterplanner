@@ -1,4 +1,4 @@
-import { LayerInstance, scheduleUpdate, cleanup } from "vdomk";
+import { type LayerInstance, scheduleUpdate, cleanup } from "vdomk";
 
 export function makeStore<S>(initialValue: S) {
 	let state = initialValue;

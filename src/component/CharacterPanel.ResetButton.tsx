@@ -1,7 +1,7 @@
-import { h, scheduleUpdate, TPC, VNode } from "vdomk";
-import PartyModel from "../model/PartyModel";
-import { changeParty } from "../store/State";
-import { dispatch, useStore } from "../store/Store";
+import { h, scheduleUpdate, type TPC, type VNode } from "vdomk";
+import PartyModel from "../model/PartyModel.ts";
+import { changeParty } from "../store/State.ts";
+import { dispatch, useStore } from "../store/Store.ts";
 
 export interface ResetButtonProps {
 	label: string;

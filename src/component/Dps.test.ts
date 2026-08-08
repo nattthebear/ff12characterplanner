@@ -1,15 +1,15 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 
-import { defaultEnvironment } from "../dps/Profile";
-import PartyModel from "../model/PartyModel";
-import { Boards } from "../data/Boards";
-import { buildOptions } from "./Dps";
-import { Helm, BodyArmor } from "../dps/equip/Armor";
-import type { Equipment } from "../dps/equip/Equipment";
-import Accessory from "../dps/equip/Accessory";
+import { defaultEnvironment } from "../dps/Profile.ts";
+import PartyModel from "../model/PartyModel.ts";
+import { Boards } from "../data/Boards.ts";
+import { buildOptions } from "./Dps.tsx";
+import { Helm, BodyArmor } from "../dps/equip/Armor.ts";
+import type { Equipment } from "../dps/equip/Equipment.ts";
+import Accessory from "../dps/equip/Accessory.ts";
 
-import type { Profile } from "../dps/Profile";
+import type { Profile } from "../dps/Profile.ts";
 
 const ARCHER = 8;        // Bows
 const MACHINIST = 2;     // Guns

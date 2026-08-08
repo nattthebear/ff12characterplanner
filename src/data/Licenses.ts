@@ -1,4 +1,4 @@
-import { Star, Aries, Pisces, Capricorn, Gemini, Scorpio, Cancer, Libra, Sagittarius, Leo, Aquarius, Taurus, Virgo, Ophiuchus } from "./Images";
+import { Star, Aries, Pisces, Capricorn, Gemini, Scorpio, Cancer, Libra, Sagittarius, Leo, Aquarius, Taurus, Virgo, Ophiuchus } from "./Images.ts";
 
 export interface License {
 	fullName: string;

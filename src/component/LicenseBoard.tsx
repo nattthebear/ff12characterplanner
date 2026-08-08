@@ -1,11 +1,11 @@
-import { h, TPC, cleanup } from "vdomk";
-import { License } from "../data/Licenses";
-import { Position, Board, Boards } from "../data/Boards";
+import { h, type TPC, cleanup } from "vdomk";
+import { type License } from "../data/Licenses.ts";
+import { type Position, type Board, Boards } from "../data/Boards.ts";
 import "./LicenseBoard.css";
-import { Coloring } from "../model/PartyModel";
-import GithubCorner from "./GithubCorner";
-import { dispatch, useStore } from "../store/Store";
-import { State, changeParty, changePlannedParty } from "../store/State";
+import { Coloring } from "../model/PartyModel.ts";
+import GithubCorner from "./GithubCorner.tsx";
+import { dispatch, useStore } from "../store/Store.ts";
+import { type State, changeParty, changePlannedParty } from "../store/State.ts";
 
 const LicenseBoard: TPC<{}> = (_, instance) => {
 	const getState = useStore(instance);
