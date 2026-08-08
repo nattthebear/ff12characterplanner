@@ -227,7 +227,7 @@ Animation Time: ${value.animationTime.toFixed(2)}s`;
 
 interface Filters {
 	ability: string;
-	topN: string;
+	topN: number;
 	ammo: string;
 	helm: string;
 	armor: string;
@@ -236,7 +236,7 @@ interface Filters {
 
 const defaultFilters = (): Filters => ({
 	ability: "",
-	topN: "5",
+	topN: 5,
 	ammo: "",
 	helm: "",
 	armor: "",
@@ -313,9 +313,8 @@ function applyFilters(results: OptimizerResult[], filters: Filters) {
 	if (filters.accessory) {
 		list = list.filter(r => filters.accessory === NO_EQUIP ? !r.doll.accessory : r.doll.accessory?.name === filters.accessory);
 	}
-	const topN = +filters.topN;
-	if (topN) {
-		list = list.slice(0, topN);
+	if (filters.topN) {
+		list = list.slice(0, filters.topN);
 	}
 	return list;
 }
@@ -343,7 +342,7 @@ interface PartyDpsState {
 }
 
 // one SingleCharacterDps row per character, constrained by the setFilter
-function renderComponents(results: OptimizerResult[][], env: Environment, party: PartyModel, filters: Filters[], setFilter: (character: number, key: keyof Filters, value: string) => void) {
+function renderComponents(results: OptimizerResult[][], env: Environment, party: PartyModel, filters: Filters[], setFilter: (character: number, key: keyof Filters, value: Filters[keyof Filters]) => void) {
 	return results.map((result, idx) => <SingleCharacterDps
 		name={Characters[idx].name}
 		results={result}
@@ -428,7 +427,7 @@ const PartyDps: TPC<PartyDpsProps> = (props, instance) => {
 	}
 
 	// record a new filter for one character and trigger a re-render/recompute
-	const setFilter = (character: number, key: keyof Filters, value: string) => {
+	const setFilter = (character: number, key: keyof Filters, value: Filters[keyof Filters]) => {
 		filters = filters.map((f, i) => i === character ? { ...f, [key]: value } : f);
 		scheduleUpdate(instance);
 	};
@@ -461,7 +460,7 @@ interface SingleCharacterDpsProps {
 	name: string;
 	results: OptimizerResult[];
 	filters: Filters;
-	setFilter: (key: keyof Filters, value: string) => void;
+	setFilter: (key: keyof Filters, value: Filters[keyof Filters]) => void;
 	options: CharacterOptions;
 }
 
@@ -485,7 +484,7 @@ function SingleCharacterDps(props: SingleCharacterDpsProps) {
 		<tr class="sticky filter-row">
 			<td />
 			<td><Dropdown value={filters.ability} onChange={v => props.setFilter("ability", v)} options={ABILITY_OPTIONS} /></td>
-			<td><input class="filter" type="number" min="0" max="100" value={filters.topN} onChange={ev => props.setFilter("topN", ev.currentTarget.value)} /></td>
+			<td><input class="filter" type="number" min="0" max="100" value={filters.topN} onChange={ev => props.setFilter("topN", +ev.currentTarget.value)} /></td>
 			<td><Dropdown value={filters.ammo} onChange={v => props.setFilter("ammo", v)} options={dropdownOptions(options.ammos)} /></td>
 			<td><Dropdown value={filters.helm} onChange={v => props.setFilter("helm", v)} options={dropdownOptions(options.helms)} /></td>
 			<td><Dropdown value={filters.armor} onChange={v => props.setFilter("armor", v)} options={dropdownOptions(options.armors)} /></td>
