@@ -873,22 +873,6 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Vrscika",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 56102.227045501386,
-						"baseDmg": 11388.1405859375,
-						"modifiedDamage": 44413.74828515625,
-						"nonAvoidedDamage": 44413.74828515625,
-						"comboDamage": 172773.03392912063,
-						"chargeTime": 0.43457097139680495,
-						"animationTime": 2.64504
-					}
-				},
-				{
-					"ability": "Attack",
 					"weapon": "Kumbha",
 					"helm": "Magepower Shishak",
 					"armor": "Lordly Robes",
@@ -921,6 +905,22 @@
 				},
 				{
 					"ability": "Attack",
+					"weapon": "Vrscika",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 46841.847149558234,
+						"baseDmg": 9559.5734609375,
+						"modifiedDamage": 37282.33649765625,
+						"nonAvoidedDamage": 37282.33649765625,
+						"comboDamage": 145031.27156280263,
+						"chargeTime": 0.4511502740458098,
+						"animationTime": 2.64504
+					}
+				},
+				{
+					"ability": "Attack",
 					"weapon": "Muramasa",
 					"helm": "Magepower Shishak",
 					"armor": "Lordly Robes",
@@ -933,22 +933,6 @@
 						"comboDamage": 129392.89021790627,
 						"chargeTime": 0.43788516131521155,
 						"animationTime": 2.64504
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Scorpion Tail",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 40349.886989533836,
-						"baseDmg": 10617.51453125,
-						"modifiedDamage": 41408.306671875005,
-						"nonAvoidedDamage": 41408.306671875005,
-						"comboDamage": 89277.63425037602,
-						"chargeTime": 0.43457097139680495,
-						"animationTime": 1.778016
 					}
 				},
 				{
@@ -969,34 +953,18 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Golden Axe",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"weapon": "Scorpion Tail",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 36858.249923808995,
-						"baseDmg": 10275.0140625,
-						"modifiedDamage": 40072.554843750004,
-						"nonAvoidedDamage": 40072.554843750004,
-						"comboDamage": 74816.42163459751,
-						"chargeTime": 0.3963299428283545,
-						"animationTime": 1.633512
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Greataxe",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 33786.72909682491,
-						"baseDmg": 9418.762890625,
-						"modifiedDamage": 36733.1752734375,
-						"nonAvoidedDamage": 36733.1752734375,
-						"comboDamage": 68581.71983171438,
-						"chargeTime": 0.3963299428283545,
-						"animationTime": 1.633512
+						"dps": 33619.08619936098,
+						"baseDmg": 8912.685031250001,
+						"modifiedDamage": 34759.471621875,
+						"nonAvoidedDamage": 34759.471621875,
+						"comboDamage": 74942.53311985442,
+						"chargeTime": 0.4511502740458098,
+						"animationTime": 1.778016
 					}
 				},
 				{
@@ -1017,18 +985,18 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Morning Star",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"weapon": "Golden Axe",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 32540.231443172448,
-						"baseDmg": 8562.51171875,
-						"modifiedDamage": 33393.795703125004,
-						"nonAvoidedDamage": 33393.795703125004,
-						"comboDamage": 71998.09213740002,
-						"chargeTime": 0.43457097139680495,
-						"animationTime": 1.778016
+						"dps": 30712.670112352527,
+						"baseDmg": 8625.1790625,
+						"modifiedDamage": 33638.19834375,
+						"nonAvoidedDamage": 33638.19834375,
+						"comboDamage": 62803.32362454151,
+						"chargeTime": 0.41135493585401517,
+						"animationTime": 1.633512
 					}
 				},
 				{
@@ -1065,18 +1033,34 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Francisca",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"weapon": "Greataxe",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 27029.38327745993,
-						"baseDmg": 7535.0103125,
-						"modifiedDamage": 29386.54021875,
-						"nonAvoidedDamage": 29386.54021875,
-						"comboDamage": 54865.375865371505,
-						"chargeTime": 0.3963299428283545,
+						"dps": 28153.280936323146,
+						"baseDmg": 7906.414140624999,
+						"modifiedDamage": 30835.0151484375,
+						"nonAvoidedDamage": 30835.0151484375,
+						"comboDamage": 57569.713322496376,
+						"chargeTime": 0.41135493585401517,
 						"animationTime": 1.633512
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Morning Star",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 27112.166289807235,
+						"baseDmg": 7187.64921875,
+						"modifiedDamage": 28031.831953124998,
+						"nonAvoidedDamage": 28031.831953124998,
+						"comboDamage": 60437.52670956,
+						"chargeTime": 0.4511502740458098,
+						"animationTime": 1.778016
 					}
 				},
 				{
@@ -1097,22 +1081,6 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Hammerhead",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 24879.31869857107,
-						"baseDmg": 6935.6344921875,
-						"modifiedDamage": 27048.97451953125,
-						"nonAvoidedDamage": 27048.97451953125,
-						"comboDamage": 50501.084603353316,
-						"chargeTime": 0.3963299428283545,
-						"animationTime": 1.633512
-					}
-				},
-				{
-					"ability": "Attack",
 					"weapon": "Unarmed",
 					"helm": "Steel Mask",
 					"armor": "Maximillian",
@@ -1125,6 +1093,22 @@
 						"comboDamage": 40237.54811680957,
 						"chargeTime": 0.35601467679370424,
 						"animationTime": 1.3873199999999999
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Francisca",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 22522.624749058516,
+						"baseDmg": 6325.1313125,
+						"modifiedDamage": 24668.012118749997,
+						"nonAvoidedDamage": 24668.012118749997,
+						"comboDamage": 46055.7706579971,
+						"chargeTime": 0.41135493585401517,
+						"animationTime": 1.633512
 					}
 				},
 				{
@@ -1145,35 +1129,18 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Sledgehammer",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"weapon": "Hammerhead",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 21476.552752493808,
-						"baseDmg": 5651.257734375,
-						"modifiedDamage": 22039.905164062497,
-						"nonAvoidedDamage": 22039.905164062497,
-						"comboDamage": 47518.740810683994,
-						"chargeTime": 0.43457097139680495,
-						"animationTime": 1.778016
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Fumarole",
-					"ammo": "Water Bombs",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 20997.234861950128,
-						"baseDmg": 6507.508906249999,
-						"modifiedDamage": 38068.9271015625,
-						"nonAvoidedDamage": 38068.9271015625,
-						"comboDamage": 38068.9271015625,
-						"chargeTime": 0.41304478193691213,
-						"animationTime": 1.4
+						"dps": 20731.052325837958,
+						"baseDmg": 5821.9958671875,
+						"modifiedDamage": 22705.783882031254,
+						"nonAvoidedDamage": 22705.783882031254,
+						"comboDamage": 42392.243446565524,
+						"chargeTime": 0.41135493585401517,
+						"animationTime": 1.633512
 					}
 				},
 				{
@@ -1194,18 +1161,51 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Makara",
-					"ammo": "Castellanos",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"weapon": "Fumarole",
+					"ammo": "Water Bombs",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 18786.999613323802,
-						"baseDmg": 8733.761953125,
-						"modifiedDamage": 34061.6716171875,
-						"nonAvoidedDamage": 34061.6716171875,
-						"comboDamage": 34061.6716171875,
-						"chargeTime": 0.41304478193691213,
+						"dps": 19691.51462423489,
+						"baseDmg": 6115.67309375,
+						"modifiedDamage": 35776.6875984375,
+						"nonAvoidedDamage": 35776.6875984375,
+						"comboDamage": 35776.6875984375,
+						"chargeTime": 0.4168580874122374,
+						"animationTime": 1.4
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Sledgehammer",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 17894.029751272774,
+						"baseDmg": 4743.848484374999,
+						"modifiedDamage": 18501.0090890625,
+						"nonAvoidedDamage": 18501.0090890625,
+						"comboDamage": 39888.7676283096,
+						"chargeTime": 0.4511502740458098,
+						"animationTime": 1.778016
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Makara",
+					"ammo": "Castellanos",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 17618.723611157533,
+						"baseDmg": 8207.877046875,
+						"modifiedDamage": 32010.720482812503,
+						"nonAvoidedDamage": 32010.720482812503,
+						"comboDamage": 32010.720482812503,
+						"chargeTime": 0.4168580874122374,
 						"animationTime": 1.4
 					}
 				},
@@ -1213,49 +1213,16 @@
 					"ability": "Attack",
 					"weapon": "Volcano",
 					"ammo": "Castellanos",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 17681.881989010635,
-						"baseDmg": 8220.01125,
-						"modifiedDamage": 32058.043875,
-						"nonAvoidedDamage": 32058.043875,
-						"comboDamage": 32058.043875,
-						"chargeTime": 0.41304478193691213,
-						"animationTime": 1.4
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Slasher",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 16586.21246571405,
-						"baseDmg": 4623.756328125,
-						"modifiedDamage": 18032.649679687504,
-						"nonAvoidedDamage": 18032.649679687504,
-						"comboDamage": 33667.38973556888,
-						"chargeTime": 0.3963299428283545,
-						"animationTime": 1.633512
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Caldera",
-					"ammo": "Castellanos",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 16392.578093978613,
-						"baseDmg": 7620.635429687501,
-						"modifiedDamage": 29720.478175781256,
-						"nonAvoidedDamage": 29720.478175781256,
-						"comboDamage": 29720.478175781256,
-						"chargeTime": 0.41304478193691213,
+						"dps": 16582.328104618857,
+						"baseDmg": 7725.060750000001,
+						"modifiedDamage": 30127.736925000005,
+						"nonAvoidedDamage": 30127.736925000005,
+						"comboDamage": 30127.736925000005,
+						"chargeTime": 0.4168580874122374,
 						"animationTime": 1.4
 					}
 				},
@@ -1277,68 +1244,85 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Tumulus",
+					"weapon": "Caldera",
 					"ammo": "Castellanos",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 15103.274198946587,
-						"baseDmg": 7021.259609375,
-						"modifiedDamage": 27382.912476562502,
-						"nonAvoidedDamage": 27382.912476562502,
-						"comboDamage": 27382.912476562502,
-						"chargeTime": 0.41304478193691213,
+						"dps": 15373.200013657064,
+						"baseDmg": 7161.7750703125,
+						"modifiedDamage": 27930.922774218754,
+						"nonAvoidedDamage": 27930.922774218754,
+						"comboDamage": 27930.922774218754,
+						"chargeTime": 0.4168580874122374,
 						"animationTime": 1.4
 					}
 				},
 				{
 					"ability": "Attack",
-					"weapon": "War Hammer",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"weapon": "Tumulus",
+					"ammo": "Castellanos",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 14164.07192269527,
+						"baseDmg": 6598.489390625,
+						"modifiedDamage": 25734.1086234375,
+						"nonAvoidedDamage": 25734.1086234375,
+						"comboDamage": 25734.1086234375,
+						"chargeTime": 0.4168580874122374,
+						"animationTime": 1.4
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Slasher",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 13666.897206132428,
-						"baseDmg": 3596.254921875,
-						"modifiedDamage": 14025.394195312501,
-						"nonAvoidedDamage": 14025.394195312501,
-						"comboDamage": 30239.198697708005,
-						"chargeTime": 0.43457097139680495,
-						"animationTime": 1.778016
+						"dps": 13820.701550558637,
+						"baseDmg": 3881.330578125,
+						"modifiedDamage": 15137.1892546875,
+						"nonAvoidedDamage": 15137.1892546875,
+						"comboDamage": 28261.49563104368,
+						"chargeTime": 0.41135493585401517,
+						"animationTime": 1.633512
 					}
 				},
 				{
 					"ability": "Attack",
 					"weapon": "Hornito",
 					"ammo": "Castellanos",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 13261.41149175798,
-						"baseDmg": 6165.008437500001,
-						"modifiedDamage": 24043.532906250002,
-						"nonAvoidedDamage": 24043.532906250002,
-						"comboDamage": 24043.532906250002,
-						"chargeTime": 0.41304478193691213,
+						"dps": 12436.746078464143,
+						"baseDmg": 5793.7955625,
+						"modifiedDamage": 22595.802693750004,
+						"nonAvoidedDamage": 22595.802693750004,
+						"comboDamage": 22595.802693750004,
+						"chargeTime": 0.4168580874122374,
 						"animationTime": 1.4
 					}
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Broadaxe",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"weapon": "War Hammer",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 11057.4749771427,
-						"baseDmg": 3082.5042187500003,
-						"modifiedDamage": 12021.766453125001,
-						"nonAvoidedDamage": 12021.766453125001,
-						"comboDamage": 22444.926490379254,
-						"chargeTime": 0.3963299428283545,
-						"animationTime": 1.633512
+						"dps": 11387.10984171904,
+						"baseDmg": 3018.812671875,
+						"modifiedDamage": 11773.369420312501,
+						"nonAvoidedDamage": 11773.369420312501,
+						"comboDamage": 25383.761218015206,
+						"chargeTime": 0.4511502740458098,
+						"animationTime": 1.778016
 					}
 				},
 				{
@@ -1359,18 +1343,18 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Iron Hammer",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"weapon": "Broadaxe",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 7809.655546361386,
-						"baseDmg": 2055.0028125,
-						"modifiedDamage": 8014.51096875,
-						"nonAvoidedDamage": 8014.51096875,
-						"comboDamage": 17279.542112976,
-						"chargeTime": 0.43457097139680495,
-						"animationTime": 1.778016
+						"dps": 9213.801033705759,
+						"baseDmg": 2587.55371875,
+						"modifiedDamage": 10091.459503125001,
+						"nonAvoidedDamage": 10091.459503125001,
+						"comboDamage": 18840.997087362455,
+						"chargeTime": 0.41135493585401517,
+						"animationTime": 1.633512
 					}
 				},
 				{
@@ -1387,6 +1371,22 @@
 						"comboDamage": 13841.825459033204,
 						"chargeTime": 0.43457097139680495,
 						"animationTime": 1.5612599999999999
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Iron Hammer",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 6506.919909553737,
+						"baseDmg": 1725.0358125,
+						"modifiedDamage": 6727.63966875,
+						"nonAvoidedDamage": 6727.63966875,
+						"comboDamage": 14505.006410294402,
+						"chargeTime": 0.4511502740458098,
+						"animationTime": 1.778016
 					}
 				},
 				{
@@ -1440,16 +1440,16 @@
 				{
 					"ability": "Attack",
 					"weapon": "Handaxe",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 5221.585405872942,
-						"baseDmg": 1455.6269921875,
-						"modifiedDamage": 5676.94526953125,
-						"nonAvoidedDamage": 5676.94526953125,
-						"comboDamage": 10598.993064901315,
-						"chargeTime": 0.3963299428283545,
+						"dps": 4350.961599249941,
+						"baseDmg": 1221.9003671875,
+						"modifiedDamage": 4765.41143203125,
+						"nonAvoidedDamage": 4765.41143203125,
+						"comboDamage": 8897.137513476713,
+						"chargeTime": 0.41135493585401517,
 						"animationTime": 1.633512
 					}
 				},
@@ -2877,11 +2877,11 @@
 					"armor": "Mirage Vest",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 45820.68955679773,
-						"baseDmg": 11388.1405859375,
-						"modifiedDamage": 44413.74828515625,
-						"nonAvoidedDamage": 44413.74828515625,
-						"comboDamage": 172773.03392912063,
+						"dps": 41912.112743615246,
+						"baseDmg": 10416.71430078125,
+						"modifiedDamage": 40625.18577304688,
+						"nonAvoidedDamage": 40625.18577304688,
+						"comboDamage": 158035.2226720142,
 						"chargeTime": 0.5957456504376951,
 						"animationTime": 3.174888
 					}
@@ -2904,22 +2904,6 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Scorpion Tail",
-					"helm": "Grand Helm",
-					"armor": "Mirage Vest",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 34527.441268104754,
-						"baseDmg": 10617.51453125,
-						"modifiedDamage": 41408.306671875005,
-						"nonAvoidedDamage": 41408.306671875005,
-						"comboDamage": 89277.63425037602,
-						"chargeTime": 0.5957456504376951,
-						"animationTime": 1.9899552
-					}
-				},
-				{
-					"ability": "Attack",
 					"weapon": "Eight-fluted Pole",
 					"helm": "Grand Helm",
 					"armor": "Mirage Vest",
@@ -2936,18 +2920,18 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Golden Axe",
+					"weapon": "Scorpion Tail",
 					"helm": "Grand Helm",
 					"armor": "Mirage Vest",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 32030.342075769277,
-						"baseDmg": 10275.0140625,
-						"modifiedDamage": 40072.554843750004,
-						"nonAvoidedDamage": 40072.554843750004,
-						"comboDamage": 74816.42163459751,
-						"chargeTime": 0.5433319957091611,
-						"animationTime": 1.7924664
+						"dps": 31582.196278027695,
+						"baseDmg": 9711.823859375001,
+						"modifiedDamage": 37876.113051562505,
+						"nonAvoidedDamage": 37876.113051562505,
+						"comboDamage": 81662.11177478642,
+						"chargeTime": 0.5957456504376951,
+						"animationTime": 1.9899552
 					}
 				},
 				{
@@ -2984,34 +2968,18 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Greataxe",
+					"weapon": "Golden Axe",
 					"helm": "Grand Helm",
 					"armor": "Mirage Vest",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 29361.1469027885,
-						"baseDmg": 9418.762890625,
-						"modifiedDamage": 36733.1752734375,
-						"nonAvoidedDamage": 36733.1752734375,
-						"comboDamage": 68581.71983171438,
+						"dps": 29298.103570269035,
+						"baseDmg": 9398.53921875,
+						"modifiedDamage": 36654.302953125,
+						"nonAvoidedDamage": 36654.302953125,
+						"comboDamage": 68434.46331675525,
 						"chargeTime": 0.5433319957091611,
 						"animationTime": 1.7924664
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Morning Star",
-					"helm": "Grand Helm",
-					"armor": "Mirage Vest",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 27844.710700084477,
-						"baseDmg": 8562.51171875,
-						"modifiedDamage": 33393.795703125004,
-						"nonAvoidedDamage": 33393.795703125004,
-						"comboDamage": 71998.09213740002,
-						"chargeTime": 0.5957456504376951,
-						"animationTime": 1.9899552
 					}
 				},
 				{
@@ -3032,6 +3000,22 @@
 				},
 				{
 					"ability": "Attack",
+					"weapon": "Greataxe",
+					"helm": "Grand Helm",
+					"armor": "Mirage Vest",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 26856.594939413284,
+						"baseDmg": 8615.3276171875,
+						"modifiedDamage": 33599.77770703125,
+						"nonAvoidedDamage": 33599.77770703125,
+						"comboDamage": 62731.591373692325,
+						"chargeTime": 0.5433319957091611,
+						"animationTime": 1.7924664
+					}
+				},
+				{
+					"ability": "Attack",
 					"weapon": "Gokuu Pole",
 					"helm": "Grand Helm",
 					"armor": "Mirage Vest",
@@ -3044,6 +3028,22 @@
 						"comboDamage": 73307.16649729689,
 						"chargeTime": 0.47344712273778267,
 						"animationTime": 2.3921580000000002
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Morning Star",
+					"helm": "Grand Helm",
+					"armor": "Mirage Vest",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 25469.513127441685,
+						"baseDmg": 7832.116015625,
+						"modifiedDamage": 30545.2524609375,
+						"nonAvoidedDamage": 30545.2524609375,
+						"comboDamage": 65856.54175386,
+						"chargeTime": 0.5957456504376951,
+						"animationTime": 1.9899552
 					}
 				},
 				{
@@ -3085,27 +3085,11 @@
 					"armor": "Mirage Vest",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 23488.9175222308,
-						"baseDmg": 7535.0103125,
-						"modifiedDamage": 29386.54021875,
-						"nonAvoidedDamage": 29386.54021875,
-						"comboDamage": 54865.375865371505,
-						"chargeTime": 0.5433319957091611,
-						"animationTime": 1.7924664
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Hammerhead",
-					"helm": "Grand Helm",
-					"armor": "Mirage Vest",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 21620.48090114426,
-						"baseDmg": 6935.6344921875,
-						"modifiedDamage": 27048.97451953125,
-						"nonAvoidedDamage": 27048.97451953125,
-						"comboDamage": 50501.084603353316,
+						"dps": 21485.275951530624,
+						"baseDmg": 6892.26209375,
+						"modifiedDamage": 26879.822165625,
+						"nonAvoidedDamage": 26879.822165625,
+						"comboDamage": 50185.273098953854,
 						"chargeTime": 0.5433319957091611,
 						"animationTime": 1.7924664
 					}
@@ -3124,6 +3108,22 @@
 						"comboDamage": 60071.15032417384,
 						"chargeTime": 0.47344712273778267,
 						"animationTime": 2.3921580000000002
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Hammerhead",
+					"helm": "Grand Helm",
+					"armor": "Mirage Vest",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 19776.219909931606,
+						"baseDmg": 6344.01397265625,
+						"modifiedDamage": 24741.65449335938,
+						"nonAvoidedDamage": 24741.65449335938,
+						"comboDamage": 46193.26273880981,
+						"chargeTime": 0.5433319957091611,
+						"animationTime": 1.7924664
 					}
 				},
 				{
@@ -3161,22 +3161,6 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Sledgehammer",
-					"helm": "Grand Helm",
-					"armor": "Mirage Vest",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 18377.50906205575,
-						"baseDmg": 5651.257734375,
-						"modifiedDamage": 22039.905164062497,
-						"nonAvoidedDamage": 22039.905164062497,
-						"comboDamage": 47518.740810683994,
-						"chargeTime": 0.5957456504376951,
-						"animationTime": 1.9899552
-					}
-				},
-				{
-					"ability": "Attack",
 					"weapon": "Makara",
 					"ammo": "Castellanos",
 					"helm": "Grand Helm",
@@ -3190,6 +3174,22 @@
 						"comboDamage": 34061.6716171875,
 						"chargeTime": 0.5674692644455964,
 						"animationTime": 1.4
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Sledgehammer",
+					"helm": "Grand Helm",
+					"armor": "Mirage Vest",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 16809.878664111515,
+						"baseDmg": 5169.1965703125,
+						"modifiedDamage": 20159.86662421875,
+						"nonAvoidedDamage": 20159.86662421875,
+						"comboDamage": 43465.317557547605,
+						"chargeTime": 0.5957456504376951,
+						"animationTime": 1.9899552
 					}
 				},
 				{
@@ -3244,22 +3244,6 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Slasher",
-					"helm": "Grand Helm",
-					"armor": "Mirage Vest",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 14413.653934096175,
-						"baseDmg": 4623.756328125,
-						"modifiedDamage": 18032.649679687504,
-						"nonAvoidedDamage": 18032.649679687504,
-						"comboDamage": 33667.38973556888,
-						"chargeTime": 0.5433319957091611,
-						"animationTime": 1.7924664
-					}
-				},
-				{
-					"ability": "Attack",
 					"weapon": "Tumulus",
 					"ammo": "Castellanos",
 					"helm": "Grand Helm",
@@ -3289,6 +3273,22 @@
 						"comboDamage": 39708.04851936915,
 						"chargeTime": 0.47344712273778267,
 						"animationTime": 2.3921580000000002
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Slasher",
+					"helm": "Grand Helm",
+					"armor": "Mirage Vest",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 13184.146606621067,
+						"baseDmg": 4229.3426484375,
+						"modifiedDamage": 16494.43632890625,
+						"nonAvoidedDamage": 16494.43632890625,
+						"comboDamage": 30795.508492539866,
+						"chargeTime": 0.5433319957091611,
+						"animationTime": 1.7924664
 					}
 				},
 				{
@@ -3331,11 +3331,11 @@
 					"armor": "Mirage Vest",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 11694.77849403548,
-						"baseDmg": 3596.254921875,
-						"modifiedDamage": 14025.394195312501,
-						"nonAvoidedDamage": 14025.394195312501,
-						"comboDamage": 30239.198697708005,
+						"dps": 10697.195513525507,
+						"baseDmg": 3289.4887265625,
+						"modifiedDamage": 12829.006033593749,
+						"nonAvoidedDamage": 12829.006033593749,
+						"comboDamage": 27659.7475366212,
 						"chargeTime": 0.5957456504376951,
 						"animationTime": 1.9899552
 					}
@@ -3347,11 +3347,11 @@
 					"armor": "Mirage Vest",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 9609.102622730783,
-						"baseDmg": 3082.5042187500003,
-						"modifiedDamage": 12021.766453125001,
-						"nonAvoidedDamage": 12021.766453125001,
-						"comboDamage": 22444.926490379254,
+						"dps": 8789.431071080713,
+						"baseDmg": 2819.561765625,
+						"modifiedDamage": 10996.290885937502,
+						"nonAvoidedDamage": 10996.290885937502,
+						"comboDamage": 20530.33899502658,
 						"chargeTime": 0.5433319957091611,
 						"animationTime": 1.7924664
 					}
@@ -3379,11 +3379,11 @@
 					"armor": "Mirage Vest",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 6682.730568020273,
-						"baseDmg": 2055.0028125,
-						"modifiedDamage": 8014.51096875,
-						"nonAvoidedDamage": 8014.51096875,
-						"comboDamage": 17279.542112976,
+						"dps": 6112.683150586005,
+						"baseDmg": 1879.7078437500002,
+						"modifiedDamage": 7330.860590625,
+						"nonAvoidedDamage": 7330.860590625,
+						"comboDamage": 15805.570020926401,
 						"chargeTime": 0.5957456504376951,
 						"animationTime": 1.9899552
 					}
@@ -3427,11 +3427,11 @@
 					"armor": "Mirage Vest",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 4537.631794067314,
-						"baseDmg": 1455.6269921875,
-						"modifiedDamage": 5676.94526953125,
-						"nonAvoidedDamage": 5676.94526953125,
-						"comboDamage": 10598.993064901315,
+						"dps": 4150.5646724547805,
+						"baseDmg": 1331.45972265625,
+						"modifiedDamage": 5192.692918359376,
+						"nonAvoidedDamage": 5192.692918359376,
+						"comboDamage": 9694.882303206996,
 						"chargeTime": 0.5433319957091611,
 						"animationTime": 1.7924664
 					}
@@ -4871,80 +4871,80 @@
 				{
 					"ability": "Attack",
 					"weapon": "Vrscika",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 44799.924400350945,
-						"baseDmg": 9898.892394788498,
-						"modifiedDamage": 38605.68033967514,
-						"nonAvoidedDamage": 38605.68033967514,
-						"comboDamage": 150179.1849757635,
-						"chargeTime": 0.5145076071961912,
+						"dps": 39234.38134030875,
+						"baseDmg": 8717.848669632282,
+						"modifiedDamage": 33999.609811565904,
+						"nonAvoidedDamage": 33999.609811565904,
+						"comboDamage": 132261.2021357763,
+						"chargeTime": 0.5333415917102212,
 						"animationTime": 2.837712
 					}
 				},
 				{
 					"ability": "Attack",
 					"weapon": "Scorpion Tail",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 32405.187293524057,
-						"baseDmg": 9132.052005662765,
-						"modifiedDamage": 35615.00282208478,
-						"nonAvoidedDamage": 35615.00282208478,
-						"comboDamage": 76787.0857645051,
-						"chargeTime": 0.5145076071961912,
+						"dps": 28313.857809350087,
+						"baseDmg": 8042.500539807207,
+						"modifiedDamage": 31365.75210524811,
+						"nonAvoidedDamage": 31365.75210524811,
+						"comboDamage": 67625.5652429823,
+						"chargeTime": 0.5333415917102212,
 						"animationTime": 1.8550848
 					}
 				},
 				{
 					"ability": "Attack",
 					"weapon": "Golden Axe",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 29628.390142497683,
-						"baseDmg": 8791.416327726523,
-						"modifiedDamage": 34286.52367813344,
-						"nonAvoidedDamage": 34286.52367813344,
-						"comboDamage": 64013.762583643416,
-						"chargeTime": 0.4692412690215483,
+						"dps": 25888.885167098073,
+						"baseDmg": 7742.506341134113,
+						"modifiedDamage": 30195.774730423043,
+						"nonAvoidedDamage": 30195.774730423043,
+						"comboDamage": 56376.23612029336,
+						"chargeTime": 0.4863095674873881,
 						"animationTime": 1.6913136
 					}
 				},
 				{
 					"ability": "Attack",
 					"weapon": "Greataxe",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 26760.4066251732,
-						"baseDmg": 7940.420475417569,
-						"modifiedDamage": 30967.63985412852,
-						"nonAvoidedDamage": 30967.63985412852,
-						"comboDamage": 57817.326831014456,
-						"chargeTime": 0.4692412690215483,
+						"dps": 23382.88009614944,
+						"baseDmg": 6993.043394873577,
+						"modifiedDamage": 27272.869240006952,
+						"nonAvoidedDamage": 27272.869240006952,
+						"comboDamage": 50919.10141995475,
+						"chargeTime": 0.4863095674873881,
 						"animationTime": 1.6913136
 					}
 				},
 				{
 					"ability": "Attack",
 					"weapon": "Morning Star",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 25160.63120267408,
-						"baseDmg": 7090.475687021827,
-						"modifiedDamage": 27652.85517938513,
-						"nonAvoidedDamage": 27652.85517938513,
-						"comboDamage": 59620.44065812008,
-						"chargeTime": 0.5145076071961912,
+						"dps": 21983.965956227563,
+						"baseDmg": 6244.506109360936,
+						"modifiedDamage": 24353.573826507647,
+						"nonAvoidedDamage": 24353.573826507647,
+						"comboDamage": 52507.08448431294,
+						"chargeTime": 0.5333415917102212,
 						"animationTime": 1.8550848
 					}
 				},
@@ -4966,22 +4966,6 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Francisca",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 20465.011858485286,
-						"baseDmg": 6072.433855990713,
-						"modifiedDamage": 23682.492038363784,
-						"nonAvoidedDamage": 23682.492038363784,
-						"comboDamage": 44215.78101543411,
-						"chargeTime": 0.4692412690215483,
-						"animationTime": 1.6913136
-					}
-				},
-				{
-					"ability": "Attack",
 					"weapon": "Unarmed",
 					"helm": "Steel Mask",
 					"armor": "Maximillian",
@@ -4998,35 +4982,34 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Hammerhead",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"weapon": "Francisca",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 18467.984527837667,
-						"baseDmg": 5479.870486967534,
-						"modifiedDamage": 21371.494899173384,
-						"nonAvoidedDamage": 21371.494899173384,
-						"comboDamage": 39901.09389263429,
-						"chargeTime": 0.4692412690215483,
+						"dps": 17882.049594982218,
+						"baseDmg": 5347.927556091973,
+						"modifiedDamage": 20856.917468758696,
+						"nonAvoidedDamage": 20856.917468758696,
+						"comboDamage": 38940.365480191744,
+						"chargeTime": 0.4863095674873881,
 						"animationTime": 1.6913136
 					}
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Fumarole",
-					"ammo": "Water Bombs",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Germinas Boots",
+					"weapon": "Hammerhead",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 15653.071644921742,
-						"baseDmg": 5057.379259239246,
-						"modifiedDamage": 29585.668666549584,
-						"nonAvoidedDamage": 29585.668666549584,
-						"comboDamage": 29585.668666549584,
-						"chargeTime": 0.4900870920211969,
-						"animationTime": 1.4
+						"dps": 16137.074218661142,
+						"baseDmg": 4826.063334087576,
+						"modifiedDamage": 18821.647002941547,
+						"nonAvoidedDamage": 18821.647002941547,
+						"comboDamage": 35140.46667401995,
+						"chargeTime": 0.4863095674873881,
+						"animationTime": 1.6913136
 					}
 				},
 				{
@@ -5047,68 +5030,85 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Makara",
-					"ammo": "Castellanos",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"weapon": "Fumarole",
+					"ammo": "Water Bombs",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 14981.016711653638,
-						"baseDmg": 7260.365721038557,
-						"modifiedDamage": 28315.426312050375,
-						"nonAvoidedDamage": 28315.426312050375,
-						"comboDamage": 28315.426312050375,
-						"chargeTime": 0.4900870920211969,
+						"dps": 15304.580047938993,
+						"baseDmg": 4956.385471700459,
+						"modifiedDamage": 28994.85500944769,
+						"nonAvoidedDamage": 28994.85500944769,
+						"comboDamage": 28994.85500944769,
+						"chargeTime": 0.494521438590686,
 						"animationTime": 1.4
 					}
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Sledgehammer",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
+					"weapon": "Makara",
+					"ammo": "Castellanos",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 14956.824524383412,
-						"baseDmg": 4214.95787569595,
-						"modifiedDamage": 16438.335715214205,
-						"nonAvoidedDamage": 16438.335715214205,
-						"comboDamage": 35441.57782874472,
-						"chargeTime": 0.5145076071961912,
-						"animationTime": 1.8550848
+						"dps": 14647.48738548057,
+						"baseDmg": 7115.379198276813,
+						"modifiedDamage": 27749.978873279575,
+						"nonAvoidedDamage": 27749.978873279575,
+						"comboDamage": 27749.978873279575,
+						"chargeTime": 0.494521438590686,
+						"animationTime": 1.4
 					}
 				},
 				{
 					"ability": "Attack",
 					"weapon": "Volcano",
 					"ammo": "Castellanos",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 13929.715790807611,
-						"baseDmg": 6750.865644033154,
-						"modifiedDamage": 26328.376011729302,
-						"nonAvoidedDamage": 26328.376011729302,
-						"comboDamage": 26328.376011729302,
-						"chargeTime": 0.4900870920211969,
+						"dps": 13619.59206483404,
+						"baseDmg": 6616.053628637865,
+						"modifiedDamage": 25802.609151687677,
+						"nonAvoidedDamage": 25802.609151687677,
+						"comboDamage": 25802.609151687677,
+						"chargeTime": 0.494521438590686,
 						"animationTime": 1.4
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Sledgehammer",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 13068.444845786238,
+						"baseDmg": 3712.0683247892966,
+						"modifiedDamage": 14477.066466678258,
+						"nonAvoidedDamage": 14477.066466678258,
+						"comboDamage": 31213.01856828526,
+						"chargeTime": 0.5333415917102212,
+						"animationTime": 1.8550848
 					}
 				},
 				{
 					"ability": "Attack",
 					"weapon": "Caldera",
 					"ammo": "Castellanos",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 12704.692687177196,
-						"baseDmg": 6157.1732451614635,
-						"modifiedDamage": 24012.97565612971,
-						"nonAvoidedDamage": 24012.97565612971,
-						"comboDamage": 24012.97565612971,
-						"chargeTime": 0.4900870920211969,
+						"dps": 12421.842218964726,
+						"baseDmg": 6034.217023235787,
+						"modifiedDamage": 23533.44639061957,
+						"nonAvoidedDamage": 23533.44639061957,
+						"comboDamage": 23533.44639061957,
+						"chargeTime": 0.494521438590686,
 						"animationTime": 1.4
 					}
 				},
@@ -5132,33 +5132,17 @@
 					"ability": "Attack",
 					"weapon": "Tumulus",
 					"ammo": "Castellanos",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 11481.671780681158,
-						"baseDmg": 5564.4511865357645,
-						"modifiedDamage": 21701.359627489484,
-						"nonAvoidedDamage": 21701.359627489484,
-						"comboDamage": 21701.359627489484,
-						"chargeTime": 0.4900870920211969,
+						"dps": 11226.049994385972,
+						"baseDmg": 5453.331380783352,
+						"modifiedDamage": 21267.992385055073,
+						"nonAvoidedDamage": 21267.992385055073,
+						"comboDamage": 21267.992385055073,
+						"chargeTime": 0.494521438590686,
 						"animationTime": 1.4
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Slasher",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 10820.922350355806,
-						"baseDmg": 3210.8134452950503,
-						"modifiedDamage": 12522.172436650697,
-						"nonAvoidedDamage": 12522.172436650697,
-						"comboDamage": 23379.196471365332,
-						"chargeTime": 0.4692412690215483,
-						"animationTime": 1.6913136
 					}
 				},
 				{
@@ -5175,23 +5159,6 @@
 						"comboDamage": 39720.23935546875,
 						"chargeTime": 0.7017920624176229,
 						"animationTime": 3.2
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Hornito",
-					"ammo": "Castellanos",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 9739.12998926293,
-						"baseDmg": 4719.949712877538,
-						"modifiedDamage": 18407.8038802224,
-						"nonAvoidedDamage": 18407.8038802224,
-						"comboDamage": 18407.8038802224,
-						"chargeTime": 0.4900870920211969,
-						"animationTime": 1.4
 					}
 				},
 				{
@@ -5212,6 +5179,39 @@
 				},
 				{
 					"ability": "Attack",
+					"weapon": "Hornito",
+					"ammo": "Castellanos",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 9522.303219401314,
+						"baseDmg": 4625.694254850486,
+						"modifiedDamage": 18040.207593916897,
+						"nonAvoidedDamage": 18040.207593916897,
+						"comboDamage": 18040.207593916897,
+						"chargeTime": 0.494521438590686,
+						"animationTime": 1.4
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Slasher",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 9455.175079817225,
+						"baseDmg": 2827.7290636313633,
+						"modifiedDamage": 11028.143348162317,
+						"nonAvoidedDamage": 11028.143348162317,
+						"comboDamage": 20589.808306459403,
+						"chargeTime": 0.4863095674873881,
+						"animationTime": 1.6913136
+					}
+				},
+				{
+					"ability": "Attack",
 					"weapon": "Staff of the Magi",
 					"helm": "Steel Mask",
 					"armor": "Maximillian",
@@ -5224,22 +5224,6 @@
 						"comboDamage": 14010.652880859376,
 						"chargeTime": 0.5039786200622433,
 						"animationTime": 1.2
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "War Hammer",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 7877.750765779397,
-						"baseDmg": 2220.0158582364934,
-						"modifiedDamage": 8658.061847122324,
-						"nonAvoidedDamage": 8658.061847122324,
-						"comboDamage": 18667.05840037484,
-						"chargeTime": 0.5145076071961912,
-						"animationTime": 1.8550848
 					}
 				},
 				{
@@ -5288,6 +5272,22 @@
 						"comboDamage": 12403.49296875,
 						"chargeTime": 0.5039786200622433,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "War Hammer",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 6883.142288899883,
+						"baseDmg": 1955.1442246688955,
+						"modifiedDamage": 7625.062476208693,
+						"nonAvoidedDamage": 7625.062476208693,
+						"comboDamage": 16439.87870070518,
+						"chargeTime": 0.5333415917102212,
+						"animationTime": 1.8550848
 					}
 				},
 				{
@@ -5371,22 +5371,6 @@
 					}
 				},
 				{
-					"ability": "Attack",
-					"weapon": "Broadaxe",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 5843.142230248552,
-						"baseDmg": 1733.7930195050758,
-						"modifiedDamage": 6761.792776069796,
-						"nonAvoidedDamage": 6761.792776069796,
-						"comboDamage": 12624.429395948937,
-						"chargeTime": 0.4692412690215483,
-						"animationTime": 1.6913136
-					}
-				},
-				{
 					"ability": "Blizzara",
 					"weapon": "Staff of the Magi",
 					"helm": "Celebrant's Miter",
@@ -5432,6 +5416,22 @@
 						"comboDamage": 41239.5927734375,
 						"chargeTime": 0.7017920624176229,
 						"animationTime": 7.266666666666667
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Broadaxe",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 5105.658373147565,
+						"baseDmg": 1526.932970447045,
+						"modifiedDamage": 5955.038584743475,
+						"nonAvoidedDamage": 5955.038584743475,
+						"comboDamage": 11118.199958642104,
+						"chargeTime": 0.4863095674873881,
+						"animationTime": 1.6913136
 					}
 				},
 				{
@@ -5564,22 +5564,6 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Iron Hammer",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 2848.17383873571,
-						"baseDmg": 802.6391386326133,
-						"modifiedDamage": 3130.292640667192,
-						"nonAvoidedDamage": 3130.292640667192,
-						"comboDamage": 6749.011102642968,
-						"chargeTime": 0.5145076071961912,
-						"animationTime": 1.8550848
-					}
-				},
-				{
-					"ability": "Attack",
 					"weapon": "Longsword",
 					"helm": "Steel Mask",
 					"armor": "Maximillian",
@@ -5608,6 +5592,22 @@
 						"comboDamage": 13457.1302734375,
 						"chargeTime": 0.7017920624176229,
 						"animationTime": 4.3
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Iron Hammer",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 2488.5765465823915,
+						"baseDmg": 706.8757056705671,
+						"modifiedDamage": 2756.8152521152115,
+						"nonAvoidedDamage": 2756.8152521152115,
+						"comboDamage": 5943.781901648465,
+						"chargeTime": 0.5333415917102212,
+						"animationTime": 1.8550848
 					}
 				},
 				{
@@ -5708,22 +5708,6 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Handaxe",
-					"helm": "Steel Mask",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 1086.1347470633589,
-						"baseDmg": 322.2808496688364,
-						"modifiedDamage": 1256.895313708462,
-						"nonAvoidedDamage": 1256.895313708462,
-						"comboDamage": 2346.653716181228,
-						"chargeTime": 0.4692412690215483,
-						"animationTime": 1.6913136
-					}
-				},
-				{
-					"ability": "Attack",
 					"weapon": "Oak Staff",
 					"helm": "Magepower Shishak",
 					"armor": "Maximillian",
@@ -5736,6 +5720,22 @@
 						"comboDamage": 1796.237548828125,
 						"chargeTime": 0.5056932459215809,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Handaxe",
+					"helm": "Grand Helm",
+					"armor": "Glimmering Robes",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 949.0498001234969,
+						"baseDmg": 283.82929771138885,
+						"modifiedDamage": 1106.9342610744166,
+						"nonAvoidedDamage": 1106.9342610744166,
+						"comboDamage": 2066.672831848202,
+						"chargeTime": 0.4863095674873881,
+						"animationTime": 1.6913136
 					}
 				},
 				{
@@ -5951,23 +5951,6 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Fumarole",
-					"ammo": "Water Bombs",
-					"helm": "Celebrant's Miter",
-					"armor": "Lordly Robes",
-					"accessory": "Hermes Sandals",
-					"dps": {
-						"dps": 15964.054229489198,
-						"baseDmg": 5057.379259239246,
-						"modifiedDamage": 29585.668666549584,
-						"nonAvoidedDamage": 29585.668666549584,
-						"comboDamage": 29585.668666549584,
-						"chargeTime": 0.4532678629904803,
-						"animationTime": 1.4
-					}
-				},
-				{
-					"ability": "Attack",
 					"weapon": "Six-fluted Pole",
 					"helm": "Celebrant's Miter",
 					"armor": "Lordly Robes",
@@ -5980,6 +5963,23 @@
 						"comboDamage": 34950.41160338965,
 						"chargeTime": 0.3498493911544043,
 						"animationTime": 1.916499
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Fumarole",
+					"ammo": "Water Bombs",
+					"helm": "Gold Hairpin",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 14388.868921422303,
+						"baseDmg": 4458.593757486439,
+						"modifiedDamage": 26082.77348129567,
+						"nonAvoidedDamage": 26082.77348129567,
+						"comboDamage": 26082.77348129567,
+						"chargeTime": 0.4127049195967974,
+						"animationTime": 1.4
 					}
 				},
 				{
@@ -6034,16 +6034,16 @@
 					"ability": "Attack",
 					"weapon": "Tumulus",
 					"ammo": "Castellanos",
-					"helm": "Celebrant's Miter",
-					"armor": "Lordly Robes",
-					"accessory": "Hermes Sandals",
+					"helm": "Gold Hairpin",
+					"armor": "Mirage Vest",
+					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 11709.780361955674,
-						"baseDmg": 5564.4511865357645,
-						"modifiedDamage": 21701.359627489484,
-						"nonAvoidedDamage": 21701.359627489484,
-						"comboDamage": 21701.359627489484,
-						"chargeTime": 0.4532678629904803,
+						"dps": 10554.367474872724,
+						"baseDmg": 4905.629191008773,
+						"modifiedDamage": 19131.953844934214,
+						"nonAvoidedDamage": 19131.953844934214,
+						"comboDamage": 19131.953844934214,
+						"chargeTime": 0.4127049195967974,
 						"animationTime": 1.4
 					}
 				},
@@ -16784,11 +16784,11 @@
 					"armor": "Grand Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 30368.165389313832,
-						"baseDmg": 6596.701035597941,
-						"modifiedDamage": 25727.134038831973,
-						"nonAvoidedDamage": 25727.134038831973,
-						"comboDamage": 100080.60958177948,
+						"dps": 23717.245148362515,
+						"baseDmg": 5151.960074835077,
+						"modifiedDamage": 20092.6442918568,
+						"nonAvoidedDamage": 20092.6442918568,
+						"comboDamage": 78161.9937068663,
 						"chargeTime": 0.45786441361491576,
 						"animationTime": 2.837712
 					}
@@ -16800,11 +16800,11 @@
 					"armor": "Grand Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 21853.719571606543,
-						"baseDmg": 6011.344998079597,
-						"modifiedDamage": 23444.24549251043,
-						"nonAvoidedDamage": 23444.24549251043,
-						"comboDamage": 50546.54349770825,
+						"dps": 17067.54483975996,
+						"baseDmg": 4694.802638324872,
+						"modifiedDamage": 18309.730289467,
+						"nonAvoidedDamage": 18309.730289467,
+						"comboDamage": 39476.36441546011,
 						"chargeTime": 0.45786441361491576,
 						"animationTime": 1.8550848
 					}
@@ -16816,45 +16816,13 @@
 					"armor": "Grand Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 19860.440414781573,
-						"baseDmg": 5751.75166624475,
-						"modifiedDamage": 22431.831498354524,
-						"nonAvoidedDamage": 22431.831498354524,
-						"comboDamage": 41880.767771383864,
+						"dps": 15510.812985679151,
+						"baseDmg": 4492.062742414866,
+						"modifiedDamage": 17519.04469541798,
+						"nonAvoidedDamage": 17519.04469541798,
+						"comboDamage": 32708.47690341806,
 						"chargeTime": 0.4174396248385174,
 						"animationTime": 1.6913136
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Greataxe",
-					"helm": "Grand Helm",
-					"armor": "Grand Armor",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 17625.891026032274,
-						"baseDmg": 5104.607247409045,
-						"modifiedDamage": 19907.968264895277,
-						"nonAvoidedDamage": 19907.968264895277,
-						"comboDamage": 37168.65454179784,
-						"chargeTime": 0.4174396248385174,
-						"animationTime": 1.6913136
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Morning Star",
-					"helm": "Grand Helm",
-					"armor": "Grand Armor",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 16216.559049311967,
-						"baseDmg": 4460.720327618699,
-						"modifiedDamage": 17396.809277712928,
-						"nonAvoidedDamage": 17396.809277712928,
-						"comboDamage": 37508.07750064596,
-						"chargeTime": 0.45786441361491576,
-						"animationTime": 1.8550848
 					}
 				},
 				{
@@ -16892,6 +16860,22 @@
 				},
 				{
 					"ability": "Attack",
+					"weapon": "Greataxe",
+					"helm": "Grand Helm",
+					"armor": "Grand Armor",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 13765.651400523275,
+						"baseDmg": 3986.649174253718,
+						"modifiedDamage": 15547.931779589499,
+						"nonAvoidedDamage": 15547.931779589499,
+						"comboDamage": 29028.361782856307,
+						"chargeTime": 0.4174396248385174,
+						"animationTime": 1.6913136
+					}
+				},
+				{
+					"ability": "Attack",
 					"weapon": "Burning Bow",
 					"ammo": "Fiery Arrows",
 					"helm": "Grand Helm",
@@ -16909,18 +16893,18 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Francisca",
+					"weapon": "Morning Star",
 					"helm": "Grand Helm",
 					"armor": "Grand Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 12754.874136385413,
-						"baseDmg": 3693.9195221519312,
-						"modifiedDamage": 14406.286136392533,
-						"nonAvoidedDamage": 14406.286136392533,
-						"comboDamage": 26896.881967512138,
-						"chargeTime": 0.4174396248385174,
-						"animationTime": 1.6913136
+						"dps": 12664.976678860183,
+						"baseDmg": 3483.77968152284,
+						"modifiedDamage": 13586.740757939077,
+						"nonAvoidedDamage": 13586.740757939077,
+						"comboDamage": 29293.447849820906,
+						"chargeTime": 0.45786441361491576,
+						"animationTime": 1.8550848
 					}
 				},
 				{
@@ -16954,22 +16938,6 @@
 						"comboDamage": 19700.217236625733,
 						"chargeTime": 0.37328512306814143,
 						"animationTime": 1.368588
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Hammerhead",
-					"helm": "Grand Helm",
-					"armor": "Grand Armor",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 11224.225093250976,
-						"baseDmg": 3250.6306020466195,
-						"modifiedDamage": 12677.459347981816,
-						"nonAvoidedDamage": 12677.459347981816,
-						"comboDamage": 23669.120861706404,
-						"chargeTime": 0.4174396248385174,
-						"animationTime": 1.6913136
 					}
 				},
 				{
@@ -17025,19 +16993,18 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Makara",
-					"ammo": "Castellanos",
+					"weapon": "Francisca",
 					"helm": "Grand Helm",
 					"armor": "Grand Armor",
-					"accessory": "Hermes Sandals",
+					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 10380.653075796978,
-						"baseDmg": 4980.955002287729,
-						"modifiedDamage": 19425.724508922143,
-						"nonAvoidedDamage": 19425.724508922143,
-						"comboDamage": 19425.724508922143,
-						"chargeTime": 0.47133934320704857,
-						"animationTime": 1.4
+						"dps": 9961.434049473764,
+						"baseDmg": 2884.9156260202726,
+						"modifiedDamage": 11251.170941479064,
+						"nonAvoidedDamage": 11251.170941479064,
+						"comboDamage": 21006.20617584401,
+						"chargeTime": 0.4174396248385174,
+						"animationTime": 1.6913136
 					}
 				},
 				{
@@ -17054,23 +17021,6 @@
 						"comboDamage": 33172.85521798828,
 						"chargeTime": 0.4309145544306502,
 						"animationTime": 3.0303839999999997
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Volcano",
-					"ammo": "Castellanos",
-					"helm": "Grand Helm",
-					"armor": "Grand Armor",
-					"accessory": "Hermes Sandals",
-					"dps": {
-						"dps": 9510.050368396485,
-						"baseDmg": 4563.213182118212,
-						"modifiedDamage": 17796.53141026103,
-						"nonAvoidedDamage": 17796.53141026103,
-						"comboDamage": 17796.53141026103,
-						"chargeTime": 0.47133934320704857,
-						"animationTime": 1.4
 					}
 				},
 				{
@@ -17092,35 +17042,52 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Caldera",
+					"weapon": "Makara",
 					"ammo": "Castellanos",
 					"helm": "Grand Helm",
 					"armor": "Grand Armor",
-					"accessory": "Hermes Sandals",
+					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 8499.425257107598,
-						"baseDmg": 4078.284327762341,
-						"modifiedDamage": 15905.30887827313,
-						"nonAvoidedDamage": 15905.30887827313,
-						"comboDamage": 15905.30887827313,
-						"chargeTime": 0.47133934320704857,
+						"dps": 8885.686030027555,
+						"baseDmg": 4142.490240873214,
+						"modifiedDamage": 16155.711939405535,
+						"nonAvoidedDamage": 16155.711939405535,
+						"comboDamage": 16155.711939405535,
+						"chargeTime": 0.4181727201265333,
 						"animationTime": 1.4
 					}
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Sledgehammer",
+					"weapon": "Hammerhead",
 					"helm": "Grand Helm",
 					"armor": "Grand Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 8418.913259662002,
-						"baseDmg": 2315.8067873484074,
-						"modifiedDamage": 9031.64647065879,
-						"nonAvoidedDamage": 9031.64647065879,
-						"comboDamage": 19472.518803427414,
-						"chargeTime": 0.45786441361491576,
-						"animationTime": 1.8550848
+						"dps": 8766.011865527797,
+						"baseDmg": 2538.7112420903113,
+						"modifiedDamage": 9900.973844152215,
+						"nonAvoidedDamage": 9900.973844152215,
+						"comboDamage": 18485.355790404446,
+						"chargeTime": 0.4174396248385174,
+						"animationTime": 1.6913136
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Volcano",
+					"ammo": "Castellanos",
+					"helm": "Grand Helm",
+					"armor": "Grand Armor",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 8140.462944508073,
+						"baseDmg": 3795.0686294629463,
+						"modifiedDamage": 14800.76765490549,
+						"nonAvoidedDamage": 14800.76765490549,
+						"comboDamage": 14800.76765490549,
+						"chargeTime": 0.4181727201265333,
+						"animationTime": 1.4
 					}
 				},
 				{
@@ -17142,35 +17109,51 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Tumulus",
+					"weapon": "Caldera",
 					"ammo": "Castellanos",
 					"helm": "Grand Helm",
 					"armor": "Grand Armor",
-					"accessory": "Hermes Sandals",
+					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 7495.602633256505,
-						"baseDmg": 3596.619515040834,
-						"modifiedDamage": 14026.816108659252,
-						"nonAvoidedDamage": 14026.816108659252,
-						"comboDamage": 14026.816108659252,
-						"chargeTime": 0.47133934320704857,
+						"dps": 7275.382745082831,
+						"baseDmg": 3391.7698552792035,
+						"modifiedDamage": 13227.902435588896,
+						"nonAvoidedDamage": 13227.902435588896,
+						"comboDamage": 13227.902435588896,
+						"chargeTime": 0.4181727201265333,
 						"animationTime": 1.4
 					}
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Fumarole",
+					"weapon": "Sledgehammer",
+					"helm": "Grand Helm",
+					"armor": "Grand Armor",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 6575.090299411568,
+						"baseDmg": 1808.6228320895295,
+						"modifiedDamage": 7053.629045149165,
+						"nonAvoidedDamage": 7053.629045149165,
+						"comboDamage": 15207.849937471046,
+						"chargeTime": 0.45786441361491576,
+						"animationTime": 1.8550848
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Tumulus",
 					"ammo": "Castellanos",
 					"helm": "Grand Helm",
 					"armor": "Grand Armor",
-					"accessory": "Hermes Sandals",
+					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 6783.778936607196,
-						"baseDmg": 3255.06472299803,
-						"modifiedDamage": 12694.752419692319,
-						"nonAvoidedDamage": 12694.752419692319,
-						"comboDamage": 12694.752419692319,
-						"chargeTime": 0.47133934320704857,
+						"dps": 6416.125374640899,
+						"baseDmg": 2991.1856730983886,
+						"modifiedDamage": 11665.624125083716,
+						"nonAvoidedDamage": 11665.624125083716,
+						"comboDamage": 11665.624125083716,
+						"chargeTime": 0.4181727201265333,
 						"animationTime": 1.4
 					}
 				},
@@ -17193,35 +17176,19 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Hornito",
+					"weapon": "Fumarole",
 					"ammo": "Castellanos",
 					"helm": "Grand Helm",
 					"armor": "Grand Armor",
-					"accessory": "Hermes Sandals",
+					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 6077.303957883179,
-						"baseDmg": 2916.0764094909496,
-						"modifiedDamage": 11372.697997014704,
-						"nonAvoidedDamage": 11372.697997014704,
-						"comboDamage": 11372.697997014704,
-						"chargeTime": 0.47133934320704857,
+						"dps": 5806.8147820437425,
+						"baseDmg": 2707.1262121895984,
+						"modifiedDamage": 10557.792227539434,
+						"nonAvoidedDamage": 10557.792227539434,
+						"comboDamage": 10557.792227539434,
+						"chargeTime": 0.4181727201265333,
 						"animationTime": 1.4
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Slasher",
-					"helm": "Grand Helm",
-					"armor": "Grand Armor",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 5497.343999183156,
-						"baseDmg": 1592.0773581480541,
-						"modifiedDamage": 6209.101696777411,
-						"nonAvoidedDamage": 6209.101696777411,
-						"comboDamage": 11592.54188632415,
-						"chargeTime": 0.4174396248385174,
-						"animationTime": 1.6913136
 					}
 				},
 				{
@@ -17238,6 +17205,23 @@
 						"nonAvoidedDamage": 9531.066880733944,
 						"comboDamage": 9864.654221559631,
 						"chargeTime": 0.4509882634155345,
+						"animationTime": 1.4
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Hornito",
+					"ammo": "Castellanos",
+					"helm": "Grand Helm",
+					"armor": "Grand Armor",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 5202.082613154644,
+						"baseDmg": 2425.201203867262,
+						"modifiedDamage": 9458.284695082322,
+						"nonAvoidedDamage": 9458.284695082322,
+						"comboDamage": 9458.284695082322,
+						"chargeTime": 0.4181727201265333,
 						"animationTime": 1.4
 					}
 				},
@@ -17260,18 +17244,18 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "War Hammer",
+					"weapon": "Slasher",
 					"helm": "Grand Helm",
 					"armor": "Grand Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 3307.182122427032,
-						"baseDmg": 909.7129961903556,
-						"modifiedDamage": 3547.880685142387,
-						"nonAvoidedDamage": 3547.880685142387,
-						"comboDamage": 7649.344289348912,
-						"chargeTime": 0.45786441361491576,
-						"animationTime": 1.8550848
+						"dps": 4293.37280082735,
+						"baseDmg": 1243.3971072760921,
+						"modifiedDamage": 4849.248718376759,
+						"nonAvoidedDamage": 4849.248718376759,
+						"comboDamage": 9053.663739178652,
+						"chargeTime": 0.4174396248385174,
+						"animationTime": 1.6913136
 					}
 				},
 				{
@@ -17293,16 +17277,32 @@
 				},
 				{
 					"ability": "Attack",
+					"weapon": "War Hammer",
+					"helm": "Grand Helm",
+					"armor": "Grand Armor",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 2582.877435707224,
+						"baseDmg": 710.4771022121184,
+						"modifiedDamage": 2770.860698627262,
+						"nonAvoidedDamage": 2770.860698627262,
+						"comboDamage": 5974.064333782733,
+						"chargeTime": 0.45786441361491576,
+						"animationTime": 1.8550848
+					}
+				},
+				{
+					"ability": "Attack",
 					"weapon": "Broadaxe",
 					"helm": "Grand Helm",
 					"armor": "Grand Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 2061.2978235218225,
-						"baseDmg": 596.9692989408318,
-						"modifiedDamage": 2328.180265869244,
-						"nonAvoidedDamage": 2328.180265869244,
-						"comboDamage": 4346.76843270426,
+						"dps": 1609.8537787026257,
+						"baseDmg": 466.2272820078884,
+						"modifiedDamage": 1818.2863998307648,
+						"nonAvoidedDamage": 1818.2863998307648,
+						"comboDamage": 3394.7843473576345,
 						"chargeTime": 0.4174396248385174,
 						"animationTime": 1.6913136
 					}
@@ -17375,22 +17375,6 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Iron Hammer",
-					"helm": "Grand Helm",
-					"armor": "Grand Armor",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 361.560259098333,
-						"baseDmg": 99.4550812237474,
-						"modifiedDamage": 387.87481677261485,
-						"nonAvoidedDamage": 387.87481677261485,
-						"comboDamage": 836.2705169558944,
-						"chargeTime": 0.45786441361491576,
-						"animationTime": 1.8550848
-					}
-				},
-				{
-					"ability": "Attack",
 					"weapon": "Bonebreaker",
 					"helm": "Steel Mask",
 					"armor": "Mirage Vest",
@@ -17403,6 +17387,22 @@
 						"comboDamage": 519.52265625,
 						"chargeTime": 0.4078568828741861,
 						"animationTime": 1.2
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Iron Hammer",
+					"helm": "Grand Helm",
+					"armor": "Grand Armor",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 282.37508558742707,
+						"baseDmg": 77.67346207433245,
+						"modifiedDamage": 302.92650208989653,
+						"nonAvoidedDamage": 302.92650208989653,
+						"comboDamage": 653.1192321538839,
+						"chargeTime": 0.45786441361491576,
+						"animationTime": 1.8550848
 					}
 				},
 				{
@@ -17509,15 +17509,15 @@
 					"ability": "Attack",
 					"weapon": "Vrscika",
 					"helm": "Grand Helm",
-					"armor": "Maximillian",
+					"armor": "Diamond Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 37606.02278970412,
-						"baseDmg": 8129.472807590084,
-						"modifiedDamage": 31704.943949601326,
-						"nonAvoidedDamage": 31704.943949601326,
-						"comboDamage": 123334.76835946513,
-						"chargeTime": 0.4419426725816505,
+						"dps": 31057.048802258567,
+						"baseDmg": 6736.946200546547,
+						"modifiedDamage": 26274.09018213153,
+						"nonAvoidedDamage": 26274.09018213153,
+						"comboDamage": 102208.31273570623,
+						"chargeTime": 0.453273997622328,
 						"animationTime": 2.837712
 					}
 				},
@@ -17525,15 +17525,15 @@
 					"ability": "Attack",
 					"weapon": "Scorpion Tail",
 					"helm": "Grand Helm",
-					"armor": "Maximillian",
+					"armor": "Diamond Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 27118.199657751804,
-						"baseDmg": 7408.106784772783,
-						"modifiedDamage": 28891.61646061385,
-						"nonAvoidedDamage": 28891.61646061385,
-						"comboDamage": 62291.24962081021,
-						"chargeTime": 0.4419426725816505,
+						"dps": 22362.70969188259,
+						"baseDmg": 6139.145555702144,
+						"modifiedDamage": 23942.667667238362,
+						"nonAvoidedDamage": 23942.667667238362,
+						"comboDamage": 51621.15765593127,
+						"chargeTime": 0.453273997622328,
 						"animationTime": 1.8550848
 					}
 				},
@@ -17541,48 +17541,16 @@
 					"ability": "Attack",
 					"weapon": "Golden Axe",
 					"helm": "Grand Helm",
-					"armor": "Maximillian",
+					"armor": "Diamond Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 24643.722806358663,
-						"baseDmg": 7088.195829161041,
-						"modifiedDamage": 27643.96373372806,
-						"nonAvoidedDamage": 27643.96373372806,
-						"comboDamage": 51611.9437459999,
-						"chargeTime": 0.4030105470271208,
+						"dps": 20322.76321233606,
+						"baseDmg": 5874.033297142214,
+						"modifiedDamage": 22908.729858854636,
+						"nonAvoidedDamage": 22908.729858854636,
+						"comboDamage": 42771.14845599823,
+						"chargeTime": 0.4132795603452347,
 						"animationTime": 1.6913136
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Greataxe",
-					"helm": "Grand Helm",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 21870.993975407328,
-						"baseDmg": 6290.684629681363,
-						"modifiedDamage": 24533.670055757313,
-						"nonAvoidedDamage": 24533.670055757313,
-						"comboDamage": 45804.95080218025,
-						"chargeTime": 0.4030105470271208,
-						"animationTime": 1.6913136
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Morning Star",
-					"helm": "Grand Helm",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 20123.068048897596,
-						"baseDmg": 5497.187823118249,
-						"modifiedDamage": 21439.03251016117,
-						"nonAvoidedDamage": 21439.03251016117,
-						"comboDamage": 46223.24014094781,
-						"chargeTime": 0.4419426725816505,
-						"animationTime": 1.8550848
 					}
 				},
 				{
@@ -17600,6 +17568,22 @@
 						"comboDamage": 36419.7149174312,
 						"chargeTime": 0.45014075315655855,
 						"animationTime": 1.4
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Greataxe",
+					"helm": "Grand Helm",
+					"armor": "Diamond Armor",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 18036.196692893558,
+						"baseDmg": 5213.130656541506,
+						"modifiedDamage": 20331.209560511874,
+						"nonAvoidedDamage": 20331.209560511874,
+						"comboDamage": 37958.85619850513,
+						"chargeTime": 0.4132795603452347,
+						"animationTime": 1.6913136
 					}
 				},
 				{
@@ -17636,18 +17620,18 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Francisca",
+					"weapon": "Morning Star",
 					"helm": "Grand Helm",
-					"armor": "Maximillian",
+					"armor": "Diamond Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 15826.818342514207,
-						"baseDmg": 4552.217562492329,
-						"modifiedDamage": 17753.648493720084,
-						"nonAvoidedDamage": 17753.648493720084,
-						"comboDamage": 33146.48782533925,
-						"chargeTime": 0.4030105470271208,
-						"animationTime": 1.6913136
+						"dps": 16594.25531808339,
+						"baseDmg": 4555.554769070657,
+						"modifiedDamage": 17766.663599375563,
+						"nonAvoidedDamage": 17766.663599375563,
+						"comboDamage": 38305.495253488894,
+						"chargeTime": 0.453273997622328,
+						"animationTime": 1.8550848
 					}
 				},
 				{
@@ -17720,17 +17704,17 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Hammerhead",
+					"weapon": "Francisca",
 					"helm": "Grand Helm",
-					"armor": "Maximillian",
+					"armor": "Diamond Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 13927.52054523331,
-						"baseDmg": 4005.9285609966814,
-						"modifiedDamage": 15623.121387887059,
-						"nonAvoidedDamage": 15623.121387887059,
-						"comboDamage": 29168.74258609845,
-						"chargeTime": 0.4030105470271208,
+						"dps": 13051.789460015405,
+						"baseDmg": 3772.451859739383,
+						"modifiedDamage": 14712.562252983595,
+						"nonAvoidedDamage": 14712.562252983595,
+						"comboDamage": 27468.706827814447,
+						"chargeTime": 0.4132795603452347,
 						"animationTime": 1.6913136
 					}
 				},
@@ -17748,23 +17732,6 @@
 						"nonAvoidedDamage": 22689.714736238533,
 						"comboDamage": 23483.85475200688,
 						"chargeTime": 0.45014075315655855,
-						"animationTime": 1.4
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Makara",
-					"ammo": "Castellanos",
-					"helm": "Grand Helm",
-					"armor": "Maximillian",
-					"accessory": "Germinas Boots",
-					"dps": {
-						"dps": 12153.33022481682,
-						"baseDmg": 5655.509359215196,
-						"modifiedDamage": 22056.486500939263,
-						"nonAvoidedDamage": 22056.486500939263,
-						"comboDamage": 22056.486500939263,
-						"chargeTime": 0.4148512459490675,
 						"animationTime": 1.4
 					}
 				},
@@ -17803,18 +17770,34 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Volcano",
+					"weapon": "Hammerhead",
+					"helm": "Grand Helm",
+					"armor": "Diamond Armor",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 11485.509084799869,
+						"baseDmg": 3319.738664169021,
+						"modifiedDamage": 12946.980790259182,
+						"nonAvoidedDamage": 12946.980790259182,
+						"comboDamage": 24172.32386295286,
+						"chargeTime": 0.4132795603452347,
+						"animationTime": 1.6913136
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Makara",
 					"ammo": "Castellanos",
 					"helm": "Grand Helm",
-					"armor": "Maximillian",
+					"armor": "Diamond Armor",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 11134.056955553324,
-						"baseDmg": 5181.194138013801,
-						"modifiedDamage": 20206.657138253828,
-						"nonAvoidedDamage": 20206.657138253828,
-						"comboDamage": 20206.657138253828,
-						"chargeTime": 0.4148512459490675,
+						"dps": 11320.778372043416,
+						"baseDmg": 5275.153164187559,
+						"modifiedDamage": 20573.097340331482,
+						"nonAvoidedDamage": 20573.097340331482,
+						"comboDamage": 20573.097340331482,
+						"chargeTime": 0.4172864677871092,
 						"animationTime": 1.4
 					}
 				},
@@ -17837,18 +17820,19 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Sledgehammer",
+					"weapon": "Volcano",
+					"ammo": "Castellanos",
 					"helm": "Grand Helm",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
+					"armor": "Diamond Armor",
+					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 10446.998275453056,
-						"baseDmg": 2853.894424468938,
-						"modifiedDamage": 11130.188255428859,
-						"nonAvoidedDamage": 11130.188255428859,
-						"comboDamage": 23997.042044728794,
-						"chargeTime": 0.4419426725816505,
-						"animationTime": 1.8550848
+						"dps": 10371.329408802221,
+						"baseDmg": 4832.7375865586555,
+						"modifiedDamage": 18847.676587578757,
+						"nonAvoidedDamage": 18847.676587578757,
+						"comboDamage": 18847.676587578757,
+						"chargeTime": 0.4172864677871092,
+						"animationTime": 1.4
 					}
 				},
 				{
@@ -17856,33 +17840,32 @@
 					"weapon": "Caldera",
 					"ammo": "Castellanos",
 					"helm": "Grand Helm",
-					"armor": "Maximillian",
+					"armor": "Diamond Armor",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 9950.85002037279,
-						"baseDmg": 4630.592963519452,
-						"modifiedDamage": 18059.31255772586,
-						"nonAvoidedDamage": 18059.31255772586,
-						"comboDamage": 18059.31255772586,
-						"chargeTime": 0.4148512459490675,
+						"dps": 9269.176893099848,
+						"baseDmg": 4319.166598809055,
+						"modifiedDamage": 16844.749735355315,
+						"nonAvoidedDamage": 16844.749735355315,
+						"comboDamage": 16844.749735355315,
+						"chargeTime": 0.4172864677871092,
 						"animationTime": 1.4
 					}
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Tumulus",
-					"ammo": "Castellanos",
+					"weapon": "Sledgehammer",
 					"helm": "Grand Helm",
-					"armor": "Maximillian",
-					"accessory": "Germinas Boots",
+					"armor": "Diamond Armor",
+					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 8775.607215731836,
-						"baseDmg": 4083.697869084756,
-						"modifiedDamage": 15926.421689430548,
-						"nonAvoidedDamage": 15926.421689430548,
-						"comboDamage": 15926.421689430548,
-						"chargeTime": 0.4148512459490675,
-						"animationTime": 1.4
+						"dps": 8614.996295256382,
+						"baseDmg": 2365.0405942358434,
+						"modifiedDamage": 9223.65831751979,
+						"nonAvoidedDamage": 9223.65831751979,
+						"comboDamage": 19886.50248963883,
+						"chargeTime": 0.453273997622328,
+						"animationTime": 1.8550848
 					}
 				},
 				{
@@ -17904,18 +17887,35 @@
 				},
 				{
 					"ability": "Attack",
+					"weapon": "Tumulus",
+					"ammo": "Castellanos",
+					"helm": "Grand Helm",
+					"armor": "Diamond Armor",
+					"accessory": "Germinas Boots",
+					"dps": {
+						"dps": 8174.442933060556,
+						"baseDmg": 3809.052442038183,
+						"modifiedDamage": 14855.304523948915,
+						"nonAvoidedDamage": 14855.304523948915,
+						"comboDamage": 14855.304523948915,
+						"chargeTime": 0.4172864677871092,
+						"animationTime": 1.4
+					}
+				},
+				{
+					"ability": "Attack",
 					"weapon": "Fumarole",
 					"ammo": "Castellanos",
 					"helm": "Grand Helm",
-					"armor": "Maximillian",
+					"armor": "Diamond Armor",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 7942.227236258366,
-						"baseDmg": 3695.887434701054,
-						"modifiedDamage": 14413.960995334113,
-						"nonAvoidedDamage": 14413.960995334113,
-						"comboDamage": 14413.960995334113,
-						"chargeTime": 0.4148512459490675,
+						"dps": 7398.152823864626,
+						"baseDmg": 3447.32384959748,
+						"modifiedDamage": 13444.563013430174,
+						"nonAvoidedDamage": 13444.563013430174,
+						"comboDamage": 13444.563013430174,
+						"chargeTime": 0.4172864677871092,
 						"animationTime": 1.4
 					}
 				},
@@ -17941,32 +17941,16 @@
 					"weapon": "Hornito",
 					"ammo": "Castellanos",
 					"helm": "Grand Helm",
-					"armor": "Maximillian",
+					"armor": "Diamond Armor",
 					"accessory": "Germinas Boots",
 					"dps": {
-						"dps": 7115.109361370304,
-						"baseDmg": 3310.9910486017357,
-						"modifiedDamage": 12912.865089546769,
-						"nonAvoidedDamage": 12912.865089546769,
-						"comboDamage": 12912.865089546769,
-						"chargeTime": 0.4148512459490675,
+						"dps": 6627.6958399802415,
+						"baseDmg": 3088.3133237448747,
+						"modifiedDamage": 12044.42196260501,
+						"nonAvoidedDamage": 12044.42196260501,
+						"comboDamage": 12044.42196260501,
+						"chargeTime": 0.4172864677871092,
 						"animationTime": 1.4
-					}
-				},
-				{
-					"ability": "Attack",
-					"weapon": "Slasher",
-					"helm": "Grand Helm",
-					"armor": "Maximillian",
-					"accessory": "Genji Gloves",
-					"dps": {
-						"dps": 6821.350325455955,
-						"baseDmg": 1962.0033590731468,
-						"modifiedDamage": 7651.813100385272,
-						"nonAvoidedDamage": 7651.813100385272,
-						"comboDamage": 14286.118701933714,
-						"chargeTime": 0.4030105470271208,
-						"animationTime": 1.6913136
 					}
 				},
 				{
@@ -17988,18 +17972,18 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "War Hammer",
+					"weapon": "Slasher",
 					"helm": "Grand Helm",
-					"armor": "Maximillian",
+					"armor": "Diamond Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 4103.870044028874,
-						"baseDmg": 1121.0887116654744,
-						"modifiedDamage": 4372.245975495351,
-						"nonAvoidedDamage": 4372.245975495351,
-						"comboDamage": 9426.702235039193,
-						"chargeTime": 0.4419426725816505,
-						"animationTime": 1.8550848
+						"dps": 5625.314346453507,
+						"baseDmg": 1625.9247540660315,
+						"modifiedDamage": 6341.106540857522,
+						"nonAvoidedDamage": 6341.106540857522,
+						"comboDamage": 11838.998098337976,
+						"chargeTime": 0.4132795603452347,
+						"animationTime": 1.6913136
 					}
 				},
 				{
@@ -18021,17 +18005,33 @@
 				},
 				{
 					"ability": "Attack",
-					"weapon": "Broadaxe",
+					"weapon": "War Hammer",
 					"helm": "Grand Helm",
-					"armor": "Maximillian",
+					"armor": "Diamond Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 2557.7505394298623,
-						"baseDmg": 735.6776753284705,
-						"modifiedDamage": 2869.1429337810355,
-						"nonAvoidedDamage": 2869.1429337810355,
-						"comboDamage": 5356.758716799604,
-						"chargeTime": 0.4030105470271208,
+						"dps": 3384.2089654206593,
+						"baseDmg": 929.0533980848977,
+						"modifiedDamage": 3623.308252531101,
+						"nonAvoidedDamage": 3623.308252531101,
+						"comboDamage": 7811.968538321135,
+						"chargeTime": 0.453273997622328,
+						"animationTime": 1.8550848
+					}
+				},
+				{
+					"ability": "Attack",
+					"weapon": "Broadaxe",
+					"helm": "Grand Helm",
+					"armor": "Diamond Armor",
+					"accessory": "Genji Gloves",
+					"dps": {
+						"dps": 2109.2819042602487,
+						"baseDmg": 609.6608029740476,
+						"modifiedDamage": 2377.6771315987858,
+						"nonAvoidedDamage": 2377.6771315987858,
+						"comboDamage": 4439.180268946092,
+						"chargeTime": 0.4132795603452347,
 						"animationTime": 1.6913136
 					}
 				},
@@ -18105,15 +18105,15 @@
 					"ability": "Attack",
 					"weapon": "Iron Hammer",
 					"helm": "Grand Helm",
-					"armor": "Maximillian",
+					"armor": "Diamond Armor",
 					"accessory": "Genji Gloves",
 					"dps": {
-						"dps": 448.65878608948753,
-						"baseDmg": 122.56389580520555,
-						"modifiedDamage": 477.99919364030166,
-						"nonAvoidedDamage": 477.99919364030166,
-						"comboDamage": 1030.581557462687,
-						"chargeTime": 0.4419426725816505,
+						"dps": 369.98127864891785,
+						"baseDmg": 101.56948571107114,
+						"modifiedDamage": 396.1209942731775,
+						"nonAvoidedDamage": 396.1209942731775,
+						"comboDamage": 854.0495395247874,
+						"chargeTime": 0.453273997622328,
 						"animationTime": 1.8550848
 					}
 				},
@@ -19522,8 +19522,8 @@
 				}
 			],
 			[
-				400.40560150146484,
-				436.2761001586914
+				313.02610000000004,
+				379.7182
 			]
 		]
 	}
