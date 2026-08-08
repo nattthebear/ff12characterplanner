@@ -4,14 +4,15 @@ import { type License, Quickenings, Espers } from "../data/Licenses.ts";
 import { Heap } from "./Heap.ts";
 import { getCoverSet } from "./Adjacency.ts";
 
-export enum Coloring {
+export const Coloring =  {
 	/** character has the license learned */
-	OBTAINED,
+	OBTAINED: 0,
 	/** can be reached from obtained licenses without going through any not yet decided espers or quickenings */
-	CERTAIN,
+	CERTAIN: 1,
 	/** can be reached from obtained and certain licenses, but requires going through a not yet decided esper or quickening */
-	POSSIBLE,
-}
+	POSSIBLE: 2
+} as const;
+export type Coloring = (typeof Coloring)[keyof typeof Coloring];
 
 interface Path {
 	node: License;
