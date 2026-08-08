@@ -1,7 +1,7 @@
-import { describe, snapshot } from "../../test/snapshots";
-import { Boards } from "../data/Boards";
-import { Licenses } from "../data/Licenses";
-import PartyModel from "./PartyModel";
+import { describe, snapshot } from "../../test/snapshots.ts";
+import { Boards } from "../data/Boards.ts";
+import { Licenses } from "../data/Licenses.ts";
+import PartyModel from "./PartyModel.ts";
 
 // A simple deterministic random number generator to provide for snapshot tests
 class XorShift32 {

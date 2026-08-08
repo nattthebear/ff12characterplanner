@@ -1,8 +1,8 @@
-import { Characters } from "../data/Characters";
-import { Board, Boards } from "../data/Boards";
-import { License, Quickenings, Espers } from "../data/Licenses";
-import { Heap } from "./Heap";
-import { getCoverSet } from "./Adjacency";
+import { Characters } from "../data/Characters.ts";
+import { type Board, Boards } from "../data/Boards.ts";
+import { type License, Quickenings, Espers } from "../data/Licenses.ts";
+import { Heap } from "./Heap.ts";
+import { getCoverSet } from "./Adjacency.ts";
 
 export enum Coloring {
 	/** character has the license learned */

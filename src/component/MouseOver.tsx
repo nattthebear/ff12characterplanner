@@ -1,5 +1,5 @@
 import { computePosition, shift, flip } from "@floating-ui/dom";
-import { TPC, effect, h, scheduleUpdate } from "vdomk";
+import { type TPC, effect, h, scheduleUpdate } from "vdomk";
 import "./MouseOver.css";
 
 const Tooltip: TPC<{}> = (_, instance) => {

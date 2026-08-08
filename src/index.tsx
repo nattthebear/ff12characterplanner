@@ -26,8 +26,8 @@ import "modern-normalize/modern-normalize.css";
 import "./component/shared.css";
 
 import { h, Fragment, createRoot } from "vdomk";
-import CharacterPlanner from "./component/CharacterPlanner";
-import MouseOver from "./component/MouseOver";
+import CharacterPlanner from "./component/CharacterPlanner.tsx";
+import MouseOver from "./component/MouseOver.tsx";
 
 createRoot(
 	document.body,

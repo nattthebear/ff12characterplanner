@@ -1,7 +1,7 @@
 import { describe, it } from "node:test";
 import * as assert from "node:assert/strict";
 
-import { Heap } from "./Heap";
+import { Heap } from "./Heap.ts";
 
 describe("Heap", () => {
 	function cmp(a: number, b: number) {

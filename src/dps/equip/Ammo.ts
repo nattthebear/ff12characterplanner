@@ -1,4 +1,4 @@
-import { buildEquipments } from "./Equipment";
+import { buildEquipments } from "./Equipment.ts";
 
 const Ammos = buildEquipments([
 	{

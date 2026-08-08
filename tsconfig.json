@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "node_modules",
     "outDir": "build/dist",
-    "module": "esnext",
+    "module": "nodenext",
     "target": "esnext",
     "lib": [
       "esnext",
@@ -13,7 +13,9 @@
     "jsx": "react",
 	"jsxFactory": "h",
 	"jsxFragmentFactory": "Fragment",
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
+	"allowImportingTsExtensions": true,
+	"verbatimModuleSyntax": true,
     "rootDir": ".",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,

@@ -1,14 +1,14 @@
-import { Environment, EquipmentPool, Profile } from "./Profile";
-import PartyModel, { Coloring } from "../model/PartyModel";
-import Weapon from "./equip/Weapon";
-import { BodyArmor, Helm } from "./equip/Armor";
-import Accessory from "./equip/Accessory";
-import { License, LicenseByName, LicenseGroups } from "../data/Licenses";
-import { optimize } from "./Optimize";
-import { BaseCharacterStats } from "./BaseCharacterStats";
-import { Attack } from "./ability/Ability";
-import Magicks from "./ability/Magick";
-import Technicks from "./ability/Technick";
+import type { Environment, EquipmentPool, Profile } from "./Profile.ts";
+import PartyModel, { Coloring } from "../model/PartyModel.ts";
+import Weapon from "./equip/Weapon.ts";
+import { BodyArmor, Helm } from "./equip/Armor.ts";
+import Accessory from "./equip/Accessory.ts";
+import { type License, LicenseByName, LicenseGroups } from "../data/Licenses.ts";
+import { optimize } from "./Optimize.ts";
+import { BaseCharacterStats } from "./BaseCharacterStats.ts";
+import { Attack } from "./ability/Ability.ts";
+import Magicks from "./ability/Magick.ts";
+import Technicks from "./ability/Technick.ts";
 
 const battleLores = LicenseGroups.find(g => g.name === "Battle Lore")!.contents;
 const magickLores = LicenseGroups.find(g => g.name === "Magick Lore")!.contents;

@@ -1,5 +1,5 @@
-import { Component, h } from "vdomk";
-import type { Terrain, Weather, ElementalReaction } from "../dps/Profile";
+import { type Component, h } from "vdomk";
+import type { Terrain, Weather, ElementalReaction } from "../dps/Profile.ts";
 
 interface InputProps<T> {
 	value: T;

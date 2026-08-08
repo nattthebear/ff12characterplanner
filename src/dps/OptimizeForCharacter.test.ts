@@ -1,12 +1,12 @@
-import { describe, snapshot } from "../../test/snapshots";
+import { describe, snapshot } from "../../test/snapshots.ts";
 import * as assert from "node:assert/strict";
 
-import { defaultEnvironment, Environment } from "./Profile";
-import PartyModel from "../model/PartyModel";
-import { Boards } from "../data/Boards";
-import { LicenseByName } from "../data/Licenses";
-import { optimizeForCharacter } from "./OptimizeForCharacter";
-import { OptimizerResult } from "./Optimize";
+import { defaultEnvironment, type Environment } from "./Profile.ts";
+import PartyModel from "../model/PartyModel.ts";
+import { Boards } from "../data/Boards.ts";
+import { LicenseByName } from "../data/Licenses.ts";
+import { optimizeForCharacter } from "./OptimizeForCharacter.ts";
+import type { OptimizerResult } from "./Optimize.ts";
 
 enum Job {
 	WhiteMage,

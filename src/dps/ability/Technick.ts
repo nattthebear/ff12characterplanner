@@ -1,5 +1,5 @@
-import { LicenseByName } from "../../data/Licenses";
-import { AbilityBase } from "./Ability";
+import { LicenseByName } from "../../data/Licenses.ts";
+import type { AbilityBase } from "./Ability.ts";
 
 
 const l = LicenseByName;

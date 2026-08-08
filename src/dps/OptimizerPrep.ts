@@ -1,5 +1,5 @@
-import { Magick } from "./ability/Magick";
-import { Technick } from "./ability/Technick";
+import type { Magick } from "./ability/Magick.ts";
+import type { Technick } from "./ability/Technick.ts";
 import {
 	Equipment,
 	KEY_adrenaline, KEY_agateRing, KEY_animationType, KEY_berserk, KEY_bravery, KEY_brawler, KEY_cameoBelt, KEY_darkDamage,
@@ -7,8 +7,8 @@ import {
 	KEY_serenity, KEY_spellbreaker, KEY_waterDamage, KEY_windDamage, LENGTH_Shared, MASK_Hazard, MASK_Shared, MASK_Unique, SKEY_attack,
 	SKEY_darkBonus, SKEY_earthBonus, SKEY_fireBonus, SKEY_holyBonus, SKEY_iceBonus, SKEY_lightningBonus, SKEY_mag, SKEY_spd, SKEY_str,
 	SKEY_vit, SKEY_waterBonus, SKEY_windBonus
-} from "./equip/Equipment";
-import { Environment, Profile } from "./Profile";
+} from "./equip/Equipment.ts";
+import type { Environment, Profile } from "./Profile.ts";
 
 interface OptimizerKeys {
 	hazardUniqueMask: number;

@@ -1,4 +1,4 @@
-import PartyModel from "../model/PartyModel";
+import PartyModel from "../model/PartyModel.ts";
 
 export interface State {
 	party: PartyModel;

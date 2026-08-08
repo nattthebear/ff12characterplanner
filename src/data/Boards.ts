@@ -1,5 +1,5 @@
-import { Aquarius, Aries, Cancer, Capricorn, Gemini, Leo, Libra, Pisces, Sagittarius, Scorpio, Taurus, Virgo } from "./Images";
-import { License, LicenseByName } from "./Licenses";
+import { Aquarius, Aries, Cancer, Capricorn, Gemini, Leo, Libra, Pisces, Sagittarius, Scorpio, Taurus, Virgo } from "./Images.ts";
+import { type License, LicenseByName } from "./Licenses.ts";
 
 const rawJobs = [{
 	name: "White Mage",
