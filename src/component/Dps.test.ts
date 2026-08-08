@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { defaultEnvironment } from "../dps/Profile.ts";
 import PartyModel from "../model/PartyModel.ts";
 import { Boards } from "../data/Boards.ts";
-import { buildOptions } from "./Dps.tsx";
+import { buildOptions } from "./DpsOptions.ts";
 import { Helm, BodyArmor } from "../dps/equip/Armor.ts";
 import type { Equipment } from "../dps/equip/Equipment.ts";
 import Accessory from "../dps/equip/Accessory.ts";
