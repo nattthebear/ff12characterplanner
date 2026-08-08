@@ -1,6 +1,7 @@
 import { Environment, EquipmentPool, Profile } from "./Profile";
 import PartyModel, { Coloring } from "../model/PartyModel";
 import Weapon from "./equip/Weapon";
+import Ammos from "./equip/Ammo";
 import { BodyArmor, Helm } from "./equip/Armor";
 import Accessory from "./equip/Accessory";
 import { License, LicenseByName, LicenseGroups } from "../data/Licenses";
@@ -39,6 +40,11 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel, forced?
 	}
 
 	let weapons = Weapon.filter(w => filterThing(w) && (e.allowCheaterGear || w.attack! <= 150));
+	if (forced?.ammos === null) {
+		// 'None' ammo: weapons that need ammo (bow/xbow/gun/handbomb) can't be used
+		const requiresAmmo = new Set(Ammos.map(a => a.animationType));
+		weapons = weapons.filter(w => !requiresAmmo.has(w.animationType));
+	}
 	const pool: EquipmentPool = {
 		weapons,
 		ammos: forced?.ammos === null ? [] : forced?.ammos ? [forced.ammos] : undefined,

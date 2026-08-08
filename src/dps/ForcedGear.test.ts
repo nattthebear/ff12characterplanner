@@ -11,7 +11,7 @@ import Accessory from "./equip/Accessory";
 import Ammos from "./equip/Ammo";
 
 // Job board indices (see Boards.ts / the existing OptimizeForCharacter.test.ts Job enum).
-const Job = { WhiteMage: 0, Uhlan: 1, Knight: 4, Foebreaker: 7, Archer: 8 } as const;
+const Job = { WhiteMage: 0, Uhlan: 1, Machinist: 2, Knight: 4, TimeBattlemage: 6, Foebreaker: 7, Archer: 8 } as const;
 
 // Collect every result optimizeForCharacter yields for the given setup.
 function collect(e: Environment, party: PartyModel, forced?: ForcedGear): OptimizerResult[] {
@@ -96,6 +96,21 @@ describe("ForcedGear", () => {
 		const forced = collect(testEnv(0), partyWithJob(Job.Knight), { ability: "attack", ammos: null });
 		assert(forced.length > 0);
 		assert(forced.every(r => r.doll.ammo === undefined));
+	});
+
+	// "None" ammo filters out (bow/xbow/gun/handbomb).
+	it("none ammo filters out weapons that require ammo", () => {
+		const jobByType: Record<string, number> = {
+			bow: Job.Archer,
+			xbow: Job.TimeBattlemage,
+			gun: Job.Machinist,
+			handbomb: Job.Foebreaker,
+		};
+		for (const [type, job] of Object.entries(jobByType)) {
+			const forced = collect(testEnv(0), partyWithJob(job), { ability: "attack", ammos: null });
+			assert(forced.length > 0, `${type}: some results exist`);
+			assert(forced.every(r => r.doll.weapon.animationType !== type), `${type}: no ammo-requiring weapons`);
+		}
 	});
 
 	// Forcing every equipment slot to null must leave all armor slots empty.
