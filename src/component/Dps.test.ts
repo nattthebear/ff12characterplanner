@@ -19,20 +19,24 @@ const FOEBREAKER = 7;    // Hand-bombs
 const WHITE_MAGE = 0;    // no ammo weapons
 const UHLAN = 1;        // Heavy Armor
 
+const noCheaterGearEnvironment = { ...defaultEnvironment, allowCheaterGear: false };
+// ammo for secret gear considered if active (Seitengrat adds bows for everyone)
+const cheaterGearEnvironment = { ...defaultEnvironment, allowCheaterGear: true };
+
 // ammo options for the given job and character
-function ammos(job: number, character = 0, env = defaultEnvironment) {
+function ammos(job: number, character = 0, env = noCheaterGearEnvironment) {
 	const party = new PartyModel().addJob(character, Boards[job]);
 	return buildOptions(env, party, character).ammos;
 }
 
 // ammo options for the given character with the given job boards
-function options(character = 0, env = defaultEnvironment, ...jobs: number[]) {
+function options(character = 0, env = noCheaterGearEnvironment, ...jobs: number[]) {
 	const party = jobs.reduce((p, j) => p.addJob(character, Boards[j]), new PartyModel());
 	return buildOptions(env, party, character).ammos;
 }
 
 // helm/armor/accessory options for a character with the given job board
-function gear(job: number, character = 0, env = defaultEnvironment) {
+function gear(job: number, character = 0, env = noCheaterGearEnvironment) {
 	const party = new PartyModel().addJob(character, Boards[job]);
 	return buildOptions(env, party, character);
 }
@@ -86,7 +90,7 @@ describe("ammo dropdown options", () => {
 		assert.ok(!ammos(WHITE_MAGE).some(a => a.endsWith("Bombs")));
 	});
 	it("combined bow+gun licenses: arrows and shots, no bolts or bombs", () => {
-		const list = options(0, defaultEnvironment, ARCHER, MACHINIST);
+		const list = options(0, noCheaterGearEnvironment, ARCHER, MACHINIST);
 		assert.ok(list.includes("Onion Arrows"));
 		assert.ok(list.includes("Onion Shot"));
 		assert.ok(!list.includes("Onion Bolts"));
@@ -95,7 +99,7 @@ describe("ammo dropdown options", () => {
 	});
 
 	it("combined gun+crossbow licenses: shots and bolts, no arrows or bombs", () => {
-		const list = options(0, defaultEnvironment, MACHINIST, TIME_BATTLEMAGE);
+		const list = options(0, noCheaterGearEnvironment, MACHINIST, TIME_BATTLEMAGE);
 		assert.ok(list.includes("Onion Shot"));
 		assert.ok(list.includes("Onion Bolts"));
 		assert.ok(!list.includes("Onion Arrows"));
@@ -104,12 +108,12 @@ describe("ammo dropdown options", () => {
 	});
 
 	it("allowCertainLicenses off: whole-board CERTAIN licenses no longer count", () => {
-		const env = { ...defaultEnvironment, allowCertainLicenses: false };
+		const env = { ...noCheaterGearEnvironment, allowCertainLicenses: false};
 		assert.deepEqual(ammos(ARCHER, 0, env), []);
 	});
 
 	it("allowCertainLicenses off: innate OBTAINED licenses still count", () => {
-		const env = { ...defaultEnvironment, allowCertainLicenses: false };
+		const env = { ...noCheaterGearEnvironment, allowCertainLicenses: false };
 		const list = ammos(WHITE_MAGE, 1, env);
 		assert.ok(list.includes("Onion Shot"));
 		assert.ok(list.every(a => a.endsWith("Shot")));
@@ -130,6 +134,24 @@ describe("ammo dropdown options", () => {
 		}
 	});
 
+	it("cheater gear on: arrows selectable without any bow license", () => {
+		const list = buildOptions(cheaterGearEnvironment, new PartyModel(), 5).ammos;
+		assert.ok(list.includes("Onion Arrows"));
+		assert.ok(list.every(a => a.endsWith("Arrows")));
+	});
+
+	it("cheater gear on: Balthier Monk/Black Mage can select arrows", () => {
+		const party = new PartyModel().addJob(1, Boards[5]).addJob(1, Boards[9]);
+		const list = buildOptions(cheaterGearEnvironment, party, 1).ammos;
+		assert.ok(list.includes("Onion Arrows"));
+		assert.ok(list.includes("Onion Shot"));
+		assert.ok(!list.includes("Onion Bolts"));
+		assert.ok(!list.includes("Onion Bombs"));
+	});
+
+	it("cheater gear off: no arrows without a bow license", () => {
+		assert.deepEqual(buildOptions(noCheaterGearEnvironment, new PartyModel(), 5).ammos, []);
+	});
 });
 
 describe("helm and armor dropdown options", () => {
