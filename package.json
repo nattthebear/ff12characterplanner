@@ -10,14 +10,14 @@
   "type": "module",
   "scripts": {
     "start": "parcel serve ./public/index.html --dist-dir .parcel-dev --public-url / --port 3000",
-    "build": "tsc && rimraf ./build && parcel build ./public/index.html --public-url . --dist-dir build --reporter @parcel/reporter-bundle-analyzer --log-level verbose && node --experimental-loader ts-node/esm bundleDiff.ts",
-    "test": "node --experimental-loader ts-node/esm --experimental-loader ./test/mock-url-module-loader.mjs --test src/model/Heap.test.ts src/dps/OptimizeForCharacter.test.ts src/model/PartyModel.test.ts",
-    "test-profile": "dexnode --experimental-loader ts-node/esm --experimental-loader ./test/mock-url-module-loader.mjs --test src/dps/OptimizeForCharacter.test.ts",
+    "build": "tsc && rimraf ./build && parcel build ./public/index.html --public-url . --dist-dir build --reporter @parcel/reporter-bundle-analyzer --log-level verbose && node bundleDiff.ts",
+    "test": "node --experimental-loader ./test/mock-url-module-loader.mjs --test src/model/Heap.test.ts src/dps/OptimizeForCharacter.test.ts src/model/PartyModel.test.ts",
+    "test-profile": "dexnode --experimental-loader ./test/mock-url-module-loader.mjs --test src/dps/OptimizeForCharacter.test.ts",
     "deploy": "rimraf ./docs && copyfiles -u 1 ./build/**/* ./docs",
     "start:prod": "http-server ./docs -p 3010",
     "clear-cache": "rimraf ./.parcel-dev ./.parcel-cache",
-    "diff-compare": "node --experimental-loader ts-node/esm diffCompare.ts",
-    "diff-historical": "node --experimental-loader ts-node/esm historicalBundleDiff.ts"
+    "diff-compare": "node diffCompare.ts",
+    "diff-historical": "node historicalBundleDiff.ts"
   },
   "devDependencies": {
     "@parcel/optimizer-blob-url": "^2.12.0",
@@ -34,7 +34,6 @@
     "parcel": "^2.12.0",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.1",
-    "ts-node": "^10.9.1",
     "typescript": "^5.9.0"
   },
   "browserslist": {

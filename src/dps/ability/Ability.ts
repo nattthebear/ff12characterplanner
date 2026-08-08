@@ -1,6 +1,6 @@
-import { License } from "../../data/Licenses";
-import { Magick } from "./Magick";
-import { Technick } from "./Technick";
+import type { License } from "../../data/Licenses.ts";
+import type { Magick } from "./Magick.ts";
+import type { Technick } from "./Technick.ts";
 
 export interface AbilityBase {
 	name: string;

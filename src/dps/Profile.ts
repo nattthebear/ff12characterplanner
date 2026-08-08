@@ -1,5 +1,5 @@
-import type { Ability } from "./ability/Ability";
-import type { Equipment } from "./equip/Equipment";
+import type { Ability } from "./ability/Ability.ts";
+import type { Equipment } from "./equip/Equipment.ts";
 
 export type DamageFormula =
 	"unarmed" | "sword" | "pole" | "mace" | "katana"

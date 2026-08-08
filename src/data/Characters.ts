@@ -1,4 +1,4 @@
-import { License, LicenseByName } from "./Licenses";
+import { type License, LicenseByName } from "./Licenses.ts";
 
 export interface Character {
 	name: string;

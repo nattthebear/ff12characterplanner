@@ -1,15 +1,15 @@
-import { h, Fragment, TPC, scheduleUpdate, VNode } from "vdomk";
-import PartyModel from "../model/PartyModel";
-import { optimizeForCharacter } from "../dps/OptimizeForCharacter";
-import { OptimizerResult } from "../dps/Optimize";
-import { Characters } from "../data/Characters";
+import { h, Fragment, type TPC, scheduleUpdate, type VNode } from "vdomk";
+import PartyModel from "../model/PartyModel.ts";
+import { optimizeForCharacter } from "../dps/OptimizeForCharacter.ts";
+import type { OptimizerResult } from "../dps/Optimize.ts";
+import { Characters } from "../data/Characters.ts";
 import "./Dps.css";
-import { Environment, defaultEnvironment } from "../dps/Profile";
-import { CalculateResult } from "../dps/Calculate";
-import { makeStore } from "../store/MakeStore";
-import { Ability } from "../dps/ability/Ability";
-import { AllElements, Equipment } from "../dps/equip/Equipment";
-import { BoolInput, ElementInput, NumberInput, TerrainInput, WeatherInput } from "./Dps.Inputs";
+import { type Environment, defaultEnvironment } from "../dps/Profile.ts";
+import type { CalculateResult } from "../dps/Calculate.ts";
+import { makeStore } from "../store/MakeStore.ts";
+import type { Ability } from "../dps/ability/Ability.ts";
+import { AllElements, Equipment } from "../dps/equip/Equipment.ts";
+import { BoolInput, ElementInput, NumberInput, TerrainInput, WeatherInput } from "./Dps.Inputs.tsx";
 
 export interface Props {
 	party: PartyModel;

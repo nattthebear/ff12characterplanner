@@ -1,9 +1,9 @@
-import { Profile, Environment, PaperDoll, createProfile, EquipmentPool } from "./Profile";
-import { calculate, CalculateResult } from "./Calculate";
-import { filterEquippables, getOptimizerKeys } from "./OptimizerPrep";
-import Ammos from "./equip/Ammo";
-import { Ability, Attack } from "./ability/Ability";
-import type { Equipment } from "./equip/Equipment";
+import { type Profile, type Environment, type PaperDoll, createProfile, type EquipmentPool } from "./Profile.ts";
+import { calculate, type CalculateResult } from "./Calculate.ts";
+import { filterEquippables, getOptimizerKeys } from "./OptimizerPrep.ts";
+import Ammos from "./equip/Ammo.ts";
+import type { Ability } from "./ability/Ability.ts";
+import type { Equipment } from "./equip/Equipment.ts";
 
 export interface OptimizerResult {
 	ability: Ability;

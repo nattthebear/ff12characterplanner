@@ -1,10 +1,10 @@
-import { h, TPC } from "vdomk";
-import CharacterPanel from "./CharacterPanel";
-import LicenseBoard from "./LicenseBoard";
-import QeBoard from "./QeBoard";
-import Dps from "./Dps";
-import { useStore } from "../store/Store";
-import PartyModel from "../model/PartyModel";
+import { h, type TPC } from "vdomk";
+import CharacterPanel from "./CharacterPanel.tsx";
+import LicenseBoard from "./LicenseBoard.tsx";
+import QeBoard from "./QeBoard.tsx";
+import Dps from "./Dps.tsx";
+import { useStore } from "../store/Store.ts";
+import PartyModel from "../model/PartyModel.ts";
 
 import "./CharacterPlanner.css";
 

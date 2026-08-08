@@ -1,6 +1,6 @@
-import { Board } from "../data/Boards";
-import { AllLimitedLicenses, License } from "../data/Licenses";
-import PartyModel, { Coloring } from "./PartyModel";
+import type { Board } from "../data/Boards.ts";
+import { AllLimitedLicenses, type License } from "../data/Licenses.ts";
+import PartyModel, { Coloring } from "./PartyModel.ts";
 
 function generateLicenseSet(characterIndex: number, initialParty: PartyModel, oldColors: Map<License, Coloring>, mist: License) {
 	const party = initialParty.add(characterIndex, mist);

@@ -1,6 +1,6 @@
-import type { License } from "../../data/Licenses";
-import type { AnimationClass, DamageFormula, Profile } from "../Profile";
-import { Ability } from "../ability/Ability";
+import type { License } from "../../data/Licenses.ts";
+import type { AnimationClass, DamageFormula, Profile } from "../Profile.ts";
+import type { Ability } from "../ability/Ability.ts";
 
 export const AllElements = ["fire", "ice", "lightning", "water", "wind", "earth", "dark", "holy"] as const;
 

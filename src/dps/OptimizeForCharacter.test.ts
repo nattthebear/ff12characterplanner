@@ -1,36 +1,38 @@
-import { describe, snapshot } from "../../test/snapshots";
+import { describe, snapshot } from "../../test/snapshots.ts";
 import * as assert from "node:assert/strict";
 
-import { defaultEnvironment, Environment } from "./Profile";
-import PartyModel from "../model/PartyModel";
-import { Boards } from "../data/Boards";
-import { LicenseByName } from "../data/Licenses";
-import { optimizeForCharacter } from "./OptimizeForCharacter";
-import { OptimizerResult } from "./Optimize";
+import { defaultEnvironment, type Environment } from "./Profile.ts";
+import PartyModel from "../model/PartyModel.ts";
+import { Boards } from "../data/Boards.ts";
+import { LicenseByName } from "../data/Licenses.ts";
+import { optimizeForCharacter } from "./OptimizeForCharacter.ts";
+import type { OptimizerResult } from "./Optimize.ts";
 
-enum Job {
-	WhiteMage,
-	Uhlan,
-	Machinist,
-	RedBattlemage,
-	Knight,
-	Monk,
-	TimeBattlemage,
-	Foebreaker,
-	Archer,
-	BlackMage,
-	Bushi,
-	Shikari
-};
+const Job = {
+	WhiteMage: 0,
+	Uhlan: 1,
+	Machinist: 2,
+	RedBattlemage: 3,
+	Knight: 4,
+	Monk: 5,
+	TimeBattlemage: 6,
+	Foebreaker: 7,
+	Archer: 8,
+	BlackMage: 9,
+	Bushi: 10,
+	Shikari: 11,
+} as const;
+type Job = (typeof Job)[keyof typeof Job];
 
-enum Character {
-	Vaan,
-	Balthier,
-	Fran,
-	Basch,
-	Ashe,
-	Penelo
-};
+const Character = {
+	Vaan: 0,
+	Balthier: 1,
+	Fran: 2,
+	Basch: 3,
+	Ashe: 4,
+	Penelo: 5,
+} as const;
+type Character = (typeof Character)[keyof typeof Character];
 
 function resultToSnapshottable(r: OptimizerResult) {
 	// OptimizerResult is snapshottable, but contains a bunch of fluff we don't need
