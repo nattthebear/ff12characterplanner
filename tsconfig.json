@@ -23,7 +23,6 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noUnusedLocals": false,
-    "experimentalDecorators": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -31,7 +30,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+	"erasableSyntaxOnly": true
   },
   "exclude": [
     "node_modules",
