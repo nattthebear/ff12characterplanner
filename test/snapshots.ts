@@ -1,5 +1,7 @@
 import { describe as baseDescribe, it as baseIt, test } from "node:test";
 import * as fs from "node:fs";
+import * as path from "node:path";
+import { fileURLToPath } from "node:url";
 
 let activeFile = "";
 let activeSuite = "";
@@ -24,12 +26,11 @@ export function snapshot(value: any) {
 	if (!activeFile.startsWith("file:///")) {
 		throw new Error("Bad activeFile");
 	}
-	const pathParts = activeFile.slice(7).split("/");
-	const testPath = pathParts.slice(0, -1).join("/");
-	const testFileName = pathParts.slice(-1);
+	const testPath = path.dirname(fileURLToPath(activeFile));
+	const testFileName = path.basename(fileURLToPath(activeFile));
 
-	const snapFilePath = testPath + "/__snapshots__/";
-	const snapFileLocation = snapFilePath + testFileName + ".snap";
+	const snapFilePath = path.join(testPath, "__snapshots__");
+	const snapFileLocation = path.join(snapFilePath, testFileName + ".snap");
 
 	let data: Record<string, Record<string, any[]>>;
 	if (fs.existsSync(snapFileLocation)) {
