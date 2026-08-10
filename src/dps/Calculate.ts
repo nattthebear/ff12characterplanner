@@ -73,6 +73,8 @@ export interface CalculateResult {
 	nonAvoidedDamage: number;
 	/** Damage done per action including the possibility of crits or combos */
 	comboDamage: number;
+	/** If "crit", the comboDamage value is actually a crit adjustment.  If "aoe", it's a multitarget adjustment. */
+	comboType: "none" | "combo" | "crit" | "aoe";
 	/** Charge time per action */
 	chargeTime: number;
 	/** Animation time per action including the possibility of combos */
@@ -228,8 +230,9 @@ function calculateTechnick(t: Technick, p: Profile, e: Environment): CalculateRe
 	}
 
 	let comboDamage = nonAvoidedDamage;
+	let comboType: "none" | "aoe" = "none";
 	let animationTime = t.at / 30;
-	if (t.aoe != null) {
+	if (t.aoe != null && e.targetCount > 1) {
 		const extraHitTime = t.aoe / 30;
 		const extraHits = e.targetCount - 1;
 		animationTime += extraHits * extraHitTime;
@@ -244,6 +247,7 @@ function calculateTechnick(t: Technick, p: Profile, e: Environment): CalculateRe
 			// GilToss splits damage, so doesn't add damage for AOE
 			comboDamage *= e.targetCount;
 		}
+		comboType = "aoe";
 	}
 
 	const chargeTime = calcChargeTime(t.ct, p, e)
@@ -255,6 +259,7 @@ function calculateTechnick(t: Technick, p: Profile, e: Environment): CalculateRe
 		modifiedDamage,
 		nonAvoidedDamage,
 		comboDamage,
+		comboType,
 		chargeTime,
 		animationTime
 	};
@@ -282,12 +287,14 @@ function calculateMagic(m: Magick, p: Profile, e: Environment): CalculateResult 
 	const nonAvoidedDamage = modifiedDamage;	
 
 	let comboDamage = nonAvoidedDamage;
+	let comboType: "none" | "aoe" = "none";
 	let animationTime = m.at / 30;
-	if (m.aoe != null) {
+	if (m.aoe != null && e.targetCount > 1) {
 		const extraHitTime = m.aoe / 30;
 		const extraHits = e.targetCount - 1;
 		animationTime += extraHits * extraHitTime;
 		comboDamage *= e.targetCount;
+		comboType = "aoe";
 	}
 
 	const chargeTime = calcChargeTime(m.ct, p, e)
@@ -299,6 +306,7 @@ function calculateMagic(m: Magick, p: Profile, e: Environment): CalculateResult 
 		modifiedDamage,
 		nonAvoidedDamage,
 		comboDamage,
+		comboType,
 		chargeTime,
 		animationTime
 	};
@@ -388,6 +396,7 @@ function calculateAttack(p: Profile, e: Environment): CalculateResult {
 
 	// compute criticals and combos
 	let comboDamage = nonAvoidedDamage;
+	let comboType: "none" | "combo" | "crit" = "none";
 
 	const timings = AnimationTimings[p.animationType][e.character];
 	let animationTime = timings.initialSwing;
@@ -400,6 +409,7 @@ function calculateAttack(p: Profile, e: Environment): CalculateResult {
 			// critical
 			// (damageType check is for fake Excalibur, etc.)
 			comboDamage *= 1 + cr;
+			comboType = "crit";
 		} else {
 			// combo
 			let extraHits: number;
@@ -415,6 +425,7 @@ function calculateAttack(p: Profile, e: Environment): CalculateResult {
 			}
 			animationTime += extraHits * extraHitTime * cr;
 			comboDamage *= (1 + extraHits * cr);
+			comboType = "combo";
 		}
 	}
 
@@ -427,6 +438,7 @@ function calculateAttack(p: Profile, e: Environment): CalculateResult {
 		modifiedDamage,
 		nonAvoidedDamage,
 		comboDamage,
+		comboType,
 		chargeTime,
 		animationTime
 	};

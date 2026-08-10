@@ -209,13 +209,30 @@ function AbilityCell(props: { value: Ability }) {
 	</td>;
 }
 
+function comboDamageString(value: CalculateResult) {
+	let prefix: string;
+	switch (value.comboType) {
+		case "aoe":
+			prefix = "AoE Damage";
+			break;
+		case "combo":
+			prefix = "Comboed Damage";
+			break;
+		case "crit":
+			prefix = "Crited Damage";
+			break;
+		default:
+			return "";
+	}
+	return `${prefix}: ${Math.round(value.comboDamage)}\n`;
+}
+
 function DpsCell(props: { value: CalculateResult }) {
 	const { value } = props;
 	const label = `Base Damage: ${Math.round(value.baseDmg)}
 Modified Damage: ${Math.round(value.modifiedDamage)}
 Not Avoided Damage:  ${Math.round(value.nonAvoidedDamage)}
-Comboed Damage: ${Math.round(value.comboDamage)}
-Charge Time: ${value.chargeTime.toFixed(2)}s
+${comboDamageString(value)}Charge Time: ${value.chargeTime.toFixed(2)}s
 Animation Time: ${value.animationTime.toFixed(2)}s`;
 	return <td
 		class="r"
