@@ -27,16 +27,22 @@ export function optimize(startingProfile: Profile, e: Environment, pool: Equipme
 	const possibleKeys = getOptimizerKeys(createProfile(startingProfile, doll), e);
 
 	const weapons = filterEquippables(pool.weapons, possibleKeys, false) as Equipment[];
-	const armors = filterEquippables(pool.armors, possibleKeys, true);
-	const helms = filterEquippables(pool.helms, possibleKeys, true);
-	const accessories = filterEquippables(pool.accessories, possibleKeys, true);
+	// Single-item pools are explicitly forced by the caller and must not be eliminated.
+	const armors = pool.armors.length === 1 ? pool.armors : filterEquippables(pool.armors, possibleKeys, true);
+	const helms = pool.helms.length === 1 ? pool.helms : filterEquippables(pool.helms, possibleKeys, true);
+	const accessories = pool.accessories.length === 1 ? pool.accessories : filterEquippables(pool.accessories, possibleKeys, true);
 
 	let topDps: CalculateResult | undefined;
 	let topDoll: PaperDoll | undefined;
 
 	for (const weapon of weapons) {
 		doll.weapon = weapon;
-		const ammos = filterEquippables(Ammos.filter(a => a.animationType === weapon.animationType), possibleKeys, false);
+		const forcedAmmo = pool.ammos?.length === 1 ? pool.ammos[0] : undefined;
+		const ammos = pool.ammos?.length === 0
+			? [undefined]
+			: forcedAmmo && forcedAmmo.animationType === weapon.animationType
+				? pool.ammos!
+				: filterEquippables(Ammos.filter(a => a.animationType === weapon.animationType), possibleKeys, false);
 		for (const ammo of ammos) {
 			doll.ammo = ammo;
 			for (const armor of armors) {

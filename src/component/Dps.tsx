@@ -1,6 +1,7 @@
 import { h, Fragment, type TPC, scheduleUpdate, type VNode } from "vdomk";
 import PartyModel from "../model/PartyModel.ts";
 import { optimizeForCharacter } from "../dps/OptimizeForCharacter.ts";
+import type { ForcedGear } from "../dps/OptimizeForCharacter.ts";
 import type { OptimizerResult } from "../dps/Optimize.ts";
 import { Characters } from "../data/Characters.ts";
 import "./Dps.css";
@@ -9,7 +10,11 @@ import type { CalculateResult } from "../dps/Calculate.ts";
 import { makeStore } from "../store/MakeStore.ts";
 import type { Ability } from "../dps/ability/Ability.ts";
 import { AllElements, Equipment } from "../dps/equip/Equipment.ts";
+import { BodyArmor, Helm } from "../dps/equip/Armor.ts";
+import Accessory from "../dps/equip/Accessory.ts";
+import Ammos from "../dps/equip/Ammo.ts";
 import { BoolInput, ElementInput, NumberInput, TerrainInput, WeatherInput } from "./Dps.Inputs.tsx";
+import { buildOptions, type CharacterOptions } from "./DpsOptions.ts";
 
 export interface Props {
 	party: PartyModel;
@@ -220,87 +225,210 @@ Animation Time: ${value.animationTime.toFixed(2)}s`;
 	</td>;
 }
 
+interface Filters {
+	ability: string;
+	topN: number;
+	ammo: string;
+	helm: string;
+	armor: string;
+	accessory: string;
+}
+
+const defaultFilters = (): Filters => ({
+	ability: "",
+	topN: 5,
+	ammo: "",
+	helm: "",
+	armor: "",
+	accessory: "",
+});
+
+const ABILITY_OPTIONS: [string, string][] = [
+	["", "All"],
+	["attack", "Attack"],
+	["magick", "Magic"],
+	["technick", "Technick"],
+];
+
+const NO_EQUIP = "__none__";
+// builds dropdown options: empty value = auto, "__none__" = no equipment, then the given items
+const dropdownOptions = (items: string[]): [string, string][] => [
+	["", "Auto"],
+	[NO_EQUIP, "None"],
+	...items.map(item => [item, item] as [string, string]),
+];
+
+
+// keep only results matching the chosen ability/helm/armor/accessory and the top-N limit
+function applyFilters(results: OptimizerResult[], filters: Filters) {
+	let list = results;
+	if (filters.ability) {
+		list = list.filter(r => r.ability.alg === filters.ability);
+	}
+	if (filters.helm) {
+		list = list.filter(r => filters.helm === NO_EQUIP ? !r.doll.helm : r.doll.helm?.name === filters.helm);
+	}
+	if (filters.armor) {
+		list = list.filter(r => filters.armor === NO_EQUIP ? !r.doll.armor : r.doll.armor?.name === filters.armor);
+	}
+	if (filters.accessory) {
+		list = list.filter(r => filters.accessory === NO_EQUIP ? !r.doll.accessory : r.doll.accessory?.name === filters.accessory);
+	}
+	if (filters.topN) {
+		list = list.slice(0, filters.topN);
+	}
+	return list;
+}
+
+function Dropdown(props: { value: string; options: readonly (readonly [string, string])[]; onChange: (value: string) => void }) {
+	return <select
+		class="filter"
+		value={props.value}
+		onChange={ev => props.onChange(ev.currentTarget.value)}
+	>
+		{props.options.map(([value, label]) => <option value={value}>{label}</option>)}
+	</select>;
+}
+
 interface PartyDpsProps {
 	party: PartyModel;
 	env: Environment;
 }
 
 interface PartyDpsState {
-	results: OptimizerResult[][] | undefined;
-	for: PartyDpsProps | undefined;
-	nodes: VNode;
+	results: OptimizerResult[][];
+	for: (PartyDpsProps | undefined)[];
+	/** The filters each character's results were computed with, so stale ones can be recomputed. */
+	computedFilters: (Filters | undefined)[];
 }
 
-function renderComponents(results: NonNullable<PartyDpsState["results"]>) {
-	return results.map((result, idx) => <SingleCharacterDps name={Characters[idx].name} results={result} />);
+// one SingleCharacterDps row per character, constrained by the setFilter
+function renderComponents(results: OptimizerResult[][], env: Environment, party: PartyModel, filters: Filters[], setFilter: (character: number, key: keyof Filters, value: Filters[keyof Filters]) => void) {
+	return results.map((result, idx) => <SingleCharacterDps
+		name={Characters[idx].name}
+		results={result}
+		filters={filters[idx]}
+		setFilter={(key, value) => setFilter(idx, key, value)}
+		options={buildOptions(env, party, idx)}
+	/>);
 }
 
+// turn dropdown selections into the gear constraints the optimizer must respect
+function forcedGear(filters: Filters, env: Environment, party: PartyModel, character: number): ForcedGear {
+	const gear: ForcedGear = {};
+	if (filters.ability) {
+		gear.ability = filters.ability as Ability["alg"];
+	}
+	if (filters.ammo) {
+		gear.ammos = Ammos.find(x => x.name === filters.ammo) ?? null;
+	}
+	if (filters.helm) {
+		gear.helms = Helm.find(x => x.name === filters.helm) ?? null;
+	}
+	if (filters.armor) {
+		gear.armors = BodyArmor.find(x => x.name === filters.armor) ?? null;
+	}
+	if (filters.accessory) {
+		gear.accessories = Accessory.find(x => x.name === filters.accessory) ?? null;
+	}
+	return gear;
+}
+
+// stateful view: recomputes each character when their party/env/filters change
 const PartyDps: TPC<PartyDpsProps> = (props, instance) => {
 	let state: PartyDpsState = {
-		results: undefined,
-		for: undefined,
-		nodes: <tr><td>Working...</td></tr>
+		results: Array.from({ length: 6 }, () => []),
+		for: Array.from({ length: 6 }, () => undefined),
+		computedFilters: Array.from({ length: 6 }, () => undefined),
 	};
+	let filters: Filters[] = Array.from({ length: 6 }, () => defaultFilters());
+	const inflight = new Set<number>();
 
-	const notStale = () => state.for && state.for.env === props.env && state.for.party === props.party;
+	// true when the stored result no longer matches the current party, env, or filters
+	const charStale = (i: number) =>
+		state.for[i]?.party !== props.party || state.for[i]?.env !== props.env || state.computedFilters[i] !== filters[i];
 
-	async function calculate() {
-		const results: OptimizerResult[][] = [[], [], [], [], [], []];
+	// run the optimizer for one character, aborting and rescheduling if inputs changed mid-run
+	async function calculate(i: number) {
 		const { party, env } = props;
+		const filter = filters[i];
+		const characterEnv = { ...env, character: i };
 
+		const dest: OptimizerResult[] = [];
 		let time = performance.now();
 		let wentAsync = false;
 
-		for (let i = 0; i < 6; i++) {
-			const dest = results[i];
-			const characterEnv = { ...env, character: i };
-			for (const result of optimizeForCharacter(characterEnv, party)) {
-				if (performance.now() - time > 120) {
-					// Interrupt processing to aid responsiveness
-					await new Promise(resolve => setTimeout(resolve, 0));
-					wentAsync = true;
-					time = performance.now();
-					if (party !== props.party || env !== props.env) {
-						// stop processing now if this data is already old
-						return;
-					}
+		for (const result of optimizeForCharacter(characterEnv, party, forcedGear(filter, characterEnv, party, i))) {
+			if (performance.now() - time > 120) {
+				// Interrupt processing to aid responsiveness
+				await new Promise(resolve => setTimeout(resolve, 0));
+				wentAsync = true;
+				time = performance.now();
+				if (party !== props.party || env !== props.env || filter !== filters[i]) {
+					// stop processing now if this data is already old, and restart it
+					inflight.delete(i);
+					scheduleUpdate(instance);
+					return;
 				}
-				dest.push(result);
 			}
-			dest.sort((a, b) => b.dps.dps - a.dps.dps);
+			dest.push(result);
 		}
+		dest.sort((a, b) => b.dps.dps - a.dps.dps);
+		inflight.delete(i);
 
 		state = {
-			results,
-			for: {
-				party,
-				env
-			},
-			nodes: renderComponents(results),
+			...state,
+			results: state.results.map((r, idx) => idx === i ? dest : r),
+			for: state.for.map((f, idx) => idx === i ? { party, env } : f),
+			computedFilters: state.computedFilters.map((f, idx) => idx === i ? filter : f),
 		};
 		if (wentAsync) {
 			scheduleUpdate(instance);
 		}
 	}
 
+	// record a new filter for one character and trigger a re-render/recompute
+	const setFilter = (character: number, key: keyof Filters, value: Filters[keyof Filters]) => {
+		filters = filters.map((f, i) => i === character ? { ...f, [key]: value } : f);
+		scheduleUpdate(instance);
+	};
+
 	return nextProps => {
 		props = nextProps;
 
-		if (!notStale()) {
-			calculate();
+		for (let i = 0; i < 6; i++) {
+			if (charStale(i) && !inflight.has(i)) {
+				inflight.add(i);
+				calculate(i);
+			}
 		}
 
-		return <div class={notStale() ? "results" : "results busy"}>
+		const nodes = state.for.some(f => f)
+			? renderComponents(state.results, props.env, props.party, filters, setFilter)
+			: <tr><td>Working...</td></tr>;
+
+		return <div class={state.for.some(f => f) ? "results" : "results busy"}>
 			<table>
 				<tbody>
-					{state.nodes}
+					{nodes}
 				</tbody>
-			</table>	
+			</table>
 		</div>;
 	};
 }
 
-function SingleCharacterDps(props: { name: string, results: OptimizerResult[] }) {
+interface SingleCharacterDpsProps {
+	name: string;
+	results: OptimizerResult[];
+	filters: Filters;
+	setFilter: (key: keyof Filters, value: Filters[keyof Filters]) => void;
+	options: CharacterOptions;
+}
+
+// one character's DPS table: constrained by dropdown selections
+function SingleCharacterDps(props: SingleCharacterDpsProps) {
+	const { filters, options } = props;
+	const list = applyFilters(props.results, filters);
 	return <>
 		<tr class="sticky">
 			<th colSpan={9999}>{props.name}</th>
@@ -314,8 +442,17 @@ function SingleCharacterDps(props: { name: string, results: OptimizerResult[] })
 			<th>Armor</th>
 			<th>Accessory</th>
 		</tr>
+		<tr class="sticky filter-row">
+			<td><input class="filter" type="number" min="0" max="100" value={filters.topN} onChange={ev => props.setFilter("topN", +ev.currentTarget.value)} /></td>
+			<td><Dropdown value={filters.ability} onChange={v => props.setFilter("ability", v)} options={ABILITY_OPTIONS} /></td>
+			<td />
+			<td><Dropdown value={filters.ammo} onChange={v => props.setFilter("ammo", v)} options={dropdownOptions(options.ammos)} /></td>
+			<td><Dropdown value={filters.helm} onChange={v => props.setFilter("helm", v)} options={dropdownOptions(options.helms)} /></td>
+			<td><Dropdown value={filters.armor} onChange={v => props.setFilter("armor", v)} options={dropdownOptions(options.armors)} /></td>
+			<td><Dropdown value={filters.accessory} onChange={v => props.setFilter("accessory", v)} options={dropdownOptions(options.accessories)} /></td>
+		</tr>
 
-		{props.results.map(({ ability, doll, dps }) => <tr class="data-row">
+		{list.map(({ ability, doll, dps }) => <tr class="data-row">
 			<DpsCell value={dps} />
 			<AbilityCell value={ability} />
 			<EqCell value={doll.weapon} />

@@ -18,5 +18,12 @@ export function load(url, context, nextLoad) {
 			source: `const url = ${JSON.stringify("MOCKED" + url)};\nexport default url;\n`,
 		};
 	}
+	if (url.endsWith(".css")) {
+		return {
+			format: "module",
+			shortCircuit: true,
+			source: `export default "";\n`,
+		};
+	}
 	return nextLoad(url);
 }
