@@ -14,19 +14,6 @@ export interface CharacterOptions {
 	accessories: string[];
 }
 
-// Ribbon > Genji Gloves > higher Accessories tier first (rank 0 = best, 24 = worst)
-function accessoryRank(accessory: Equipment): number {
-	const name = accessory.l?.fullName;
-	if (name === "Ribbon") {
-		return 0;
-	}
-	if (accessory.name === "Genji Gloves") {
-		return 1;
-	}
-	const m = /^Accessories (\d+)$/.exec(name ?? "");
-	return m ? 2 + (22 - +m[1]) : 24;
-}
-
 // dropdown lists: only equipment the character can actually equip (and ammo matching their weapons)
 export function buildOptions(env: Environment, party: PartyModel, character: number): CharacterOptions {
 	const licenseMap = party.color(character);
@@ -38,7 +25,6 @@ export function buildOptions(env: Environment, party: PartyModel, character: num
 	const isEquippable = (thing: { l?: License }) => !thing.l || isActive(thing.l);
 	const weaponTypes = new Set(Weapon.filter(w => isEquippable(w) && (env.allowCheaterGear || !SECRET_WEAPONS.has(w.name))).map(w => w.animationType));
 	const accessories = Accessory.filter(isEquippable);
-	accessories.sort((a, b) => accessoryRank(a) - accessoryRank(b) || a.name.localeCompare(b.name));
 	return {
 		ammos: Ammos.filter(a => weaponTypes.has(a.animationType)).map(a => a.name),
 		helms: Helm.filter(isEquippable).map(h => h.name).reverse(),
