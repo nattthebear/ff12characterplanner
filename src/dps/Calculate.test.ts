@@ -47,6 +47,26 @@ describe("Calculate", () => {
 		assert.equal(calculate(withGloves, e).dps, calculate(without, e).dps);
 	});
 
+	it("crit rate is exactly the combo stat", () => {
+		const e: Environment = { ...defaultEnvironment, character: 0, level: 99, percentHp: 1 };
+		const p = createProfile(baseProfile(e), { weapon: Mithuna });
+		p.combo = 0;
+		const noCritDps = calculate(p, e).dps;
+		p.combo = 25;
+		assert.ok(Math.abs(calculate(p, e).dps / noCritDps - 1.25) < 1e-12);
+	});
+
+	it("combo rate is the combo stat times the (no) Genji Gloves multiplier", () => {
+		const e: Environment = { ...defaultEnvironment, character: 0, level: 99, percentHp: 1 };
+		const p = createProfile(baseProfile(e), { weapon: Karkata });
+		p.genjiGloves = false;
+		p.combo = 10;
+		const noGlovesDps = calculate(p, e).dps;
+		p.genjiGloves = true;
+		p.combo = 10 * 0.7 / 1.8; // neutralize genij multiplier
+		assert.ok(Math.abs(calculate(p, e).dps - noGlovesDps) < 1e-9);
+	});
+
 	it("Genji Gloves boosts combos", () => {
 		const e: Environment = { ...defaultEnvironment, character: 0, level: 99, percentHp: 1 };
 		const without = createProfile(baseProfile(e), { weapon: Karkata });

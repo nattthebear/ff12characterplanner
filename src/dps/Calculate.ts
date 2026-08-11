@@ -406,7 +406,7 @@ function calculateAttack(p: Profile, e: Environment): CalculateResult {
 			// critical
 			// (damageType check is for fake Excalibur, etc.)
 			// Genji Gloves don't affect crits
-			const cr = Math.min(1, p.combo * 0.7 / 100);
+			const cr = Math.min(1, p.combo / 100);
 			comboDamage *= 1 + cr;
 			comboType = "crit";
 		} else {
