@@ -67,8 +67,8 @@ const Weapon = buildEquipments([
 	{ name: "Bonebreaker", damageType: "gun", animationType: "mace", attack: 10, chargeTime: 30, combo: 10, },
 	{ name: "Bone of Byblos", l: l("Maces 5"), damageType: "mace", animationType: "mace", attack: 100, chargeTime: 30, combo: 5, },
 
-	{ name: "Gilt Measure", l: l("Measures 1"), damageType: "gun", animationType: "measure", attack: 5, chargeTime: 32, combo: 0, },
-	{ name: "Arc Scale", l: l("Measures 2"), damageType: "gun", animationType: "measure", attack: 10, chargeTime: 32, combo: 0, },
+	{ name: "Gilt Measure", l: l("Measures 1"), damageType: "gun", animationType: "measure", attack: 5, chargeTime: 32, combo: 0, iceDamage: true },
+	{ name: "Arc Scale", l: l("Measures 2"), damageType: "gun", animationType: "measure", attack: 10, chargeTime: 32, combo: 0, waterDamage: true },
 	{ name: "Multiscale", l: l("Measures 2"), damageType: "gun", animationType: "measure", attack: 13, chargeTime: 32, combo: 0, fireDamage: true, },
 	{ name: "Cross Scale", l: l("Measures 3"), damageType: "gun", animationType: "measure", attack: 16, chargeTime: 32, combo: 0, lightningDamage: true, },
 	{ name: "Caliper", l: l("Measures 3"), damageType: "gun", animationType: "measure", attack: 19, chargeTime: 32, combo: 0, windDamage: true, },
