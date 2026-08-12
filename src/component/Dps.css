@@ -40,7 +40,8 @@
 				color: #999;
 
 				&.active {
-					color: #070;
+					color: #000;
+					background: #39ff14;
 					font-weight: bold;
 				}
 			}

@@ -207,7 +207,7 @@ function HpStatus(props: { focusActive: boolean; adrenalineActive: boolean }) {
 			class={props.adrenalineActive ? "active" : ""}
 			aria-label="2x damage with Adrenaline / Spellbreaker"
 		>
-			≤15%
+			{"<20%"}
 		</span>
 	</span>;
 }
