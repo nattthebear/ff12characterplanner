@@ -11,7 +11,7 @@
   "scripts": {
     "start": "parcel serve ./public/index.html --dist-dir .parcel-dev --public-url / --port 3000",
     "build": "tsc && rimraf ./build && parcel build ./public/index.html --public-url . --dist-dir build --reporter @parcel/reporter-bundle-analyzer --log-level verbose && node bundleDiff.ts",
-    "test": "node --experimental-loader ./test/mock-url-module-loader.mjs --test src/model/Heap.test.ts src/dps/ForcedGear.test.ts src/dps/OptimizeForCharacter.test.ts src/model/PartyModel.test.ts src/component/Dps.test.ts",
+    "test": "node --experimental-loader ./test/mock-url-module-loader.mjs --test src/model/Heap.test.ts src/dps/ForcedGear.test.ts src/dps/OptimizeForCharacter.test.ts src/model/PartyModel.test.ts src/component/Dps.test.ts src/dps/Calculate.test.ts",
     "test-profile": "dexnode --experimental-loader ./test/mock-url-module-loader.mjs --test src/dps/OptimizeForCharacter.test.ts",
     "deploy": "rimraf ./docs && copyfiles -u 1 ./build/**/* ./docs",
     "start:prod": "http-server ./docs -p 3010",

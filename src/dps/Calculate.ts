@@ -402,16 +402,17 @@ function calculateAttack(p: Profile, e: Environment): CalculateResult {
 	let animationTime = timings.initialSwing;
 
 	if (p.combo > 0) {
-		/** Adjusted crit/combo rate */
-		const cr = Math.min(1, p.combo * (p.genjiGloves ? 1.8 : 0.7) / 100);
-
 		if (timings.comboSwing === 0 || p.damageType === "gun") {
 			// critical
 			// (damageType check is for fake Excalibur, etc.)
+			// Genji Gloves don't affect crits
+			const cr = Math.min(1, p.combo / 100);
 			comboDamage *= 1 + cr;
 			comboType = "crit";
 		} else {
 			// combo
+			/** Adjusted crit/combo rate */
+			const cr = Math.min(1, p.combo * (p.genjiGloves ? 1.8 : 0.7) / 100);
 			let extraHits: number;
 			const extraHitTime = timings.comboSwing;
 			if (e.percentHp > 25) {

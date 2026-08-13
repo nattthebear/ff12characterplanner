@@ -1,4 +1,5 @@
 import type { Ability } from "./ability/Ability.ts";
+import { Attack } from "./ability/Ability.ts";
 import type { Equipment } from "./equip/Equipment.ts";
 
 export type DamageFormula =
@@ -190,6 +191,46 @@ export interface Profile {
 	/** Is the 1.5x modfifier available? */
 	holyBonus: boolean;
 }
+
+export const defaultProfile: Omit<Profile, "str" | "mag" | "vit" | "spd"> = {
+	ability: Attack,
+	damageType: "unarmed",
+	animationType: "unarmed",
+	attack: 0,
+	combo: 0,
+	chargeTime: 0,
+	brawler: false,
+	berserk: false,
+	haste: false,
+	bravery: false,
+	faith: false,
+	focus: false,
+	adrenaline: false,
+	serenity: false,
+	spellbreaker: false,
+	genjiGloves: false,
+	cameoBelt: false,
+	agateRing: false,
+	swiftness1: false,
+	swiftness2: false,
+	swiftness3: false,
+	fireDamage: false,
+	iceDamage: false,
+	lightningDamage: false,
+	waterDamage: false,
+	windDamage: false,
+	earthDamage: false,
+	darkDamage: false,
+	holyDamage: false,
+	fireBonus: false,
+	iceBonus: false,
+	lightningBonus: false,
+	waterBonus: false,
+	windBonus: false,
+	earthBonus: false,
+	darkBonus: false,
+	holyBonus: false,
+};
 
 export interface PaperDoll {
 	weapon: Equipment;
