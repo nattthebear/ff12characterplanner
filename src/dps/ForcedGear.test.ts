@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 
 import { defaultEnvironment } from "./Profile.ts";
 import type { Environment } from "./Profile.ts";
-import PartyModel from "../model/PartyModel.ts";
+import PartyModel, { Coloring } from "../model/PartyModel.ts";
 import { Boards } from "../data/Boards.ts";
 import { optimizeForCharacter, SECRET_WEAPONS } from "./OptimizeForCharacter.ts";
 import type { ForcedGear } from "./OptimizeForCharacter.ts";
@@ -11,6 +11,11 @@ import type { OptimizerResult } from "./Optimize.ts";
 import { Helm, BodyArmor } from "./equip/Armor.ts";
 import Accessory from "./equip/Accessory.ts";
 import Ammos from "./equip/Ammo.ts";
+import Weapon from "./equip/Weapon.ts";
+import Magicks from "./ability/Magick.ts";
+import Technicks from "./ability/Technick.ts";
+import type { Ability } from "./ability/Ability.ts";
+import type { License } from "../data/Licenses.ts";
 
 // Job board indices (see Boards.ts / the existing OptimizeForCharacter.test.ts Job enum).
 const Job = { WhiteMage: 0, Uhlan: 1, Machinist: 2, Knight: 4, TimeBattlemage: 6, Foebreaker: 7, Archer: 8 } as const;
@@ -32,6 +37,20 @@ function testEnv(character = 0): Environment {
 function partyWithJob(job: number) {
 	return new PartyModel().addJob(0, Boards[job]);
 }
+
+// usable abilities: no requirement, OBTAINED, or CERTAIN with allowCertainLicenses
+function activeAbilities<T extends { l?: License }>(party: PartyModel, character: number, list: T[]): T[] {
+	const colors = party.color(character);
+	return list.filter(a => !a.l || colors.get(a.l) === Coloring.OBTAINED || colors.get(a.l) === Coloring.CERTAIN);
+}
+
+const ABILITY_CASES: { alg: Ability["alg"]; abilities: Ability[] }[] = [
+	{ alg: "magick", abilities: Magicks },
+	{ alg: "technick", abilities: Technicks },
+];
+
+// results of one ability type
+const filterByAbilityType = (results: OptimizerResult[], alg: string) => results.filter(r => r.ability.alg === alg);
 
 describe("ForcedGear", () => {
 	it("default environment: secret gear disabled", () => {
@@ -127,6 +146,59 @@ describe("ForcedGear", () => {
 			const forced = collect(testEnv(0), partyWithJob(job), { ability: "attack", ammos: null });
 			assert(forced.length > 0, `${type}: some results exist`);
 			assert(forced.every(r => r.doll.weapon.animationType !== type), `${type}: no ammo-requiring weapons`);
+		}
+	});
+
+	// Forcing a weapon type must restrict the results to that type.
+	it("forced weapon type restricts the result weapons", () => {
+		const forced = collect(testEnv(0), partyWithJob(Job.Knight), { ability: "attack", weaponType: "sword" });
+		assert(forced.length > 0);
+		assert(forced.every(r => r.doll.weapon.animationType === "sword"));
+	});
+
+	// Forcing "unarmed" must restrict the results to the Unarmed weapon.
+	it("forced unarmed weapon type restricts to the Unarmed weapon", () => {
+		const forced = collect(testEnv(0), partyWithJob(Job.Knight), { ability: "attack", weaponType: "unarmed" });
+		assert(forced.length > 0);
+		assert(forced.every(r => r.doll.weapon.name === "Unarmed"));
+	});
+
+	it("unarmed: one attack row plus every magick and technick", () => {
+		const party = partyWithJob(Job.Knight).addJob(0, Boards[Job.WhiteMage]);
+		const results = collect(testEnv(0), party, { weaponType: "unarmed" });
+
+		const attack = filterByAbilityType(results, "attack");
+		assert.equal(attack.length, 1, "exactly one attack row");
+		assert.equal(attack[0].doll.weapon?.name, "Unarmed");
+
+		for (const { alg, abilities } of ABILITY_CASES) {
+			const rows = filterByAbilityType(results, alg);
+			const expected = activeAbilities(party, 0, abilities);
+			assert.equal(rows.length, expected.length, `one row per ability`);
+			for (const a of expected) {
+				assert(rows.some(r => r.ability === a), `${a.name} to be present in a row`);
+			}
+			assert(rows.every(r => r.doll.weapon?.name === "Unarmed"), `rows use Unarmed`);
+		}
+	});
+
+	it("weapon type: one attack row per weapon, magick/technick use the weapon type", () => {
+		const env = { ...testEnv(0), allowCheaterGear: false };
+		const party = partyWithJob(Job.Knight).addJob(0, Boards[Job.WhiteMage]);
+		const results = collect(env, party, { weaponType: "sword" });
+
+		const swordsRows = activeAbilities(party, 0, Weapon).filter(w => w.animationType === "sword" && w.name !== "Great Trango");
+		assert(swordsRows.length > 1, "several swords to iterate over");
+
+		const attack = filterByAbilityType(results, "attack");
+		assert.equal(attack.length, swordsRows.length, "one attack row per sword");
+		assert.deepEqual(attack.map(r => r.doll.weapon?.name).sort(), swordsRows.map(w => w.name).sort(), "every sword appears");
+
+		for (const { alg, abilities } of ABILITY_CASES) {
+			const rows = filterByAbilityType(results, alg);
+			const expected = activeAbilities(party, 0, abilities);
+			assert.equal(rows.length, expected.length, `one row per ability`);
+			assert(rows.every(r => r.doll.weapon?.animationType === "sword"), `rows use a sword`);
 		}
 	});
 

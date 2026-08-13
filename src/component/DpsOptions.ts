@@ -7,9 +7,11 @@ import Ammos from "../dps/equip/Ammo.ts";
 import { Helm, BodyArmor } from "../dps/equip/Armor.ts";
 import type { Equipment } from "../dps/equip/Equipment.ts";
 import type { License } from "../data/Licenses.ts";
+import type { AnimationClass } from "../dps/Profile.ts";
 
 export interface CharacterOptions {
 	ammos: string[];
+	weaponTypes: AnimationClass[];
 	helms: string[];
 	armors: string[];
 	accessories: string[];
@@ -27,6 +29,7 @@ export function buildOptions(env: Environment, party: PartyModel, character: num
 	const accessories = Accessory.filter(isEquippable);
 	return {
 		ammos: Ammos.filter(a => weaponTypes.has(a.animationType)).map(a => a.name),
+		weaponTypes: [...weaponTypes].filter((t): t is AnimationClass => !!t),
 		helms: Helm.filter(isEquippable).map(h => h.name).reverse(),
 		armors: BodyArmor.filter(isEquippable).map(a => a.name).reverse(),
 		accessories: accessories.map(a => a.name),

@@ -1,4 +1,4 @@
-import type { Environment, EquipmentPool, Profile } from "./Profile.ts";
+import type { AnimationClass, Environment, EquipmentPool, Profile } from "./Profile.ts";
 import PartyModel, { Coloring } from "../model/PartyModel.ts";
 import Weapon from "./equip/Weapon.ts";
 import Ammos from "./equip/Ammo.ts";
@@ -21,6 +21,8 @@ const magickLores = LicenseGroups.find(g => g.name === "Magick Lore")!.contents;
 export interface ForcedGear {
 	/** Restrict results to this ability kind. */
 	ability?: Ability["alg"];
+	/** Restrict results to weapons of this type, (e.g. "sword"); "unarmed" restricts to the Unarmed weapon. */
+	weaponType?: AnimationClass;
 	/** null means explicitly no equipment in this slot */
 	ammos?: Equipment | null;
 	armors?: Equipment | null;
@@ -43,6 +45,9 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel, forced?
 	}
 
 	let weapons = Weapon.filter(w => filterThing(w) && (e.allowCheaterGear || !SECRET_WEAPONS.has(w.name)));
+	if (forced?.weaponType) {
+		weapons = weapons.filter(w => w.animationType === forced.weaponType);
+	}
 	if (forced?.ammos === null) {
 		// 'None' ammo: weapons that need ammo (bow/xbow/gun/handbomb) can't be used
 		const requiresAmmo = new Set(Ammos.map(a => a.animationType));

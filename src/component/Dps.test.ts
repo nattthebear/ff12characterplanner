@@ -1,10 +1,15 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 
-import { defaultEnvironment } from "../dps/Profile.ts";
-import PartyModel from "../model/PartyModel.ts";
+import { defaultEnvironment, type Environment } from "../dps/Profile.ts";
+import PartyModel, { Coloring } from "../model/PartyModel.ts";
 import { Boards } from "../data/Boards.ts";
 import { buildOptions } from "./DpsOptions.ts";
+import { SECRET_WEAPONS } from "../dps/OptimizeForCharacter.ts";
+import { Characters } from "../data/Characters.ts";
+import { LicenseByName } from "../data/Licenses.ts";
+import Weapon from "../dps/equip/Weapon.ts";
+import type { AnimationClass } from "../dps/Profile.ts";
 import { Helm, BodyArmor } from "../dps/equip/Armor.ts";
 import type { Equipment } from "../dps/equip/Equipment.ts";
 import Accessory from "../dps/equip/Accessory.ts";
@@ -45,6 +50,123 @@ function gear(job: number, character = 0, env = noCheaterGearEnvironment) {
 function categoryItems(items: Equipment[], category: string) {
 	return items.filter(i => i.l?.fullName.startsWith(category)).map(i => i.name);
 }
+
+describe("weapon dropdown options", () => {
+	// the innate weapon license of each character
+	const INNATE: [number, AnimationClass][] = [
+		[0, "dagger"],   // Vaan: Daggers 1
+		[1, "gun"],      // Balthier: Guns 1
+		[2, "bow"],      // Fran: Bows 1
+		[3, "sword"],    // Basch: Swords 2
+		[4, "sword"],    // Ashe: Swords 2
+		[5, "dagger"],   // Penelo: Daggers 1
+	];
+
+	function weaponTypes(character: number, env = noCheaterGearEnvironment, ...jobs: number[]) {
+		const party = jobs.reduce((p, j) => p.addJob(character, Boards[j]), new PartyModel());
+		return buildOptions(env, party, character).weaponTypes;
+	}
+
+	// the dropdown offers equippable weapon types only, secret gear only if enabled
+	function activeTypes(party: PartyModel, character: number, env: Environment) {
+		const colors = party.color(character);
+		const canEquip = (w: Equipment) => !w.l || colors.get(w.l) === Coloring.OBTAINED || colors.get(w.l) === Coloring.CERTAIN;
+		return new Set(Weapon.filter(w => canEquip(w) && (env.allowCheaterGear || !SECRET_WEAPONS.has(w.name))).map(w => w.animationType!));
+	}
+
+	it("no jobs: each character's innate weapon type is active", () => {
+		for (const [character, type] of INNATE) {
+			assert.ok(weaponTypes(character).includes(type), `${Characters[character].name}: ${type}`);
+		}
+	});
+
+	it("a job keeps the innate weapon type active (same or different type)", () => {
+		for (const [character, innate] of INNATE) {
+			for (let job = 0; job < Boards.length; job++) {
+				assert.ok(weaponTypes(character, noCheaterGearEnvironment, job).includes(innate),
+					`${Characters[character].name} + ${Boards[job].name}: ${innate} stays active`);
+			}
+		}
+	});
+
+	it("a job makes every active weapon type selectable", () => {
+		for (let character = 0; character < Characters.length; character++) {
+			for (let job = 0; job < Boards.length; job++) {
+				const party = new PartyModel().addJob(character, Boards[job]);
+				const types = weaponTypes(character, noCheaterGearEnvironment, job);
+				for (const type of activeTypes(party, character, noCheaterGearEnvironment)) {
+					assert.ok(types.includes(type), `${Characters[character].name} + ${Boards[job].name}: ${type}`);
+				}
+			}
+		}
+	});
+
+	it("only equippable weapon types are selectable", () => {
+		for (let character = 0; character < Characters.length; character++) {
+			for (let job = 0; job < Boards.length; job++) {
+				const party = new PartyModel().addJob(character, Boards[job]);
+				const types = weaponTypes(character, noCheaterGearEnvironment, job);
+				const canEquip = activeTypes(party, character, cheaterGearEnvironment);
+				for (const type of types) {
+					assert.ok(canEquip.has(type), `${Characters[character].name} + ${Boards[job].name}: ${type} is not equippable`);
+				}
+			}
+		}
+	});
+
+	it("secret gear on: types are selectable for everyone", () => {
+		for (let character = 0; character < Characters.length; character++) {
+			const types = weaponTypes(character, cheaterGearEnvironment);
+			assert.ok(types.includes("bow"), `${Characters[character].name}: bow (Seitengrat)`);
+			assert.ok(types.includes("bigsword"), `${Characters[character].name}: bigsword (Wyrmhero Blade)`);
+			assert.ok(types.includes("sword"), `${Characters[character].name}: sword (Great Trango)`);
+		}
+	});
+
+	it("secret gear off: no secret-only weapon types without a license", () => {
+		// secret weapons: Seitengrat (bow), Great Trango (sword), Wyrmhero Blade (bigsword)
+		const SECRET_TYPES = ["bow", "sword", "bigsword"] as const;
+		for (let character = 0; character < Characters.length; character++) {
+			const types = weaponTypes(character, noCheaterGearEnvironment);
+			for (const secretType of SECRET_TYPES) {
+				assert.ok(types.includes(INNATE[character][1]) || !types.includes(secretType),
+					`${Characters[character].name}: no ${secretType} without secret gear`);
+			}
+		}
+	});
+
+	it("ninja blades (require quickening): license obtained, reachable, or gated", () => {
+		const shikari = new PartyModel().addJob(0, Boards[11]); // Shikari
+		const weaponTypesOf = (party: PartyModel, allLicenses: boolean) =>
+			buildOptions({ ...noCheaterGearEnvironment, allowCertainLicenses: allLicenses }, party, 0).weaponTypes;
+
+		// "POSSIBLE" license: gated behind an unchosen quickening, not selectable
+		for (const allLicenses of [true, false]) {
+			assert.ok(!weaponTypesOf(shikari, allLicenses).includes("ninja"), `gated ninja with allLicenses=${allLicenses}`);
+		}
+
+		// "CERTAIN" license: selectable only with allLicenses
+		const unlocked = shikari.add(0, LicenseByName("Quickening 1"));
+		for (const allLicenses of [true, false]) {
+			assert.equal(weaponTypesOf(unlocked, allLicenses).includes("ninja"), allLicenses,
+				`reachable ninja with allLicenses=${allLicenses}`);
+		}
+
+		// "OBTAINED" license: always selectable
+		const obtained = shikari.add(0, LicenseByName("Quickening 1")).add(0, LicenseByName("Ninja Swords 1"));
+		for (const allLicenses of [true, false]) {
+			assert.ok(weaponTypesOf(obtained, allLicenses).includes("ninja"), `obtained ninja with allLicenses=${allLicenses}`);
+		}
+	});
+
+	it("bow license adds bow to the weapon types", () => {
+		assert.ok(gear(ARCHER).weaponTypes.includes("bow"));
+	});
+
+	it("unarmed leads the weapon types, right after Auto", () => {
+		assert.equal(gear(WHITE_MAGE).weaponTypes[0], "unarmed");
+	});
+});
 
 describe("ammo dropdown options", () => {
 	it("bow license: shows arrows only", () => {
