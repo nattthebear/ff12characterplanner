@@ -1,5 +1,6 @@
 import type { Magick } from "./ability/Magick.ts";
 import type { Technick } from "./ability/Technick.ts";
+import { AnimationTimings } from "./AnimationTiming.ts";
 import {
 	Equipment,
 	KEY_adrenaline, KEY_agateRing, KEY_animationType, KEY_berserk, KEY_bravery, KEY_brawler, KEY_cameoBelt, KEY_darkDamage,
@@ -127,8 +128,15 @@ function getOptimizerKeysForAttack(p: Profile, e: Environment): OptimizerKeys {
 		| SKEY_holyBonus
 		| SKEY_darkBonus;
 
+	const timings = AnimationTimings[p.animationType][e.character];
+
 	if (p.combo > 0) {
-		hazardUniqueMask |= KEY_genjiGloves;
+		if (timings.comboSwing === 0 || p.damageType === "gun") {
+			// Crit, not affected by genji gloves
+		} else {
+			// Combo, affected by genji gloves
+			hazardUniqueMask |= KEY_genjiGloves;
+		}
 	}
 	if (e.parry 
 		|| e.block > 0
