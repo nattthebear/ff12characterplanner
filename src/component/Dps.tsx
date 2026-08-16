@@ -196,20 +196,20 @@ const DPS: TPC<Props> = (_, instance) => {
 export default DPS;
 
 function HpStatus(props: { focusActive: boolean; adrenalineActive: boolean }) {
-	return <span class="hp-status">
-		<span
+	return <div class="hp-status">
+		<div
 			class={props.focusActive ? "active" : ""}
 			aria-label="1.5x damage with Focus / Serenity"
 		>
 			100%
-		</span>
-		<span
+		</div>
+		<div
 			class={props.adrenalineActive ? "active" : ""}
 			aria-label="2x damage with Adrenaline / Spellbreaker"
 		>
 			{"<20%"}
-		</span>
-	</span>;
+		</div>
+	</div>;
 }
 
 function EqCell(props: { value?: Equipment }) {

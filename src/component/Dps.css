@@ -34,8 +34,7 @@
 			font-size: 10px;
 			line-height: 1.4;
 
-			span {
-				display: block;
+			div {
 				padding: 0 4px;
 				color: #999;
 
