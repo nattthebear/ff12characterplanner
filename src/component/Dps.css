@@ -105,5 +105,9 @@
 		.r {
 			text-align: right;
 		}
+
+		.aoe {
+			color: #800;
+		}	
 	}
 }
