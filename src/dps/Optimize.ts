@@ -53,7 +53,10 @@ export function optimize(startingProfile: Profile, e: Environment, pool: Equipme
 						doll.accessory = accessory;
 						const p = createProfile(startingProfile, doll);
 						const dps = calculate(p, e);
-						if (!topDps || dps.dps > topDps.dps) {
+						if (!topDps // no result yet
+							|| dps.dps > topDps.dps // higher dps
+							|| (dps.dps === topDps.dps && (weapon.attack ?? 0) > (topDoll!.weapon?.attack ?? 0))) // same dps, select better weapon
+						{
 							topDps = dps;
 							topDoll = { ...doll };
 						}

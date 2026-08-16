@@ -5,6 +5,7 @@ import { defaultEnvironment } from "./Profile.ts";
 import type { Environment } from "./Profile.ts";
 import PartyModel, { Coloring } from "../model/PartyModel.ts";
 import { Boards } from "../data/Boards.ts";
+import { LicenseByName } from "../data/Licenses.ts";
 import { optimizeForCharacter, SECRET_WEAPONS } from "./OptimizeForCharacter.ts";
 import type { ForcedGear } from "./OptimizeForCharacter.ts";
 import type { OptimizerResult } from "./Optimize.ts";
@@ -18,7 +19,7 @@ import type { Ability } from "./ability/Ability.ts";
 import type { License } from "../data/Licenses.ts";
 
 // Job board indices (see Boards.ts / the existing OptimizeForCharacter.test.ts Job enum).
-const Job = { WhiteMage: 0, Uhlan: 1, Machinist: 2, Knight: 4, TimeBattlemage: 6, Foebreaker: 7, Archer: 8 } as const;
+const Job = { WhiteMage: 0, Uhlan: 1, Machinist: 2, Knight: 4, Monk: 5, TimeBattlemage: 6, Foebreaker: 7, Archer: 8, BlackMage: 9 } as const;
 
 // Collect every result optimizeForCharacter yields for the given setup.
 function collect(e: Environment, party: PartyModel, forced?: ForcedGear): OptimizerResult[] {
@@ -200,6 +201,38 @@ describe("ForcedGear", () => {
 			assert.equal(rows.length, expected.length, `one row per ability`);
 			assert(rows.every(r => r.doll.weapon?.animationType === "sword"), `rows use a sword`);
 		}
+	});
+
+	it("forced weapon type picks the strongest weapon for magick/technick rows", () => {
+		const party = partyWithJob(Job.Monk).addJob(0, Boards[Job.BlackMage]);
+		const results = collect(testEnv(0), party, { weaponType: "pole" });
+
+		const fire = filterByAbilityType(results, "magick").find(r => r.ability.name === "Fire");
+		const poles = activeAbilities(party, 0, Weapon).filter(w => w.animationType === "pole");
+		const strongest = poles.reduce((a, b) => a.attack! > b.attack! ? a : b);
+
+		assert(strongest.name === "Kanya", `setup expects Kanya as strongest pole, got ${strongest.name}`);
+		assert.equal(fire?.doll.weapon?.name, strongest.name, "Fire row uses the strongest pole");
+	});
+
+	it("forced weapon type picks the strongest obtained weapon for magick/technick rows, if not allowCertainLicenses", () => {
+		const env = { ...testEnv(0), allowCertainLicenses: false };
+		const party = partyWithJob(Job.Monk).addJob(0, Boards[Job.BlackMage])
+			.add(0, LicenseByName("Poles 3"))
+			.add(0, LicenseByName("Black Magick 1"));
+		const results = collect(env, party, { weaponType: "pole" });
+
+		const colors = party.color(0);
+		const obtainedPoles = Weapon.filter(w => w.animationType === "pole" && (!w.l || colors.get(w.l) === Coloring.OBTAINED));
+		assert(obtainedPoles.length > 1, "several poles obtained");
+
+		const attack = filterByAbilityType(results, "attack");
+		assert.equal(attack.length, obtainedPoles.length, "one attack row per obtained pole");
+		assert.deepEqual(attack.map(r => r.doll.weapon?.name).sort(), obtainedPoles.map(w => w.name).sort(), "every obtained pole appears");
+
+		const fire = filterByAbilityType(results, "magick").find(r => r.ability.name === "Fire");
+		const strongest = obtainedPoles.reduce((a, b) => a.attack! > b.attack! ? a : b);
+		assert.equal(fire?.doll.weapon?.name, strongest.name, "Fire row uses the strongest obtained pole");
 	});
 
 	// Forcing every equipment slot to null must leave all armor slots empty.

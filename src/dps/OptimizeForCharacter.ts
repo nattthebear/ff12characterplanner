@@ -46,7 +46,8 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel, forced?
 
 	let weapons = Weapon.filter(w => filterThing(w) && (e.allowCheaterGear || !SECRET_WEAPONS.has(w.name)));
 	if (forced?.weaponType) {
-		weapons = weapons.filter(w => w.animationType === forced.weaponType);
+		weapons = weapons.filter(w => w.animationType === forced.weaponType)
+			.sort((a, b) => (a.attack ?? 0) > (b.attack ?? 0) ? -1 : 1); // descending
 	}
 	if (forced?.ammos === null) {
 		// 'None' ammo: weapons that need ammo (bow/xbow/gun/handbomb) can't be used
