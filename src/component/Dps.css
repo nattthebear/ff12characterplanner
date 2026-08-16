@@ -27,6 +27,25 @@
 				margin-left: 4px;
 			}
 		}
+
+		.hp-status {
+			display: inline-block;
+			vertical-align: middle;
+			font-size: 10px;
+			line-height: 1.4;
+
+			span {
+				display: block;
+				padding: 0 4px;
+				color: #999;
+
+				&.active {
+					color: #000;
+					background: #39ff14;
+					font-weight: bold;
+				}
+			}
+		}
 	}
 
 	.results {
