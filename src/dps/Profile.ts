@@ -112,7 +112,7 @@ export const defaultEnvironment: Environment = {
 	oil: false,
 	undead: false,
 	allowCertainLicenses: true,
-	allowCheaterGear: true,
+	allowCheaterGear: false,
 };
 
 export interface Profile {
