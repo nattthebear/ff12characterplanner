@@ -62,6 +62,7 @@ function doTest({ character, job, job2, licenses, env }: TestParameters) {
 		def: 0,
 		mdef: 0,
 		level: 99,
+		allowCheaterGear: true,
 		...env,
 	};
 	let party = new PartyModel();
