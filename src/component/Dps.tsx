@@ -9,7 +9,8 @@ import { type Environment, defaultEnvironment } from "../dps/Profile.ts";
 import type { CalculateResult } from "../dps/Calculate.ts";
 import { makeStore } from "../store/MakeStore.ts";
 import type { Ability } from "../dps/ability/Ability.ts";
-import { AllElements, Equipment } from "../dps/equip/Equipment.ts";
+import { AllElements, ANIMATION_CLASS_NAMES, Equipment } from "../dps/equip/Equipment.ts";
+import type { AnimationClass } from "../dps/Profile.ts";
 import { BodyArmor, Helm } from "../dps/equip/Armor.ts";
 import Accessory from "../dps/equip/Accessory.ts";
 import Ammos from "../dps/equip/Ammo.ts";
@@ -266,6 +267,7 @@ Animation Time: ${value.animationTime.toFixed(2)}s`;
 interface Filters {
 	ability: string;
 	topN: number;
+	weapon: string;
 	ammo: string;
 	helm: string;
 	armor: string;
@@ -275,6 +277,7 @@ interface Filters {
 const defaultFilters = (): Filters => ({
 	ability: "",
 	topN: 5,
+	weapon: "",
 	ammo: "",
 	helm: "",
 	armor: "",
@@ -289,6 +292,11 @@ const ABILITY_OPTIONS: [string, string][] = [
 ];
 
 const NO_EQUIP = "__none__";
+// weapon dropdown: Auto, then the active weapon types (Unarmed first)
+const weaponOptions = (types: AnimationClass[]): [string, string][] => [
+	["", "Auto"],
+	...types.map(t => [t, ANIMATION_CLASS_NAMES[t]] as [string, string]),
+];
 // builds dropdown options: empty value = auto, "__none__" = no equipment, then the given items
 const dropdownOptions = (items: string[]): [string, string][] => [
 	["", "Auto"],
@@ -302,6 +310,9 @@ function applyFilters(results: OptimizerResult[], filters: Filters) {
 	let list = results;
 	if (filters.ability) {
 		list = list.filter(r => r.ability.alg === filters.ability);
+	}
+	if (filters.weapon) {
+		list = list.filter(r => r.doll.weapon?.animationType === filters.weapon);
 	}
 	if (filters.helm) {
 		list = list.filter(r => filters.helm === NO_EQUIP ? !r.doll.helm : r.doll.helm?.name === filters.helm);
@@ -356,6 +367,9 @@ function forcedGear(filters: Filters, env: Environment, party: PartyModel, chara
 	const gear: ForcedGear = {};
 	if (filters.ability) {
 		gear.ability = filters.ability as Ability["alg"];
+	}
+	if (filters.weapon) {
+		gear.weaponType = filters.weapon as AnimationClass;
 	}
 	if (filters.ammo) {
 		gear.ammos = Ammos.find(x => x.name === filters.ammo) ?? null;
@@ -483,7 +497,7 @@ function SingleCharacterDps(props: SingleCharacterDpsProps) {
 		<tr class="sticky filter-row">
 			<td><input class="filter" type="number" min="0" max="100" value={filters.topN} onChange={ev => props.setFilter("topN", +ev.currentTarget.value)} /></td>
 			<td><Dropdown value={filters.ability} onChange={v => props.setFilter("ability", v)} options={ABILITY_OPTIONS} /></td>
-			<td />
+			<td><Dropdown value={filters.weapon} onChange={v => props.setFilter("weapon", v)} options={weaponOptions(options.weaponTypes)} /></td>
 			<td><Dropdown value={filters.ammo} onChange={v => props.setFilter("ammo", v)} options={dropdownOptions(options.ammos)} /></td>
 			<td><Dropdown value={filters.helm} onChange={v => props.setFilter("helm", v)} options={dropdownOptions(options.helms)} /></td>
 			<td><Dropdown value={filters.armor} onChange={v => props.setFilter("armor", v)} options={dropdownOptions(options.armors)} /></td>

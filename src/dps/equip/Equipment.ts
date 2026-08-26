@@ -128,28 +128,30 @@ function buildMutator(e: Partial<Profile>, isAmmo: boolean) {
 	return Function("ret", s) as Equipment["mutateProfile"];
 }
 
+export const ANIMATION_CLASS_NAMES: Record<AnimationClass, string> = {
+	unarmed: "Unarmed",
+	dagger: "Dagger",
+	ninja: "Ninja Sword",
+	katana: "Katana",
+	sword: "Sword",
+	bigsword: "Greatsword",
+	hammer: "Hammer/Axe",
+	pole: "Pole",
+	spear: "Spear",
+	mace: "Mace",
+	bow: "Bow",
+	gun: "Gun",
+	xbow: "Crossbow",
+	measure: "Measure",
+	rod: "Rod",
+	staff: "Staff",
+	handbomb: "Handbomb",
+};
+
 function buildTooltip(e: Partial<Profile>, isAmmo: boolean) {
 	const ret = Array<string>();
 	if (!isAmmo && e.animationType) {
-		ret.push({
-			unarmed: "Unarmed",
-			dagger: "Dagger",
-			ninja: "Ninja Sword",
-			katana: "Katana",
-			sword: "Sword",
-			bigsword: "Greatsword",
-			hammer: "Hammer/Axe",
-			pole: "Pole",
-			spear: "Spear",
-			mace: "Mace",
-			bow: "Bow",
-			gun: "Gun",
-			xbow: "Crossbow",
-			measure: "Measure",
-			rod: "Rod",
-			staff: "Staff",
-			handbomb: "Handbomb"
-		}[e.animationType]);
+		ret.push(ANIMATION_CLASS_NAMES[e.animationType]);
 	}
 	if (e.damageType === "gun" && e.animationType !== "gun") {
 		ret.push("Pierce");
