@@ -1,7 +1,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 
-import { defaultEnvironment, type Environment } from "../dps/Profile.ts";
+import { defaultEnvironment, type Environment, defaultProfile } from "../dps/Profile.ts";
 import PartyModel, { Coloring } from "../model/PartyModel.ts";
 import { Boards } from "../data/Boards.ts";
 import { buildOptions } from "./DpsOptions.ts";
@@ -14,6 +14,9 @@ import { Helm, BodyArmor } from "../dps/equip/Armor.ts";
 import type { Equipment } from "../dps/equip/Equipment.ts";
 import Accessory from "../dps/equip/Accessory.ts";
 
+import { calculate } from "../dps/Calculate.ts";
+import Magicks from "../dps/ability/Magick.ts";
+import Technicks from "../dps/ability/Technick.ts";
 import type { Profile } from "../dps/Profile.ts";
 
 const ARCHER = 8;        // Bows
@@ -318,6 +321,81 @@ describe("helm and armor dropdown options", () => {
 		assert.deepEqual([...o.armors].sort(), ["Bronze Armor", "Leather Armor"].sort());
 	});
 });
+
+
+function profileBody(env = defaultEnvironment): Profile {
+	return {
+		...defaultProfile,
+		animationType: "rod",
+		str: 60, mag: 99, vit: 60, spd: 60,
+		berserk: env.berserk, haste: env.haste, bravery: env.bravery, faith: env.faith,
+	};
+}
+
+function profileWithMagick(name: string, env = defaultEnvironment): Profile {
+	return { ...profileBody(env), ability: Magicks.find(m => m.name === name)! };
+}
+
+function profileWithTechnick(name: string, env = defaultEnvironment): Profile {
+	return { ...profileBody(env), ability: Technicks.find(t => t.name === name)! };
+}
+
+describe("aoe dps per target count", () => {
+	it("aoe magick: aoeDps has 7 entries, one per target count, current one matches dps", () => {
+		const env = { ...defaultEnvironment, targetCount: 3 };
+		const result = calculate(profileWithMagick("Firaga", env), env);
+		assert.equal(result.aoeDps?.length, 7);
+		assert.ok(result.aoeDps![0] < result.aoeDps![6]);
+		assert.ok(Math.abs(result.aoeDps![2] - result.dps) < 1e-9);
+	});
+
+	for (const name of ["Firaga", "Darkga", "Ardor"]) {
+		it(`${name}: aoeDps matches the formula for each of 1..7 targets`, () => {
+			const env = defaultEnvironment;
+			const result = calculate(profileWithMagick(name, env), env);
+			const m = Magicks.find(m => m.name === name)!;
+			const { aoeDps, nonAvoidedDamage, chargeTime } = result;
+			const baseAnim = m.at / 30;
+			const addHit = m.aoe! / 30;
+			for (let n = 1; n <= 7; n++) {
+				const anim = baseAnim + (n - 1) * addHit;
+				const expected = nonAvoidedDamage * n / (chargeTime + anim);
+				assert.ok(Math.abs(aoeDps![n - 1] - expected) < 1e-9,
+					`${name} target count ${n}: expected ${expected}, actual ${aoeDps![n - 1]}`);
+			}
+		});
+	}
+
+	it("single-target magick: no aoeDps", () => {
+		const result = calculate(profileWithMagick("Fire"), defaultEnvironment);
+		assert.equal(result.aoeDps, undefined);
+	});
+
+	// in seconds: anim(n) = 2.5 + (n>2 ? 1 : 0) * (n-2) * 0.667
+	it("gil toss: damage is split, not scaled, with target count", () => {
+		const result = calculate(profileWithTechnick("Gil Toss"), defaultEnvironment);
+		assert.equal(result.aoeDps?.length, 7);
+		// the 75-tick animation floor absorbs the first extra target's time, so 1 and 2 targets tie
+		assert.ok(Math.abs(result.aoeDps![0] - result.aoeDps![1]) < 1e-9);
+		// flat total damage: extra targets only lengthen the cast, so dps only drops
+		assert.ok(result.aoeDps![6] < result.aoeDps![0]);
+	});
+
+	it("gil toss: aoeDps matches dps for the configured target count", () => {
+		const env = { ...defaultEnvironment, targetCount: 3 };
+		const result = calculate(profileWithTechnick("Gil Toss", env), env);
+		assert.ok(Math.abs(result.aoeDps![2] - result.dps) < 1e-9);
+	});
+
+	it("horology (technick aoe, no gil-toss split): damage scales with target count", () => {
+		const result = calculate(profileWithTechnick("Horology"), defaultEnvironment);
+		assert.equal(result.aoeDps?.length, 7);
+		// no animation floor: every extra target adds dps
+		assert.ok(result.aoeDps![0] < result.aoeDps![1]);
+		assert.ok(result.aoeDps![0] < result.aoeDps![6]);
+	});
+});
+
 describe("accessory dropdown ranking", () => {
 	// Knight's board grants every accessory license, so ranking is fully observable
 	const list = gear(KNIGHT).accessories;
