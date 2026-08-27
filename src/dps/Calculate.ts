@@ -1,7 +1,6 @@
 import type { Magick } from "./ability/Magick.ts";
 import type { Technick } from "./ability/Technick.ts";
 import { AnimationTimings } from "./AnimationTiming.ts";
-import { AllElements } from "./equip/Equipment.ts";
 import type { Profile, Environment } from "./Profile.ts";
 
 /** model attack damage against armor */
@@ -266,9 +265,8 @@ function calculateTechnick(t: Technick, p: Profile, e: Environment): CalculateRe
 	}
 
 	const chargeTime = calcChargeTime(t.ct, p, e)
-	const totalTime = chargeTime + animationTime;
-	const dps = comboDamage / totalTime;
 	const aoeDps = t.aoe != null ? aoeDpsByTargetCount(t.at, t.aoe, chargeTime, nonAvoidedDamage, t.name === "Gil Toss") : undefined;
+	const dps = aoeDps?.[e.targetCount - 1] ?? comboDamage / (chargeTime + animationTime);
 	return {
 		dps,
 		baseDmg,
@@ -278,7 +276,7 @@ function calculateTechnick(t: Technick, p: Profile, e: Environment): CalculateRe
 		comboType,
 		chargeTime,
 		animationTime,
-        aoeDps
+		aoeDps
 	};
 }
 
@@ -315,9 +313,8 @@ function calculateMagic(m: Magick, p: Profile, e: Environment): CalculateResult 
 	}
 
 	const chargeTime = calcChargeTime(m.ct, p, e)
-	const totalTime = chargeTime + animationTime;
-	const dps = comboDamage / totalTime;
 	const aoeDps = m.aoe != null ? aoeDpsByTargetCount(m.at, m.aoe, chargeTime, nonAvoidedDamage, false) : undefined;
+	const dps = aoeDps?.[e.targetCount - 1] ?? comboDamage / (chargeTime + animationTime);
 	return {
 		dps,
 		baseDmg,
@@ -327,7 +324,7 @@ function calculateMagic(m: Magick, p: Profile, e: Environment): CalculateResult 
 		comboType,
 		chargeTime,
 		animationTime,
-        aoeDps,
+		aoeDps,
 	};
 }
 
