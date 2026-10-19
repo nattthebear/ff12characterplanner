@@ -1,5 +1,5 @@
 import type { Board } from "../data/Boards.ts";
-import { AllLimitedLicenses, type License } from "../data/Licenses.ts";
+import { type License } from "../data/Licenses.ts";
 import PartyModel, { Coloring } from "./PartyModel.ts";
 
 function generateLicenseSet(characterIndex: number, initialParty: PartyModel, oldColors: Map<License, Coloring>, mist: License) {
@@ -28,7 +28,7 @@ function generateBoardSet(characterIndex: number, boards: Board[]) {
 	const oldColors = party.color(characterIndex);
 
 	const boardSet = new Map<License, License[]>();
-	for (const mist of AllLimitedLicenses) {
+	for (const mist of party.getLimitedLicenses(characterIndex)) {
 		boardSet.set(mist, generateLicenseSet(characterIndex, party, oldColors, mist));
 	}
 	return boardSet;

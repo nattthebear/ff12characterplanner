@@ -42,7 +42,7 @@ export function optimize(startingProfile: Profile, e: Environment, pool: Equipme
 			? [undefined]
 			: forcedAmmo && forcedAmmo.animationType === weapon.animationType
 				? pool.ammos!
-				: filterEquippables(Ammos.filter(a => a.animationType === weapon.animationType), possibleKeys, false);
+				: filterEquippables((pool.availableAmmos ?? Ammos).filter(a => a.animationType === weapon.animationType), possibleKeys, false);
 		for (const ammo of ammos) {
 			doll.ammo = ammo;
 			for (const armor of armors) {

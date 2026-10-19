@@ -17,6 +17,8 @@ export type Terrain = "other" | "sand" | "water" | "snow";
 export type Weather = "other" | "windy" | "rainy" | "foggy" | "windy and rainy";
 
 export interface Environment {
+	/** Omitted for existing Zodiac callers. The party optimizer selects this from the board. */
+	edition?: "tza" | "ps2";
 	/** character index, 0-5 */
 	character: number;
 	/** Target physical defense */
@@ -266,6 +268,8 @@ export function createProfile(startingProfile: Profile, doll: PaperDoll) {
 export interface EquipmentPool {
 	weapons: Equipment[];
 	ammos?: Equipment[];
+	/** Edition-specific ammo catalog; omitted by legacy Zodiac callers. */
+	availableAmmos?: Equipment[];
 	armors: Equipment[];
 	helms: Equipment[];
 	accessories: Equipment[];

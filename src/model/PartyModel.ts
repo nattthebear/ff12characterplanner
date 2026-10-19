@@ -1,6 +1,8 @@
 import { Characters } from "../data/Characters.ts";
-import { type Board, Boards } from "../data/Boards.ts";
-import { type License, Quickenings, Espers } from "../data/Licenses.ts";
+import { type Board, ZodiacBoards, PS2Board } from "../data/Boards.ts";
+import { type License, Quickenings, Espers, AllLimitedLicenses } from "../data/Licenses.ts";
+import { PS2StartingLicenses } from "../data/PS2Characters.ts";
+import { PS2Espers, PS2Quickenings, PS2LimitedLicenses } from "../data/PS2Licenses.ts";
 import { Heap } from "./Heap.ts";
 import { getCoverSet } from "./Adjacency.ts";
 
@@ -45,9 +47,11 @@ export default class PartyModel {
 		this.blockedEspers.clear();
 		for (let c = 0; c < 6; c++) {
 			const sel = this.selected[c];
+			const quickenings = this.isPS2(c) ? PS2Quickenings : Quickenings;
+			const innateLicenses = this.getInnateLicenses(c);
 
 			// prune any espers assigned twice
-			for (const e of Espers) {
+			for (const e of [...Espers, ...PS2Espers, ...PS2Quickenings]) {
 				if (sel.has(e)) {
 					for (let i = c + 1; i < 6; i++) {
 						this.selected[i].delete(e);
@@ -56,18 +60,16 @@ export default class PartyModel {
 			}
 
 			// prune extra quickenings
-			if (Quickenings.filter(q => sel.has(q)).length === 4) {
-				sel.delete(Quickenings[3]);
-			}
+			for (const q of quickenings.filter(q => sel.has(q)).slice(3)) sel.delete(q);
 
 			// force any innate license to be taken
-			for (const l of Characters[c].innateLicenses) {
+			for (const l of innateLicenses) {
 				sel.add(l);
 			}
 
 			// prune any license that's not reachable from starting (innate) licenses
 			const reachable = new Set<License>();
-			const toCheck = [...Characters[c].innateLicenses];
+			const toCheck = [...innateLicenses];
 			while (toCheck.length) {
 				const l = toCheck.pop()!;
 				if (!reachable.has(l) && sel.has(l)) {
@@ -82,12 +84,12 @@ export default class PartyModel {
 			}
 
 			// compute esper and quickening counts at the end, in case the prune operation removed additional ones
-			for (const e of Espers) {
+			for (const e of [...Espers, ...PS2Espers, ...PS2Quickenings]) {
 				if (reachable.has(e)) {
 					this.blockedEspers.add(e);
 				}
 			}
-			this.quickeningCount[c] = Quickenings.filter(q => reachable.has(q)).length;
+			this.quickeningCount[c] = quickenings.filter(q => reachable.has(q)).length;
 
 			this.selected[c] = reachable;
 		}
@@ -95,6 +97,18 @@ export default class PartyModel {
 
 	getJob(c: number, index: number): Board | undefined {
 		return this.jobs[c][index];
+	}
+
+	isPS2(c: number) {
+		return this.jobs[c][0] === PS2Board;
+	}
+
+	getInnateLicenses(c: number) {
+		return this.isPS2(c) ? PS2StartingLicenses[c] : Characters[c].innateLicenses;
+	}
+
+	getLimitedLicenses(c: number) {
+		return this.isPS2(c) ? PS2LimitedLicenses : AllLimitedLicenses;
 	}
 
 	unemployed(c: number) {
@@ -108,7 +122,7 @@ export default class PartyModel {
 	getLpCount(c: number) {
 		let lp = 0;
 		for (const l of this.selected[c]) {
-			if (!Characters[c].innateLicenses.includes(l)) {
+			if (!this.getInnateLicenses(c).includes(l)) {
 				lp += l.cost;
 			}
 		}
@@ -170,7 +184,8 @@ export default class PartyModel {
 	 * @returns true if the license cannot be obtained due to mist constraints
 	 */
 	isBlocked(c: number, l: License) {
-		return this.blockedEspers.has(l) || Quickenings.includes(l) && this.quickeningCount[c] === 3;
+		const quickenings = this.isPS2(c) ? PS2Quickenings : Quickenings;
+		return this.blockedEspers.has(l) || quickenings.includes(l) && this.quickeningCount[c] === 3;
 	}
 
 	add(c: number, l: License) {
@@ -220,6 +235,7 @@ export default class PartyModel {
 	}
 
 	addJob(c: number, j: Board) {
+		if (this.isPS2(c) || j === PS2Board && this.jobs[c].length) return this;
 		if (this.jobs[c].includes(j)) {
 			return this;
 		}
@@ -228,6 +244,7 @@ export default class PartyModel {
 		}
 		const r = new PartyModel(this);
 		r.jobs[c].push(j);
+		if (j === PS2Board) r.verify();
 		return r;
 	}
 
@@ -317,7 +334,8 @@ interface UrlLookup {
 	licenses: License[];
 }
 function createUrlLookup() {
-	const possibleJobs: (Board | undefined)[] = Boards.slice();
+	// Preserve every existing Zodiac URL tag. Append PS2 after the old table.
+	const possibleJobs: (Board | undefined)[] = ZodiacBoards.slice();
 	possibleJobs.unshift(undefined);
 	const ret = Array<UrlLookup>();
 	for (const a of possibleJobs) {
@@ -350,6 +368,7 @@ function createUrlLookup() {
 			ret.push(v);
 		}
 	}
+	ret.push({ job1: PS2Board, job2: undefined, licenses: [...PS2Board.lookup.keys()] });
 	const m = new Map<Board | undefined, Map<Board | undefined, number>>();
 	for (let i = 0; i < ret.length; i++) {
 		if (!m.has(ret[i].job1)) {

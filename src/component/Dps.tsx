@@ -11,9 +11,9 @@ import { makeStore } from "../store/MakeStore.ts";
 import type { Ability } from "../dps/ability/Ability.ts";
 import { AllElements, ANIMATION_CLASS_NAMES, Equipment } from "../dps/equip/Equipment.ts";
 import type { AnimationClass } from "../dps/Profile.ts";
-import { BodyArmor, Helm } from "../dps/equip/Armor.ts";
-import Accessory from "../dps/equip/Accessory.ts";
-import Ammos from "../dps/equip/Ammo.ts";
+import { dpsData } from "../dps/DpsData.ts";
+import { dispatch as dispatchParty } from "../store/Store.ts";
+import { changeEdition } from "../store/State.ts";
 import { BoolInput, ElementInput, NumberInput, TerrainInput, WeatherInput } from "./Dps.Inputs.tsx";
 import { buildOptions, type CharacterOptions } from "./DpsOptions.ts";
 
@@ -30,8 +30,17 @@ const DPS: TPC<Props> = (_, instance) => {
 
 	return props => {
 		const env = getEnv();
+		const ps2Count = Characters.filter((_, c) => props.party.isPS2(c)).length;
 		return <div class="dps-optimizer">
 			<div class="controls">
+				<label>Edition <select aria-label="Game edition" value={ps2Count === 6 ? "ps2" : ps2Count ? "mixed" : "tza"}
+					onChange={ev => dispatchParty(changeEdition(ev.currentTarget.value as "tza" | "ps2"))}>
+					<option value="tza">The Zodiac Age</option>
+					<option value="ps2">Original PS2</option>
+					{ps2Count > 0 && ps2Count < 6 ? <option value="mixed" disabled>Mixed party</option> : undefined}
+				</select></label>
+				<div>Changes all six boards. Each edition's plan is kept until this page is reloaded.</div>
+				{ps2Count ? <div>PS2: 9,999 damage per hit; original equipment, stats and augments. DPS estimates use shared animation timings and exclude spell queue delays and MP limits.</div> : undefined}
 				<NumberInput
 					min={0}
 					max={250}
@@ -65,6 +74,7 @@ const DPS: TPC<Props> = (_, instance) => {
 					changeValue={v => changeEnv("percentHp", v)}
 				/>
 				<HpStatus
+					ps2={ps2Count === 6}
 					focusActive={env.percentHp === 100}
 					adrenalineActive={env.percentHp < 20}
 				/>
@@ -196,11 +206,11 @@ const DPS: TPC<Props> = (_, instance) => {
 }
 export default DPS;
 
-function HpStatus(props: { focusActive: boolean; adrenalineActive: boolean }) {
+function HpStatus(props: { ps2: boolean; focusActive: boolean; adrenalineActive: boolean }) {
 	return <div class="hp-status">
 		<div
 			class={props.focusActive ? "active" : ""}
-			aria-label="1.5x damage with Focus / Serenity"
+			aria-label={`${props.ps2 ? "1.2" : "1.5"}x damage with Focus / Serenity`}
 		>
 			100%
 		</div>
@@ -364,6 +374,7 @@ function renderComponents(results: OptimizerResult[][], env: Environment, party:
 
 // turn dropdown selections into the gear constraints the optimizer must respect
 function forcedGear(filters: Filters, env: Environment, party: PartyModel, character: number): ForcedGear {
+	const { Ammos, Helm, BodyArmor, Accessory } = dpsData(party.isPS2(character));
 	const gear: ForcedGear = {};
 	if (filters.ability) {
 		gear.ability = filters.ability as Ability["alg"];
@@ -446,6 +457,9 @@ const PartyDps: TPC<PartyDpsProps> = (props, instance) => {
 	};
 
 	return nextProps => {
+		for (let c = 0; c < 6; c++) {
+			if (props.party.isPS2(c) !== nextProps.party.isPS2(c)) filters[c] = defaultFilters();
+		}
 		props = nextProps;
 
 		for (let i = 0; i < 6; i++) {

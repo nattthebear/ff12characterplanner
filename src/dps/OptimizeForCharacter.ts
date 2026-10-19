@@ -1,22 +1,14 @@
 import type { AnimationClass, Environment, EquipmentPool, Profile } from "./Profile.ts";
 import PartyModel, { Coloring } from "../model/PartyModel.ts";
-import Weapon from "./equip/Weapon.ts";
-import Ammos from "./equip/Ammo.ts";
-import { BodyArmor, Helm } from "./equip/Armor.ts";
-import Accessory from "./equip/Accessory.ts";
-import { type License, LicenseByName, LicenseGroups } from "../data/Licenses.ts";
+import { type License } from "../data/Licenses.ts";
+import { dpsData } from "./DpsData.ts";
 import { optimize } from "./Optimize.ts";
-import { BaseCharacterStats } from "./BaseCharacterStats.ts";
 import { type Ability, Attack } from "./ability/Ability.ts";
 import type { Equipment } from "./equip/Equipment.ts";
-import Magicks from "./ability/Magick.ts";
-import Technicks from "./ability/Technick.ts";
 
 // Seitengrat, Great Trango and Wyrmhero Blade are only available with Secret Gear (allowCheaterGear).
 export const SECRET_WEAPONS = new Set(["Seitengrat", "Great Trango", "Wyrmhero Blade"]);
 
-const battleLores = LicenseGroups.find(g => g.name === "Battle Lore")!.contents;
-const magickLores = LicenseGroups.find(g => g.name === "Magick Lore")!.contents;
 
 export interface ForcedGear {
 	/** Restrict results to this ability kind. */
@@ -31,6 +23,11 @@ export interface ForcedGear {
 }
 
 export function* optimizeForCharacter(e: Environment, party: PartyModel, forced?: ForcedGear) {
+	const ps2 = party.isPS2(e.character);
+	const { Weapon, Ammos, Helm, BodyArmor, Accessory, Magicks, Technicks, LicenseByName, LicenseGroups, BaseCharacterStats } = dpsData(ps2);
+	e = { ...e, edition: ps2 ? "ps2" : "tza" };
+	const battleLores = LicenseGroups.find(g => g.name === "Battle Lore")!.contents;
+	const magickLores = LicenseGroups.find(g => g.name === "Magick Lore")!.contents;
 	const licenseMap = party.color(e.character);
 
 	function filterLName(name: string) {
@@ -56,6 +53,7 @@ export function* optimizeForCharacter(e: Environment, party: PartyModel, forced?
 	}
 	const pool: EquipmentPool = {
 		weapons,
+		availableAmmos: Ammos,
 		ammos: forced?.ammos === null ? [] : forced?.ammos ? [forced.ammos] : undefined,
 		armors: forced?.armors === null ? [] : forced?.armors ? [forced.armors] : BodyArmor.filter(filterThing),
 		helms: forced?.helms === null ? [] : forced?.helms ? [forced.helms] : Helm.filter(filterThing),

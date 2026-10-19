@@ -1,6 +1,7 @@
 import { h, type VNode, type TPC } from "vdomk";
 import "./CharacterPanel.css";
 import { LicenseGroups, type LicenseGroup, type License } from "../data/Licenses.ts";
+import { PS2LicenseGroups } from "../data/PS2Licenses.ts";
 import PartyModel, { Coloring } from "../model/PartyModel.ts";
 import { Characters } from "../data/Characters.ts";
 import { dispatch, useStore } from "../store/Store.ts";
@@ -16,9 +17,10 @@ const CharacterPanel: TPC<{}> = (_, instance) => {
 			const j = store.party.getJob(characterIndex, index);
 			const selected = store.characterIndex === characterIndex && store.boardIndex === index;
 			if (!j) {
-				const disabled = index === 1 && !store.party.getJob(characterIndex, 0);
+				const isPS2 = store.party.isPS2(characterIndex);
+				const disabled = index === 1 && (!store.party.getJob(characterIndex, 0) || isPS2);
 				return <button disabled={disabled} class="job nojob" aria-pressed={selected} onClick={ev => { ev.stopPropagation(); dispatch(changeIndices(characterIndex, index)); }}>
-					<span class="name">No Job</span>
+					<span class="name">{isPS2 ? "Single board" : "No Job"}</span>
 				</button>;
 			} else {
 				return <button class="job" aria-pressed={selected} onClick={ev => { ev.stopPropagation(); dispatch(changeIndices(characterIndex, index)); }}>
@@ -120,7 +122,8 @@ const CharacterPanel: TPC<{}> = (_, instance) => {
 		function renderStatInfo() {
 			const colors = store.party.color(store.characterIndex);
 			const plannedColors = store.plannedParty && store.plannedParty.color(store.characterIndex);
-			return LicenseGroups.map(g => renderLicenseGroup(g, colors, plannedColors));
+			const groups = (store.plannedParty ?? store.party).isPS2(store.characterIndex) ? PS2LicenseGroups : LicenseGroups;
+			return groups.map(g => renderLicenseGroup(g, colors, plannedColors));
 		}
 	
 		function renderResetJob() {

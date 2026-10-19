@@ -1,6 +1,6 @@
-import { h, type TPC, cleanup } from "vdomk";
+import { h, type TPC, cleanup, effect } from "vdomk";
 import { type License } from "../data/Licenses.ts";
-import { type Position, type Board, Boards } from "../data/Boards.ts";
+import { type Position, type Board, Boards, PS2Board } from "../data/Boards.ts";
 import "./LicenseBoard.css";
 import { Coloring } from "../model/PartyModel.ts";
 import GithubCorner from "./GithubCorner.tsx";
@@ -12,6 +12,7 @@ const LicenseBoard: TPC<{}> = (_, instance) => {
 	let store: State;
 	let scrollOffset: { x: number; y: number } | undefined;
 	let scrollEl: HTMLDivElement | null | undefined;
+	let previousBoard: Board | undefined;
 	const acceptScrollEl = (el: HTMLDivElement | null) => {
 		scrollEl = el;
 	};
@@ -69,7 +70,7 @@ const LicenseBoard: TPC<{}> = (_, instance) => {
 			}
 		};
 		return <td class={className} onClick={onClick} aria-label={l.text}>
-			<div class="name">{l.fullName}</div>
+			<div class="name">{store.party.isPS2(store.characterIndex) && l.grants?.group === "Quickening" ? "Quickening" : l.fullName}</div>
 			<div class="cost">{l.cost}</div>
 			{l.image && <img class="mist" src={l.image} aria-role="none" />}
 		</td>;
@@ -93,7 +94,7 @@ const LicenseBoard: TPC<{}> = (_, instance) => {
 			{Boards.map(b => <button
 				onClick={() => dispatch(changeParty(store.party.addJob(store.characterIndex, b)))}
 				class="job button"
-				disabled={b === other}
+				disabled={b === other || b === PS2Board && !!other || other === PS2Board}
 				aria-label={b.text}
 				onMouseOver={() => dispatch(changePlannedParty(store.party.addJob(store.characterIndex, b)))}
 				onMouseOut={() => dispatch(changePlannedParty(undefined))}
@@ -109,6 +110,16 @@ const LicenseBoard: TPC<{}> = (_, instance) => {
 		store = getState();
 
 		const board = store.party.getJob(store.characterIndex, store.boardIndex);
+		if (board !== previousBoard) {
+			previousBoard = board;
+			if (board === PS2Board) effect(instance, () => {
+				const start = scrollEl?.querySelector<HTMLTableCellElement>("td.obtained");
+				if (start && scrollEl) {
+					scrollEl.scrollLeft = Math.max(0, start.offsetLeft - scrollEl.clientWidth / 2);
+					scrollEl.scrollTop = Math.max(0, start.offsetTop - scrollEl.clientHeight / 2);
+				}
+			});
+		}
 		if (board) {
 			return renderBoard(board);
 		} else {

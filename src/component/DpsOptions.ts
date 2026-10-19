@@ -1,10 +1,7 @@
 import { SECRET_WEAPONS } from "../dps/OptimizeForCharacter.ts";
 import type { Environment } from "../dps/Profile.ts";
 import PartyModel, { Coloring } from "../model/PartyModel.ts";
-import Weapon from "../dps/equip/Weapon.ts";
-import Accessory from "../dps/equip/Accessory.ts";
-import Ammos from "../dps/equip/Ammo.ts";
-import { Helm, BodyArmor } from "../dps/equip/Armor.ts";
+import { dpsData } from "../dps/DpsData.ts";
 import type { Equipment } from "../dps/equip/Equipment.ts";
 import type { License } from "../data/Licenses.ts";
 import type { AnimationClass } from "../dps/Profile.ts";
@@ -19,6 +16,7 @@ export interface CharacterOptions {
 
 // dropdown lists: only equipment the character can actually equip (and ammo matching their weapons)
 export function buildOptions(env: Environment, party: PartyModel, character: number): CharacterOptions {
+	const { Weapon, Ammos, Helm, BodyArmor, Accessory } = dpsData(party.isPS2(character));
 	const licenseMap = party.color(character);
 	const isActive = (license: License) => {
 		const v = licenseMap.get(license);

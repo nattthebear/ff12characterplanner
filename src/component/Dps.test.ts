@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 
 import { defaultEnvironment, type Environment } from "../dps/Profile.ts";
 import PartyModel, { Coloring } from "../model/PartyModel.ts";
-import { Boards } from "../data/Boards.ts";
+import { ZodiacBoards as Boards } from "../data/Boards.ts";
 import { buildOptions } from "./DpsOptions.ts";
 import { SECRET_WEAPONS } from "../dps/OptimizeForCharacter.ts";
 import { Characters } from "../data/Characters.ts";

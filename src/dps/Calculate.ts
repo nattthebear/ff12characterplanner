@@ -2,6 +2,7 @@ import type { Magick } from "./ability/Magick.ts";
 import type { Technick } from "./ability/Technick.ts";
 import { AnimationTimings } from "./AnimationTiming.ts";
 import type { Profile, Environment } from "./Profile.ts";
+import { averageDamage, attackDamage as ps2AttackDamage } from "./ps2/Damage.ts";
 
 /** model attack damage against armor */
 function admg(att: number, lowMul: number, highMul: number, def: number) {
@@ -208,7 +209,18 @@ function calculateTechnick(t: Technick, p: Profile, e: Environment): CalculateRe
 			break;
 	}
 
-	const modifiedDamage = baseDmg;
+	let modifiedDamage = baseDmg;
+	if (e.edition === "ps2") {
+		if (t.name === "Souleater") {
+			modifiedDamage = averageDamage(p.attack, p.attack * 1.125, 0, e.undead ? 0 : 1.4 * (1 + p.str * (e.level + p.str) / 256));
+		} else if (t.name === "Telekinesis") {
+			modifiedDamage = averageDamage(0, p.attack * e.targetLevel - 1, 0, 1);
+		} else if (t.name === "Gil Toss") {
+			modifiedDamage = Math.min(9999, baseDmg / e.targetCount) * e.targetCount;
+		} else {
+			modifiedDamage = Math.min(9999, baseDmg);
+		}
+	}
 
 	let nonAvoidedDamage = modifiedDamage;
 	let chanceMod = e.level - e.targetLevel;
@@ -278,10 +290,14 @@ function calculateMagic(m: Magick, p: Profile, e: Environment): CalculateResult 
 		modifiedDamage *= isHeal ? 1.5 : 1.3;
 	}
 	if (p.serenity && e.percentHp === 100) {
-		modifiedDamage *= 1.5;
+		modifiedDamage *= e.edition === "ps2" && !isHeal ? 1.2 : 1.5;
 	}
 	if (p.spellbreaker && e.percentHp < 20) {
 		modifiedDamage *= isHeal ? 1.5 : 2;
+	}
+	if (e.edition === "ps2") {
+		modifiedDamage = averageDamage(m.att, m.att * 1.125, isHeal ? 0 : e.mdef,
+			baseDmg ? modifiedDamage / baseDmg * (2 + p.mag * (e.level + p.mag) / 256) : 0);
 	}
 
 	const nonAvoidedDamage = modifiedDamage;	
@@ -354,6 +370,8 @@ function calculateAttack(p: Profile, e: Environment): CalculateResult {
 		}
 	}
 
+	if (e.edition === "ps2") baseDmg = ps2AttackDamage(p, e, 1, Infinity);
+
 	// damage modifiers
 	let modifiedDamage = baseDmg;
 
@@ -370,11 +388,13 @@ function calculateAttack(p: Profile, e: Environment): CalculateResult {
 		modifiedDamage *= 1.3;
 	}
 	if (p.focus && e.percentHp === 100) {
-		modifiedDamage *= 1.5;
+		modifiedDamage *= e.edition === "ps2" ? 1.2 : 1.5;
 	}
 	if (p.adrenaline && e.percentHp < 20) {
 		modifiedDamage *= 2;
 	}
+	const damageMultiplier = baseDmg ? modifiedDamage / baseDmg : 0;
+	if (e.edition === "ps2") modifiedDamage = ps2AttackDamage(p, e, damageMultiplier);
 
 	// avoidance
 	let nonAvoidedDamage = modifiedDamage;
@@ -407,7 +427,12 @@ function calculateAttack(p: Profile, e: Environment): CalculateResult {
 			// (damageType check is for fake Excalibur, etc.)
 			// Genji Gloves don't affect crits
 			const cr = Math.min(1, p.combo / 100);
-			comboDamage *= 1 + cr;
+			if (e.edition === "ps2") {
+				const avoidance = modifiedDamage ? nonAvoidedDamage / modifiedDamage : 0;
+				comboDamage = nonAvoidedDamage * (1 - cr) + ps2AttackDamage(p, e, damageMultiplier * 2) * avoidance * cr;
+			} else {
+				comboDamage *= 1 + cr;
+			}
 			comboType = "crit";
 		} else {
 			// combo

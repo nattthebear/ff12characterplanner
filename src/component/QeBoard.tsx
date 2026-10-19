@@ -2,6 +2,7 @@ import { h, Fragment, type TPC } from "vdomk";
 import "./QeBoard.css";
 import { Characters } from "../data/Characters.ts";
 import { type License, AllLimitedLicenses } from "../data/Licenses.ts";
+import { PS2LimitedLicenses } from "../data/PS2Licenses.ts";
 import { type Board } from "../data/Boards.ts";
 import { dispatch, useStore } from "../store/Store.ts";
 import { changeIndices, changeParty, toggleQe } from "../store/State.ts";
@@ -24,6 +25,9 @@ const QeBoard: TPC<{}> = (_, instance) => {
 		}
 
 		const covers = coversByCharacter[c];
+		if (!covers.has(mist)) {
+			return <div class="l unreachable">Different edition.</div>;
+		}
 		let className;
 		let clickHandler: (() => void) | undefined;
 		let content: License[];
@@ -33,7 +37,7 @@ const QeBoard: TPC<{}> = (_, instance) => {
 			for (const license of covers.get(mist)!) {
 				contentSet.add(license);
 			}
-			for (const otherMist of AllLimitedLicenses) {
+			for (const otherMist of party.getLimitedLicenses(c)) {
 				if (otherMist !== mist && party.has(c, otherMist)) {
 					for (const license of covers.get(otherMist)!) {
 						contentSet.delete(license);
@@ -56,7 +60,7 @@ const QeBoard: TPC<{}> = (_, instance) => {
 
 			// So, remember all obtained mist licenses before deleting and then re-add them.
 			clickHandler = () => {
-				const toAdd = AllLimitedLicenses.filter(ll => ll !== mist && party.has(c, ll));
+				const toAdd = party.getLimitedLicenses(c).filter(ll => ll !== mist && party.has(c, ll));
 				const newParty = party.deleteAndAdd([{ c, l: mist }], toAdd.map(l => ({ c, l })));
 				dispatch(changeParty(newParty));
 			};
@@ -74,14 +78,27 @@ const QeBoard: TPC<{}> = (_, instance) => {
 			// && quickening => show anything yellow or red now but grey after removing all quickenings from char and adding that one
 		}
 		content.sort(compareLicenses);
-		return <div class={className} onClick={clickHandler}>
+		const ps2 = party.isPS2(c);
+		const status = party.has(c, mist) ? "Assigned" : clickHandler ? "Assign" : "Unavailable";
+		const label = `${Characters[c].name}: ${mist.fullName}, ${status}, ${mist.cost} LP`;
+		return <div class={className} onClick={clickHandler}
+			role={ps2 && clickHandler ? "button" : undefined}
+			tabIndex={ps2 && clickHandler ? 0 : undefined}
+			aria-label={ps2 ? label : undefined}
+			onKeyDown={ps2 && clickHandler ? ev => {
+				if (ev.key === "Enter" || ev.key === " ") {
+					ev.preventDefault();
+					clickHandler!();
+				}
+			} : undefined}>
+			{ps2 ? <div>{status} · {mist.cost} LP</div> : undefined}
 			{content.map(v => <div aria-label={v.text}>{v.fullName}</div>)}
 		</div>;
 	}
 	function renderRow(mist: License) {
 		return <>
 			<div>
-				<div class="license-name" aria-label={mist.text}>{mist.fullName}</div>
+				<div class="license-name" aria-label={mist.text}>{PS2LimitedLicenses.includes(mist) ? "PS2: " : ""}{mist.fullName}</div>
 			</div>
 			{Characters.map((_, c) => renderCell(mist, c))}
 		</>;
@@ -106,7 +123,9 @@ const QeBoard: TPC<{}> = (_, instance) => {
 				{renderJob(party.getJob(c, 0))}
 				{renderJob(party.getJob(c, 1))}
 			</div>)}
-			{AllLimitedLicenses.map(renderRow)}
+			{[...AllLimitedLicenses, ...PS2LimitedLicenses].filter(mist =>
+				Characters.some((_, c) => !party.unemployed(c) && party.getLimitedLicenses(c).includes(mist))
+			).map(renderRow)}
 		</div>;
 	}
 }

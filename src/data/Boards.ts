@@ -1,5 +1,7 @@
 import { Aquarius, Aries, Cancer, Capricorn, Gemini, Leo, Libra, Pisces, Sagittarius, Scorpio, Taurus, Virgo } from "./Images.ts";
 import { type License, LicenseByName } from "./Licenses.ts";
+import { PS2BoardData } from "./PS2Board.ts";
+import { PS2LicenseByName } from "./PS2Licenses.ts";
 
 const rawJobs = [{
 	name: "White Mage",
@@ -312,13 +314,13 @@ export interface Board {
 	lookup: Map<License, Position>;
 }
 
-function createBoard(raw: typeof rawJobs[number]): Board {
+function createBoard(raw: typeof rawJobs[number], licenseByName = LicenseByName): Board {
 	const ret: Board = {
 		name: raw.name,
 		text: raw.text,
 		image: raw.image,
 		imageAlt: raw.imageAlt,
-		rows: raw.rawBoardData.map(row => [...row].map(v => v ? { value: LicenseByName(v), adjacent: [] } : undefined)),
+		rows: raw.rawBoardData.map(row => [...row].map(v => v ? { value: licenseByName(v), adjacent: [] } : undefined)),
 		lookup: new Map<License, Position>(),
 	};
 	for (let y = 0; y < ret.rows.length; y++) {
@@ -343,4 +345,6 @@ function createBoard(raw: typeof rawJobs[number]): Board {
 	return ret;
 }
 
-export const Boards = rawJobs.map(createBoard);
+export const ZodiacBoards = rawJobs.map(raw => createBoard(raw));
+export const PS2Board = createBoard(PS2BoardData, PS2LicenseByName);
+export const Boards = [...ZodiacBoards, PS2Board];
